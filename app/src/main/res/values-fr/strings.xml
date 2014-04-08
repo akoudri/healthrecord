@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Carnet de Santé</string>
+    <string name="add_person">Ajouter Personne</string>
+    <string name="add">Ajouter</string>
+    <string name="first_name">Prénom</string>
+    <string name="last_name">Nom</string>
+    <string name="birthdate">Date de Naissance</string>
+    <string name="action_settings">Configuration</string>
+    <string name="gender">Sexe</string>
+    <string name="pick_date">Calendrier</string>
+    <string name="male">Masculin</string>
+    <string name="female">Féminin</string>
+    <string name="blood_type">Groupe Sanguin</string>
+    <string name="edit">Editer</string>
+    <string name="remove">Supprimer</string>
+    <string name="update">Mettre à jour</string>
+    <string name="save">Sauvegarder</string>
+    <string name="manage_ailments">Mes Maladies</string>
+    <string name="manage_treatments">Mes Traitements</string>
+    <string name="manage_appointments">Mes RV Médicaux</string>
+    <string name="manage_measures">Mes Mesures Personnelles</string>
+    <string name="personal_analysis">Mon Analyse</string>
+    <string name="personal_data">Mes Données Personnelles</string>
+    <string name="doctors">Mes spécialistes</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="remove_question">Voulez vous vraiment supprimer</string>
+    <string name="removing">Suppression</string>
+
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.akoudri.healthrecord.app" >
+
+    <application
+        android:name="com.akoudri.healthrecord.app.HealthRecordApp"
+        android:allowBackup="true"
+        android:icon="@drawable/health_record_app"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.akoudri.healthrecord.app.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.app.AddPersonActivity"
+            android:label="@string/add" >
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.AddPerson" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.app.UpdatePersonActivity"
+            android:label="@string/update" >
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.UpdatePerson" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.app.EditPerson"
+            android:label="@string/edit" >
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.EditPerson" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,146 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/app_bg_color"
+    tools:context=".AddPersonActivity"
+    android:alignmentMode="alignBounds">
+
+    <TextView
+        android:text="@string/first_name"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/first_name_add"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_gravity="left"
+        android:capitalize="words"/>
+
+    <TextView
+        android:text="@string/last_name"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/last_name_add"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_gravity="left"
+        android:capitalize="words" />
+
+    <TextView
+        android:text="@string/birthdate"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/birthdate_add"
+            android:background="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="date"
+            android:ems="10"
+            android:layout_gravity="center_vertical"
+            android:editable="false"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/calendar_idle"
+            android:onClick="showBirthdayPickerDialog"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="@string/gender"
+        android:textColor="@color/regular_text_color"
+        android:layout_column="0"
+        android:layout_row="3"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/gender_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_gravity="left">
+        <RadioButton
+            android:id="@+id/male_add"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/male"
+            android:checked="true"
+            android:textColor="@color/regular_text_color"
+            android:textStyle="bold"/>
+        <RadioButton
+            android:id="@+id/female_add"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/female"
+            android:textColor="@color/regular_text_color"
+            android:textStyle="bold"/>
+    </RadioGroup>
+
+    <TextView
+        android:text="@string/blood_type"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/btchoice_add"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="left"/>
+
+    <Button
+        android:text="@string/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/healthrecord_button"
+        android:textColor="@color/title_button_text_color"
+        android:textStyle="bold"
+        android:onClick="addPerson"/>
+
+</LinearLayout>

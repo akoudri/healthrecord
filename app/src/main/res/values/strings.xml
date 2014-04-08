@@ -28,5 +28,6 @@
     <string name="no">No</string>
     <string name="remove_question">Do you really want to remove</string>
     <string name="removing">Removing</string>
+    <string name="ssn">Social Security Number</string>
 
 </resources>

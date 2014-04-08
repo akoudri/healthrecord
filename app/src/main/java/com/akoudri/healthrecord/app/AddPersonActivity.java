@@ -27,7 +27,7 @@ public class AddPersonActivity extends Activity {
 
     private Spinner btSpinner;
     private RadioGroup genderRG;
-    private EditText firstNameET, lastNameET, birthdateET;
+    private EditText firstNameET, lastNameET, birthdateET, ssnET;
     private HealthRecordDataSource dataSource;
 
     @Override
@@ -43,6 +43,7 @@ public class AddPersonActivity extends Activity {
         firstNameET = (EditText) findViewById(R.id.first_name_add);
         lastNameET = (EditText) findViewById(R.id.last_name_add);
         genderRG = (RadioGroup) findViewById(R.id.gender_add);
+        ssnET = (EditText) findViewById(R.id.ssn_add);
         birthdateET = (EditText) findViewById(R.id.birthdate_add);
         dataSource = new HealthRecordDataSource(this);
     }
@@ -59,6 +60,7 @@ public class AddPersonActivity extends Activity {
             case 0: gender = Gender.MALE; break;
             default: gender = Gender.FEMALE;
         }
+        String ssn = ssnET.getText().toString();
         int btIdx = btSpinner.getSelectedItemPosition();
         BloodType bt;
         switch (btIdx)
@@ -78,7 +80,7 @@ public class AddPersonActivity extends Activity {
         try {
             dataSource.open();
             dataSource.getPersonTable().insertPerson(firstName.toUpperCase(), lastName.toUpperCase(),
-                    gender, bt, birthdate);
+                    gender, ssn, bt, birthdate);
             dataSource.close();
         } catch (SQLException ex)
         {

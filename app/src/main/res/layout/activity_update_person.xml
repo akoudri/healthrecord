@@ -82,6 +82,26 @@
     </LinearLayout>
 
     <TextView
+        android:text="@string/ssn"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/ssn_update"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:inputType="text"
+        android:ems="10"
+        android:layout_gravity="left"
+        android:capitalize="words"/>
+
+    <TextView
         android:text="@string/gender"
         android:textColor="@color/regular_text_color"
         android:layout_column="0"
@@ -134,11 +154,13 @@
 
     <Button
         android:text="@string/update"
+        android:minEms="8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/healthrecord_button"
+        android:drawableRight="@drawable/save"
         android:textColor="@color/title_button_text_color"
         android:textStyle="bold"
         android:onClick="updatePerson"/>

@@ -11,6 +11,7 @@ public class Person {
     private String firstName;
     private String lastName;
     private Gender gender;
+    private String ssn; //Social Security Number
     private BloodType bloodType;
     private String birthdate;
 
@@ -46,6 +47,14 @@ public class Person {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     public BloodType getBloodType() {

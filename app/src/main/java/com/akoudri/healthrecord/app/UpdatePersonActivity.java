@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.akoudri.healthrecord.data.BloodType;
+import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ import java.util.Calendar;
 public class UpdatePersonActivity extends Activity {
 
     private Spinner btSpinner;
-    private EditText firstNameET, lastNameET, birthdateET;
+    private EditText firstNameET, lastNameET, birthdateET, ssnET;
     private RadioGroup genderRG;
     private RadioButton maleBtn, femaleBtn;
     private HealthRecordDataSource dataSource;
@@ -46,7 +47,8 @@ public class UpdatePersonActivity extends Activity {
         btSpinner.setSelection(8);
         firstNameET = (EditText) findViewById(R.id.first_name_update);
         lastNameET = (EditText) findViewById(R.id.last_name_update);
-        genderRG = (RadioGroup) findViewById(R.id.gender_add);
+        genderRG = (RadioGroup) findViewById(R.id.gender_update);
+        ssnET = (EditText) findViewById(R.id.ssn_update);
         maleBtn = (RadioButton) findViewById(R.id.male_update);
         femaleBtn = (RadioButton) findViewById(R.id.female_update);
         birthdateET = (EditText) findViewById(R.id.birthdate_update);
@@ -65,6 +67,7 @@ public class UpdatePersonActivity extends Activity {
             case MALE: maleBtn.setChecked(true); break;
             default: femaleBtn.setChecked(true);
         }
+        ssnET.setText(person.getSsn());
         birthdateET.setText(person.getBirthdate());
         switch (person.getBloodType()) {
             case OMINUS:
@@ -110,8 +113,43 @@ public class UpdatePersonActivity extends Activity {
 
     public void updatePerson(View view)
     {
-        //TODO
         //FIXME: check values before inserting
+        String firstName = firstNameET.getText().toString();
+        String lastName = lastNameET.getText().toString();
+        RadioButton checked = (RadioButton) findViewById(genderRG.getCheckedRadioButtonId());
+        int genderIdx = genderRG.indexOfChild(checked);
+        Gender gender;
+        switch (genderIdx)
+        {
+            case 0: gender = Gender.MALE; break;
+            default: gender = Gender.FEMALE;
+        }
+        String ssn = ssnET.getText().toString();
+        int btIdx = btSpinner.getSelectedItemPosition();
+        BloodType bt;
+        switch (btIdx)
+        {
+            case 0: bt = BloodType.OMINUS; break;
+            case 1: bt = BloodType.OPLUS; break;
+            case 2: bt = BloodType.AMINUS; break;
+            case 3: bt = BloodType.APLUS; break;
+            case 4: bt = BloodType.BMINUS; break;
+            case 5: bt = BloodType.BPLUS; break;
+            case 6: bt = BloodType.ABMINUS; break;
+            case 7: bt = BloodType.ABPLUS; break;
+            default:bt = BloodType.UNKNOWN;
+        }
+        String birthdate = birthdateET.getText().toString();
+        //FIXME: check values before inserting
+        try {
+            dataSource.open();
+            dataSource.getPersonTable().updatePerson(person.getId(), firstName.toUpperCase(), lastName.toUpperCase(),
+                    gender, ssn, bt, birthdate);
+            dataSource.close();
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
         finish();
     }
 

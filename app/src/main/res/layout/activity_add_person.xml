@@ -82,6 +82,26 @@
     </LinearLayout>
 
     <TextView
+        android:text="@string/ssn"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/ssn_add"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:inputType="text"
+        android:ems="10"
+        android:layout_gravity="left"
+        android:capitalize="words"/>
+
+    <TextView
         android:text="@string/gender"
         android:textColor="@color/regular_text_color"
         android:layout_column="0"

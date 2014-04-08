@@ -20,12 +20,13 @@ public class PersonTable {
     public static final String PERSON_FIRSTNAME = "firstName";
     public static final String PERSON_LASTNAME = "lastName";
     public static final String PERSON_GENDER = "gender";
+    public static final String PERSON_SSN = "ssn";
     public static final String PERSON_BLOODTYPE = "bloodType";
     public static final String PERSON_BIRTHDATE = "birthdate";
 
-    private String[] personCols = {PersonTable.PERSON_ID, PersonTable.PERSON_FIRSTNAME,
-            PersonTable.PERSON_LASTNAME, PersonTable.PERSON_GENDER,
-            PersonTable.PERSON_BLOODTYPE, PersonTable.PERSON_BIRTHDATE};
+    private String[] personCols = {PERSON_ID, PERSON_FIRSTNAME,
+            PERSON_LASTNAME, PERSON_GENDER, PERSON_SSN,
+            PERSON_BLOODTYPE, PERSON_BIRTHDATE};
 
     public PersonTable(SQLiteDatabase db)
     {
@@ -40,6 +41,7 @@ public class PersonTable {
         sb.append(PERSON_FIRSTNAME + " text not null,");
         sb.append(PERSON_LASTNAME + " text not null,");
         sb.append(PERSON_GENDER + " int not null,");
+        sb.append(PERSON_SSN + " string unique,");
         sb.append(PERSON_BLOODTYPE + " int,");
         sb.append(PERSON_BIRTHDATE + " text not null,");
         sb.append("unique(" + PERSON_FIRSTNAME + "," + PERSON_LASTNAME + "));");
@@ -47,20 +49,40 @@ public class PersonTable {
     }
 
     public long insertPerson(String firstName, String lastName, Gender gender,
-                             BloodType bloodType, String birthdate) {
+                             String ssn, BloodType bloodType, String birthdate) {
         ContentValues values = new ContentValues();
-        values.put(PersonTable.PERSON_FIRSTNAME, firstName);
-        values.put(PersonTable.PERSON_LASTNAME, lastName);
-        values.put(PersonTable.PERSON_GENDER, gender.ordinal());
-        values.put(PersonTable.PERSON_BLOODTYPE, bloodType.ordinal());
-        values.put(PersonTable.PERSON_BIRTHDATE, birthdate);
-        return db.insert(PersonTable.PERSON_TABLE, null, values);
+        values.put(PERSON_FIRSTNAME, firstName);
+        values.put(PERSON_LASTNAME, lastName);
+        values.put(PERSON_GENDER, gender.ordinal());
+        if (ssn == null)
+            values.putNull(PERSON_SSN);
+        else
+            values.put(PERSON_SSN, ssn);
+        values.put(PERSON_BLOODTYPE, bloodType.ordinal());
+        values.put(PERSON_BIRTHDATE, birthdate);
+        return db.insert(PERSON_TABLE, null, values);
+    }
+
+    public boolean updatePerson(long personId, String firstName, String lastName, Gender gender,
+                                String ssn, BloodType bloodType, String birthdate)
+    {
+        ContentValues values = new ContentValues();
+        values.put(PERSON_FIRSTNAME, firstName);
+        values.put(PERSON_LASTNAME, lastName);
+        values.put(PERSON_GENDER, gender.ordinal());
+        if (ssn == null)
+            values.putNull(PERSON_SSN);
+        else
+            values.put(PERSON_SSN, ssn);
+        values.put(PERSON_BLOODTYPE, bloodType.ordinal());
+        values.put(PERSON_BIRTHDATE, birthdate);
+        return db.update(PERSON_TABLE, values, PERSON_ID + "=" + personId, null) > 0;
     }
 
     public List<Person> getAllPersons()
     {
         List<Person> res = new ArrayList<Person>();
-        Cursor cursor = db.query(PersonTable.PERSON_TABLE, personCols,
+        Cursor cursor = db.query(PERSON_TABLE, personCols,
                 null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
@@ -71,18 +93,18 @@ public class PersonTable {
         return res;
     }
 
-    public Person getPersonWithId(int id)
+    public Person getPersonWithId(int personId)
     {
-        Cursor cursor = db.query(PersonTable.PERSON_TABLE, personCols,
-                PERSON_ID + "=" + id, null, null, null, null);
+        Cursor cursor = db.query(PERSON_TABLE, personCols,
+                PERSON_ID + "=" + personId, null, null, null, null);
         if (cursor.moveToFirst())
             return cursorToPerson(cursor);
         return null;
     }
 
-    public boolean removePersonWithId(int id)
+    public boolean removePersonWithId(int personId)
     {
-        return db.delete(PERSON_TABLE, PERSON_ID + "=" + id, null) > 0;
+        return db.delete(PERSON_TABLE, PERSON_ID + "=" + personId, null) > 0;
     }
 
     private Person cursorToPerson(Cursor cursor)
@@ -97,7 +119,8 @@ public class PersonTable {
             case 0: person.setGender(Gender.MALE); break;
             default: person.setGender(Gender.FEMALE);
         }
-        int bloodType = cursor.getInt(4);
+        person.setSsn(cursor.getString(4));
+        int bloodType = cursor.getInt(5);
         switch (bloodType)
         {
             case 0: person.setBloodType(BloodType.OMINUS); break;
@@ -110,8 +133,7 @@ public class PersonTable {
             case 7: person.setBloodType(BloodType.ABPLUS); break;
             default: person.setBloodType(BloodType.UNKNOWN);
         }
-
-        person.setBirthdate(cursor.getString(5));
+        person.setBirthdate(cursor.getString(6));
         return person;
     }
 

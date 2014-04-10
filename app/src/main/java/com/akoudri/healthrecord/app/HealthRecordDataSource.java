@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.akoudri.healthrecord.data.PersonTable;
+import com.akoudri.healthrecord.data.TherapyBranchTable;
 
 import java.sql.SQLException;
 
@@ -15,6 +16,7 @@ public class HealthRecordDataSource {
     private SQLiteDatabase db;
     private HealthRecordDatabase dbHelper;
     private PersonTable personTable;
+    private TherapyBranchTable therapyBranchTable;
 
     public HealthRecordDataSource(Context context)
     {
@@ -25,10 +27,12 @@ public class HealthRecordDataSource {
     {
         db = dbHelper.getWritableDatabase();
         personTable = new PersonTable(db);
+        therapyBranchTable = new TherapyBranchTable(db);
     }
 
     public void close()
     {
+        therapyBranchTable = null;
         personTable = null;
         dbHelper.close();
     }
@@ -36,6 +40,11 @@ public class HealthRecordDataSource {
     public PersonTable getPersonTable()
     {
         return personTable;
+    }
+
+    public TherapyBranchTable getTherapyBranchTable()
+    {
+        return therapyBranchTable;
     }
 
 }

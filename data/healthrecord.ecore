@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="healthrecord" nsURI="http://www.koudri.com/healthrecord/1.0"
+    nsPrefix="healthrecord">
+  <eClassifiers xsi:type="ecore:EClass" name="HealthRecord">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedPersons" upperBound="-1"
+        eType="#//Person" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diseases" upperBound="-1"
+        eType="#//Disease" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="drugs" upperBound="-1"
+        eType="#//Drug" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedTherapists" upperBound="-1"
+        eType="#//Therapist" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBranches" upperBound="-1"
+        eType="#//TherapyBranch" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Date" instanceClassName="java.util.Date"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Person">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstName" lowerBound="1"
+        eType="#//Name"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LastName" lowerBound="1"
+        eType="#//Name"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gender" lowerBound="1"
+        eType="#//Gender"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bloodType" eType="#//BloodType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="birthDate" lowerBound="1"
+        eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAilments" upperBound="-1"
+        eType="#//Ailment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedTreatments" upperBound="-1"
+        eType="#//Treatment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMeasures" upperBound="-1"
+        eType="#//Measure" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedAppointments" upperBound="-1"
+        eType="#//MedicalAppointment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="socialSecurityNumber" eType="#//SocialSecurityNumber"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="therapists" upperBound="-1"
+        eType="#//Therapist"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Name" instanceClassName="java.lang.String"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="Gender">
+    <eLiterals name="male"/>
+    <eLiterals name="female" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BloodType">
+    <eLiterals name="o_minus"/>
+    <eLiterals name="o_plus" value="1"/>
+    <eLiterals name="a_minus" value="2"/>
+    <eLiterals name="a_plus" value="3"/>
+    <eLiterals name="b_minus" value="4"/>
+    <eLiterals name="b_plus" value="5"/>
+    <eLiterals name="ab_minus" value="6"/>
+    <eLiterals name="ab_plus" value="7"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Disease">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Ailment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//Disease"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isChronic" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"
+        derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Allergy" eSuperTypes="#//Disease"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Treatment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endDate" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ailment" upperBound="-1"
+        eType="#//Ailment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dose" upperBound="-1" eType="#//DrugDose"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPreventive" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        defaultValueLiteral="false" derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isMandatory" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prescribedBy" eType="#//Therapist"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DrugDose">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="drug" lowerBound="1" eType="#//Drug"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="frequency" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//DoseFrequencyKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endDate" eType="#//Date"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Drug">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="presentation" lowerBound="1"
+        eType="#//DrugPresentation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DrugPresentation">
+    <eLiterals name="spoon"/>
+    <eLiterals name="pill" value="1"/>
+    <eLiterals name="tablet" value="2"/>
+    <eLiterals name="spray" value="3"/>
+    <eLiterals name="drop" value="4"/>
+    <eLiterals name="suppository" value="5"/>
+    <eLiterals name="ampoule" value="6"/>
+    <eLiterals name="vaccine" value="7"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DoseFrequencyKind">
+    <eLiterals name="hour"/>
+    <eLiterals name="day" value="1"/>
+    <eLiterals name="month" value="2"/>
+    <eLiterals name="year" value="3"/>
+    <eLiterals name="life" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Measure" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1" eType="#//Date"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Therapist">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstName" eType="#//Name"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastName" lowerBound="1"
+        eType="#//Name"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="branches" lowerBound="1"
+        upperBound="-1" eType="#//TherapyBranch"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="phoneNumber" eType="#//PhoneNumber"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TherapyBranch">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MedicalAppointment">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1" eType="#//Date"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="withTherapist" lowerBound="1"
+        eType="#//Therapist"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="SocialSecurityNumber" instanceClassName="java.lang.String"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Size" eSuperTypes="#//Measure">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Weight" eSuperTypes="#//Measure">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CranialPerimeter" eSuperTypes="#//Measure">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BloodPressure" eSuperTypes="#//Measure">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="diastolic" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="systolic" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HeartBeat" eSuperTypes="#//Measure">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Temperature" eSuperTypes="#//Measure">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="PhoneNumber" instanceClassName="java.lang.String"/>
+</ecore:EPackage>

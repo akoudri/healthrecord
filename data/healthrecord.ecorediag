@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation">
+  <notation:Diagram xmi:id="_nT6aILcnEeOT2qX3d_x0Hg" type="EcoreTools" name="healthrecord" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_ydwcYLcnEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_yd0t0LcnEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_yd3xILcnEeOT2qX3d_x0Hg" type="5001">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_yd3xIbcnEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_yd3xIrcnEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_yd3xI7cnEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_yd4_QLcnEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_yd4_QbcnEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_yd4_QrcnEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_yd4_Q7cnEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_ydwcYbcnEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//HealthRecord"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ydwcYrcnEeOT2qX3d_x0Hg" x="245" y="15"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_20zVILcnEeOT2qX3d_x0Hg" type="1004">
+      <children xmi:type="notation:Node" xmi:id="_201KULcnEeOT2qX3d_x0Hg" type="4008"/>
+      <children xmi:type="notation:Node" xmi:id="_201xYLcnEeOT2qX3d_x0Hg" type="4009"/>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_20zVIbcnEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EDataType" href="healthrecord.ecore#//Date"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_20zVIrcnEeOT2qX3d_x0Hg" x="1055" y="180"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_1Sq-kLcoEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_1Sta0LcoEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_1Suo8LcoEeOT2qX3d_x0Hg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_A5AvkLcpEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Person/firstName"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_A5AvkbcpEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_SZQTMLcpEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Person/LastName"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_SZQTMbcpEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_yAPvELcpEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Person/gender"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_yAPvEbcpEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_iswhcLcqEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Person/bloodType"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_iswhcbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_rx4S4LcqEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Person/birthDate"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_rx4S4bcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_WbK7ILyoEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Person/socialSecurityNumber"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_WbK7IbyoEeOyT-wMIYdetQ"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_1Suo8bcoEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_1Suo8rcoEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_1Suo87coEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_1SvQALcoEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_1SvQAbcoEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_1SvQArcoEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_1SvQA7coEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_1Sq-kbcoEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Person"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1Sq-krcoEeOT2qX3d_x0Hg" x="80" y="130"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_IWw6kLcpEeOT2qX3d_x0Hg" type="1004">
+      <children xmi:type="notation:Node" xmi:id="_IWyvwLcpEeOT2qX3d_x0Hg" type="4008"/>
+      <children xmi:type="notation:Node" xmi:id="_IWzW0LcpEeOT2qX3d_x0Hg" type="4009"/>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_IWxhoLcpEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EDataType" href="healthrecord.ecore#//Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_IWxhobcpEeOT2qX3d_x0Hg" x="215" y="-55"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_r-j5cLcpEeOT2qX3d_x0Hg" type="1005">
+      <children xmi:type="notation:Node" xmi:id="_r-lHkLcpEeOT2qX3d_x0Hg" type="4010"/>
+      <children xmi:type="notation:Node" xmi:id="_r-luoLcpEeOT2qX3d_x0Hg" type="5008">
+        <children xmi:type="notation:Node" xmi:id="_t2E0sLcpEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//Gender/male"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_t2E0sbcpEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_vVNFILcpEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//Gender/female"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_vVNFIbcpEeOT2qX3d_x0Hg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_r-luobcpEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_r-luorcpEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_r-luo7cpEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_r-j5cbcpEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EEnum" href="healthrecord.ecore#//Gender"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_r-j5crcpEeOT2qX3d_x0Hg" x="974" y="-35"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_4Yr30LcpEeOT2qX3d_x0Hg" type="1005">
+      <children xmi:type="notation:Node" xmi:id="_4YtF8LcpEeOT2qX3d_x0Hg" type="4010"/>
+      <children xmi:type="notation:Node" xmi:id="_4YtF8bcpEeOT2qX3d_x0Hg" type="5008">
+        <children xmi:type="notation:Node" xmi:id="_KhJ5ELcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/o_minus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_KhJ5EbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_M6bdkLcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/o_plus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_M6bdkbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_TjT2ELcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/a_minus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_TjT2EbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_U7M2ELcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/a_plus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_U7M2EbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_WespILcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/b_minus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_WespIbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_YHDuELcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/b_plus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_YHDuEbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_bGeskLcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/ab_minus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_bGeskbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_cn6DELcqEeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//BloodType/ab_plus"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_cn6DEbcqEeOT2qX3d_x0Hg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_4YtF8rcpEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_4YtF87cpEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_4YtF9LcpEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_4Yr30bcpEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EEnum" href="healthrecord.ecore#//BloodType"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4Yr30rcpEeOT2qX3d_x0Hg" x="1130" y="-30"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_PiE_0LcrEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_PiG1ALcrEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_PiHcELcrEeOT2qX3d_x0Hg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_p4Z94LcsEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Disease/name"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_p4Z94bcsEeOT2qX3d_x0Hg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_PiHcEbcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_PiHcErcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_PiHcE7crEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_PiHcFLcrEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_PiHcFbcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_PiHcFrcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_PiHcF7crEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_PiE_0bcrEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Disease"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PiE_0rcrEeOT2qX3d_x0Hg" x="510" y="-20" width="198" height="86"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_w0nXgLcrEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_w0oloLcrEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_w0pMsLcrEeOT2qX3d_x0Hg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_1mdgcLcsEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Ailment/isChronic"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_1mdgcbcsEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_fT5n4LctEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Ailment/startDate"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_fT5n4bctEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_ktQSMLctEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Ailment/endDate"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_ktQSMbctEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_fmr6gLitEeOH345mwSFJqg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Ailment/comment"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_fmshkLitEeOH345mwSFJqg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_w0pMsbcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_w0pMsrcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_w0pMs7crEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_w0pMtLcrEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_w0pMtbcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_w0pMtrcrEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_w0pMt7crEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_w0nXgbcrEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Ailment"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w0nXgrcrEeOT2qX3d_x0Hg" x="530" y="155"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_N8VfILctEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_N8WtQLctEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_N8XUULctEeOT2qX3d_x0Hg" type="5001">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_N8XUUbctEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_N8XUUrctEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_N8XUU7ctEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_N8XUVLctEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_N8XUVbctEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_N8XUVrctEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_N8XUV7ctEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_N8VfIbctEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Allergy"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_N8VfIrctEeOT2qX3d_x0Hg" x="805" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_DLYokLcuEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_DLZ2sLcuEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_DLadwLcuEeOT2qX3d_x0Hg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_loadcLcuEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Treatment/startDate"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_loadcbcuEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_q5-dsLcuEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Treatment/endDate"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_q5-dsbcuEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_wg8-MLc3EeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Treatment/isPreventive"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_wg8-Mbc3EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_90S_YLc-EeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Treatment/isMandatory"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_90S_Ybc-EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_pS8GILtaEeOuv8OlXNdM7A" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Treatment/comment"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_pS8GIbtaEeOuv8OlXNdM7A"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_DLadwbcuEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_DLadwrcuEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_DLadw7cuEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_DLadxLcuEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_DLadxbcuEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_DLadxrcuEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_DLadx7cuEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_DLYokbcuEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Treatment"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DLYokrcuEeOT2qX3d_x0Hg" x="505" y="280" width="220" height="138"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_x-TxMLcwEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_x-UYQLcwEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_x-U_ULcwEeOT2qX3d_x0Hg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_HCeSELcyEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//DrugDose/frequency"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_HCeSEbcyEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_kiH_QLc4EeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//DrugDose/kind"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_kiH_Qbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_0MtBwLc4EeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//DrugDose/date"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_0MtBwbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_2EEMALc4EeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//DrugDose/endDate"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_2EEMAbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_x-U_UbcwEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_x-U_UrcwEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_x-U_U7cwEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_x-U_VLcwEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_x-U_VbcwEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_x-U_VrcwEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_x-U_V7cwEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_x-TxMbcwEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//DrugDose"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_x-TxMrcwEeOT2qX3d_x0Hg" x="810" y="225"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_VgyyQLcxEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_Vg0ncLcxEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_Vg0ncbcxEeOT2qX3d_x0Hg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_Wkd1wLcxEeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Drug/name"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Wkec0LcxEeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_e4t8MLc3EeOT2qX3d_x0Hg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Drug/presentation"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_e4t8Mbc3EeOT2qX3d_x0Hg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_Vg0ncrcxEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Vg0nc7cxEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Vg0ndLcxEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Vg1OgLcxEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_Vg1OgbcxEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Vg1OgrcxEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Vg1Og7cxEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_VgyyQbcxEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Drug"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_VgyyQrcxEeOT2qX3d_x0Hg" x="760" y="80" width="258" height="88"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_TFFLgLc2EeOT2qX3d_x0Hg" type="1005">
+      <children xmi:type="notation:Node" xmi:id="_TFHnwLc2EeOT2qX3d_x0Hg" type="4010"/>
+      <children xmi:type="notation:Node" xmi:id="_TFIO0Lc2EeOT2qX3d_x0Hg" type="5008">
+        <children xmi:type="notation:Node" xmi:id="_XsyWcLc2EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/spoon"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_XsyWcbc2EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_i_c9gLc2EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/pill"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_i_c9gbc2EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_tuPbcLc2EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/tablet"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_tuPbcbc2EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_u7SdYLc2EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/spray"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_u7SdYbc2EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_9WLZoLc2EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/drop"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_9WLZobc2EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="__xlsILc2EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/suppository"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="__xlsIbc2EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_Jib7ILc3EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/ampoule"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Jib7Ibc3EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_Spci8Lc3EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DrugPresentation/vaccine"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Spci8bc3EeOT2qX3d_x0Hg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_TFIO0bc2EeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_TFIO0rc2EeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_TFIO07c2EeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_TFFLgbc2EeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EEnum" href="healthrecord.ecore#//DrugPresentation"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TFFykLc2EeOT2qX3d_x0Hg" x="1105" y="250"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_aRhSILc4EeOT2qX3d_x0Hg" type="1005">
+      <children xmi:type="notation:Node" xmi:id="_aRjHULc4EeOT2qX3d_x0Hg" type="4010"/>
+      <children xmi:type="notation:Node" xmi:id="_aRjuYLc4EeOT2qX3d_x0Hg" type="5008">
+        <children xmi:type="notation:Node" xmi:id="_dhZugLc4EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DoseFrequencyKind/hour"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_dhZugbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_ebnUALc4EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DoseFrequencyKind/day"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_ebnUAbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_fGakgLc4EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DoseFrequencyKind/month"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_fGakgbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_gZRTgLc4EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DoseFrequencyKind/year"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_gZRTgbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hiDggLc4EeOT2qX3d_x0Hg" type="2006">
+          <element xmi:type="ecore:EEnumLiteral" href="healthrecord.ecore#//DoseFrequencyKind/life"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_hiDggbc4EeOT2qX3d_x0Hg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_aRjuYbc4EeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_aRjuYrc4EeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_aRjuY7c4EeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_aRhSIbc4EeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EEnum" href="healthrecord.ecore#//DoseFrequencyKind"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aRhSIrc4EeOT2qX3d_x0Hg" x="930" y="380"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_pCiAoLc-EeOT2qX3d_x0Hg" type="Note" fontName="Sans" description="Each person is pre-configured with a set of mandatory treatments (vaccines, etc.)" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_pCqjgLc-EeOT2qX3d_x0Hg" type="DiagramName">
+        <element xsi:nil="true"/>
+      </children>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_pCrKkLc-EeOT2qX3d_x0Hg" type="Description">
+        <element xsi:nil="true"/>
+      </children>
+      <styles xmi:type="notation:TextStyle" xmi:id="_pCiAobc-EeOT2qX3d_x0Hg"/>
+      <styles xmi:type="notation:LineTypeStyle" xmi:id="_pCiAorc-EeOT2qX3d_x0Hg"/>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pCiAo7c-EeOT2qX3d_x0Hg" x="570" y="441" width="286" height="46"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_2-84MLc-EeOT2qX3d_x0Hg" type="Note" fontName="Sans" description="See if we can retrieve the list of all drugs on a given server - drug here is used as a proxy" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_2_CXwLc-EeOT2qX3d_x0Hg" type="DiagramName">
+        <element xsi:nil="true"/>
+      </children>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_2_CXwbc-EeOT2qX3d_x0Hg" type="Description">
+        <element xsi:nil="true"/>
+      </children>
+      <styles xmi:type="notation:TextStyle" xmi:id="_2-84Mbc-EeOT2qX3d_x0Hg"/>
+      <styles xmi:type="notation:LineTypeStyle" xmi:id="_2-84Mrc-EeOT2qX3d_x0Hg"/>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2-9fQLc-EeOT2qX3d_x0Hg" x="570" y="495" width="286" height="66"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_g11SsLdDEeOT2qX3d_x0Hg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_g13H4LdDEeOT2qX3d_x0Hg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_g13H4bdDEeOT2qX3d_x0Hg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_3y6ckLygEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Measure/date"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_3y6ckbygEeOyT-wMIYdetQ"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_g13H4rdDEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_g13H47dDEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_g13H5LdDEeOT2qX3d_x0Hg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_g13u8LdDEeOT2qX3d_x0Hg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_g13u8bdDEeOT2qX3d_x0Hg" collapsed="true"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_g13u8rdDEeOT2qX3d_x0Hg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_g13u87dDEeOT2qX3d_x0Hg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_g11SsbdDEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Measure"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_g11SsrdDEeOT2qX3d_x0Hg" x="235" y="365"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_q5cssLdDEeOT2qX3d_x0Hg" type="Note" fontName="Sans" description="Use of default units for measures: cm for size and cranial perimeter, and kilo for weight" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_q5cssbdDEeOT2qX3d_x0Hg" type="DiagramName">
+        <element xsi:nil="true"/>
+      </children>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_q5cssrdDEeOT2qX3d_x0Hg" type="Description">
+        <element xsi:nil="true"/>
+      </children>
+      <styles xmi:type="notation:TextStyle" xmi:id="_q5css7dDEeOT2qX3d_x0Hg"/>
+      <styles xmi:type="notation:LineTypeStyle" xmi:id="_q5cstLdDEeOT2qX3d_x0Hg"/>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_q5cstbdDEeOT2qX3d_x0Hg" x="-25" y="415" width="171" height="76"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_kNkYYLfkEeO9RL9TnpOBnw" type="Note" fontName="Sans" description="Some treatments shall have an end date meaning that they have been done, like for example the vaccine" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_kNpQ4LfkEeO9RL9TnpOBnw" type="DiagramName">
+        <element xsi:nil="true"/>
+      </children>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_kNp38LfkEeO9RL9TnpOBnw" type="Description">
+        <element xsi:nil="true"/>
+      </children>
+      <styles xmi:type="notation:TextStyle" xmi:id="_kNkYYbfkEeO9RL9TnpOBnw"/>
+      <styles xmi:type="notation:LineTypeStyle" xmi:id="_kNkYYrfkEeO9RL9TnpOBnw"/>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kNkYY7fkEeO9RL9TnpOBnw" x="260" y="480" width="186" height="106"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_shJbILylEeOyT-wMIYdetQ" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_shKCMLylEeOyT-wMIYdetQ" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_shKCMbylEeOyT-wMIYdetQ" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_32KyoLylEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//MedicalAppointment/date"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_32KyobylEeOyT-wMIYdetQ"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_shKCMrylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_shKCM7ylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_shKCNLylEeOyT-wMIYdetQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_shKpQLylEeOyT-wMIYdetQ" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_shKpQbylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_shKpQrylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_shKpQ7ylEeOyT-wMIYdetQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_shJbIbylEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//MedicalAppointment"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_shJbIrylEeOyT-wMIYdetQ" x="-20" y="340"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_BP13wLymEeOyT-wMIYdetQ" type="Note" fontName="Sans" description="Medical Appointment will be precisely set on personal calendar" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_BP9MgLymEeOyT-wMIYdetQ" type="DiagramName">
+        <element xsi:nil="true"/>
+      </children>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_BP9MgbymEeOyT-wMIYdetQ" type="Description">
+        <element xsi:nil="true"/>
+      </children>
+      <styles xmi:type="notation:TextStyle" xmi:id="_BP13wbymEeOyT-wMIYdetQ"/>
+      <styles xmi:type="notation:LineTypeStyle" xmi:id="_BP13wrymEeOyT-wMIYdetQ"/>
+      <element xsi:nil="true"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BP13w7ymEeOyT-wMIYdetQ" x="-35" y="505" width="280" height="76"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_Zrte0LyoEeOyT-wMIYdetQ" type="1004">
+      <children xmi:type="notation:Node" xmi:id="_Zrus8LyoEeOyT-wMIYdetQ" type="4008"/>
+      <children xmi:type="notation:Node" xmi:id="_ZrvUALyoEeOyT-wMIYdetQ" type="4009"/>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_Zrte0byoEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EDataType" href="healthrecord.ecore#//SocialSecurityNumber"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Zrte0ryoEeOyT-wMIYdetQ" x="260" y="420"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_nT6aIbcnEeOT2qX3d_x0Hg"/>
+    <element xmi:type="ecore:EPackage" href="healthrecord.ecore#/"/>
+    <edges xmi:type="notation:Edge" xmi:id="_3k440LcoEeOT2qX3d_x0Hg" type="3002" source="_ydwcYLcnEeOT2qX3d_x0Hg" target="_1Sq-kLcoEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_3k6uALcoEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_3k6uAbcoEeOT2qX3d_x0Hg" x="-1" y="53"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_3k7VELcoEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_3k7VEbcoEeOT2qX3d_x0Hg" x="-1" y="-21"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_3k440bcoEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_3k440rcoEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//HealthRecord/ownedPersons"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_3k4407coEeOT2qX3d_x0Hg" points="[4, 7, 2, -69]$[4, 68, 2, -8]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_3lXZ8LcoEeOT2qX3d_x0Hg" id="(0.5136986301369864,0.8627450980392157)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_3lYBALcoEeOT2qX3d_x0Hg" id="(0.6575757575757576,0.08088235294117647)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_Lf014LcsEeOT2qX3d_x0Hg" type="3002" source="_1Sq-kLcoEeOT2qX3d_x0Hg" target="_w0nXgLcrEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_Lf1c8LcsEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Lf1c8bcsEeOT2qX3d_x0Hg" x="-33" y="-11"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Lf2EALcsEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Lf2EAbcsEeOT2qX3d_x0Hg" x="3" y="14"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_Lf014bcsEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_Lf014rcsEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Person/ownedAilments"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Lf0147csEeOT2qX3d_x0Hg" points="[7, 7, -151, 2]$[159, 22, 1, 17]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Lf5HULcsEeOT2qX3d_x0Hg" id="(0.9829545454545454,0.6050420168067226)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Lf5HUbcsEeOT2qX3d_x0Hg" id="(0.058823529411764705,0.6046511627906976)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_dMIfkLcsEeOT2qX3d_x0Hg" type="3002" source="_ydwcYLcnEeOT2qX3d_x0Hg" target="_PiE_0LcrEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_dMK70LcsEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_dMK70bcsEeOT2qX3d_x0Hg" x="-14" y="-9"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_dMLi4LcsEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_dMLi4bcsEeOT2qX3d_x0Hg" x="4" y="11"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_dMIfkbcsEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_dMIfkrcsEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//HealthRecord/diseases"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_dMIfk7csEeOT2qX3d_x0Hg" points="[17, 1, -164, 1]$[182, -19, 1, -19]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_dMQbYLcsEeOT2qX3d_x0Hg" id="(0.8835616438356164,0.49019607843137253)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_dMQbYbcsEeOT2qX3d_x0Hg" id="(0.015151515151515152,0.7093023255813954)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_j6SZoLcsEeOT2qX3d_x0Hg" type="3002" source="_w0nXgLcrEeOT2qX3d_x0Hg" target="_PiE_0LcrEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_j6TnwLcsEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_j6TnwbcsEeOT2qX3d_x0Hg" x="5" y="-23"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_j6TnwrcsEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_j6Tnw7csEeOT2qX3d_x0Hg" x="5" y="12"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_j6SZobcsEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_j6SZorcsEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Ailment/type"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_j6SZo7csEeOT2qX3d_x0Hg" points="[3, -5, 2, 124]$[3, -119, 2, 10]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_j6WrELcsEeOT2qX3d_x0Hg" id="(0.5196078431372549,0.13953488372093023)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_j6WrEbcsEeOT2qX3d_x0Hg" id="(0.5151515151515151,0.7843137254901961)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_RLsXELctEeOT2qX3d_x0Hg" type="3003" source="_N8VfILctEeOT2qX3d_x0Hg" target="_PiE_0LcrEeOT2qX3d_x0Hg">
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_RLsXEbctEeOT2qX3d_x0Hg" routing="Rectilinear" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_RLsXErctEeOT2qX3d_x0Hg" fontName="Sans"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_RLsXE7ctEeOT2qX3d_x0Hg" points="[-5, -2, 103, 13]$[-104, -2, 4, 13]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RLxPkLctEeOT2qX3d_x0Hg" id="(0.058823529411764705,0.4186046511627907)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_RLxPkbctEeOT2qX3d_x0Hg" id="(0.9797979797979798,0.1511627906976744)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_OP4QwLcuEeOT2qX3d_x0Hg" type="3002" source="_1Sq-kLcoEeOT2qX3d_x0Hg" target="_DLYokLcuEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_OP430LcuEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_OP430bcuEeOT2qX3d_x0Hg" x="-20" y="-12"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_OP5e4LcuEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_OP5e4bcuEeOT2qX3d_x0Hg" x="23" y="8"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_OP4QwbcuEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_OP4QwrcuEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Person/ownedTreatments"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_OP4Qw7cuEeOT2qX3d_x0Hg" points="[0, 13, -186, -65]$[0, 78, -186, 0]$[182, 78, -4, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_OP77ILcuEeOT2qX3d_x0Hg" id="(0.7424242424242424,0.9044117647058824)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_OP77IbcuEeOT2qX3d_x0Hg" id="(0.022727272727272728,0.36231884057971014)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_UDkRMLcvEeOT2qX3d_x0Hg" type="3002" source="_DLYokLcuEeOT2qX3d_x0Hg" target="_w0nXgLcrEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_UDmGYLcvEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_UDmGYbcvEeOT2qX3d_x0Hg" x="9" y="12"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_UDmtcLcvEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_UDmtcbcvEeOT2qX3d_x0Hg" x="27" y="-13"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_UDkRMbcvEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_UDkRMrcvEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Treatment/ailment"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_UDkRM7cvEeOT2qX3d_x0Hg" points="[14, 0, 35, 155]$[62, 0, 83, 155]$[62, -152, 83, 3]$[-17, -152, 4, 3]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_UDq-4LcvEeOT2qX3d_x0Hg" id="(0.937984496124031,0.6470588235294118)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_UDq-4bcvEeOT2qX3d_x0Hg" id="(0.975609756097561,0.49411764705882355)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_4tov8LcwEeOT2qX3d_x0Hg" type="3002" source="_DLYokLcuEeOT2qX3d_x0Hg" target="_x-TxMLcwEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_4tpXALcwEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4tpXAbcwEeOT2qX3d_x0Hg" x="28" y="-21"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_4tpXArcwEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4tpXA7cwEeOT2qX3d_x0Hg" x="30" y="22"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_4tov8bcwEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_4tov8rcwEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Treatment/dose"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4tov87cwEeOT2qX3d_x0Hg" points="[2, 6, -186, 120]$[188, 6, 0, 120]$[188, -64, 0, 50]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4tsaULcwEeOT2qX3d_x0Hg" id="(0.9922480620155039,0.8061224489795918)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_yB0iwLcxEeOT2qX3d_x0Hg" type="3002" source="_ydwcYLcnEeOT2qX3d_x0Hg" target="_VgyyQLcxEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_yB2X8LcxEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_yB2X8bcxEeOT2qX3d_x0Hg" x="44" y="-13"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_yB2_ALcxEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_yB2_AbcxEeOT2qX3d_x0Hg" x="52" y="12"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_yB0iwbcxEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_yB0iwrcxEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//HealthRecord/drugs"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_yB0iw7cxEeOT2qX3d_x0Hg" points="[-7, 8, -438, -47]$[-7, 47, -438, -8]$[428, 47, -3, -8]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_yB73gLcxEeOT2qX3d_x0Hg" id="(0.821917808219178,0.8235294117647058)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_yB73gbcxEeOT2qX3d_x0Hg" id="(0.015503875968992248,0.2727272727272727)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_43EjULcxEeOT2qX3d_x0Hg" type="3002" source="_x-TxMLcwEeOT2qX3d_x0Hg" target="_VgyyQLcxEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_43GYgLcxEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_43GYgbcxEeOT2qX3d_x0Hg" y="-23"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_43G_kLcxEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_43G_kbcxEeOT2qX3d_x0Hg" y="12"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_43EjUbcxEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_43EjUrcxEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//DrugDose/drug"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_43EjU7cxEeOT2qX3d_x0Hg" points="[5, -5, 2, 273]$[5, -264, 2, 14]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_43TM0LcxEeOT2qX3d_x0Hg" id="(0.5064935064935064,0.09803921568627451)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_43Tz4LcxEeOT2qX3d_x0Hg" id="(0.6007751937984496,0.875)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_g2DVILdDEeOT2qX3d_x0Hg" type="3002" source="_1Sq-kLcoEeOT2qX3d_x0Hg" target="_g11SsLdDEeOT2qX3d_x0Hg">
+      <children xmi:type="notation:Node" xmi:id="_g2D8MLdDEeOT2qX3d_x0Hg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_g2D8MbdDEeOT2qX3d_x0Hg" x="4" y="-61"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_g2D8MrdDEeOT2qX3d_x0Hg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_g2D8M7dDEeOT2qX3d_x0Hg" x="4" y="16"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_g2DVIbdDEeOT2qX3d_x0Hg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_g2DVIrdDEeOT2qX3d_x0Hg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Person/ownedMeasures"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_g2DVI7dDEeOT2qX3d_x0Hg" points="[-44, -58, 104, 141]$[-147, -198, 1, 1]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ht14wLdDEeOT2qX3d_x0Hg" id="(0.6181818181818182,0.9117647058823529)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_wT1CkLylEeOyT-wMIYdetQ" type="3002" source="_1Sq-kLcoEeOT2qX3d_x0Hg" target="_shJbILylEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_wT2QsLylEeOyT-wMIYdetQ" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_wT2QsbylEeOyT-wMIYdetQ" x="1" y="75"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_wT23wLylEeOyT-wMIYdetQ" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_wT23wbylEeOyT-wMIYdetQ" x="1" y="-19"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_wT1CkbylEeOyT-wMIYdetQ" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_wT1CkrylEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Person/ownedAppointments"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_wT1Ck7ylEeOyT-wMIYdetQ" points="[-20, 75, 40, -154]$[-52, 196, 8, -33]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_wT7wQLylEeOyT-wMIYdetQ" id="(0.11363636363636363,0.44537815126050423)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qaV_ULyoEeOyT-wMIYdetQ" id="(0.8141025641025641,0.0)"/>
+    </edges>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_ZrUMULyfEeOyT-wMIYdetQ" type="EcoreTools" name="doctor" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_epcTMLyfEeOyT-wMIYdetQ" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_ephLsLyfEeOyT-wMIYdetQ" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_epiZ0LyfEeOyT-wMIYdetQ" type="5001">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_epiZ0byfEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_epiZ0ryfEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_epiZ07yfEeOyT-wMIYdetQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_epjn8LyfEeOyT-wMIYdetQ" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_epjn8byfEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_epjn8ryfEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_epjn87yfEeOyT-wMIYdetQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_epcTMbyfEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//HealthRecord"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_epcTMryfEeOyT-wMIYdetQ" x="245" y="15" height="73"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_h6t2sLyfEeOyT-wMIYdetQ" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_h6wS8LyfEeOyT-wMIYdetQ" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_h6w6ALyfEeOyT-wMIYdetQ" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_nq8v8LyfEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Therapist/firstName"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_nq8v8byfEeOyT-wMIYdetQ"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_pQntQLyfEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Therapist/lastName"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_pQntQbyfEeOyT-wMIYdetQ"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_ZqgJsL5wEeOFwuri1dL3aA" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Therapist/phoneNumber"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_ZqgJsb5wEeOFwuri1dL3aA"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_h6w6AbyfEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_h6w6AryfEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_h6w6A7yfEeOyT-wMIYdetQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_h6xhELyfEeOyT-wMIYdetQ" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_h6xhEbyfEeOyT-wMIYdetQ" collapsed="true"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_h6yIILyfEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_h6yIIbyfEeOyT-wMIYdetQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_h6t2sbyfEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Therapist"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_h6t2sryfEeOyT-wMIYdetQ" x="225" y="345" width="236" height="123"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_zqpxQLyhEeOyT-wMIYdetQ" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_zqxGALyhEeOyT-wMIYdetQ" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_zqxtELyhEeOyT-wMIYdetQ" type="5001">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_zqxtEbyhEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_zqxtEryhEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_zqxtE7yhEeOyT-wMIYdetQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_zqyUILyhEeOyT-wMIYdetQ" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_zqyUIbyhEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_zqyUIryhEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_zqyUI7yhEeOyT-wMIYdetQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_zqpxQbyhEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Treatment"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_zqpxQryhEeOyT-wMIYdetQ" x="680" y="350"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_Hi0uMLylEeOyT-wMIYdetQ" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_Hi1VQLylEeOyT-wMIYdetQ" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_Hi18ULylEeOyT-wMIYdetQ" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_MV0jILylEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//TherapyBranch/name"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_MV0jIbylEeOyT-wMIYdetQ"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_Hi18UbylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Hi18UrylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Hi18U7ylEeOyT-wMIYdetQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_Hi18VLylEeOyT-wMIYdetQ" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_Hi18VbylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_Hi18VrylEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_Hi18V7ylEeOyT-wMIYdetQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_Hi0uMbylEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//TherapyBranch"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Hi0uMrylEeOyT-wMIYdetQ" x="40" y="210"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_G8DzsLymEeOyT-wMIYdetQ" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_G8IFILymEeOyT-wMIYdetQ" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_G8IFIbymEeOyT-wMIYdetQ" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_G8LvgLymEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//MedicalAppointment/date"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_G8LvgbymEeOyT-wMIYdetQ"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_MSfs4LymEeOyT-wMIYdetQ" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//MedicalAppointment/comment"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_MSgT8LymEeOyT-wMIYdetQ"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_G8IFIrymEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_G8IFI7ymEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_G8IFJLymEeOyT-wMIYdetQ"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_G8IsMLymEeOyT-wMIYdetQ" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_G8IsMbymEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_G8IsMrymEeOyT-wMIYdetQ"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_G8IsM7ymEeOyT-wMIYdetQ"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_G8DzsbymEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//MedicalAppointment"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G8DzsrymEeOyT-wMIYdetQ" x="530" y="240"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_71YYYLzgEeOcHqAJBJyDMg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_71j-kLzgEeOcHqAJBJyDMg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_71kloLzgEeOcHqAJBJyDMg" type="5001">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_71klobzgEeOcHqAJBJyDMg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_71klorzgEeOcHqAJBJyDMg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_71klo7zgEeOcHqAJBJyDMg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_71lzwLzgEeOcHqAJBJyDMg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_71lzwbzgEeOcHqAJBJyDMg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_71lzwrzgEeOcHqAJBJyDMg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_71lzw7zgEeOcHqAJBJyDMg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_71Y_cLzgEeOcHqAJBJyDMg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Person"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Y_cbzgEeOcHqAJBJyDMg" x="600"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_TDpKcL5wEeOFwuri1dL3aA" type="1004">
+      <children xmi:type="notation:Node" xmi:id="_TD0JkL5wEeOFwuri1dL3aA" type="4008"/>
+      <children xmi:type="notation:Node" xmi:id="_TD0woL5wEeOFwuri1dL3aA" type="4009"/>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_TDpKcb5wEeOFwuri1dL3aA" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EDataType" href="healthrecord.ecore#//PhoneNumber"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TDpKcr5wEeOFwuri1dL3aA" x="60" y="505"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_ZrUMUbyfEeOyT-wMIYdetQ"/>
+    <element xmi:type="ecore:EPackage" href="healthrecord.ecore#/"/>
+    <edges xmi:type="notation:Edge" xmi:id="__AcPsLyfEeOyT-wMIYdetQ" type="3002" source="_epcTMLyfEeOyT-wMIYdetQ" target="_h6t2sLyfEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="__AghILyfEeOyT-wMIYdetQ" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="__AghIbyfEeOyT-wMIYdetQ" x="27" y="62"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="__AhIMLyfEeOyT-wMIYdetQ" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="__AhIMbyfEeOyT-wMIYdetQ" x="27" y="-20"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="__AcPsbyfEeOyT-wMIYdetQ" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="__AcPsryfEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//HealthRecord/ownedTherapists"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="__AcPs7yfEeOyT-wMIYdetQ" points="[2, 8, 2, -84]$[2, 87, 2, -5]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="__AnO0LyfEeOyT-wMIYdetQ" id="(0.5185185185185185,0.813953488372093)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="__AnO0byfEeOyT-wMIYdetQ" id="(0.3093220338983051,0.024390243902439025)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_8ZzSsLyhEeOyT-wMIYdetQ" type="3002" source="_zqpxQLyhEeOyT-wMIYdetQ" target="_h6t2sLyfEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_8Z4LMLyhEeOyT-wMIYdetQ" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_8Z4LMbyhEeOyT-wMIYdetQ" x="-22" y="-12"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_8Z4LMryhEeOyT-wMIYdetQ" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_8Z4LM7yhEeOyT-wMIYdetQ" x="11" y="8"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_8ZzSsbyhEeOyT-wMIYdetQ" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_8ZzSsryhEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Treatment/prescribedBy"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_8ZzSs7yhEeOyT-wMIYdetQ" points="[-5, 6, 269, 9]$[-182, 6, 92, 9]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8Z71kLyhEeOyT-wMIYdetQ" id="(0.07027027027027027,0.6470588235294118)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_OJ9jALzhEeOcHqAJBJyDMg" id="(0.9178082191780822,0.7073170731707317)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_S-ZZoLylEeOyT-wMIYdetQ" type="3002" source="_epcTMLyfEeOyT-wMIYdetQ" target="_Hi0uMLylEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_S-aAsLylEeOyT-wMIYdetQ" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_S-aAsbylEeOyT-wMIYdetQ" x="32" y="-60"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_S-anwLylEeOyT-wMIYdetQ" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_S-anwbylEeOyT-wMIYdetQ" x="32" y="20"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_S-ZZobylEeOyT-wMIYdetQ" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_S-ZZorylEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//HealthRecord/ownedBranches"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_S-ZZo7ylEeOyT-wMIYdetQ" points="[-21, 0, 144, -158]$[-165, 0, 0, -158]$[-165, 149, 0, -9]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_S-eSILylEeOyT-wMIYdetQ" id="(0.2037037037037037,0.3953488372093023)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_S-eSIbylEeOyT-wMIYdetQ" id="(0.49206349206349204,0.19607843137254902)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_b0TqYLylEeOyT-wMIYdetQ" type="3002" source="_h6t2sLyfEeOyT-wMIYdetQ" target="_Hi0uMLylEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_b0X70LylEeOyT-wMIYdetQ" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_b0X70bylEeOyT-wMIYdetQ" x="29" y="37"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_b0X70rylEeOyT-wMIYdetQ" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_b0X707ylEeOyT-wMIYdetQ" x="29" y="-16"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_b0TqYbylEeOyT-wMIYdetQ" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_b0TqYrylEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Therapist/branches"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_b0TqY7ylEeOyT-wMIYdetQ" points="[-14, -7, 143, 122]$[-157, -7, 0, 122]$[-157, -118, 0, 11]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_b0a_ILylEeOyT-wMIYdetQ" id="(0.0684931506849315,0.2647058823529412)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_b0a_IbylEeOyT-wMIYdetQ" id="(0.5,0.7843137254901961)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_JcLnELymEeOyT-wMIYdetQ" type="3002" source="_G8DzsLymEeOyT-wMIYdetQ" target="_h6t2sLyfEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_JcMOILymEeOyT-wMIYdetQ" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JcMOIbymEeOyT-wMIYdetQ" x="-18" y="15"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_JcM1MLymEeOyT-wMIYdetQ" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_JcM1MbymEeOyT-wMIYdetQ" x="17" y="-15"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_JcLnEbymEeOyT-wMIYdetQ" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_JcLnErymEeOyT-wMIYdetQ" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//MedicalAppointment/withTherapist"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_JcLnE7ymEeOyT-wMIYdetQ" points="[0, 60, 156, -62]$[0, 122, 156, 0]$[-153, 122, 3, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JcPRcLymEeOyT-wMIYdetQ" id="(0.5384615384615384,0.09803921568627451)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JcPRcbymEeOyT-wMIYdetQ" id="(0.9794520547945206,0.1951219512195122)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_736H8LzgEeOcHqAJBJyDMg" type="3002" source="_71YYYLzgEeOcHqAJBJyDMg" target="_zqpxQLyhEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_7379ILzgEeOcHqAJBJyDMg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_7379IbzgEeOcHqAJBJyDMg" x="11" y="69"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_739LQLzgEeOcHqAJBJyDMg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_739LQbzgEeOcHqAJBJyDMg" x="11" y="-19"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_736H8bzgEeOcHqAJBJyDMg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_736H8rzgEeOcHqAJBJyDMg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Person/ownedTreatments"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_736H87zgEeOcHqAJBJyDMg" points="[1, 0, -766, -249]$[676, 219, -91, -30]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_KNSSELzhEeOcHqAJBJyDMg" id="(0.7090909090909091,0.9117647058823529)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Kp-OELzhEeOcHqAJBJyDMg" id="(0.8324324324324325,0.008403361344537815)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_73_ngLzgEeOcHqAJBJyDMg" type="3002" source="_71YYYLzgEeOcHqAJBJyDMg" target="_G8DzsLymEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_74AOkLzgEeOcHqAJBJyDMg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_74AOkbzgEeOcHqAJBJyDMg" x="4" y="-72"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_74A1oLzgEeOcHqAJBJyDMg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_74A1obzgEeOcHqAJBJyDMg" x="9" y="14"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_73_ngbzgEeOcHqAJBJyDMg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_73_ngrzgEeOcHqAJBJyDMg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Person/ownedAppointments"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_73_ng7zgEeOcHqAJBJyDMg" points="[1, 1, -402, -393]$[369, 361, -34, -33]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_IkiLkLzhEeOcHqAJBJyDMg" id="(0.09393939393939393,0.9485294117647058)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_JMNPkLzhEeOcHqAJBJyDMg" id="(0.6538461538461539,0.10294117647058823)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_74Cq0LzgEeOcHqAJBJyDMg" type="3002" source="_epcTMLyfEeOyT-wMIYdetQ" target="_71YYYLzgEeOcHqAJBJyDMg">
+      <children xmi:type="notation:Node" xmi:id="_74DR4LzgEeOcHqAJBJyDMg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_74DR4bzgEeOcHqAJBJyDMg" x="-28" y="-9"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_74D48LzgEeOcHqAJBJyDMg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_74D48bzgEeOcHqAJBJyDMg" x="10" y="10"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_74Cq0bzgEeOcHqAJBJyDMg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_74Cq0rzgEeOcHqAJBJyDMg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//HealthRecord/ownedPersons"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_74Cq07zgEeOcHqAJBJyDMg" points="[-53, -14, 356, 97]$[-408, -111, 1, 0]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZjV2ELzhEeOcHqAJBJyDMg" id="(0.9444444444444444,0.2328767123287671)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Z_CTkLzhEeOcHqAJBJyDMg" id="(0.021212121212121213,0.25)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_d9u9wLzhEeOcHqAJBJyDMg" type="3002" source="_71YYYLzgEeOcHqAJBJyDMg" target="_h6t2sLyfEeOyT-wMIYdetQ">
+      <children xmi:type="notation:Node" xmi:id="_d9vk0LzhEeOcHqAJBJyDMg" type="4011">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_d9vk0bzhEeOcHqAJBJyDMg" x="48" y="38"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_d9wL4LzhEeOcHqAJBJyDMg" type="4012">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_d9wL4bzhEeOcHqAJBJyDMg" x="48" y="-16"/>
+      </children>
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_d9u9wbzhEeOcHqAJBJyDMg" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_d9u9wrzhEeOcHqAJBJyDMg" fontColor="4210752" fontName="Sans" fontHeight="10"/>
+      <element xmi:type="ecore:EReference" href="healthrecord.ecore#//Person/therapists"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_d9u9w7zhEeOcHqAJBJyDMg" points="[-5, 8, 170, -231]$[-175, 8, 0, -231]$[-175, 238, 0, -1]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_d9zPMLzhEeOcHqAJBJyDMg" id="(0.01818181818181818,0.8014705882352942)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_d9zPMbzhEeOcHqAJBJyDMg" id="(0.8657407407407407,0.016260162601626018)"/>
+    </edges>
+  </notation:Diagram>
+  <notation:Diagram xmi:id="_f18kwLyuEeO8oZMsEGU2fg" type="EcoreTools" name="measures" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_ijqvQLyuEeO8oZMsEGU2fg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_ijwO0LyuEeO8oZMsEGU2fg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_ijxc8LyuEeO8oZMsEGU2fg" type="5001">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_ijxc8byuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_ijxc8ryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_ijxc87yuEeO8oZMsEGU2fg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_ijyEALyuEeO8oZMsEGU2fg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_ijyEAbyuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_ijyEAryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_ijyEA7yuEeO8oZMsEGU2fg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_ijqvQbyuEeO8oZMsEGU2fg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Measure"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ijqvQryuEeO8oZMsEGU2fg" x="300" y="35" width="208" height="93"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_vv3DwLyuEeO8oZMsEGU2fg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_vv3q0LyuEeO8oZMsEGU2fg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_vv4R4LyuEeO8oZMsEGU2fg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_RPfcQLyvEeO8oZMsEGU2fg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Size/value"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_RPfcQbyvEeO8oZMsEGU2fg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_vv4R4byuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_vv4R4ryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_vv4R47yuEeO8oZMsEGU2fg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_vv448LyuEeO8oZMsEGU2fg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_vv448byuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_vv448ryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_vv4487yuEeO8oZMsEGU2fg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_vv3DwbyuEeO8oZMsEGU2fg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Size"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_vv3DwryuEeO8oZMsEGU2fg" x="145" y="175"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_yuhNQLyuEeO8oZMsEGU2fg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_yuibYLyuEeO8oZMsEGU2fg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_yuibYbyuEeO8oZMsEGU2fg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_UToisLyvEeO8oZMsEGU2fg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Weight/value"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_UToisbyvEeO8oZMsEGU2fg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_yuibYryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_yuibY7yuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_yuibZLyuEeO8oZMsEGU2fg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_yujCcLyuEeO8oZMsEGU2fg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_yujCcbyuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_yujCcryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_yujCc7yuEeO8oZMsEGU2fg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_yuhNQbyuEeO8oZMsEGU2fg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Weight"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yuhNQryuEeO8oZMsEGU2fg" x="225" y="265"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_0CD4wLyuEeO8oZMsEGU2fg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_0CEf0LyuEeO8oZMsEGU2fg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_0CFG4LyuEeO8oZMsEGU2fg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_W_cosLyvEeO8oZMsEGU2fg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//CranialPerimeter/value"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_W_cosbyvEeO8oZMsEGU2fg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_0CFG4byuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_0CFG4ryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_0CFG47yuEeO8oZMsEGU2fg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_0CFG5LyuEeO8oZMsEGU2fg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_0CFG5byuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_0CFG5ryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_0CFG57yuEeO8oZMsEGU2fg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_0CD4wbyuEeO8oZMsEGU2fg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//CranialPerimeter"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0CD4wryuEeO8oZMsEGU2fg" x="290" y="195"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_5Tc54LyuEeO8oZMsEGU2fg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_5Tdg8LyuEeO8oZMsEGU2fg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_5TeIALyuEeO8oZMsEGU2fg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_lsE1MLyvEeO8oZMsEGU2fg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//BloodPressure/diastolic"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_lsE1MbyvEeO8oZMsEGU2fg"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_oElksLyvEeO8oZMsEGU2fg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//BloodPressure/systolic"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_oElksbyvEeO8oZMsEGU2fg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_5TeIAbyuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_5TeIAryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_5TeIA7yuEeO8oZMsEGU2fg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_5TeIBLyuEeO8oZMsEGU2fg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_5TeIBbyuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_5TevELyuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_5TevEbyuEeO8oZMsEGU2fg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_5Tc54byuEeO8oZMsEGU2fg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//BloodPressure"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5Tc54ryuEeO8oZMsEGU2fg" x="481" y="305"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_810NYLyuEeO8oZMsEGU2fg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_811bgLyuEeO8oZMsEGU2fg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_812CkLyuEeO8oZMsEGU2fg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_ix2fwLyvEeO8oZMsEGU2fg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//HeartBeat/value"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_ix2fwbyvEeO8oZMsEGU2fg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_812CkbyuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_812CkryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_812Ck7yuEeO8oZMsEGU2fg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_812poLyuEeO8oZMsEGU2fg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_812pobyuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_812poryuEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_812po7yuEeO8oZMsEGU2fg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_810NYbyuEeO8oZMsEGU2fg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//HeartBeat"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_810NYryuEeO8oZMsEGU2fg" x="430" y="240"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_AHn8YLyvEeO8oZMsEGU2fg" type="1001">
+      <children xmi:type="notation:Node" xmi:id="_AHpKgLyvEeO8oZMsEGU2fg" type="4001"/>
+      <children xmi:type="notation:Node" xmi:id="_AHpxkLyvEeO8oZMsEGU2fg" type="5001">
+        <children xmi:type="notation:Node" xmi:id="_rvM1QLyvEeO8oZMsEGU2fg" type="2001">
+          <element xmi:type="ecore:EAttribute" href="healthrecord.ecore#//Temperature/value"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_rvM1QbyvEeO8oZMsEGU2fg"/>
+        </children>
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_AHpxkbyvEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_AHpxkryvEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_AHpxk7yvEeO8oZMsEGU2fg"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_AHqYoLyvEeO8oZMsEGU2fg" type="5002">
+        <styles xmi:type="notation:DrawerStyle" xmi:id="_AHqYobyvEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:SortingStyle" xmi:id="_AHqYoryvEeO8oZMsEGU2fg"/>
+        <styles xmi:type="notation:FilteringStyle" xmi:id="_AHqYo7yvEeO8oZMsEGU2fg"/>
+      </children>
+      <styles xmi:type="notation:ShapeStyle" xmi:id="_AHn8YbyvEeO8oZMsEGU2fg" fontColor="4210752" fontName="Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+      <element xmi:type="ecore:EClass" href="healthrecord.ecore#//Temperature"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AHn8YryvEeO8oZMsEGU2fg" x="570" y="185"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_f18kwbyuEeO8oZMsEGU2fg"/>
+    <element xmi:type="ecore:EPackage" href="healthrecord.ecore#/"/>
+    <edges xmi:type="notation:Edge" xmi:id="_B8w5ELyvEeO8oZMsEGU2fg" type="3003" source="_vv3DwLyuEeO8oZMsEGU2fg" target="_ijqvQLyuEeO8oZMsEGU2fg">
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_B8w5EbyvEeO8oZMsEGU2fg" routing="Rectilinear" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_B8w5EryvEeO8oZMsEGU2fg" fontName="Sans"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_B8w5E7yvEeO8oZMsEGU2fg" points="[22, -9, -100, 58]$[22, -89, -100, -22]$[112, -89, -10, -22]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_B8zVULyvEeO8oZMsEGU2fg" id="(0.4215686274509804,0.18604651162790697)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_dKOI4LyvEeO8oZMsEGU2fg" id="(0.05069124423963134,0.9058823529411765)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_FhC4ILyvEeO8oZMsEGU2fg" type="3003" source="_0CD4wLyuEeO8oZMsEGU2fg" target="_ijqvQLyuEeO8oZMsEGU2fg">
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_FhC4IbyvEeO8oZMsEGU2fg" routing="Rectilinear" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_FhC4IryvEeO8oZMsEGU2fg" fontName="Sans"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_FhC4I7yvEeO8oZMsEGU2fg" points="[-3, -7, 27, 174]$[-3, -176, 27, 5]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_FhFUYLyvEeO8oZMsEGU2fg" id="(0.7251908396946565,0.16279069767441862)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_FhFUYbyvEeO8oZMsEGU2fg" id="(0.25806451612903225,0.9529411764705882)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_GKAVkLyvEeO8oZMsEGU2fg" type="3003" source="_810NYLyuEeO8oZMsEGU2fg" target="_ijqvQLyuEeO8oZMsEGU2fg">
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_GKAVkbyvEeO8oZMsEGU2fg" routing="Rectilinear" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_GKAVkryvEeO8oZMsEGU2fg" fontName="Sans"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_GKAVk7yvEeO8oZMsEGU2fg" points="[-4, -3, 29, 177]$[-4, -172, 29, 8]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GKDY4LyvEeO8oZMsEGU2fg" id="(0.28431372549019607,0.06976744186046512)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GKDY4byvEeO8oZMsEGU2fg" id="(0.6129032258064516,0.9176470588235294)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_Gwu-YLyvEeO8oZMsEGU2fg" type="3003" source="_AHn8YLyvEeO8oZMsEGU2fg" target="_ijqvQLyuEeO8oZMsEGU2fg">
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_Gwu-YbyvEeO8oZMsEGU2fg" routing="Rectilinear" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_Gwu-YryvEeO8oZMsEGU2fg" fontName="Sans"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Gwu-Y7yvEeO8oZMsEGU2fg" points="[-22, -7, 172, 59]$[-22, -117, 172, -51]$[-259, -117, -65, -51]$[-259, -82, -65, -16]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GwyowLyvEeO8oZMsEGU2fg" id="(0.6504854368932039,0.18604651162790697)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GwzP0LyvEeO8oZMsEGU2fg" id="(0.4792626728110599,0.9529411764705882)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_Hwi1kLyvEeO8oZMsEGU2fg" type="3003" source="_yuhNQLyuEeO8oZMsEGU2fg" target="_ijqvQLyuEeO8oZMsEGU2fg">
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_Hwi1kbyvEeO8oZMsEGU2fg" routing="Rectilinear" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_Hwi1kryvEeO8oZMsEGU2fg" fontName="Sans"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Hwi1k7yvEeO8oZMsEGU2fg" points="[-11, -6, -62, 282]$[-11, -241, -62, 47]$[58, -241, 7, 47]$[58, -280, 7, 8]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_HwlR0LyvEeO8oZMsEGU2fg" id="(0.47058823529411764,0.13953488372093023)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Hwl44LyvEeO8oZMsEGU2fg" id="(0.15207373271889402,0.9176470588235294)"/>
+    </edges>
+    <edges xmi:type="notation:Edge" xmi:id="_J8TigLyvEeO8oZMsEGU2fg" type="3003" source="_5Tc54LyuEeO8oZMsEGU2fg" target="_ijqvQLyuEeO8oZMsEGU2fg">
+      <styles xmi:type="notation:ConnectorStyle" xmi:id="_J8TigbyvEeO8oZMsEGU2fg" routing="Rectilinear" lineColor="4210752"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_J8TigryvEeO8oZMsEGU2fg" fontName="Sans"/>
+      <element xsi:nil="true"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_J8Tig7yvEeO8oZMsEGU2fg" points="[-5, -10, 104, 263]$[-5, -177, 104, 96]$[-58, -177, 51, 96]$[-58, -269, 51, 4]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J8V-wLyvEeO8oZMsEGU2fg" id="(0.6491228070175439,0.16279069767441862)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_J8V-wbyvEeO8oZMsEGU2fg" id="(0.728110599078341,0.9588235294117647)"/>
+    </edges>
+  </notation:Diagram>
+</xmi:XMI>

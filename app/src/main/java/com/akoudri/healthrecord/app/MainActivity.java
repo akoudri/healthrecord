@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         int margin = 10;
         try {
             dataSource.open();
-            allPersons = dataSource.getPersonTable().getAllPersons();
+            allPersons = dataSource.getDb().getPersonTable().getAllPersons();
             dataSource.close();
         } catch (SQLException ex)
         {
@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     try {
                                         dataSource.open();
-                                        dataSource.getPersonTable().removePersonWithId(id);
+                                        dataSource.getDb().getPersonTable().removePersonWithId(id);
                                         populateWidgets();
                                         dataSource.close();
                                     } catch (SQLException ex) {

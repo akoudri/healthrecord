@@ -103,7 +103,7 @@ public class UpdatePersonActivity extends Activity {
     {
         try {
             dataSource.open();
-            person = dataSource.getPersonTable().getPersonWithId(personId);
+            person = dataSource.getDb().getPersonTable().getPersonWithId(personId);
             dataSource.close();
         } catch (SQLException ex)
         {
@@ -143,7 +143,7 @@ public class UpdatePersonActivity extends Activity {
         //FIXME: check values before inserting
         try {
             dataSource.open();
-            dataSource.getPersonTable().updatePerson(person.getId(), firstName.toUpperCase(), lastName.toUpperCase(),
+            dataSource.getDb().getPersonTable().updatePerson(person.getId(), firstName.toUpperCase(), lastName.toUpperCase(),
                     gender, ssn, bt, birthdate);
             dataSource.close();
         } catch (SQLException ex)

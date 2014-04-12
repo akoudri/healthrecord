@@ -15,8 +15,6 @@ public class HealthRecordDataSource {
 
     private SQLiteDatabase db;
     private HealthRecordDatabase dbHelper;
-    private PersonTable personTable;
-    private TherapyBranchTable therapyBranchTable;
 
     public HealthRecordDataSource(Context context)
     {
@@ -26,25 +24,16 @@ public class HealthRecordDataSource {
     public void open() throws SQLException
     {
         db = dbHelper.getWritableDatabase();
-        personTable = new PersonTable(db);
-        therapyBranchTable = new TherapyBranchTable(db);
     }
 
     public void close()
     {
-        therapyBranchTable = null;
-        personTable = null;
         dbHelper.close();
     }
 
-    public PersonTable getPersonTable()
+    public HealthRecordDatabase getDb()
     {
-        return personTable;
-    }
-
-    public TherapyBranchTable getTherapyBranchTable()
-    {
-        return therapyBranchTable;
+        return dbHelper;
     }
 
 }

@@ -79,7 +79,7 @@ public class AddPersonActivity extends Activity {
         //FIXME: check values before inserting
         try {
             dataSource.open();
-            dataSource.getPersonTable().insertPerson(firstName.toUpperCase(), lastName.toUpperCase(),
+            dataSource.getDb().getPersonTable().insertPerson(firstName.toUpperCase(), lastName.toUpperCase(),
                     gender, ssn, bt, birthdate);
             dataSource.close();
         } catch (SQLException ex)

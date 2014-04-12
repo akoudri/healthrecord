@@ -27,7 +27,7 @@ public class TherapyBranchTable {
         this.db = db;
     }
 
-    public void createTherapyBranch()
+    public void createTherapyBranchTable()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists" + THERAPYBRANCH_TABLE + " (");

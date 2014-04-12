@@ -62,7 +62,7 @@ public class TherapyBranchTable {
 
     private void preload()
     {
-        //FIXME: preload from xml resource
+        //FIXME: preload from xml resources
         insertTherapyBranch("en", "Generalist");
         insertTherapyBranch("fr", "Généraliste");
     }

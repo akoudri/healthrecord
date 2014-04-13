@@ -34,7 +34,8 @@ public class TherapyBranchTable {
         sb.append(THERAPYBRANCH_ID + " integer primary key autoincrement,");
         sb.append(THERAPYBRANCH_LANG + " text not null,");
         sb.append(THERAPYBRANCH_NAME + " text not null,");
-        sb.append("unique(" + THERAPYBRANCH_LANG + ", " + THERAPYBRANCH_NAME + "));");
+        sb.append("unique(" + THERAPYBRANCH_LANG + ", " + THERAPYBRANCH_NAME + ")");
+        sb.append(");");
         preload();
     }
 

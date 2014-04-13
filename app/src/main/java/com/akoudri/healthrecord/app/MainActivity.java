@@ -35,8 +35,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         dataSource = new HealthRecordDataSource(this);
         layout = (GridLayout) findViewById(R.id.person_grid);
-        layout.setVerticalScrollBarEnabled(true); //FIXME: does not work
-        layout.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
+        //layout.setVerticalScrollBarEnabled(true); //FIXME: does not work
+        //layout.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
         populateWidgets();
     }
 
@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
         int margin = 10;
         try {
             dataSource.open();
-            allPersons = dataSource.getDb().getPersonTable().getAllPersons();
+            allPersons = dataSource.getPersonTable().getAllPersons();
             dataSource.close();
         } catch (SQLException ex)
         {
@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     try {
                                         dataSource.open();
-                                        dataSource.getDb().getPersonTable().removePersonWithId(id);
+                                        dataSource.getPersonTable().removePersonWithId(id);
                                         populateWidgets();
                                         dataSource.close();
                                     } catch (SQLException ex) {

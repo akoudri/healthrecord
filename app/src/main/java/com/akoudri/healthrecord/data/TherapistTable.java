@@ -29,7 +29,7 @@ public class TherapistTable {
         this.db = db;
     }
 
-    public void createTherapist()
+    public void createTherapistTable()
     {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists" + THERAPIST_TABLE + " (");

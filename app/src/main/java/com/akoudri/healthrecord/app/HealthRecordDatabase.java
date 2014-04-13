@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.akoudri.healthrecord.data.PersonTable;
+import com.akoudri.healthrecord.data.PersonTherapistTable;
+import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
 
 /**
@@ -17,6 +19,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     private PersonTable personTable;
     private TherapyBranchTable therapyBranchTable;
+    private TherapistTable therapistTable;
+    private PersonTherapistTable personTherapistTable;
 
     public HealthRecordDatabase(Context context)
     {
@@ -29,6 +33,10 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         personTable.createPersonTable();
         therapyBranchTable = new TherapyBranchTable(db);
         therapyBranchTable.createTherapyBranchTable();
+        therapistTable = new TherapistTable(db);
+        therapistTable.createTherapistTable();
+        personTherapistTable = new PersonTherapistTable(db);
+        personTherapistTable.createPersonTherapistTable();
     }
 
     @Override
@@ -36,14 +44,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         //FIXME: this first version simply removes the old tables
         db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE );
         db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE );
+        db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE );
+        db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE );
         onCreate(db);
-    }
-
-    public PersonTable getPersonTable() {
-        return personTable;
-    }
-
-    public TherapyBranchTable getTherapyBranchTable() {
-        return therapyBranchTable;
     }
 }

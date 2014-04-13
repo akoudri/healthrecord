@@ -29,5 +29,8 @@
     <string name="remove_question">Voulez vous vraiment supprimer</string>
     <string name="removing">Suppression</string>
     <string name="ssn">N° Sécurité Sociale</string>
+    <string name="speciality">Spécialité</string>
+    <string name="phoneNumber">Numéro de tél.</string>
+    <string name="add_therapist">Ajouter Spécialiste</string>
 
 </resources>

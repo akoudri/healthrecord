@@ -5,7 +5,7 @@
     android:background="@color/app_bg_color"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".EditPerson">
+    tools:context=".EditPersonActivity">
 
     <Button
         android:text="@string/personal_data"
@@ -31,7 +31,8 @@
         android:layout_marginRight="10dp"
         android:textColor="@color/title_button_text_color"
         android:background="@drawable/healthrecord_button"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:onClick="addTherapist"/>
     <Button
         android:text="@string/manage_ailments"
         android:textStyle="bold"

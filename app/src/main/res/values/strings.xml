@@ -29,5 +29,8 @@
     <string name="remove_question">Do you really want to remove</string>
     <string name="removing">Removing</string>
     <string name="ssn">Social Security Number</string>
+    <string name="speciality">Speciality</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="add_therapist">Add Therapist</string>
 
 </resources>

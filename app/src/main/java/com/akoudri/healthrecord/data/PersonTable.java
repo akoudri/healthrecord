@@ -44,7 +44,8 @@ public class PersonTable {
         sb.append(PERSON_SSN + " string unique,");
         sb.append(PERSON_BLOODTYPE + " int,");
         sb.append(PERSON_BIRTHDATE + " text not null,");
-        sb.append("unique(" + PERSON_FIRSTNAME + "," + PERSON_LASTNAME + "));");
+        sb.append("unique(" + PERSON_FIRSTNAME + "," + PERSON_LASTNAME + ")");
+        sb.append(");");
         db.execSQL(sb.toString());
     }
 

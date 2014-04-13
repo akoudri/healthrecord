@@ -32,7 +32,7 @@
         android:textColor="@color/title_button_text_color"
         android:background="@drawable/healthrecord_button"
         android:layout_gravity="center_horizontal"
-        android:onClick="addTherapist"/>
+        android:onClick="myTherapists"/>
     <Button
         android:text="@string/manage_ailments"
         android:textStyle="bold"

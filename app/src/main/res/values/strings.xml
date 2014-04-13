@@ -32,5 +32,6 @@
     <string name="speciality">Speciality</string>
     <string name="phoneNumber">Phone Number</string>
     <string name="add_therapist">Add Therapist</string>
+    <string name="my_therapists">My Therapists</string>
 
 </resources>

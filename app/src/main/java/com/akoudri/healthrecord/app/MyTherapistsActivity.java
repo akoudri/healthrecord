@@ -15,42 +15,41 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
-import com.akoudri.healthrecord.data.BloodType;
-import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
+import com.akoudri.healthrecord.data.Therapist;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MyTherapistsActivity extends ActionBarActivity {
 
     private HealthRecordDataSource dataSource;
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+    private int personId;
+    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_my_therapists);
         dataSource = new HealthRecordDataSource(this);
-        layout = (GridLayout) findViewById(R.id.person_grid);
+        layout = (GridLayout) findViewById(R.id.my_therapists_grid);
+        personId = getIntent().getIntExtra("personId", 0);
+        retrievePerson();
         //layout.setVerticalScrollBarEnabled(true); //FIXME: does not work
         //layout.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
-        preloadDb();
         populateWidgets();
     }
 
-    private void preloadDb() {
+    private void retrievePerson() {
         try {
             dataSource.open();
-            dataSource.getPersonTable().insertPerson("Ali", "Koudri", Gender.MALE, "ssn1", BloodType.APLUS, "27/08/1974");
-            dataSource.getTherapyBranchTable().insertTherapyBranch("en", "Generalist");
-            dataSource.getTherapyBranchTable().insertTherapyBranch("fr", "Généraliste");
-            dataSource.getTherapistTable().insertTherapist("Hocine", "Koudri", "0169386556", 2);
-            dataSource.getPersonTherapistTable().insertRelation(1,1);
+            person = dataSource.getPersonTable().getPersonWithId(personId);
             dataSource.close();
         } catch (SQLException ex)
         {
@@ -62,29 +61,27 @@ public class MainActivity extends ActionBarActivity {
     private void populateWidgets()
     {
         layout.removeAllViews();
-        List<Person> allPersons = null;
+        List<Therapist> allTherapists = new ArrayList<Therapist>();
         int margin = 10;
         try {
             dataSource.open();
-            allPersons = dataSource.getPersonTable().getAllPersons();
+            List<Integer> therapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
+            for (Integer i : therapistIds)
+            {
+               allTherapists.add(dataSource.getTherapistTable().getTherapistWithId(i));
+            }
             dataSource.close();
         } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
-        if (allPersons == null || allPersons.size() == 0)
+        if (allTherapists == null || allTherapists.size() == 0)
             return;
         Button editButton;
         ImageButton removeButton;
-        /*
-        Point screenSize = new Point();
-        getWindowManager().getDefaultDisplay().getSize(screenSize);
-        int labelWidth = screenSize.x * 3 /5;
-        int buttonWidth = screenSize.x / 5;
-        */
         layout.setColumnCount(2);
         int r = 0; //row index
-        for (final Person p : allPersons)
+        for (final Therapist p : allTherapists)
         {
             final int id = p.getId();
             //add edit button
@@ -96,9 +93,9 @@ public class MainActivity extends ActionBarActivity {
             editButton.setMinEms(10);
             editButton.setMaxEms(10);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //editButton.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
             Drawable img = getResources().getDrawable(R.drawable.plume);
             editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+            /*
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -107,6 +104,7 @@ public class MainActivity extends ActionBarActivity {
                     startActivity(intent);
                 }
             });
+            */
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;
@@ -120,10 +118,11 @@ public class MainActivity extends ActionBarActivity {
             removeButton = new ImageButton(this);
             removeButton.setBackgroundResource(R.drawable.remove);
             //removeButton.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+            /*
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new AlertDialog.Builder(MainActivity.this)
+                    new AlertDialog.Builder(MyTherapistsActivity.this)
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle(R.string.removing)
                             .setMessage(getResources().getString(R.string.remove_question)
@@ -146,6 +145,7 @@ public class MainActivity extends ActionBarActivity {
                             .show();
                 }
             });
+            */
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;
@@ -166,10 +166,12 @@ public class MainActivity extends ActionBarActivity {
         populateWidgets();
     }
 
-    public void addPerson(View view)
+    public void addTherapist(View view)
     {
         //FIXME: use instead a startActivityForResult to not reload all widgets
-        startActivity(new Intent("com.akoudri.healthrecord.app.AddPerson"));
+        Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");
+        intent.putExtra("personId", personId);
+        startActivity(intent);
     }
 
     @Override

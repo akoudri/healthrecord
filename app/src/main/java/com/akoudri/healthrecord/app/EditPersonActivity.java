@@ -28,9 +28,9 @@ public class EditPersonActivity extends Activity {
         startActivity(intent);
     }
 
-    public void addTherapist(View view)
+    public void myTherapists(View view)
     {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");
+        Intent intent = new Intent("com.akoudri.healthrecord.app.MyTherapists");
         intent.putExtra("personId", personId);
         startActivity(intent);
     }

@@ -1,7 +1,11 @@
 package com.akoudri.healthrecord.data;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by koudri on 12/04/14.
@@ -43,6 +47,20 @@ public class PersonTherapistTable {
         values.put(PERSON_REF, personId);
         values.put(THERAPIST_REF, therapistId);
         return db.insert(PERSON_THERAPIST_TABLE, null, values);
+    }
+
+    public List<Integer> getTherapistIdsForPersonId(int personId)
+    {
+        List<Integer> res = new ArrayList<Integer>();
+        Cursor cursor = db.query(PERSON_THERAPIST_TABLE, personTherapistCols,
+                null, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(new Integer(cursor.getInt(1)));
+            cursor.moveToNext();
+        }
+        return res;
     }
 
 }

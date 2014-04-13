@@ -32,7 +32,7 @@ public class TherapistTable {
     public void createTherapistTable()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("create table if not exists" + THERAPIST_TABLE + " (");
+        sb.append("create table if not exists " + THERAPIST_TABLE + " (");
         sb.append(THERAPIST_ID + " integer primary key autoincrement,");
         sb.append(THERAPIST_FIRSTNAME + " text,");
         sb.append(THERAPIST_LASTNAME + " text not null,");
@@ -42,15 +42,7 @@ public class TherapistTable {
         sb.append("foreign key(" + THERAPIST_BRANCHID + ") references "
                 + TherapyBranchTable.THERAPYBRANCH_TABLE + "(" + TherapyBranchTable.THERAPYBRANCH_ID + ")");
         sb.append(");");
-        //FIXME: to remove - only for debug purpose
-        preload();
-    }
-
-    //FIXME: to remove - only for debug purpose
-    private void preload()
-    {
-        insertTherapist("Hocine", "Koudri", "0169386556",0);
-        insertTherapist("Marc", "Gamin", "0169386556",0);
+        db.execSQL(sb.toString());
     }
 
     public long insertTherapist(String firstName,String lastName, String phoneNumber, int branchId)
@@ -75,6 +67,15 @@ public class TherapistTable {
             cursor.moveToNext();
         }
         return res;
+    }
+
+    public Therapist getTherapistWithId(int therapistId)
+    {
+        Cursor cursor = db.query(THERAPIST_TABLE, therapistCols,
+                THERAPIST_ID + "=" + therapistId, null, null, null, null);
+        if (cursor.moveToFirst())
+            return cursorToTherapist(cursor);
+        return null;
     }
 
     private Therapist cursorToTherapist(Cursor cursor)

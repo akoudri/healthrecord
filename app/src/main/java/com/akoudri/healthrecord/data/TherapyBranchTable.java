@@ -30,13 +30,13 @@ public class TherapyBranchTable {
     public void createTherapyBranchTable()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("create table if not exists" + THERAPYBRANCH_TABLE + " (");
+        sb.append("create table if not exists " + THERAPYBRANCH_TABLE + " (");
         sb.append(THERAPYBRANCH_ID + " integer primary key autoincrement,");
         sb.append(THERAPYBRANCH_LANG + " text not null,");
         sb.append(THERAPYBRANCH_NAME + " text not null,");
         sb.append("unique(" + THERAPYBRANCH_LANG + ", " + THERAPYBRANCH_NAME + ")");
         sb.append(");");
-        preload();
+        db.execSQL(sb.toString());
     }
 
     public long insertTherapyBranch(String lang, String name)
@@ -59,13 +59,6 @@ public class TherapyBranchTable {
             cursor.moveToNext();
         }
         return res;
-    }
-
-    private void preload()
-    {
-        //FIXME: preload from xml resources
-        insertTherapyBranch("en", "Generalist");
-        insertTherapyBranch("fr", "Généraliste");
     }
 
     private TherapyBranch cursorToTherapyBranch(Cursor cursor)

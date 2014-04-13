@@ -1,27 +1,16 @@
 package com.akoudri.healthrecord.app;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 
-import com.akoudri.healthrecord.data.BloodType;
-import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 
 
 public class AddTherapistActivity extends Activity {

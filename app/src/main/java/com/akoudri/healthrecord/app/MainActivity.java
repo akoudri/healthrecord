@@ -29,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+    private boolean dbLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,23 +40,25 @@ public class MainActivity extends ActionBarActivity {
         layout = (GridLayout) findViewById(R.id.person_grid);
         //layout.setVerticalScrollBarEnabled(true); //FIXME: does not work
         //layout.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
-        preloadDb();
+        //FIXME: for debug purpose only
+        if (!dbLoaded) preloadDb();
         populateWidgets();
     }
 
+    //FIXME: for debug purpose only
     private void preloadDb() {
         try {
             dataSource.open();
             dataSource.getPersonTable().insertPerson("Ali", "Koudri", Gender.MALE, "ssn1", BloodType.APLUS, "27/08/1974");
-            dataSource.getTherapyBranchTable().insertTherapyBranch("en", "Generalist");
-            dataSource.getTherapyBranchTable().insertTherapyBranch("fr", "Généraliste");
-            dataSource.getTherapistTable().insertTherapist("Hocine", "Koudri", "0169386556", 2);
+            dataSource.getTherapyBranchTable().insertTherapyBranch("Generalist", "Généraliste");
+            dataSource.getTherapistTable().insertTherapist("Hocine", "Koudri", "0169386556", 1);
             dataSource.getPersonTherapistTable().insertRelation(1,1);
             dataSource.close();
         } catch (SQLException ex)
         {
             ex.printStackTrace();
         }
+        dbLoaded = true;
     }
 
     //FIXME: should be called one time at first load only
@@ -93,8 +96,8 @@ public class MainActivity extends ActionBarActivity {
             editButton = new Button(this);
             editButton.setText(p.getFirstName() + " " + p.getLastName());
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            editButton.setMinEms(10);
-            editButton.setMaxEms(10);
+            editButton.setMinEms(8);
+            editButton.setMaxEms(8);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             //editButton.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
             Drawable img = getResources().getDrawable(R.drawable.plume);

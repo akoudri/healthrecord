@@ -1,9 +1,8 @@
 package com.akoudri.healthrecord.app;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
@@ -17,10 +16,12 @@ import android.widget.ImageButton;
 
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
+import com.akoudri.healthrecord.data.TherapyBranch;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MyTherapistsActivity extends ActionBarActivity {
@@ -31,12 +32,14 @@ public class MyTherapistsActivity extends ActionBarActivity {
     private GridLayout.Spec rowSpec, colSpec;
     private int personId;
     private Person person;
+    private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_my_therapists);
+        lang = Locale.getDefault().getDisplayName();
         dataSource = new HealthRecordDataSource(this);
         layout = (GridLayout) findViewById(R.id.my_therapists_grid);
         personId = getIntent().getIntExtra("personId", 0);
@@ -62,7 +65,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
     {
         layout.removeAllViews();
         List<Therapist> allTherapists = new ArrayList<Therapist>();
-        int margin = 10;
+        int margin = 5;
         try {
             dataSource.open();
             List<Integer> therapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
@@ -78,20 +81,37 @@ public class MyTherapistsActivity extends ActionBarActivity {
         if (allTherapists == null || allTherapists.size() == 0)
             return;
         Button editButton;
-        ImageButton removeButton;
-        layout.setColumnCount(2);
+        ImageButton removeButton, phoneButton;
+        int branchId;
+        TherapyBranch branch = null;
+        String therapyBranch;
+        layout.setColumnCount(3);
         int r = 0; //row index
         for (final Therapist p : allTherapists)
         {
             final int id = p.getId();
+            branchId = p.getBranchId();
+            try {
+                dataSource.open();
+                branch = dataSource.getTherapyBranchTable().getBranchWithId(branchId);
+                dataSource.close();
+            } catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+            if (lang.startsWith("Fr"))
+                therapyBranch = branch.getFr();
+            else
+                therapyBranch = branch.getEn();
             //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
             editButton = new Button(this);
-            editButton.setText(p.getFirstName() + " " + p.getLastName());
+            editButton.setText(p.getFirstName() + " " +
+                    p.getLastName() + "\n" + therapyBranch);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            editButton.setMinEms(10);
-            editButton.setMaxEms(10);
+            editButton.setMinEms(8);
+            editButton.setMaxEms(8);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             Drawable img = getResources().getDrawable(R.drawable.plume);
             editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
@@ -154,6 +174,28 @@ public class MyTherapistsActivity extends ActionBarActivity {
             params.setGravity(Gravity.LEFT);
             removeButton.setLayoutParams(params);
             layout.addView(removeButton);
+            //Phone Button
+            colSpec = GridLayout.spec(2);
+            phoneButton = new ImageButton(this);
+            phoneButton.setBackgroundResource(R.drawable.phone);
+            if (p.getPhoneNumber() != null) {
+                phoneButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
+                        startActivity(intent);
+                    }
+                });
+            }
+            params = new GridLayout.LayoutParams(rowSpec, colSpec);
+            params.rightMargin = margin;
+            params.leftMargin = margin;
+            params.topMargin = margin;
+            params.bottomMargin = margin;
+            params.setGravity(Gravity.LEFT);
+            phoneButton.setLayoutParams(params);
+            layout.addView(phoneButton);
             //next line
             r++;
         }

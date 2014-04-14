@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 364.42 364.42">
+  <defs>
+    <linearGradient id="grad_dp_001" y2="730.08" gradientUnits="userSpaceOnUse" y1="1042.1" x2="-402.27" x1="-218.57">
+      <stop stop-color="#ff0" offset="0"/>
+      <stop stop-color="lime" offset="1"/>
+    </linearGradient>
+    <radialGradient id="grad_dp_002" gradientUnits="userSpaceOnUse" cy="885.27" cx="-305.83" r="182.27">
+      <stop stop-color="#fff" stop-opacity=".24706" offset="0"/>
+      <stop stop-color="#dedede" stop-opacity=".24706" offset=".7386"/>
+      <stop stop-opacity=".24706" offset="1"/>
+    </radialGradient>
+    <radialGradient id="grad_dp_004" gradientUnits="userSpaceOnUse" cy="760.96" cx="-307.71" r="105.03">
+      <stop stop-color="#fff" stop-opacity=".36471" offset="0"/>
+      <stop stop-color="#d6d6d6" stop-opacity=".36471" offset="1"/>
+    </radialGradient>
+  </defs>
+  <g id="selection" stroke-width="1.3333" transform="translate(490.86 -703.06)" fill-rule="evenodd">
+    <path id="dp_path001" fill="url(#grad_dp_001)" d="m-308.65 703.72c100.27 0 181.55 81.28 181.55 181.54 0 100.27-81.28 181.54-181.55 181.54-100.26 0-181.54-81.27-181.54-181.54 0-100.26 81.28-181.54 181.54-181.54z"/>
+    <path id="dp_path002" fill="url(#grad_dp_002)" d="m-308.65 703.72c100.27 0 181.55 81.28 181.55 181.54 0 100.27-81.28 181.54-181.55 181.54-100.26 0-181.54-81.27-181.54-181.54 0-100.26 81.28-181.54 181.54-181.54z"/>
+    <g id="dp_group003" stroke="#000">
+      <path id="dp_path004" d="m-398.37 941.11v23.74c0 4.37 3.54 7.91 7.91 7.91h97.26v10.56h-121.76c-10.2 0-18.47-8.27-18.47-18.47v-23.74z"/>
+      <path id="dp_path005" d="m-218.92 941.11v23.74c0 4.37-3.54 7.91-7.92 7.91h-97.25v10.56h121.76c10.2 0 18.47-8.27 18.47-18.47v-23.74z"/>
+    </g>
+    <path id="dp_path006" stroke="#000" d="m-308.65 927l134.63-83.72h-80.78v-80.44h-107.7v80.44h-80.78z"/>
+    <path id="dp_path007" fill="url(#grad_dp_002)" d="m-308.65 703.72c100.27 0 181.55 81.28 181.55 181.54 0 100.27-81.28 181.54-181.55 181.54-100.26 0-181.54-81.27-181.54-181.54 0-100.26 81.28-181.54 181.54-181.54z"/>
+    <path id="dp_path008" fill="url(#grad_dp_004)" d="m-307.71 703.72c57.78 0 104.61 25.63 104.61 57.24 0 31.6-46.83 57.23-104.61 57.23-57.77 0-104.61-25.63-104.61-57.23 0-31.61 46.84-57.24 104.61-57.24z"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Save Button</dc:title>
+        <dc:date>2011-12-23T11:43:48</dc:date>
+        <dc:description>Save Button </dc:description>
+        <dc:source>http://openclipart.org/detail/166475/save-button-by-jogdragoon</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>jogdragoon</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>save button drakoon</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

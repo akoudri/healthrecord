@@ -1,103 +1,108 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/app_bg_color"
-    tools:context=".AddTherapistActivity"
-    android:alignmentMode="alignBounds">
-
-    <TextView
-        android:text="@string/first_name"
-        android:textColor="@color/regular_text_color"
-        android:layout_height="wrap_content"
+    tools:context=".AddTherapistActivity">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_gravity="left"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:alignmentMode="alignBounds">
 
-    <EditText
-        android:id="@+id/first_name_add_therapist"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_gravity="left"
-        android:capitalize="words"/>
+        <TextView
+            android:text="@string/first_name"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold" />
 
-    <TextView
-        android:text="@string/last_name"
-        android:textColor="@color/regular_text_color"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_gravity="left"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/first_name_add_therapist"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:layout_gravity="left"
+            android:capitalize="words"/>
 
-    <EditText
-        android:id="@+id/last_name_add_therapist"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_gravity="left"
-        android:capitalize="words" />
+        <TextView
+            android:text="@string/last_name"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold" />
 
-    <TextView
-        android:text="@string/speciality"
-        android:textColor="@color/regular_text_color"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_gravity="left"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/last_name_add_therapist"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:layout_gravity="left"
+            android:capitalize="words" />
 
-    <EditText
-        android:id="@+id/speciality_add"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="text"
-        android:ems="10"
-        android:layout_gravity="left"
-        android:capitalize="words"/>
+        <TextView
+            android:text="@string/speciality"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold" />
 
-    <TextView
-        android:text="@string/phoneNumber"
-        android:textColor="@color/regular_text_color"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_gravity="left"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/speciality_add"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="text"
+            android:ems="10"
+            android:layout_gravity="left"
+            android:capitalize="words"/>
 
-    <EditText
-        android:id="@+id/phone_number_add"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="text"
-        android:ems="10"
-        android:layout_gravity="left"
-        android:capitalize="words"/>
+        <TextView
+            android:text="@string/phoneNumber"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="left"
+            android:textStyle="bold" />
 
-    <Button
-        android:text="@string/add"
-        android:minEms="8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/healthrecord_button"
-        android:drawableRight="@drawable/plus"
-        android:textColor="@color/title_button_text_color"
-        android:textStyle="bold"
-        android:onClick="addTherapist"/>
+        <EditText
+            android:id="@+id/phone_number_add"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="text"
+            android:ems="10"
+            android:layout_gravity="left"
+            android:capitalize="words"/>
 
-</LinearLayout>
+        <Button
+            android:text="@string/add"
+            android:minEms="8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/healthrecord_button"
+            android:drawableRight="@drawable/plus"
+            android:textColor="@color/title_button_text_color"
+            android:textStyle="bold"
+            android:onClick="addTherapist"/>
+
+    </LinearLayout>
+</ScrollView>

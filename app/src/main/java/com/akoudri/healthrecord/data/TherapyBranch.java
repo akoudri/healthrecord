@@ -6,8 +6,8 @@ package com.akoudri.healthrecord.data;
 public class TherapyBranch {
 
     private int id;
-    private String lang;
-    private String name;
+    private String en;
+    private String fr;
 
     public int getId() {
         return id;
@@ -17,21 +17,21 @@ public class TherapyBranch {
         this.id = id;
     }
 
-    public String getLang() {
-        return lang;
+    public String getEn() {
+        return en;
     }
 
-    public void setLang(String lang) {
-        this.lang = lang;
+    public void setEn(String en) {
+        this.en = en;
     }
 
 
-    public String getName() {
-        return name;
+    public String getFr() {
+        return fr;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFr(String fr) {
+        this.fr = fr;
     }
 
 }

@@ -53,7 +53,7 @@ public class PersonTherapistTable {
     {
         List<Integer> res = new ArrayList<Integer>();
         Cursor cursor = db.query(PERSON_THERAPIST_TABLE, personTherapistCols,
-                null, null, null, null, null);
+                PERSON_REF + "=" + personId, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {

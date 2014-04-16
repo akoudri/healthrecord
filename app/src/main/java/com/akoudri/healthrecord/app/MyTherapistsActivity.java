@@ -44,8 +44,6 @@ public class MyTherapistsActivity extends ActionBarActivity {
         layout = (GridLayout) findViewById(R.id.my_therapists_grid);
         personId = getIntent().getIntExtra("personId", 0);
         retrievePerson();
-        //layout.setVerticalScrollBarEnabled(true); //FIXME: does not work
-        //layout.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
         populateWidgets();
     }
 
@@ -90,16 +88,16 @@ public class MyTherapistsActivity extends ActionBarActivity {
         for (final Therapist p : allTherapists)
         {
             final int id = p.getId();
-            branchId = p.getBranchId();
             try {
                 dataSource.open();
-                branch = dataSource.getTherapyBranchTable().getBranchWithId(branchId);
+                branch = dataSource.getTherapyBranchTable().getBranchWithId(p.getBranchId());
                 dataSource.close();
             } catch (SQLException ex)
             {
                 ex.printStackTrace();
             }
-            if (lang.startsWith("Fr"))
+            //FIXME: See if we can improve this
+            if (lang.toLowerCase().startsWith("fr"))
                 therapyBranch = branch.getFr();
             else
                 therapyBranch = branch.getEn();
@@ -109,6 +107,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
             editButton = new Button(this);
             editButton.setText(p.getFirstName() + " " +
                     p.getLastName() + "\n" + therapyBranch);
+            editButton.setTextSize(16);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setMinEms(8);
             editButton.setMaxEms(8);

@@ -1,10 +1,13 @@
 package com.akoudri.healthrecord.app;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.Menu;
@@ -29,7 +32,9 @@ public class MainActivity extends ActionBarActivity {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
-    private boolean dbLoaded = false;
+    private static final String dbLoaded = "DB_LOADED";
+
+    private SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +43,27 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         dataSource = new HealthRecordDataSource(this);
         layout = (GridLayout) findViewById(R.id.person_grid);
-        //layout.setVerticalScrollBarEnabled(true); //FIXME: does not work
-        //layout.setVerticalScrollbarPosition(View.SCROLLBAR_POSITION_RIGHT);
-        //FIXME: for debug purpose only
-        if (!dbLoaded) preloadDb();
+        Context context = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean isDbLoaded = prefs.getBoolean(dbLoaded, false);
+        if (!isDbLoaded)
+        {
+            preloadDb();
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean(dbLoaded, true);
+            editor.commit();
+        }
         populateWidgets();
     }
 
-    //FIXME: for debug purpose only
+    //TODO: complete the loading of default tuples into the DB
+    //It is called once
     private void preloadDb() {
         try {
             dataSource.open();
             dataSource.getPersonTable().insertPerson("Ali", "Koudri", Gender.MALE, "ssn1", BloodType.APLUS, "27/08/1974");
             dataSource.getTherapyBranchTable().insertTherapyBranch("Generalist", "Généraliste");
+            dataSource.getTherapyBranchTable().insertTherapyBranch("Pediatritian", "Pédiatre");
             dataSource.getTherapistTable().insertTherapist("Hocine", "Koudri", "0169386556", 1);
             dataSource.getPersonTherapistTable().insertRelation(1,1);
             dataSource.close();
@@ -58,7 +71,6 @@ public class MainActivity extends ActionBarActivity {
         {
             ex.printStackTrace();
         }
-        dbLoaded = true;
     }
 
     //FIXME: should be called one time at first load only
@@ -96,6 +108,7 @@ public class MainActivity extends ActionBarActivity {
             editButton = new Button(this);
             editButton.setText(p.getFirstName() + " " + p.getLastName());
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            editButton.setTextSize(16);
             editButton.setMinEms(8);
             editButton.setMaxEms(8);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -122,7 +135,6 @@ public class MainActivity extends ActionBarActivity {
             colSpec = GridLayout.spec(1);
             removeButton = new ImageButton(this);
             removeButton.setBackgroundResource(R.drawable.remove);
-            //removeButton.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

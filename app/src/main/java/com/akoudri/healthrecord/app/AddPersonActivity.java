@@ -77,6 +77,7 @@ public class AddPersonActivity extends Activity {
         }
         String birthdate = birthdateET.getText().toString();
         //FIXME: check values before inserting
+        //FIXME: do not capitalize all letters
         try {
             dataSource.open();
             dataSource.getPersonTable().insertPerson(firstName.toUpperCase(), lastName.toUpperCase(),

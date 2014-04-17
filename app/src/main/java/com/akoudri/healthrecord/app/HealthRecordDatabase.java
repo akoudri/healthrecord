@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.akoudri.healthrecord.data.DeleteTherapistTrigger;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.TherapistTable;
@@ -21,6 +22,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private TherapyBranchTable therapyBranchTable;
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
+    private DeleteTherapistTrigger deleteTherapistTrigger;
 
     public HealthRecordDatabase(Context context)
     {
@@ -37,6 +39,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         therapistTable.createTherapistTable();
         personTherapistTable = new PersonTherapistTable(db);
         personTherapistTable.createPersonTherapistTable();
+        deleteTherapistTrigger = new DeleteTherapistTrigger(db);
+        deleteTherapistTrigger.createDeleteTherapistTrigger();
     }
 
     @Override
@@ -46,6 +50,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE );
         db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE );
         db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE );
+        db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIGGER);
         onCreate(db);
     }
 }

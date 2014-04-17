@@ -26,10 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords"
             android:ems="10"
-            android:layout_gravity="left"
-            android:capitalize="words"/>
+            android:layout_gravity="left"/>
 
         <TextView
             android:text="@string/last_name"
@@ -46,10 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords"
             android:ems="10"
-            android:layout_gravity="left"
-            android:capitalize="words" />
+            android:layout_gravity="left"/>
 
         <TextView
             android:text="@string/birthdate"
@@ -102,8 +100,7 @@
             android:layout_margin="5dp"
             android:inputType="text"
             android:ems="10"
-            android:layout_gravity="left"
-            android:capitalize="words"/>
+            android:layout_gravity="left"/>
 
         <TextView
             android:text="@string/gender"

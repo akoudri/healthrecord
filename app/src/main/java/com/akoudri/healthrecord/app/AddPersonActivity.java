@@ -80,7 +80,7 @@ public class AddPersonActivity extends Activity {
         //FIXME: do not capitalize all letters
         try {
             dataSource.open();
-            dataSource.getPersonTable().insertPerson(firstName.toUpperCase(), lastName.toUpperCase(),
+            dataSource.getPersonTable().insertPerson(firstName, lastName,
                     gender, ssn, bt, birthdate);
             dataSource.close();
         } catch (SQLException ex)

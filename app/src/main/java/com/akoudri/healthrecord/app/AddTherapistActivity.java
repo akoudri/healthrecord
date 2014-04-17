@@ -18,12 +18,11 @@ import com.akoudri.healthrecord.data.TherapyBranch;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class AddTherapistActivity extends Activity {
 
-    private EditText firstNameET, lastNameET;
+    private EditText firstNameET, lastNameET, phoneNumberET;
     private AutoCompleteTextView specialityET;
     private Spinner thSpinner;
     private HealthRecordDataSource dataSource;
@@ -31,19 +30,20 @@ public class AddTherapistActivity extends Activity {
     private List<Therapist> otherTherapists;
     private List<TherapyBranch> branches;
     private Person person;
-    private String lang;
+    //private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_therapist);
+        thSpinner = (Spinner) findViewById(R.id.thchoice_add);
         firstNameET = (EditText) findViewById(R.id.first_name_add_therapist);
         lastNameET = (EditText) findViewById(R.id.last_name_add_therapist);
         specialityET = (AutoCompleteTextView) findViewById(R.id.speciality_add);
-        thSpinner = (Spinner) findViewById(R.id.thchoice_add);
+        phoneNumberET = (EditText) findViewById(R.id.phone_number_add);
         dataSource = new HealthRecordDataSource(this);
-        lang = Locale.getDefault().getDisplayName();
+        //lang = Locale.getDefault().getDisplayName();
         personId = getIntent().getIntExtra("personId", 1);
         retrievePerson();
         retrieveBranches();
@@ -62,26 +62,21 @@ public class AddTherapistActivity extends Activity {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                if (lang.toLowerCase().startsWith("fr"))
-                    therapyBranchStr = branch.getFr();
-                else
-                    therapyBranchStr = branch.getEn();
+                therapyBranchStr = branch.getName();
                 otherTherapistsStr[i++] = t.getFirstName() + " " + t.getLastName() + " - " +
                         therapyBranchStr;
             }
         }
         else
         {
-            if (lang.toLowerCase().startsWith("fr"))
-                otherTherapistsStr = new String[]{"Pas d'autres spécialistes"};//FIXME: use XML
-            else
-                otherTherapistsStr = new String[]{"No other therapists"};//FIXME: use XML
+            String s = getResources().getString(R.string.no_other_therapist);
+            otherTherapistsStr = new String[]{s};
             //TODO: deactivate add button
         }
         ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, otherTherapistsStr);
         thSpinner.setAdapter(thChoicesAdapter);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, getBranches(lang));
+                android.R.layout.simple_dropdown_item_1line, getBranches());
         specialityET.setThreshold(1);
         specialityET.setAdapter(adapter);
     }
@@ -91,10 +86,17 @@ public class AddTherapistActivity extends Activity {
         String firstName = firstNameET.getText().toString();
         String lastName = lastNameET.getText().toString();
         String speciality = specialityET.getText().toString();
+        String phoneNumber = phoneNumberET.getText().toString();
         //FIXME: check values before inserting
         try {
             dataSource.open();
-            //TODO
+            int branchId = dataSource.getTherapyBranchTable().getBranchId(speciality);
+            if (branchId < 0)
+            {
+                branchId = (int) dataSource.getTherapyBranchTable().insertTherapyBranch(speciality);
+            }
+            int thId = (int) dataSource.getTherapistTable().insertTherapist(firstName, lastName, phoneNumber, branchId);
+            dataSource.getPersonTherapistTable().insertRelation(personId, thId);
             dataSource.close();
         } catch (SQLException ex)
         {
@@ -105,7 +107,17 @@ public class AddTherapistActivity extends Activity {
 
     public void addExistingTherapist(View view)
     {
-        //TODO
+        int thIdx = thSpinner.getSelectedItemPosition();
+        Therapist th = otherTherapists.get(thIdx);
+        try {
+            dataSource.open();
+            dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
+            dataSource.close();
+        } catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finish();
     }
 
     private void retrievePerson()
@@ -131,16 +143,13 @@ public class AddTherapistActivity extends Activity {
         }
     }
 
-    private String[] getBranches(String lang)
+    private String[] getBranches()
     {
         String[] res = new String[branches.size()];
         int i = 0;
         for (TherapyBranch b : branches)
         {
-            if (lang.toLowerCase().startsWith("fr"))
-                res[i++] = b.getFr();
-            else
-                res[i++] = b.getEn();
+            res[i++] = b.getName();
         }
         return res;
     }
@@ -150,13 +159,15 @@ public class AddTherapistActivity extends Activity {
             dataSource.open();
             //retrieve all therapists
             otherTherapists = dataSource.getTherapistTable().getAllTherapists();
+            List<Therapist> otherTherapistsTmp = new ArrayList<Therapist>();
+            otherTherapistsTmp.addAll(otherTherapists);
             //and then remove from the list those who are already therapist for current person
             List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
             Therapist t;
             for (Integer i : myTherapistIds)
             {
                 t = dataSource.getTherapistTable().getTherapistWithId(i);
-                for (Therapist th : otherTherapists)
+                for (Therapist th : otherTherapistsTmp)
                 {
                     if (th.getFirstName().equalsIgnoreCase(t.getFirstName()) &&
                         th.getLastName().equalsIgnoreCase(t.getLastName()))

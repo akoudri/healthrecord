@@ -33,5 +33,11 @@
     <string name="phoneNumber">Phone Number</string>
     <string name="add_therapist">Add Therapist</string>
     <string name="my_therapists">My Therapists</string>
+    <string name="no_other_therapist">No other therapist</string>
+    <string-array name="branches">
+        <item>Generalist</item>
+        <item>Pediatrician</item>
+        <item>Physiotherapist</item>
+    </string-array>
 
 </resources>

@@ -17,10 +17,9 @@ public class TherapyBranchTable {
     //Table
     public static final String THERAPYBRANCH_TABLE = "therapybranch";
     public static final String THERAPYBRANCH_ID = "_id";
-    public static final String THERAPYBRANCH_EN = "en";
-    public static final String THERAPYBRANCH_FR = "fr";
+    public static final String THERAPYBRANCH_NAME = "name";
 
-    private String[] therapybranchCols = {THERAPYBRANCH_ID, THERAPYBRANCH_EN, THERAPYBRANCH_FR};
+    private String[] therapybranchCols = {THERAPYBRANCH_ID, THERAPYBRANCH_NAME};
 
     public TherapyBranchTable(SQLiteDatabase db)
     {
@@ -32,18 +31,15 @@ public class TherapyBranchTable {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists " + THERAPYBRANCH_TABLE + " (");
         sb.append(THERAPYBRANCH_ID + " integer primary key autoincrement,");
-        sb.append(THERAPYBRANCH_EN + " text not null,");
-        sb.append(THERAPYBRANCH_FR + " text not null,");
-        sb.append("unique(" + THERAPYBRANCH_EN + ", " + THERAPYBRANCH_FR + ")");
+        sb.append(THERAPYBRANCH_NAME + " text not null unique");
         sb.append(");");
         db.execSQL(sb.toString());
     }
 
-    public long insertTherapyBranch(String en, String fr)
+    public long insertTherapyBranch(String name)
     {
         ContentValues values = new ContentValues();
-        values.put(THERAPYBRANCH_EN, en);
-        values.put(THERAPYBRANCH_FR, fr);
+        values.put(THERAPYBRANCH_NAME, name);
         return db.insert(THERAPYBRANCH_TABLE, null, values);
     }
 
@@ -70,12 +66,20 @@ public class TherapyBranchTable {
         return null;
     }
 
+    public int getBranchId(String branchName)
+    {
+        Cursor cursor = db.query(THERAPYBRANCH_TABLE, therapybranchCols,
+                THERAPYBRANCH_NAME + "='" + branchName + "'", null, null, null, null);
+        if (cursor.moveToFirst())
+            return cursor.getInt(0);
+        return -1; //branch name not found
+    }
+
     private TherapyBranch cursorToTherapyBranch(Cursor cursor)
     {
         TherapyBranch tb = new TherapyBranch();
         tb.setId(cursor.getInt(0));
-        tb.setEn(cursor.getString(1));
-        tb.setFr(cursor.getString(2));
+        tb.setName(cursor.getString(1));
         return tb;
     }
 

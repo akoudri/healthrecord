@@ -1,5 +1,7 @@
 package com.akoudri.healthrecord.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -21,7 +23,6 @@ import com.akoudri.healthrecord.data.TherapyBranch;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class MyTherapistsActivity extends ActionBarActivity {
@@ -32,14 +33,14 @@ public class MyTherapistsActivity extends ActionBarActivity {
     private GridLayout.Spec rowSpec, colSpec;
     private int personId;
     private Person person;
-    private String lang;
+    //private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_my_therapists);
-        lang = Locale.getDefault().getDisplayName();
+        //lang = Locale.getDefault().getDisplayName();
         dataSource = new HealthRecordDataSource(this);
         layout = (GridLayout) findViewById(R.id.my_therapists_grid);
         personId = getIntent().getIntExtra("personId", 0);
@@ -96,11 +97,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
             {
                 ex.printStackTrace();
             }
-            //FIXME: See if we can improve this
-            if (lang.toLowerCase().startsWith("fr"))
-                therapyBranch = branch.getFr();
-            else
-                therapyBranch = branch.getEn();
+            therapyBranch = branch.getName();
             //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
@@ -136,8 +133,6 @@ public class MyTherapistsActivity extends ActionBarActivity {
             colSpec = GridLayout.spec(1);
             removeButton = new ImageButton(this);
             removeButton.setBackgroundResource(R.drawable.remove);
-            //removeButton.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-            /*
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,14 +140,16 @@ public class MyTherapistsActivity extends ActionBarActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle(R.string.removing)
                             .setMessage(getResources().getString(R.string.remove_question)
-                                    + " " + p.getFirstName() + "?")
+                                    + " " + p.getLastName() + "?")
                             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     try {
                                         dataSource.open();
-                                        dataSource.getPersonTable().removePersonWithId(id);
+                                        //FIXME: delete therapist if not involved in any relation
+                                        //Use triggers for that
+                                        dataSource.getPersonTherapistTable().removeRelation(personId, p.getId());
                                         populateWidgets();
                                         dataSource.close();
                                     } catch (SQLException ex) {
@@ -164,7 +161,6 @@ public class MyTherapistsActivity extends ActionBarActivity {
                             .show();
                 }
             });
-            */
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;

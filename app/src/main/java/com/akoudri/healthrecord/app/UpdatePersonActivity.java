@@ -143,7 +143,7 @@ public class UpdatePersonActivity extends Activity {
         //FIXME: check values before inserting
         try {
             dataSource.open();
-            dataSource.getPersonTable().updatePerson(person.getId(), firstName.toUpperCase(), lastName.toUpperCase(),
+            dataSource.getPersonTable().updatePerson(person.getId(), firstName, lastName,
                     gender, ssn, bt, birthdate);
             dataSource.close();
         } catch (SQLException ex)

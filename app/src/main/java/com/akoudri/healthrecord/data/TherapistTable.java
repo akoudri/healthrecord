@@ -34,7 +34,7 @@ public class TherapistTable {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists " + THERAPIST_TABLE + " (");
         sb.append(THERAPIST_ID + " integer primary key autoincrement,");
-        sb.append(THERAPIST_FIRSTNAME + " text,");
+        sb.append(THERAPIST_FIRSTNAME + " text not null,");
         sb.append(THERAPIST_LASTNAME + " text not null,");
         sb.append(THERAPIST_PHONENUMBER + " text,");
         sb.append(THERAPIST_BRANCHID + " integer not null,");

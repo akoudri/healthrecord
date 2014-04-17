@@ -59,11 +59,15 @@ public class MainActivity extends ActionBarActivity {
     //TODO: complete the loading of default tuples into the DB
     //It is called once
     private void preloadDb() {
+        String[] branches = getResources().getStringArray(R.array.branches);
         try {
             dataSource.open();
             dataSource.getPersonTable().insertPerson("Ali", "Koudri", Gender.MALE, "ssn1", BloodType.APLUS, "27/08/1974");
-            dataSource.getTherapyBranchTable().insertTherapyBranch("Generalist", "Généraliste");
-            dataSource.getTherapyBranchTable().insertTherapyBranch("Pediatritian", "Pédiatre");
+            //Insertion from xml
+            for (String b : branches)
+            {
+                dataSource.getTherapyBranchTable().insertTherapyBranch(b);
+            }
             dataSource.getTherapistTable().insertTherapist("Hocine", "Koudri", "0169386556", 1);
             dataSource.getPersonTherapistTable().insertRelation(1,1);
             dataSource.close();

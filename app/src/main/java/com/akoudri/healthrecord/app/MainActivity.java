@@ -154,6 +154,7 @@ public class MainActivity extends ActionBarActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     try {
                                         dataSource.open();
+                                        dataSource.getPersonTherapistTable().removePersonRelations(id);
                                         dataSource.getPersonTable().removePersonWithId(id);
                                         populateWidgets();
                                         dataSource.close();

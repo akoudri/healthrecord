@@ -55,6 +55,12 @@ public class PersonTherapistTable {
         return db.delete(PERSON_THERAPIST_TABLE, req, null) > 0;
     }
 
+    public boolean removePersonRelations(int personId)
+    {
+        String req = PERSON_REF + "=" + personId;
+        return db.delete(PERSON_THERAPIST_TABLE, req, null) > 0;
+    }
+
     public List<Integer> getTherapistIdsForPersonId(int personId)
     {
         List<Integer> res = new ArrayList<Integer>();

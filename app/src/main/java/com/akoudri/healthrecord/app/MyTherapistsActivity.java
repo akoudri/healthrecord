@@ -108,7 +108,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
             editButton.setMinEms(8);
             editButton.setMaxEms(8);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            Drawable img = getResources().getDrawable(R.drawable.plume);
+            Drawable img = getResources().getDrawable(R.drawable.doctor);
             editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             /*
             editButton.setOnClickListener(new View.OnClickListener() {

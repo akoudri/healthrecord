@@ -62,14 +62,11 @@ public class MainActivity extends ActionBarActivity {
         String[] branches = getResources().getStringArray(R.array.branches);
         try {
             dataSource.open();
-            dataSource.getPersonTable().insertPerson("Ali Koudri", Gender.MALE, "ssn1", BloodType.APLUS, "27/08/1974");
             //Insertion from xml
             for (String b : branches)
             {
                 dataSource.getTherapyBranchTable().insertTherapyBranch(b);
             }
-            dataSource.getTherapistTable().insertTherapist("Hocine Koudri", "0169386556", 1);
-            dataSource.getPersonTherapistTable().insertRelation(1,1);
             dataSource.close();
         } catch (SQLException ex)
         {
@@ -117,7 +114,7 @@ public class MainActivity extends ActionBarActivity {
             editButton.setMaxEms(8);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             //editButton.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-            Drawable img = getResources().getDrawable(R.drawable.plume);
+            Drawable img = getResources().getDrawable(R.drawable.heart);
             editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override

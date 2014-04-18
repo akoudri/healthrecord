@@ -39,7 +39,7 @@ public class PersonTable {
         sb.append(PERSON_ID + " integer primary key autoincrement,");
         sb.append(PERSON_NAME + " text not null unique,");
         sb.append(PERSON_GENDER + " int not null,");
-        sb.append(PERSON_SSN + " string unique,");
+        sb.append(PERSON_SSN + " text unique,");
         sb.append(PERSON_BLOODTYPE + " int,");
         sb.append(PERSON_BIRTHDATE + " text not null");
         sb.append(");");

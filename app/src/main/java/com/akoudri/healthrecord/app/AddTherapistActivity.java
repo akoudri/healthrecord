@@ -93,7 +93,10 @@ public class AddTherapistActivity extends Activity {
                 branchId = (int) dataSource.getTherapyBranchTable().insertTherapyBranch(speciality);
             }
             int thId = (int) dataSource.getTherapistTable().insertTherapist(name, phoneNumber, branchId);
-            dataSource.getPersonTherapistTable().insertRelation(personId, thId);
+            if (thId >= 0)
+            {
+                dataSource.getPersonTherapistTable().insertRelation(personId, thId);
+            }
             dataSource.close();
         } catch (SQLException ex)
         {

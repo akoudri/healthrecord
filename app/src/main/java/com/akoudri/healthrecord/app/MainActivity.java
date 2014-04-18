@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import com.akoudri.healthrecord.data.BloodType;
+import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 
 import java.sql.SQLException;
@@ -65,6 +67,10 @@ public class MainActivity extends ActionBarActivity {
             for (String b : branches)
             {
                 dataSource.getTherapyBranchTable().insertTherapyBranch(b);
+                //FIXME: for debug only - to remove
+                dataSource.getPersonTable().insertPerson("Ali", Gender.MALE, "ssn1", BloodType.ABPLUS, "27/08/1974");
+                dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);
+                dataSource.getPersonTherapistTable().insertRelation(1,1);
             }
             dataSource.close();
         } catch (SQLException ex)

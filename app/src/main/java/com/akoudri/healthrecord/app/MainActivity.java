@@ -23,6 +23,7 @@ import com.akoudri.healthrecord.data.Person;
 import java.sql.SQLException;
 import java.util.List;
 
+//FIXME: for all classes, provide a better management of exceptions
 
 public class MainActivity extends ActionBarActivity {
 
@@ -72,7 +73,6 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    //FIXME: should be called one time at first load only
     private void populateWidgets()
     {
         layout.removeAllViews();

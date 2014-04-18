@@ -27,7 +27,7 @@ public class AddPersonActivity extends Activity {
 
     private Spinner btSpinner;
     private RadioGroup genderRG;
-    private EditText firstNameET, lastNameET, birthdateET, ssnET;
+    private EditText nameET, birthdateET, ssnET;
     private HealthRecordDataSource dataSource;
 
     @Override
@@ -40,8 +40,7 @@ public class AddPersonActivity extends Activity {
         btSpinner = (Spinner) findViewById(R.id.btchoice_add);
         btSpinner.setAdapter(btChoicesAdapter);
         btSpinner.setSelection(8);
-        firstNameET = (EditText) findViewById(R.id.first_name_add);
-        lastNameET = (EditText) findViewById(R.id.last_name_add);
+        nameET = (EditText) findViewById(R.id.name_add);
         genderRG = (RadioGroup) findViewById(R.id.gender_add);
         ssnET = (EditText) findViewById(R.id.ssn_add);
         birthdateET = (EditText) findViewById(R.id.birthdate_add);
@@ -50,8 +49,7 @@ public class AddPersonActivity extends Activity {
 
     public void addPerson(View view)
     {
-        String firstName = firstNameET.getText().toString();
-        String lastName = lastNameET.getText().toString();
+        String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
         Gender gender;
@@ -80,8 +78,7 @@ public class AddPersonActivity extends Activity {
         //FIXME: do not capitalize all letters
         try {
             dataSource.open();
-            dataSource.getPersonTable().insertPerson(firstName, lastName,
-                    gender, ssn, bt, birthdate);
+            dataSource.getPersonTable().insertPerson(name, gender, ssn, bt, birthdate);
             dataSource.close();
         } catch (SQLException ex)
         {

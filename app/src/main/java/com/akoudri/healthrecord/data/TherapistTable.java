@@ -17,12 +17,12 @@ public class TherapistTable {
     //Table
     public static final String THERAPIST_TABLE = "therapist";
     public static final String THERAPIST_ID = "_id";
-    public static final String THERAPIST_FIRSTNAME = "firstName";
-    public static final String THERAPIST_LASTNAME = "lastName";
+    public static final String THERAPIST_NAME = "name";
     public static final String THERAPIST_PHONENUMBER = "phoneNumber";
     public static final String THERAPIST_BRANCHID = "branchId";
 
-    private String[] therapistCols = {THERAPIST_ID, THERAPIST_FIRSTNAME,THERAPIST_LASTNAME,THERAPIST_PHONENUMBER, THERAPIST_BRANCHID};
+    private String[] therapistCols = {THERAPIST_ID, THERAPIST_NAME,
+            THERAPIST_PHONENUMBER, THERAPIST_BRANCHID};
 
     public TherapistTable(SQLiteDatabase db)
     {
@@ -34,22 +34,19 @@ public class TherapistTable {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists " + THERAPIST_TABLE + " (");
         sb.append(THERAPIST_ID + " integer primary key autoincrement,");
-        sb.append(THERAPIST_FIRSTNAME + " text not null,");
-        sb.append(THERAPIST_LASTNAME + " text not null,");
+        sb.append(THERAPIST_NAME + " text not null unique,");
         sb.append(THERAPIST_PHONENUMBER + " text,");
         sb.append(THERAPIST_BRANCHID + " integer not null,");
-        sb.append("unique(" + THERAPIST_FIRSTNAME + "," + THERAPIST_LASTNAME + "),");
         sb.append("foreign key(" + THERAPIST_BRANCHID + ") references "
                 + TherapyBranchTable.THERAPYBRANCH_TABLE + "(" + TherapyBranchTable.THERAPYBRANCH_ID + ")");
         sb.append(");");
         db.execSQL(sb.toString());
     }
 
-    public long insertTherapist(String firstName,String lastName, String phoneNumber, int branchId)
+    public long insertTherapist(String name, String phoneNumber, int branchId)
     {
         ContentValues values = new ContentValues();
-        values.put(THERAPIST_FIRSTNAME, firstName);
-        values.put(THERAPIST_LASTNAME, lastName);
+        values.put(THERAPIST_NAME, name);
         values.put(THERAPIST_PHONENUMBER, phoneNumber);
         values.put(THERAPIST_BRANCHID, branchId);
         return db.insert(THERAPIST_TABLE, null, values);
@@ -82,10 +79,9 @@ public class TherapistTable {
     {
         Therapist e = new Therapist();
         e.setId(cursor.getInt(0));
-        e.setFirstName(cursor.getString(1));
-        e.setLastName(cursor.getString(2));
-        e.setPhoneNumber(cursor.getString(3));
-        e.setBranchId(cursor.getInt(4));
+        e.setName(cursor.getString(1));
+        e.setPhoneNumber(cursor.getString(2));
+        e.setBranchId(cursor.getInt(3));
         return e;
     }
 

@@ -46,11 +46,11 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //FIXME: this first version simply removes the old tables
-        db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE );
-        db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE );
-        db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE );
-        db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE );
         db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIGGER);
+        db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE );
+        db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE );
+        db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE );
+        db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE );
         onCreate(db);
     }
 }

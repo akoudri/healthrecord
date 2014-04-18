@@ -102,8 +102,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
             editButton = new Button(this);
-            editButton.setText(p.getFirstName() + " " +
-                    p.getLastName() + "\n" + therapyBranch);
+            editButton.setText(p.getName() + "\n" + therapyBranch);
             editButton.setTextSize(16);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setMinEms(8);
@@ -140,7 +139,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle(R.string.removing)
                             .setMessage(getResources().getString(R.string.remove_question)
-                                    + " " + p.getLastName() + "?")
+                                    + " " + p.getName() + "?")
                             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
                             {
                                 @Override

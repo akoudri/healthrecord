@@ -22,7 +22,7 @@ import java.util.List;
 
 public class AddTherapistActivity extends Activity {
 
-    private EditText firstNameET, lastNameET, phoneNumberET;
+    private EditText nameET, phoneNumberET;
     private AutoCompleteTextView specialityET;
     private Spinner thSpinner;
     private HealthRecordDataSource dataSource;
@@ -38,8 +38,7 @@ public class AddTherapistActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_add_therapist);
         thSpinner = (Spinner) findViewById(R.id.thchoice_add);
-        firstNameET = (EditText) findViewById(R.id.first_name_add_therapist);
-        lastNameET = (EditText) findViewById(R.id.last_name_add_therapist);
+        nameET = (EditText) findViewById(R.id.name_add_therapist);
         specialityET = (AutoCompleteTextView) findViewById(R.id.speciality_add);
         phoneNumberET = (EditText) findViewById(R.id.phone_number_add);
         dataSource = new HealthRecordDataSource(this);
@@ -63,8 +62,7 @@ public class AddTherapistActivity extends Activity {
                     ex.printStackTrace();
                 }
                 therapyBranchStr = branch.getName();
-                otherTherapistsStr[i++] = t.getFirstName() + " " + t.getLastName() + " - " +
-                        therapyBranchStr;
+                otherTherapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
             }
         }
         else
@@ -83,8 +81,7 @@ public class AddTherapistActivity extends Activity {
 
     public void addTherapist(View view)
     {
-        String firstName = firstNameET.getText().toString();
-        String lastName = lastNameET.getText().toString();
+        String name = nameET.getText().toString();
         String speciality = specialityET.getText().toString();
         String phoneNumber = phoneNumberET.getText().toString();
         //FIXME: check values before inserting
@@ -95,7 +92,7 @@ public class AddTherapistActivity extends Activity {
             {
                 branchId = (int) dataSource.getTherapyBranchTable().insertTherapyBranch(speciality);
             }
-            int thId = (int) dataSource.getTherapistTable().insertTherapist(firstName, lastName, phoneNumber, branchId);
+            int thId = (int) dataSource.getTherapistTable().insertTherapist(name, phoneNumber, branchId);
             dataSource.getPersonTherapistTable().insertRelation(personId, thId);
             dataSource.close();
         } catch (SQLException ex)
@@ -160,6 +157,7 @@ public class AddTherapistActivity extends Activity {
             //retrieve all therapists
             otherTherapists = dataSource.getTherapistTable().getAllTherapists();
             List<Therapist> otherTherapistsTmp = new ArrayList<Therapist>();
+            //FIXME: use iterator instead
             otherTherapistsTmp.addAll(otherTherapists);
             //and then remove from the list those who are already therapist for current person
             List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
@@ -169,8 +167,7 @@ public class AddTherapistActivity extends Activity {
                 t = dataSource.getTherapistTable().getTherapistWithId(i);
                 for (Therapist th : otherTherapistsTmp)
                 {
-                    if (th.getFirstName().equalsIgnoreCase(t.getFirstName()) &&
-                        th.getLastName().equalsIgnoreCase(t.getLastName()))
+                    if (th.getName().equalsIgnoreCase(t.getName()))
                     {
                         otherTherapists.remove(th);
                     }

@@ -4,8 +4,7 @@
     <string name="app_name">Carnet de Santé</string>
     <string name="add_person">Ajouter Personne</string>
     <string name="add">Ajouter</string>
-    <string name="first_name">Prénom</string>
-    <string name="last_name">Nom</string>
+    <string name="name">Nom</string>
     <string name="birthdate">Date de Naissance</string>
     <string name="action_settings">Configuration</string>
     <string name="gender">Sexe</string>

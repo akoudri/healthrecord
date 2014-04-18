@@ -27,7 +27,7 @@ import java.util.Calendar;
 public class UpdatePersonActivity extends Activity {
 
     private Spinner btSpinner;
-    private EditText firstNameET, lastNameET, birthdateET, ssnET;
+    private EditText nameET, birthdateET, ssnET;
     private RadioGroup genderRG;
     private RadioButton maleBtn, femaleBtn;
     private HealthRecordDataSource dataSource;
@@ -45,8 +45,7 @@ public class UpdatePersonActivity extends Activity {
         btSpinner = (Spinner) findViewById(R.id.btchoice_update);
         btSpinner.setAdapter(btChoicesAdapter);
         btSpinner.setSelection(8);
-        firstNameET = (EditText) findViewById(R.id.first_name_update);
-        lastNameET = (EditText) findViewById(R.id.last_name_update);
+        nameET = (EditText) findViewById(R.id.name_update);
         genderRG = (RadioGroup) findViewById(R.id.gender_update);
         ssnET = (EditText) findViewById(R.id.ssn_update);
         maleBtn = (RadioButton) findViewById(R.id.male_update);
@@ -60,8 +59,7 @@ public class UpdatePersonActivity extends Activity {
     private void populateWidgets()
     {
         if (person == null) return;
-        firstNameET.setText(person.getFirstName());
-        lastNameET.setText(person.getLastName());
+        nameET.setText(person.getName());
         switch (person.getGender())
         {
             case MALE: maleBtn.setChecked(true); break;
@@ -114,8 +112,7 @@ public class UpdatePersonActivity extends Activity {
     public void updatePerson(View view)
     {
         //FIXME: check values before inserting
-        String firstName = firstNameET.getText().toString();
-        String lastName = lastNameET.getText().toString();
+        String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
         Gender gender;
@@ -143,7 +140,7 @@ public class UpdatePersonActivity extends Activity {
         //FIXME: check values before inserting
         try {
             dataSource.open();
-            dataSource.getPersonTable().updatePerson(person.getId(), firstName, lastName,
+            dataSource.getPersonTable().updatePerson(person.getId(), name,
                     gender, ssn, bt, birthdate);
             dataSource.close();
         } catch (SQLException ex)

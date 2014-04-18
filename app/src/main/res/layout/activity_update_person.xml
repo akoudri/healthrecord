@@ -12,7 +12,7 @@
     android:alignmentMode="alignBounds">
 
     <TextView
-        android:text="@string/first_name"
+        android:text="@string/name"
         android:textColor="@color/regular_text_color"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -21,26 +21,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/first_name_update"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:inputType="textCapWords"
-        android:ems="10"
-        android:layout_gravity="left"/>
-
-    <TextView
-        android:text="@string/last_name"
-        android:textColor="@color/regular_text_color"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="5dp"
-        android:layout_gravity="left"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/last_name_update"
+        android:id="@+id/name_update"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

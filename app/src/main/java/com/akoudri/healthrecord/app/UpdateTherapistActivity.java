@@ -9,14 +9,11 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Spinner;
 
-import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 

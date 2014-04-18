@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity {
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
     private static final String dbLoaded = "DB_LOADED";
-
     private SharedPreferences prefs;
 
     @Override

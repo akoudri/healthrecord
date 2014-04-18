@@ -19,9 +19,9 @@
     <string name="manage_ailments">Mes Maladies</string>
     <string name="manage_treatments">Mes Traitements</string>
     <string name="manage_appointments">Mes RV Médicaux</string>
-    <string name="manage_measures">Mes Mesures Personnelles</string>
-    <string name="personal_analysis">Mon Analyse</string>
-    <string name="personal_data">Mes Données Personnelles</string>
+    <string name="manage_measures">Mes Mesures</string>
+    <string name="personal_analysis">Mes Statistiques</string>
+    <string name="personal_data">Mes Données</string>
     <string name="doctors">Mes spécialistes</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>

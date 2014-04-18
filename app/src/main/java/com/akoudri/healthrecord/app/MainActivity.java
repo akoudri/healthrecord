@@ -18,8 +18,6 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
-import com.akoudri.healthrecord.data.BloodType;
-import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 
 import java.sql.SQLException;

@@ -33,6 +33,7 @@
     <string name="add_therapist">Ajouter Spécialiste</string>
     <string name="my_therapists">Mes Spécialistes</string>
     <string name="no_other_therapist">Pas d\'autres spécialistes</string>
+    <string name="update_therapist">Mise à jour Spécialiste</string>
     <string-array name="branches">
         <item>Généraliste</item>
         <item>Pédiatre</item>

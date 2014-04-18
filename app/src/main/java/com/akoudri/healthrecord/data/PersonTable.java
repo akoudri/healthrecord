@@ -60,7 +60,7 @@ public class PersonTable {
         return db.insert(PERSON_TABLE, null, values);
     }
 
-    public boolean updatePerson(long personId, String name, Gender gender,
+    public boolean updatePerson(int personId, String name, Gender gender,
                                 String ssn, BloodType bloodType, String birthdate)
     {
         ContentValues values = new ContentValues();

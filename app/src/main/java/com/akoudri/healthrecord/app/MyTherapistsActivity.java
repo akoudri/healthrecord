@@ -110,16 +110,14 @@ public class MyTherapistsActivity extends ActionBarActivity {
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             Drawable img = getResources().getDrawable(R.drawable.doctor);
             editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
-            /*
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
-                    intent.putExtra("personId", id);
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.UpdateTherapist");
+                    intent.putExtra("therapistId", id);
                     startActivity(intent);
                 }
             });
-            */
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;

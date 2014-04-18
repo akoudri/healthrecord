@@ -64,6 +64,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".UpdateTherapistActivity"
+            android:label="@string/update_therapist" >
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.UpdateTherapist" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

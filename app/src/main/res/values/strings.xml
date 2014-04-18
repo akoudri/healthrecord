@@ -33,6 +33,7 @@
     <string name="add_therapist">Add Therapist</string>
     <string name="my_therapists">My Therapists</string>
     <string name="no_other_therapist">No other therapist</string>
+    <string name="update_therapist">Update Therapist</string>
     <string-array name="branches">
         <item>Generalist</item>
         <item>Pediatrician</item>

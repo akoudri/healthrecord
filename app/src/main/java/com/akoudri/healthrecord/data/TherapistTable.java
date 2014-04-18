@@ -52,6 +52,15 @@ public class TherapistTable {
         return db.insert(THERAPIST_TABLE, null, values);
     }
 
+    public boolean updateTherapist(int therapistId, String name, String phoneNumber, int branchId)
+    {
+        ContentValues values = new ContentValues();
+        values.put(THERAPIST_NAME, name);
+        values.put(THERAPIST_PHONENUMBER, phoneNumber);
+        values.put(THERAPIST_BRANCHID, branchId);
+        return db.update(THERAPIST_TABLE, values, THERAPIST_ID + "=" + therapistId, null) > 0;
+    }
+
     public List<Therapist> getAllTherapists()
     {
         List<Therapist> res = new ArrayList<Therapist>();

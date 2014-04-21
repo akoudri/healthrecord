@@ -39,5 +39,11 @@
         <item>Pediatrician</item>
         <item>Physiotherapist</item>
     </string-array>
+    <string name="size">Size</string>
+    <string name="weight">Weight</string>
+    <string name="temperature">Temperature</string>
+    <string name="glucose">Glucose</string>
+    <string name="heart">Heart</string>
+    <string name="cranialPerimeter">Cranial Perimeter</string>
 
 </resources>

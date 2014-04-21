@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg_color"
-    tools:context=".EditPersonActivity">
+    tools:context=".EditMeasuresActivity">
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -12,35 +12,9 @@
         android:orientation="vertical"
         android:alignmentMode="alignBounds">
         <Button
-            android:text="@string/personal_data"
+            android:text="@string/size"
             android:textStyle="bold"
-            android:drawableRight="@drawable/gear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/title_button_text_color"
-            android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="updatePerson"/>
-        <Button
-            android:text="@string/doctors"
-            android:textStyle="bold"
-            android:drawableRight="@drawable/doctor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/title_button_text_color"
-            android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="myTherapists"/>
-        <Button
-            android:text="@string/manage_ailments"
-            android:textStyle="bold"
-            android:drawableRight="@drawable/illness"
+            android:drawableRight="@drawable/ruler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -50,9 +24,9 @@
             android:background="@drawable/healthrecord_button"
             android:layout_gravity="center_horizontal"/>
         <Button
-            android:text="@string/manage_treatments"
+            android:text="@string/weight"
             android:textStyle="bold"
-            android:drawableRight="@drawable/medics"
+            android:drawableRight="@drawable/weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -62,9 +36,9 @@
             android:background="@drawable/healthrecord_button"
             android:layout_gravity="center_horizontal"/>
         <Button
-            android:text="@string/manage_appointments"
+            android:text="@string/temperature"
             android:textStyle="bold"
-            android:drawableRight="@drawable/rv"
+            android:drawableRight="@drawable/temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -74,9 +48,9 @@
             android:background="@drawable/healthrecord_button"
             android:layout_gravity="center_horizontal"/>
         <Button
-            android:text="@string/manage_measures"
+            android:text="@string/glucose"
             android:textStyle="bold"
-            android:drawableRight="@drawable/measure"
+            android:drawableRight="@drawable/sugar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -84,17 +58,28 @@
             android:layout_marginRight="10dp"
             android:textColor="@color/title_button_text_color"
             android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="editMeasures"/>
+            android:layout_gravity="center_horizontal"/>
         <Button
-            android:text="@string/personal_analysis"
-            android:drawableRight="@drawable/analysis"
+            android:text="@string/heart"
+            android:textStyle="bold"
+            android:drawableRight="@drawable/heart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:textColor="@color/title_button_text_color"
+            android:background="@drawable/healthrecord_button"
+            android:layout_gravity="center_horizontal"/>
+        <Button
+            android:text="@string/cranialPerimeter"
             android:textStyle="bold"
+            android:drawableRight="@drawable/skull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/title_button_text_color"
             android:background="@drawable/healthrecord_button"
             android:layout_gravity="center_horizontal"/>

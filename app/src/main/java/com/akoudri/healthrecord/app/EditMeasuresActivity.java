@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 
 
-public class EditPersonActivity extends Activity {
+public class EditMeasuresActivity extends Activity {
 
     private int personId = 0;
 
@@ -17,29 +17,8 @@ public class EditPersonActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_edit_person);
+        setContentView(R.layout.activity_edit_measures);
         personId = getIntent().getIntExtra("personId", 0);
-    }
-
-    public void updatePerson(View view)
-    {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.UpdatePerson");
-        intent.putExtra("personId", personId);
-        startActivity(intent);
-    }
-
-    public void myTherapists(View view)
-    {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.MyTherapists");
-        intent.putExtra("personId", personId);
-        startActivity(intent);
-    }
-
-    public void editMeasures(View view)
-    {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasures");
-        intent.putExtra("personId", personId);
-        startActivity(intent);
     }
 
     @Override

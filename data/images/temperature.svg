@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg13195"
+   viewBox="0 0 110 110"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   width="100%"
+   height="100%"
+   sodipodi:docname="temperature.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="750"
+     id="namedview4361"
+     showgrid="false"
+     inkscape:zoom="2.1454545"
+     inkscape:cx="55"
+     inkscape:cy="55"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg13195" />
+  <defs
+     id="defs13197">
+    <linearGradient
+       id="linearGradient12536"
+       y2="706.17"
+       gradientUnits="userSpaceOnUse"
+       x2="1480.7"
+       y1="706.17"
+       x1="1387">
+      <stop
+         id="stop9459"
+         stop-color="#d0d0d0"
+         offset="0" />
+      <stop
+         id="stop9461"
+         stop-color="#f2f2f2"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient12538"
+       y2="711.48"
+       gradientUnits="userSpaceOnUse"
+       x2="798.3"
+       gradientTransform="translate(610.33,-19.625)"
+       y1="712.36"
+       x1="849.13">
+      <stop
+         id="stop9335"
+         stop-color="#a00"
+         offset="0" />
+      <stop
+         id="stop9337"
+         stop-color="#f55"
+         offset="1" />
+    </linearGradient>
+    <radialGradient
+       id="radialGradient12540"
+       gradientUnits="userSpaceOnUse"
+       cy="806.77"
+       cx="1179.9"
+       r="39.871">
+      <stop
+         id="stop9329"
+         stop-color="#ff2a2a"
+         offset="0" />
+      <stop
+         id="stop9331"
+         stop-color="#a00"
+         offset="1" />
+    </radialGradient>
+    <linearGradient
+       id="linearGradient12542"
+       y2="693.08"
+       gradientUnits="userSpaceOnUse"
+       x2="1186.5"
+       gradientTransform="translate(244,-2)"
+       y1="693.08"
+       x1="1170.7">
+      <stop
+         id="stop9384"
+         stop-color="#fff"
+         offset="0" />
+      <stop
+         id="stop9386"
+         stop-color="#fff"
+         stop-opacity="0"
+         offset="1" />
+    </linearGradient>
+    <radialGradient
+       id="radialGradient12544"
+       gradientUnits="userSpaceOnUse"
+       cy="1008.4"
+       cx="1070.1"
+       gradientTransform="matrix(1,0,0,0.2,0,806.69)"
+       r="58.865">
+      <stop
+         id="stop9469"
+         offset="0" />
+      <stop
+         id="stop9471"
+         stop-opacity="0"
+         offset="1" />
+    </radialGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient12536"
+       id="linearGradient4394"
+       gradientUnits="userSpaceOnUse"
+       x1="1387"
+       y1="706.17"
+       x2="1480.7"
+       y2="706.17" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient12538"
+       id="linearGradient4396"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(610.33,-19.625)"
+       x1="849.13"
+       y1="712.36"
+       x2="798.3"
+       y2="711.48" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#radialGradient12540"
+       id="radialGradient4398"
+       gradientUnits="userSpaceOnUse"
+       cx="1179.9"
+       cy="806.77"
+       r="39.871" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient12542"
+       id="linearGradient4400"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(244,-2)"
+       x1="1170.7"
+       y1="693.08"
+       x2="1186.5"
+       y2="693.08" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#radialGradient12544"
+       id="radialGradient4402"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.2,0,806.69)"
+       cx="1070.1"
+       cy="1008.4"
+       r="58.865" />
+  </defs>
+  <g
+     id="g9507"
+     transform="matrix(0.27387,0,0,0.27387,-338.01356,-141.60882)">
+    <g
+       id="g9491">
+      <path
+         id="path9349"
+         d="m 1430.5,538.23 c -11.987,0 -21.625,9.669 -21.625,21.656 v 227.5 c 0,0.052 -4e-4,0.10435 0,0.15625 -13.168,8.3005 -21.906,22.972 -21.906,39.688 0,25.892 20.983,46.875 46.875,46.875 25.892,0 46.875,-20.983 46.875,-46.875 0,-17.082 -9.1296,-32.024 -22.781,-40.219 v -227.12 c 0,-11.987 -9.6376,-21.656 -21.625,-21.656 h -5.8124 z"
+         style="opacity:0.98470998;color:#000000;fill:url(#linearGradient4394)"
+         inkscape:connector-curvature="0" />
+      <g
+         id="g9345"
+         transform="translate(0,10)">
+        <path
+           id="rect9247"
+           d="m 1409.5,625.66 v 152.97 c 0,11.987 9.6689,21.656 21.656,21.656 h 5.7813 c 11.987,0 21.656,-9.669 21.656,-21.656 V 625.91 c -6.8688,1.3372 -15.103,2.125 -23.969,2.125 -9.3753,0 -18.031,-0.89378 -25.125,-2.375 z"
+           style="opacity:0.98470998;color:#000000;fill:url(#linearGradient4396)"
+           inkscape:connector-curvature="0" />
+        <path
+           id="path9249"
+           style="opacity:0.98470998;color:#000000;fill:url(#radialGradient4398)"
+           d="m 1229.4,817.95 c 0,22.02 -17.851,39.871 -39.871,39.871 -22.02,0 -39.871,-17.851 -39.871,-39.871 0,-22.02 17.851,-39.871 39.871,-39.871 22.02,0 39.871,17.851 39.871,39.871 z"
+           transform="matrix(1.1758,0,0,1.1758,35.756,-143.29)"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         id="path9353"
+         d="m 1430.2,538.47 c -12.525,0 -22.625,10.133 -22.625,22.656 v 227.16 c -13.174,8.5307 -21.906,23.332 -21.906,40.188 0,26.432 21.443,47.875 47.875,47.875 26.432,0 47.875,-21.443 47.875,-47.875 0,-17.221 -9.1262,-32.284 -22.781,-40.719 v -226.62 c 0,-12.523 -10.1,-22.656 -22.625,-22.656 h -5.8124 z m 0,2 h 5.8124 c 11.45,0 20.625,9.2049 20.625,20.656 v 227.68 l 0.5,0.28125 c 13.36,8.0202 22.281,22.65 22.281,39.375 0,25.352 -20.523,45.875 -45.875,45.875 -25.352,0 -45.875,-20.523 -45.875,-45.875 0,-16.367 8.5504,-30.72 21.438,-38.844 l 0.4688,-0.28125 v -0.5625 c -4e-4,-0.0416 0,-0.0991 0,-0.15625 v -227.5 c 0,-11.451 9.1753,-20.656 20.625,-20.656 z"
+         style="text-indent:0;text-transform:none;block-progression:tb;opacity:0.98470998;color:#000000;fill:#333333"
+         inkscape:connector-curvature="0" />
+      <rect
+         id="rect9394"
+         style="opacity:0.98470998;color:#000000;fill:url(#linearGradient4400)"
+         ry="8.0551996"
+         height="194.57001"
+         width="16.110001"
+         y="585.64001"
+         x="1412.6" />
+    </g>
+    <path
+       id="path9503"
+       style="opacity:0.5;color:#000000;fill:url(#radialGradient4402)"
+       d="m 1129,1008.4 c 0,6.5021 -26.355,11.773 -58.865,11.773 -32.51,0 -58.865,-5.271 -58.865,-11.773 0,-6.502 26.355,-11.773 58.865,-11.773 32.51,0 58.865,5.271 58.865,11.773 z"
+       transform="translate(364.21,-116.77)"
+       inkscape:connector-curvature="0" />
+  </g>
+  <metadata
+     id="metadata4359">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>weather icon - hot</dc:title>
+        <dc:date>2012-06-14T11:20:00</dc:date>
+        <dc:description>clip art, clipart, hot, icon, temperature, thermometer, weather, </dc:description>
+        <dc:source>http://openclipart.org/detail/170672/weather-icon---hot-by-gnokii-170672</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>gnokii</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>hot</rdf:li>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>temperature</rdf:li>
+            <rdf:li>thermometer</rdf:li>
+            <rdf:li>weather</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

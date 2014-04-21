@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 48 48" version="1.1">
+  <g id="layer1" transform="translate(0 -1004.4)">
+    <g id="g3000" transform="translate(-6,1003)">
+      <path id="path2987" d="m30 2.3622-20 10 20 10 20-10z" fill="#f9f9f9"/>
+      <path id="path2989" fill="#ececec" d="m30 22.362v25l20-10v-25z"/>
+      <path id="path2991" d="m30 22.362v25l-20-10v-25z" fill="#ccc"/>
+      <path id="path2993" d="m30 2.375-20 10v25l20 10 20-10v-25l-20-10z" stroke="#4d4d4d" stroke-width="1px" fill="none"/>
+    </g>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Sugar Cube icon</dc:title>
+        <dc:date>2010-10-10T11:46:52</dc:date>
+        <dc:description>A sugar cube.</dc:description>
+        <dc:source>http://openclipart.org/detail/89407/sugar-cube-icon-by-jhnri4</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>jhnri4</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>SVG</rdf:li>
+            <rdf:li>block</rdf:li>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>cube</rdf:li>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>sugar</rdf:li>
+            <rdf:li>white</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

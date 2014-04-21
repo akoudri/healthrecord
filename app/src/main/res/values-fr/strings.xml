@@ -39,5 +39,11 @@
         <item>Pédiatre</item>
         <item>Kinésithérapeute</item>
     </string-array>
+    <string name="size">Taille</string>
+    <string name="weight">Poids</string>
+    <string name="temperature">Température</string>
+    <string name="glucose">Glycémie</string>
+    <string name="heart">Coeur</string>
+    <string name="cranialPerimeter">Périmètre Cranien</string>
 
 </resources>

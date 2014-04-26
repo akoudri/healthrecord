@@ -1,6 +1,7 @@
 package com.akoudri.healthrecord.app;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +20,12 @@ public class EditMeasuresActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_measures);
         personId = getIntent().getIntExtra("personId", 0);
+    }
+
+    public void showSizeDialog(View view)
+    {
+        DialogFragment fragment = AddSizeFragment.newInstance();
+        fragment.show(getFragmentManager(), "Size Dialog");
     }
 
     @Override

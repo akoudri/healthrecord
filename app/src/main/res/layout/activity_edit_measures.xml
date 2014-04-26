@@ -22,7 +22,8 @@
             android:layout_marginRight="10dp"
             android:textColor="@color/title_button_text_color"
             android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:onClick="showSizeDialog"/>
         <Button
             android:text="@string/weight"
             android:textStyle="bold"

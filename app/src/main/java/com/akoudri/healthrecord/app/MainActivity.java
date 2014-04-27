@@ -194,7 +194,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+        //FIXME: adapt for each activity
         // Inflate the menu; this adds itemLast Names to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -202,6 +202,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //FIXME: adapt for each activity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.

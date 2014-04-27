@@ -1,37 +1,33 @@
 package com.akoudri.healthrecord.app;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 
+import com.akoudri.healthrecord.view.CalendarView;
 
-public class EditMeasuresActivity extends Activity {
+//FIXME: for all classes, provide a better management of exceptions
 
-    private int personId = 0;
+public class MyCalendarActivity extends Activity {
+
+    private int personId;
+    private CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_edit_measures);
-        personId = getIntent().getIntExtra("personId", 0);
-    }
-
-    public void showSizeDialog(View view)
-    {
-        DialogFragment fragment = AddSizeFragment.newInstance();
-        fragment.show(getFragmentManager(), "Size Dialog");
+        calendarView = new CalendarView(this);
+        setContentView(calendarView);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.edit_person, menu);
+        //FIXME: to adapt
+        // Inflate the menu; this adds itemLast Names to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 

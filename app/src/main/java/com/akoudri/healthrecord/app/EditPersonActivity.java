@@ -35,9 +35,9 @@ public class EditPersonActivity extends Activity {
         startActivity(intent);
     }
 
-    public void editMeasures(View view)
+    public void myCalendar(View view)
     {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasures");
+        Intent intent = new Intent("com.akoudri.healthrecord.app.MyCalendar");
         intent.putExtra("personId", personId);
         startActivity(intent);
     }

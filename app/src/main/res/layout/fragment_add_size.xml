@@ -40,7 +40,7 @@
 
         <Button
             android:id="@+id/cancel_size_btn"
-            android:text="@string/add"
+            android:text="@string/cancel"
             android:layout_weight="0.5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

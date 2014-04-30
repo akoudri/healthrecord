@@ -16,6 +16,7 @@
     <string name="remove">Remove</string>
     <string name="update">Update Profile</string>
     <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="manage_ailments">Ailments</string>
     <string name="manage_treatments">Treatments</string>
     <string name="manage_appointments">Appointments</string>

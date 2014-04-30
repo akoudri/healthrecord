@@ -1,7 +1,6 @@
 package com.akoudri.healthrecord.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 
 import com.akoudri.healthrecord.app.R;
@@ -23,8 +24,10 @@ import java.util.Locale;
 
 /**
  * Created by Ali Koudri on 27/04/14.
+ * Kept in the repository for the example
+ * Pixel rendering issue !!!
  */
-public class CalendarView extends View implements View.OnTouchListener {
+public class CalendarSurfaceView extends SurfaceView implements Runnable, View.OnTouchListener {
 
     private Calendar _cal, today;
     private Paint paint;
@@ -44,11 +47,16 @@ public class CalendarView extends View implements View.OnTouchListener {
     private Rect[] nav = new Rect[2];
     private Rect selectedRect = null;
 
+    private Thread renderThread = null;
+    private SurfaceHolder holder;
+    private volatile boolean running = false;
+
     //TODO: add icons in the cells
     //TODO: manage clicks graphically
 
-    public CalendarView(Context context) {
+    public CalendarSurfaceView(Context context) {
         super(context);
+        holder = getHolder();
         paint = new Paint();
         _cal = Calendar.getInstance();
         today = Calendar.getInstance();
@@ -70,23 +78,46 @@ public class CalendarView extends View implements View.OnTouchListener {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        width = getWidth();
-        height = getHeight();
-        ratio = width/480.0f;
-        stepx = width / 7;
-        tsize = titleSize * ratio;
-        ttsize = tableTitleSize * ratio;
-        yCalendar = 3 * (tsize + ttsize) + 10;
-        stepy = (height - yCalendar) / 6;
-        delta = stepy * (nbRatio + 1) / 2;
-        canvas.drawColor(getResources().getColor(R.color.app_bg_color));
-        displayTitleDate(canvas);
-        displayNavigation(canvas);
-        displayDays(canvas);
-        displayNumbers(canvas);
-        highlightRect(canvas);
-        invalidate();
+    public void run() {
+        while(running)
+        {
+            if (! holder.getSurface().isValid())
+                continue;
+            Canvas canvas = holder.lockCanvas();
+            width = getWidth();
+            height = getHeight();
+            ratio = width/480.0f;
+            stepx = width / 7;
+            tsize = titleSize * ratio;
+            ttsize = tableTitleSize * ratio;
+            yCalendar = 3 * (tsize + ttsize) + 10;
+            stepy = (height - yCalendar) / 6;
+            delta = stepy * (nbRatio + 1) / 2;
+            canvas.drawColor(getResources().getColor(R.color.app_bg_color));
+            displayTitleDate(canvas);
+            displayNavigation(canvas);
+            displayDays(canvas);
+            displayNumbers(canvas);
+            highlightRect(canvas);
+            holder.unlockCanvasAndPost(canvas);
+        }
+    }
+
+    public void resume()
+    {
+        running = true;
+        renderThread = new Thread(this);
+        renderThread.start();
+    }
+
+    public void pause()
+    {
+        running = false;
+        try {
+            renderThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean isToday()
@@ -269,11 +300,5 @@ public class CalendarView extends View implements View.OnTouchListener {
             _cal.add(Calendar.MONTH, -1);
         if (nav[1].contains(x, y))
             _cal.add(Calendar.MONTH, 1);
-        if (selectedRect != null)
-        {
-            Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasures");
-            //TODO: retrieve current date to pass to the activity
-            getContext().startActivity(intent);
-        }
     }
 }

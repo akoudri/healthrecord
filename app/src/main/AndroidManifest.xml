@@ -93,7 +93,8 @@
         <activity
             android:name=".MyCalendarActivity"
             android:label="@string/calendar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="com.akoudri.healthrecord.app.MyCalendar" />
 

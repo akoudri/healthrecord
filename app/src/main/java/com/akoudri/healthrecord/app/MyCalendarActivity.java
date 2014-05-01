@@ -1,10 +1,13 @@
 package com.akoudri.healthrecord.app;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 import com.akoudri.healthrecord.view.CalendarView;
 
@@ -12,22 +15,30 @@ import com.akoudri.healthrecord.view.CalendarView;
 
 public class MyCalendarActivity extends Activity {
 
-    private int personId;
+    private int personId = 0;
     private CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        personId = getIntent().getIntExtra("personId", 0);
+        //FIXME: the 4 following lines have been added because setting style
+        //through xml file does not work
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff2c2d28")));
         calendarView = new CalendarView(this);
         setContentView(calendarView);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //FIXME: to adapt
-        // Inflate the menu; this adds itemLast Names to the action bar if it is present.
         getMenuInflater().inflate(R.menu.my_calendar, menu);
+        menu.getItem(0).setIcon(R.drawable.doctor);
+        menu.getItem(1).setIcon(R.drawable.analysis);
+        menu.getItem(2).setIcon(R.drawable.gear);
         return true;
     }
 
@@ -36,11 +47,22 @@ public class MyCalendarActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        Intent intent;
+        switch (item.getItemId())
+        {
+            case R.id.calendar_my_therapists:
+                intent = new Intent("com.akoudri.healthrecord.app.MyTherapists");
+                intent.putExtra("personId", personId);
+                startActivity(intent);
+                return true;
+            case R.id.calendar_personal_data:
+                intent = new Intent("com.akoudri.healthrecord.app.UpdatePerson");
+                intent.putExtra("personId", personId);
+                startActivity(intent);
+                return true;
+            default:
+                return false;
         }
-        return super.onOptionsItemSelected(item);
     }
 
 }

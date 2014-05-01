@@ -31,7 +31,7 @@ public class UpdatePersonActivity extends Activity {
     private RadioGroup genderRG;
     private RadioButton maleBtn, femaleBtn;
     private HealthRecordDataSource dataSource;
-    private int personId;
+    private int personId = 0;
     private Person person;
 
     @Override

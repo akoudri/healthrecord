@@ -212,7 +212,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds itemLast Names to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.my_therapist, menu);
         return true;
     }
 

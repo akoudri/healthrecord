@@ -1,5 +1,6 @@
 package com.akoudri.healthrecord.app;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,7 +28,7 @@ import java.util.List;
 
 //FIXME: for all classes, provide a better management of exceptions
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
     private GridLayout layout;
@@ -190,27 +191,6 @@ public class MainActivity extends ActionBarActivity {
     {
         //FIXME: use instead a startActivityForResult to not reload all widgets
         startActivity(new Intent("com.akoudri.healthrecord.app.AddPerson"));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //FIXME: adapt for each activity
-        // Inflate the menu; this adds itemLast Names to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //FIXME: adapt for each activity
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -27,7 +27,7 @@ public class MyCalendarActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         //FIXME: to adapt
         // Inflate the menu; this adds itemLast Names to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.my_calendar, menu);
         return true;
     }
 

@@ -9,10 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -123,7 +120,7 @@ public class MainActivity extends Activity {
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent("com.akoudri.healthrecord.app.MyCalendar");
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
                     intent.putExtra("personId", id);
                     startActivity(intent);
                 }

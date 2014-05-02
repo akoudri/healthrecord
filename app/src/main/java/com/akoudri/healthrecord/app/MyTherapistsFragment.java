@@ -1,17 +1,16 @@
 package com.akoudri.healthrecord.app;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -25,27 +24,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyTherapistsActivity extends ActionBarActivity {
+public class MyTherapistsFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+    private View view;
     private int personId;
     private Person person;
     //private String lang;
 
+    public static MyTherapistsFragment newInstance()
+    {
+        return new MyTherapistsFragment();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_my_therapists);
-        //lang = Locale.getDefault().getDisplayName();
-        dataSource = new HealthRecordDataSource(this);
-        layout = (GridLayout) findViewById(R.id.my_therapists_grid);
-        personId = getIntent().getIntExtra("personId", 0);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_my_therapists, container, false);
+        dataSource = new HealthRecordDataSource(getActivity());
+        layout = (GridLayout) view.findViewById(R.id.my_therapists_grid);
+        personId = getActivity().getIntent().getIntExtra("personId", 0);
         retrievePerson();
         populateWidgets();
+        return view;
     }
 
     private void retrievePerson() {
@@ -101,7 +104,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
             //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
-            editButton = new Button(this);
+            editButton = new Button(getActivity());
             editButton.setText(p.getName() + "\n" + therapyBranch);
             editButton.setTextSize(16);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
@@ -128,12 +131,12 @@ public class MyTherapistsActivity extends ActionBarActivity {
             layout.addView(editButton);
             //add remove button
             colSpec = GridLayout.spec(1);
-            removeButton = new ImageButton(this);
+            removeButton = new ImageButton(getActivity());
             removeButton.setBackgroundResource(R.drawable.remove);
             removeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new AlertDialog.Builder(MyTherapistsActivity.this)
+                    new AlertDialog.Builder(getActivity())
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .setTitle(R.string.removing)
                             .setMessage(getResources().getString(R.string.remove_question)
@@ -168,7 +171,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
             layout.addView(removeButton);
             //Phone Button
             colSpec = GridLayout.spec(2);
-            phoneButton = new ImageButton(this);
+            phoneButton = new ImageButton(getActivity());
             phoneButton.setBackgroundResource(R.drawable.phone);
             if (p.getPhoneNumber() != null) {
                 phoneButton.setOnClickListener(new View.OnClickListener() {
@@ -194,7 +197,7 @@ public class MyTherapistsActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         //FIXME: add just corresponding widget from adding new person - see AddPerson
         populateWidgets();
@@ -206,22 +209,6 @@ public class MyTherapistsActivity extends ActionBarActivity {
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");
         intent.putExtra("personId", personId);
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds itemLast Names to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my_therapist, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return super.onOptionsItemSelected(item);
     }
 
 }

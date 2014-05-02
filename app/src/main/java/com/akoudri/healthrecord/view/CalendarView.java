@@ -169,11 +169,18 @@ public class CalendarView extends View implements View.OnTouchListener {
         int y = 0;
         rect = getRect(x, y);
         rects.add(rect);
-        rectf = new RectF(rect);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawRoundRect(rectf, corner, corner, paint);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawText("" + 1, rect.left + stepx / 2, rect.top + delta, paint);
+        if (isToday())
+        {
+            displayCurrentDate(canvas);
+        }
+        else
+        {
+            rectf = new RectF(rect);
+            paint.setStyle(Paint.Style.STROKE);
+            canvas.drawRoundRect(rectf, corner, corner, paint);
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawText("" + 1, rect.left + stepx / 2, rect.top + delta, paint);
+        }
         //Draw other days
         for (int i = min + 1; i <= max; i++)
         {

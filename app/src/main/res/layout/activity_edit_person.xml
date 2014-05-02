@@ -6,61 +6,10 @@
     android:background="@color/app_bg_color"
     tools:context=".EditPersonActivity">
     <LinearLayout
+        android:id="@+id/edit_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:alignmentMode="alignBounds">
-        <Button
-            android:text="@string/personal_data"
-            android:textStyle="bold"
-            android:drawableRight="@drawable/gear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/title_button_text_color"
-            android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="updatePerson"/>
-        <Button
-            android:text="@string/doctors"
-            android:textStyle="bold"
-            android:drawableRight="@drawable/doctor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/title_button_text_color"
-            android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="myTherapists"/>
-        <Button
-            android:text="@string/calendar"
-            android:textStyle="bold"
-            android:drawableRight="@drawable/calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/title_button_text_color"
-            android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"
-            android:onClick="myCalendar"/>
-        <Button
-            android:text="@string/personal_analysis"
-            android:drawableRight="@drawable/analysis"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/title_button_text_color"
-            android:background="@drawable/healthrecord_button"
-            android:layout_gravity="center_horizontal"/>
-    </LinearLayout>
+        android:alignmentMode="alignBounds"/>
 </ScrollView>

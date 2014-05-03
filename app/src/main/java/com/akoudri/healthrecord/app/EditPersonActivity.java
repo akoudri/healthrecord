@@ -1,89 +1,59 @@
 package com.akoudri.healthrecord.app;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 
 
-public class EditPersonActivity extends Activity implements ActionBar.TabListener{
+public class EditPersonActivity extends Activity {
 
-    private Fragment therapistsFrag, personalFrag;
+    private Fragment calendarFrag, therapistsFrag, personalFrag;
+    private Fragment currentFrag;
+    private FragmentTransaction fragTrans;
     private int personId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_person);
         personId = getIntent().getIntExtra("personId", 0);
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        ActionBar.Tab myTherapist = actionBar.newTab();
-        myTherapist.setText("My Therapists"); //TODO: get from xml
-        myTherapist.setTabListener(this);
-        actionBar.addTab(myTherapist);
-        ActionBar.Tab personalData = actionBar.newTab();
-        personalData.setText("Personal Data");
-        personalData.setTabListener(this);
-        actionBar.addTab(personalData);
+        calendarFrag = MyCalendarFragment.newInstance();
+        therapistsFrag = MyTherapistsFragment.newInstance();
+        personalFrag = UpdatePersonFragment.newInstance();
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.add(R.id.edit_layout, calendarFrag);
+        fragTrans.commit();
+        currentFrag = calendarFrag;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.edit_person, menu);
-        return true;
+    public void displayCalendar(View view)
+    {
+        if (currentFrag == therapistsFrag) return;
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.edit_layout, calendarFrag);
+        fragTrans.commit();
+        currentFrag = calendarFrag;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+    public void displayTherapists(View view)
+    {
+        if (currentFrag == therapistsFrag) return;
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.edit_layout, therapistsFrag);
+        fragTrans.commit();
+        currentFrag = therapistsFrag;
     }
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        switch (tab.getPosition())
-        {
-            case 0:
-                if (personalFrag == null)
-                {
-                    personalFrag = UpdatePersonFragment.newInstance();
-                    fragmentTransaction.add(R.id.edit_layout, personalFrag, "Personal");
-                }
-                fragmentTransaction.attach(personalFrag);
-                break;
-            case 1:
-                if (therapistsFrag == null)
-                {
-                    therapistsFrag = MyTherapistsFragment.newInstance();
-                    fragmentTransaction.add(R.id.edit_layout, therapistsFrag, "Therapists");
-                }
-                fragmentTransaction.attach(therapistsFrag);
-                break;
-        }
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        switch (tab.getPosition())
-        {
-            case 0:
-                if (personalFrag != null) fragmentTransaction.detach(personalFrag);
-                break;
-            case 1:
-                if (therapistsFrag != null) fragmentTransaction.detach(therapistsFrag);
-                break;
-        }
-    }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        //Nothing to do
+    public void displayData(View view)
+    {
+        if (currentFrag == personalFrag) return;
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.edit_layout, personalFrag);
+        fragTrans.commit();
+        currentFrag = personalFrag;
     }
 }

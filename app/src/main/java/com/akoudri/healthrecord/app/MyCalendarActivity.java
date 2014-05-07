@@ -29,7 +29,7 @@ public class MyCalendarActivity extends Activity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#ff2c2d28")));
-        calendarView = new CalendarView(this);
+        calendarView = new CalendarView(this, null);
         setContentView(calendarView);
     }
 

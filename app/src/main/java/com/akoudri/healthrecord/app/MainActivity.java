@@ -121,6 +121,7 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
+                    //Intent intent = new Intent("com.akoudri.healthrecord.app.MyCalendar");
                     intent.putExtra("personId", id);
                     startActivity(intent);
                 }

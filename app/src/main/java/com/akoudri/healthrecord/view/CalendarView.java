@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -47,8 +48,8 @@ public class CalendarView extends View implements View.OnTouchListener {
     //TODO: add icons in the cells
     //TODO: manage clicks graphically
 
-    public CalendarView(Context context) {
-        super(context);
+    public CalendarView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         paint = new Paint();
         _cal = Calendar.getInstance();
         today = Calendar.getInstance();
@@ -87,6 +88,14 @@ public class CalendarView extends View implements View.OnTouchListener {
         displayNumbers(canvas);
         highlightRect(canvas);
         invalidate();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        //TODO: retrieve values from xml parameter
+        setMeasuredDimension(240, 240);
+
     }
 
     private boolean isToday()

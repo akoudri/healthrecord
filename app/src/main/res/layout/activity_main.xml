@@ -14,11 +14,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TitleButton"
             android:layout_gravity="center"
-            android:background="@drawable/healthrecord_button"
             android:text="@string/add_person"
-            android:textColor="@color/title_button_text_color"
-            android:textStyle="bold"
             android:textSize="18dp"
             android:drawableRight="@drawable/plus"
             android:onClick="addPerson"/>

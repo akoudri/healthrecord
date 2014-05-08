@@ -7,7 +7,7 @@
     </style>
 
     <style name="RegularButton">
-        <!-- TODO -->
+        <!-- TODO: API does not allow to call styles programmatically -->
     </style>
 
     <style name="TitleButton">

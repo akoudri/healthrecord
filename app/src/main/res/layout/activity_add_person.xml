@@ -134,15 +134,13 @@
 
         <Button
             android:text="@string/add"
+            style="@style/TitleButton"
             android:minEms="8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/healthrecord_button"
             android:drawableRight="@drawable/plus"
-            android:textColor="@color/title_button_text_color"
-            android:textStyle="bold"
             android:onClick="addPerson"/>
 
     </LinearLayout>

@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.akoudri.healthrecord.activity.EditPersonActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
@@ -129,7 +130,7 @@ public class UpdatePersonFragment extends Fragment {
     {
         //FIXME: check values before inserting
         String name = nameET.getText().toString();
-        RadioButton checked = (RadioButton) view.findViewById(genderRG.getCheckedRadioButtonId());
+        RadioButton checked = (RadioButton) getActivity().findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
         Gender gender;
         //FIXME: the returned genderIdx is always -1 !!!
@@ -157,6 +158,7 @@ public class UpdatePersonFragment extends Fragment {
         //FIXME: check values before inserting
         dataSource.getPersonTable().updatePerson(person.getId(), name,
                 gender, ssn, bt, birthdate);
+        ((EditPersonActivity)getActivity()).displayCalendar(null);
     }
 
     public void showBirthdayPickerDialog(View view)

@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.akoudri.healthrecord.activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddPersonActivity"
+            android:name="com.akoudri.healthrecord.activity.AddPersonActivity"
             android:label="@string/add"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditPersonActivity"
+            android:name="com.akoudri.healthrecord.activity.EditPersonActivity"
             android:label="@string/edit"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -51,17 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MyTherapistsActivity"
-            android:label="@string/my_therapists"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.MyTherapists" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".AddTherapistActivity"
+            android:name="com.akoudri.healthrecord.activity.AddTherapistActivity"
             android:label="@string/add_therapist"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -71,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UpdateTherapistActivity"
+            android:name="com.akoudri.healthrecord.activity.UpdateTherapistActivity"
             android:label="@string/update_therapist"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -81,22 +71,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditMeasuresActivity"
+            android:name="com.akoudri.healthrecord.activity.EditMeasuresActivity"
             android:label="@string/manage_measures"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.akoudri.healthrecord.app.EditMeasures" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".MyCalendarActivity"
-            android:label="@string/calendar"
-            android:screenOrientation="portrait"
-            android:uiOptions="splitActionBarWhenNarrow">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.MyCalendar" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

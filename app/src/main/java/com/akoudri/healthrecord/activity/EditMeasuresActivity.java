@@ -1,4 +1,4 @@
-package com.akoudri.healthrecord.app;
+package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+
+import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.dialog.AddSizeFragment;
 
 
 public class EditMeasuresActivity extends Activity {

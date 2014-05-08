@@ -1,4 +1,4 @@
-package com.akoudri.healthrecord.app;
+package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
@@ -33,6 +35,7 @@ public class MainActivity extends Activity {
     private GridLayout.Spec rowSpec, colSpec;
     private static final String dbLoaded = "DB_LOADED";
     private SharedPreferences prefs;
+    private boolean isDbLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,19 @@ public class MainActivity extends Activity {
         layout = (GridLayout) findViewById(R.id.person_grid);
         Context context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean isDbLoaded = prefs.getBoolean(dbLoaded, false);
+        isDbLoaded = prefs.getBoolean(dbLoaded, false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //FIXME: add just corresponding widget from adding new person - see AddPerson
+        //FIXME: Manage the case where data source could not be opened
+        try {
+            dataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         if (!isDbLoaded)
         {
             preloadDb();
@@ -54,41 +69,32 @@ public class MainActivity extends Activity {
         populateWidgets();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataSource.close();
+    }
+
     //TODO: complete the loading of default tuples into the DB
     //It is called once
     private void preloadDb() {
         String[] branches = getResources().getStringArray(R.array.branches);
-        try {
-            dataSource.open();
-            //Insertion from xml
-            for (String b : branches)
-            {
-                dataSource.getTherapyBranchTable().insertTherapyBranch(b);
-                //FIXME: for debug only - to remove
-                dataSource.getPersonTable().insertPerson("Ali", Gender.MALE, "ssn1", BloodType.ABPLUS, "27/08/1974");
-                dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);
-                dataSource.getPersonTherapistTable().insertRelation(1,1);
-            }
-            dataSource.close();
-        } catch (SQLException ex)
+        //Insertion from xml
+        for (String b : branches)
         {
-            ex.printStackTrace();
+            dataSource.getTherapyBranchTable().insertTherapyBranch(b);
+            //FIXME: for debug only - to remove
+            dataSource.getPersonTable().insertPerson("Ali", Gender.MALE, "ssn1", BloodType.ABPLUS, "27/08/1974");
+            dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);
+            dataSource.getPersonTherapistTable().insertRelation(1,1);
         }
     }
 
     private void populateWidgets()
     {
         layout.removeAllViews();
-        List<Person> allPersons = null;
+        List<Person> allPersons = dataSource.getPersonTable().getAllPersons();
         int margin = 10;
-        try {
-            dataSource.open();
-            allPersons = dataSource.getPersonTable().getAllPersons();
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
         if (allPersons == null || allPersons.size() == 0)
             return;
         Button editButton;
@@ -121,7 +127,6 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
-                    //Intent intent = new Intent("com.akoudri.healthrecord.app.MyCalendar");
                     intent.putExtra("personId", id);
                     startActivity(intent);
                 }
@@ -150,15 +155,9 @@ public class MainActivity extends Activity {
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    try {
-                                        dataSource.open();
-                                        dataSource.getPersonTherapistTable().removePersonRelations(id);
-                                        dataSource.getPersonTable().removePersonWithId(id);
-                                        populateWidgets();
-                                        dataSource.close();
-                                    } catch (SQLException ex) {
-                                        ex.printStackTrace();
-                                    }
+                                    dataSource.getPersonTherapistTable().removePersonRelations(id);
+                                    dataSource.getPersonTable().removePersonWithId(id);
+                                    populateWidgets();
                                 }
                             })
                             .setNegativeButton(R.string.no, null)
@@ -176,13 +175,6 @@ public class MainActivity extends Activity {
             //next line
             r++;
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //FIXME: add just corresponding widget from adding new person - see AddPerson
-        populateWidgets();
     }
 
     public void addPerson(View view)

@@ -1,4 +1,4 @@
-package com.akoudri.healthrecord.app;
+package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
 
@@ -38,6 +40,17 @@ public class UpdateTherapistActivity extends Activity {
         dataSource = new HealthRecordDataSource(this);
         //lang = Locale.getDefault().getDisplayName();
         thId = getIntent().getIntExtra("therapistId", 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //FIXME: Manage the case where data source could not be opened
+        try {
+            dataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         retrieveTherapist();
         retrieveBranches();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -47,19 +60,18 @@ public class UpdateTherapistActivity extends Activity {
         populateWidgets();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataSource.close();
+    }
+
     private void populateWidgets()
     {
         if (therapist == null) return;
         nameET.setText(therapist.getName());
-        try {
-            dataSource.open();
-            TherapyBranch branch = dataSource.getTherapyBranchTable().getBranchWithId(therapist.getBranchId());
-            specialityET.setText(branch.getName());
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        TherapyBranch branch = dataSource.getTherapyBranchTable().getBranchWithId(therapist.getBranchId());
+        specialityET.setText(branch.getName());
         phoneNumberET.setText(therapist.getPhoneNumber());
     }
 
@@ -69,39 +81,18 @@ public class UpdateTherapistActivity extends Activity {
         String speciality = specialityET.getText().toString();
         String phoneNumber = phoneNumberET.getText().toString();
         //FIXME: check values before inserting
-        try {
-            dataSource.open();
-            int branch = dataSource.getTherapyBranchTable().getBranchId(speciality);
-            dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, branch);
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        int branch = dataSource.getTherapyBranchTable().getBranchId(speciality);
+        dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, branch);
         finish();
     }
 
     private void retrieveTherapist()
     {
-        try {
-            dataSource.open();
-            therapist = dataSource.getTherapistTable().getTherapistWithId(thId);
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        therapist = dataSource.getTherapistTable().getTherapistWithId(thId);
     }
 
     private void retrieveBranches() {
-        try {
-            dataSource.open();
-            branches = dataSource.getTherapyBranchTable().getAllBranches();
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        branches = dataSource.getTherapyBranchTable().getAllBranches();
     }
 
     private String[] getBranches()

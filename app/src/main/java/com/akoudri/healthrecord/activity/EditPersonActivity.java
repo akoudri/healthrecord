@@ -1,4 +1,4 @@
-package com.akoudri.healthrecord.app;
+package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
+import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.fragment.MyCalendarFragment;
+import com.akoudri.healthrecord.fragment.MyTherapistsFragment;
+import com.akoudri.healthrecord.fragment.UpdatePersonFragment;
 
 public class EditPersonActivity extends Activity {
 
@@ -32,7 +36,7 @@ public class EditPersonActivity extends Activity {
 
     public void displayCalendar(View view)
     {
-        if (currentFrag == therapistsFrag) return;
+        if (currentFrag == calendarFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.edit_layout, calendarFrag);
         fragTrans.commit();
@@ -55,5 +59,20 @@ public class EditPersonActivity extends Activity {
         fragTrans.replace(R.id.edit_layout, personalFrag);
         fragTrans.commit();
         currentFrag = personalFrag;
+    }
+
+    public void updatePerson(View view)
+    {
+        ((UpdatePersonFragment)personalFrag).updatePerson(view);
+    }
+
+    public void showBirthdayPickerDialog(View view)
+    {
+        ((UpdatePersonFragment)personalFrag).showBirthdayPickerDialog(view);
+    }
+
+    public void addTherapist(View view)
+    {
+        ((MyTherapistsFragment)therapistsFrag).addTherapist(view);
     }
 }

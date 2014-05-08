@@ -1,17 +1,23 @@
 package com.akoudri.healthrecord.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.akoudri.healthrecord.app.R;
 
@@ -92,10 +98,15 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-        //TODO: retrieve values from xml parameter
-        setMeasuredDimension(240, 240);
-
+        int width = 0;
+        int height = 0;
+        Point size = new Point();
+        WindowManager w = ((Activity)getContext()).getWindowManager();
+        w.getDefaultDisplay().getSize(size);
+        width = size.x;
+        //FIXME: compute the right height
+        height = (int) (size.x * 1.1);
+        setMeasuredDimension(width, height);
     }
 
     private boolean isToday()

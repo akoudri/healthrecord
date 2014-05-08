@@ -1,4 +1,4 @@
-package com.akoudri.healthrecord.app;
+package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,12 +11,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -44,6 +46,17 @@ public class AddTherapistActivity extends Activity {
         dataSource = new HealthRecordDataSource(this);
         //lang = Locale.getDefault().getDisplayName();
         personId = getIntent().getIntExtra("personId", 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //FIXME: Manage the case where data source could not be opened
+        try {
+            dataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         retrievePerson();
         retrieveBranches();
         retrieveOtherTherapists();
@@ -54,13 +67,7 @@ public class AddTherapistActivity extends Activity {
             TherapyBranch branch = null;
             String therapyBranchStr;
             for (Therapist t : otherTherapists) {
-                try {
-                    dataSource.open();
-                    branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
-                    dataSource.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
+                branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
                 therapyBranchStr = branch.getName();
                 otherTherapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
             }
@@ -79,68 +86,19 @@ public class AddTherapistActivity extends Activity {
         specialityET.setAdapter(adapter);
     }
 
-    public void addTherapist(View view)
-    {
-        String name = nameET.getText().toString();
-        String speciality = specialityET.getText().toString();
-        String phoneNumber = phoneNumberET.getText().toString();
-        //FIXME: check values before inserting
-        try {
-            dataSource.open();
-            int branchId = dataSource.getTherapyBranchTable().getBranchId(speciality);
-            if (branchId < 0)
-            {
-                branchId = (int) dataSource.getTherapyBranchTable().insertTherapyBranch(speciality);
-            }
-            int thId = (int) dataSource.getTherapistTable().insertTherapist(name, phoneNumber, branchId);
-            if (thId >= 0)
-            {
-                dataSource.getPersonTherapistTable().insertRelation(personId, thId);
-            }
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        finish();
-    }
-
-    public void addExistingTherapist(View view)
-    {
-        int thIdx = thSpinner.getSelectedItemPosition();
-        Therapist th = otherTherapists.get(thIdx);
-        try {
-            dataSource.open();
-            dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        finish();
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataSource.close();
     }
 
     private void retrievePerson()
     {
-        try {
-            dataSource.open();
-            person = dataSource.getPersonTable().getPersonWithId(personId);
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        person = dataSource.getPersonTable().getPersonWithId(personId);
     }
 
     private void retrieveBranches() {
-        try {
-            dataSource.open();
-            branches = dataSource.getTherapyBranchTable().getAllBranches();
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        branches = dataSource.getTherapyBranchTable().getAllBranches();
     }
 
     private String[] getBranches()
@@ -155,33 +113,44 @@ public class AddTherapistActivity extends Activity {
     }
 
     private void retrieveOtherTherapists() {
-        try {
-            dataSource.open();
-            //retrieve all therapists
-            otherTherapists = dataSource.getTherapistTable().getAllTherapists();
-            List<Therapist> otherTherapistsTmp = new ArrayList<Therapist>();
-            //FIXME: use iterator instead
-            otherTherapistsTmp.addAll(otherTherapists);
-            //and then remove from the list those who are already therapist for current person
-            List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
-            Therapist t;
-            for (Integer i : myTherapistIds)
-            {
-                t = dataSource.getTherapistTable().getTherapistWithId(i);
-                for (Therapist th : otherTherapistsTmp)
-                {
-                    if (th.getName().equalsIgnoreCase(t.getName()))
-                    {
-                        otherTherapists.remove(th);
-                    }
-                }
-            }
-            dataSource.close();
-        } catch (SQLException ex)
+        //retrieve all therapists
+        otherTherapists = dataSource.getTherapistTable().getAllTherapists();
+        List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
+        Therapist t;
+        Iterator<Therapist> iterator = otherTherapists.iterator();
+        while (iterator.hasNext())
         {
-            otherTherapists = new ArrayList<Therapist>();
-            ex.printStackTrace();
+            t = iterator.next();
+            if (myTherapistIds.contains(t.getId()))
+                iterator.remove();
         }
+    }
+
+    public void addTherapist(View view)
+    {
+        String name = nameET.getText().toString();
+        String speciality = specialityET.getText().toString();
+        String phoneNumber = phoneNumberET.getText().toString();
+        //FIXME: check values before inserting
+        int branchId = dataSource.getTherapyBranchTable().getBranchId(speciality);
+        if (branchId < 0)
+        {
+            branchId = (int) dataSource.getTherapyBranchTable().insertTherapyBranch(speciality);
+        }
+        int thId = (int) dataSource.getTherapistTable().insertTherapist(name, phoneNumber, branchId);
+        if (thId >= 0)
+        {
+            dataSource.getPersonTherapistTable().insertRelation(personId, thId);
+        }
+        finish();
+    }
+
+    public void addExistingTherapist(View view)
+    {
+        int thIdx = thSpinner.getSelectedItemPosition();
+        Therapist th = otherTherapists.get(thIdx);
+        dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
+        finish();
     }
 
     @Override

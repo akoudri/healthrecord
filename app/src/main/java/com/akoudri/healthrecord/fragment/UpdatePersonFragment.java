@@ -1,4 +1,4 @@
-package com.akoudri.healthrecord.app;
+package com.akoudri.healthrecord.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -15,6 +15,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
@@ -55,9 +57,26 @@ public class UpdatePersonFragment extends Fragment {
         femaleBtn = (RadioButton) view.findViewById(R.id.female_update_frag);
         birthdateET = (EditText) view.findViewById(R.id.birthdate_update_frag);
         dataSource = new HealthRecordDataSource(getActivity());
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //FIXME: Manage the case where data source could not be opened
+        try {
+            dataSource.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         retrievePerson();
         populateWidgets();
-        return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        dataSource.close();
     }
 
     private void populateWidgets()
@@ -103,14 +122,7 @@ public class UpdatePersonFragment extends Fragment {
 
     private void retrievePerson()
     {
-        try {
-            dataSource.open();
-            person = dataSource.getPersonTable().getPersonWithId(personId);
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        person = dataSource.getPersonTable().getPersonWithId(personId);
     }
 
     public void updatePerson(View view)
@@ -120,6 +132,7 @@ public class UpdatePersonFragment extends Fragment {
         RadioButton checked = (RadioButton) view.findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
         Gender gender;
+        //FIXME: the returned genderIdx is always -1 !!!
         switch (genderIdx)
         {
             case 0: gender = Gender.MALE; break;
@@ -142,15 +155,8 @@ public class UpdatePersonFragment extends Fragment {
         }
         String birthdate = birthdateET.getText().toString();
         //FIXME: check values before inserting
-        try {
-            dataSource.open();
-            dataSource.getPersonTable().updatePerson(person.getId(), name,
-                    gender, ssn, bt, birthdate);
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        dataSource.getPersonTable().updatePerson(person.getId(), name,
+                gender, ssn, bt, birthdate);
     }
 
     public void showBirthdayPickerDialog(View view)

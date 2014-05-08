@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.akoudri.healthrecord.app.EditPersonActivity" >
+    tools:context="com.akoudri.healthrecord.activity.EditPersonActivity" >
 
     <item
         android:id="@+id/menuitem_data"

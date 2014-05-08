@@ -1,4 +1,4 @@
-package com.akoudri.healthrecord.app;
+package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -16,102 +16,58 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
-import com.akoudri.healthrecord.data.Person;
 
 import java.sql.SQLException;
 import java.util.Calendar;
 
 
-public class UpdatePersonActivity extends Activity {
+public class AddPersonActivity extends Activity {
 
     private Spinner btSpinner;
-    private EditText nameET, birthdateET, ssnET;
     private RadioGroup genderRG;
-    private RadioButton maleBtn, femaleBtn;
+    private EditText nameET, birthdateET, ssnET;
     private HealthRecordDataSource dataSource;
-    private int personId = 0;
-    private Person person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_update_person);
-        personId = getIntent().getIntExtra("personId", 0);
+        setContentView(R.layout.activity_add_person);
         String[] btChoices = {"O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " "};
         ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, btChoices);
-        btSpinner = (Spinner) findViewById(R.id.btchoice_update);
+        btSpinner = (Spinner) findViewById(R.id.btchoice_add);
         btSpinner.setAdapter(btChoicesAdapter);
         btSpinner.setSelection(8);
-        nameET = (EditText) findViewById(R.id.name_update);
-        genderRG = (RadioGroup) findViewById(R.id.gender_update);
-        ssnET = (EditText) findViewById(R.id.ssn_update);
-        maleBtn = (RadioButton) findViewById(R.id.male_update);
-        femaleBtn = (RadioButton) findViewById(R.id.female_update);
-        birthdateET = (EditText) findViewById(R.id.birthdate_update);
+        nameET = (EditText) findViewById(R.id.name_add);
+        genderRG = (RadioGroup) findViewById(R.id.gender_add);
+        ssnET = (EditText) findViewById(R.id.ssn_add);
+        birthdateET = (EditText) findViewById(R.id.birthdate_add);
         dataSource = new HealthRecordDataSource(this);
-        retrievePerson();
-        populateWidgets();
     }
 
-    private void populateWidgets()
-    {
-        if (person == null) return;
-        nameET.setText(person.getName());
-        switch (person.getGender())
-        {
-            case MALE: maleBtn.setChecked(true); break;
-            default: femaleBtn.setChecked(true);
-        }
-        ssnET.setText(person.getSsn());
-        birthdateET.setText(person.getBirthdate());
-        switch (person.getBloodType()) {
-            case OMINUS:
-                btSpinner.setSelection(0);
-                break;
-            case OPLUS:
-                btSpinner.setSelection(1);
-                break;
-            case AMINUS:
-                btSpinner.setSelection(2);
-                break;
-            case APLUS:
-                btSpinner.setSelection(3);
-                break;
-            case BMINUS:
-                btSpinner.setSelection(4);
-                break;
-            case BPLUS:
-                btSpinner.setSelection(5);
-                break;
-            case ABMINUS:
-                btSpinner.setSelection(6);
-                break;
-            case ABPLUS:
-                btSpinner.setSelection(7);
-                break;
-            default:
-                btSpinner.setSelection(8);
-        }
-    }
-
-    private void retrievePerson()
-    {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //FIXME: Manage the case where data source could not be opened
         try {
             dataSource.open();
-            person = dataSource.getPersonTable().getPersonWithId(personId);
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void updatePerson(View view)
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataSource.close();
+    }
+
+    public void addPerson(View view)
     {
-        //FIXME: check values before inserting
         String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
@@ -138,15 +94,8 @@ public class UpdatePersonActivity extends Activity {
         }
         String birthdate = birthdateET.getText().toString();
         //FIXME: check values before inserting
-        try {
-            dataSource.open();
-            dataSource.getPersonTable().updatePerson(person.getId(), name,
-                    gender, ssn, bt, birthdate);
-            dataSource.close();
-        } catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+        //FIXME: do not capitalize all letters
+        dataSource.getPersonTable().insertPerson(name, gender, ssn, bt, birthdate);
         finish();
     }
 
@@ -160,7 +109,7 @@ public class UpdatePersonActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.update_person, menu);
+        getMenuInflater().inflate(R.menu.add_person, menu);
         return true;
     }
 
@@ -170,7 +119,7 @@ public class UpdatePersonActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.update_action_settings) {
+        if (id == R.id.add_action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);

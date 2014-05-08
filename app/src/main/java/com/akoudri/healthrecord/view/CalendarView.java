@@ -105,7 +105,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         w.getDefaultDisplay().getSize(size);
         width = size.x;
         //FIXME: compute the right height
-        height = (int) (size.x * 1.1);
+        height = (int) (size.x * 1.5);
         setMeasuredDimension(width, height);
     }
 

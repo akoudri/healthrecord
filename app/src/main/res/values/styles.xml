@@ -2,7 +2,18 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:editTextColor">@android:color/black</item>
+        <item name="android:editTextBackground">@android:color/white</item>
+    </style>
+
+    <style name="RegularButton">
+        <!-- TODO -->
+    </style>
+
+    <style name="TitleButton">
+        <item name="android:background">@drawable/healthrecord_button</item>
+        <item name="android:textColor">@color/title_button_text_color</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg_color"
-    tools:context=".EditPersonActivity">
+    tools:context=".EditDayActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,29 +20,29 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="2dp"
-                android:src="@drawable/calendar"
-                android:onClick="displayCalendar"/>
+                android:src="@drawable/measure"
+                android:onClick="displayMeasures"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="2dp"
-                android:src="@drawable/doctor"
-                android:onClick="displayTherapists"/>
+                android:src="@drawable/rv"
+                android:onClick="displayRV"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="2dp"
-                android:src="@drawable/gear"
-                android:onClick="displayData"/>
+                android:src="@drawable/illness"
+                android:onClick="displayIllness"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="2dp"
-                android:src="@drawable/analysis"
-                android:onClick="displayAnalysis"/>
+                android:src="@drawable/medics"
+                android:onClick="displayMedics"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/day_layout"

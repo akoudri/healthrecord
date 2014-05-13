@@ -77,6 +77,8 @@ public class UpdatePersonFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        //FIXME: update if necessary only
+        updatePerson();
         dataSource.close();
     }
 
@@ -126,7 +128,7 @@ public class UpdatePersonFragment extends Fragment {
         person = dataSource.getPersonTable().getPersonWithId(personId);
     }
 
-    public void updatePerson(View view)
+    private void updatePerson()
     {
         //FIXME: check values before inserting
         String name = nameET.getText().toString();
@@ -158,18 +160,24 @@ public class UpdatePersonFragment extends Fragment {
         //FIXME: check values before inserting
         dataSource.getPersonTable().updatePerson(person.getId(), name,
                 gender, ssn, bt, birthdate);
-        ((EditPersonActivity)getActivity()).displayCalendar(null);
     }
 
     public void showBirthdayPickerDialog(View view)
     {
-        DialogFragment dfrag = new BirthDatePickerFragment();
+        BirthDatePickerFragment dfrag = new BirthDatePickerFragment();
+        dfrag.setBdet(birthdateET);
         dfrag.show(getFragmentManager(),"birthDatePicker");
     }
 
-    public class BirthDatePickerFragment extends DialogFragment
+    public static class BirthDatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener
     {
+        private EditText bdet;
+
+        public void setBdet(EditText bdet)
+        {
+            this.bdet = bdet;
+        }
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -183,7 +191,7 @@ public class UpdatePersonFragment extends Fragment {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             String toDisplay = String.format("%02d/%02d/%4d", day, month+1, year);
-            birthdateET.setText(toDisplay);
+            bdet.setText(toDisplay);
         }
     }
 

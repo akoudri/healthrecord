@@ -31,21 +31,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UpdatePersonActivity"
-            android:label="@string/update"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.UpdatePerson" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.akoudri.healthrecord.activity.EditPersonActivity"
             android:label="@string/edit"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.akoudri.healthrecord.app.EditPerson" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.EditDayActivity"
+            android:label="@string/edit"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.EditDay" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -66,16 +66,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.akoudri.healthrecord.app.UpdateTherapist" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.EditMeasuresActivity"
-            android:label="@string/manage_measures"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.EditMeasures" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

@@ -298,7 +298,7 @@ public class CalendarView extends View implements View.OnTouchListener {
             _cal.add(Calendar.MONTH, 1);
         if (selectedRect != null)
         {
-            Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasures");
+            Intent intent = new Intent("com.akoudri.healthrecord.app.EditDay");
             //TODO: retrieve current date to pass to the activity
             getContext().startActivity(intent);
         }

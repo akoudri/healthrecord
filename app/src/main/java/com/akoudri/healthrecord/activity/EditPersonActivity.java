@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.Window;
 
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.fragment.MyAnalysisFragment;
 import com.akoudri.healthrecord.fragment.MyCalendarFragment;
 import com.akoudri.healthrecord.fragment.MyTherapistsFragment;
 import com.akoudri.healthrecord.fragment.UpdatePersonFragment;
 
 public class EditPersonActivity extends Activity {
 
-    private Fragment calendarFrag, therapistsFrag, personalFrag;
+    private Fragment calendarFrag, therapistsFrag, personalFrag, analysisFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
     private int personId = 0;
@@ -28,8 +29,9 @@ public class EditPersonActivity extends Activity {
         calendarFrag = MyCalendarFragment.newInstance();
         therapistsFrag = MyTherapistsFragment.newInstance();
         personalFrag = UpdatePersonFragment.newInstance();
+        analysisFrag = MyAnalysisFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.add(R.id.edit_layout, calendarFrag);
+        fragTrans.add(R.id.day_layout, calendarFrag);
         fragTrans.commit();
         currentFrag = calendarFrag;
     }
@@ -38,7 +40,7 @@ public class EditPersonActivity extends Activity {
     {
         if (currentFrag == calendarFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.edit_layout, calendarFrag);
+        fragTrans.replace(R.id.day_layout, calendarFrag);
         fragTrans.commit();
         currentFrag = calendarFrag;
     }
@@ -47,7 +49,7 @@ public class EditPersonActivity extends Activity {
     {
         if (currentFrag == therapistsFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.edit_layout, therapistsFrag);
+        fragTrans.replace(R.id.day_layout, therapistsFrag);
         fragTrans.commit();
         currentFrag = therapistsFrag;
     }
@@ -56,14 +58,18 @@ public class EditPersonActivity extends Activity {
     {
         if (currentFrag == personalFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.edit_layout, personalFrag);
+        fragTrans.replace(R.id.day_layout, personalFrag);
         fragTrans.commit();
         currentFrag = personalFrag;
     }
 
-    public void updatePerson(View view)
+    public void displayAnalysis(View view)
     {
-        ((UpdatePersonFragment)personalFrag).updatePerson(view);
+        if (currentFrag == analysisFrag) return;
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.day_layout, analysisFrag);
+        fragTrans.commit();
+        currentFrag = analysisFrag;
     }
 
     public void showBirthdayPickerDialog(View view)

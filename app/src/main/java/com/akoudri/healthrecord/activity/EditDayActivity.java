@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.MyCalendarFragment;
@@ -16,8 +17,12 @@ import com.akoudri.healthrecord.fragment.MyRvFragment;
 import com.akoudri.healthrecord.fragment.MyTherapistsFragment;
 import com.akoudri.healthrecord.fragment.UpdatePersonFragment;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 public class EditDayActivity extends Activity {
 
+    private TextView today_label;
     private Fragment measuresFrag, rvFrag, illnessFrag, medicsFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
@@ -28,6 +33,10 @@ public class EditDayActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_day);
+        //FIXME: retrieve person id from calendar
+        //FIXME: make cranial perimeter visible if age > ?
+        today_label = (TextView) findViewById(R.id.today_label);
+        displayCurrentDay();
         personId = getIntent().getIntExtra("personId", 0);
         measuresFrag = MyMeasuresFragment.newInstance();
         rvFrag = MyRvFragment.newInstance();
@@ -37,6 +46,26 @@ public class EditDayActivity extends Activity {
         fragTrans.add(R.id.day_layout, measuresFrag);
         fragTrans.commit();
         currentFrag = measuresFrag;
+    }
+
+    private void displayCurrentDay()
+    {
+        int date = getIntent().getIntExtra("date", 0);
+        int month = getIntent().getIntExtra("month", 0);
+        int year = getIntent().getIntExtra("year", 0);
+        Calendar currentDay = Calendar.getInstance();
+        currentDay.set(Calendar.DAY_OF_MONTH, date);
+        currentDay.set(Calendar.MONTH, month);
+        currentDay.set(Calendar.YEAR, year);
+        StringBuilder sb = new StringBuilder();
+        sb.append(currentDay.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).toUpperCase());
+        sb.append(" ");
+        sb.append(date);
+        sb.append(" ");
+        sb.append(currentDay.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()).toUpperCase());
+        sb.append(" ");
+        sb.append(year);
+        today_label.setText(sb.toString());
     }
 
     public void displayMeasures(View view)

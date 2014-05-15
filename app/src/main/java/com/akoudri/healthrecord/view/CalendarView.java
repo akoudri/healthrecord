@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -12,9 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -299,7 +296,14 @@ public class CalendarView extends View implements View.OnTouchListener {
         if (selectedRect != null)
         {
             Intent intent = new Intent("com.akoudri.healthrecord.app.EditDay");
-            //TODO: retrieve current date to pass to the activity
+            int day_idx = rects.indexOf(selectedRect);
+            //FIXME: retrieve and put personId
+            int date = day_idx + 1;
+            intent.putExtra("date", date);
+            int month = _cal.get(Calendar.MONTH);
+            intent.putExtra("month", month);
+            int year = _cal.get(Calendar.YEAR);
+            intent.putExtra("year", year);
             getContext().startActivity(intent);
         }
     }

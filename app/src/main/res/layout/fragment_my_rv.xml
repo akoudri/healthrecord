@@ -9,6 +9,22 @@
         android:orientation="vertical"
         android:padding="2dp"
         android:alignmentMode="alignBounds">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TitleButton"
+            android:layout_gravity="center"
+            android:text="@string/add_rv"
+            android:textSize="18dp"
+            android:drawableRight="@drawable/plus"/>
+
+        <GridLayout
+            android:id="@+id/rv_grid"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"/>
 
     </LinearLayout>
 </ScrollView>

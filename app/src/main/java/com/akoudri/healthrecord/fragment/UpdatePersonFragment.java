@@ -57,19 +57,17 @@ public class UpdatePersonFragment extends Fragment {
         maleBtn = (RadioButton) view.findViewById(R.id.male_update_frag);
         femaleBtn = (RadioButton) view.findViewById(R.id.female_update_frag);
         birthdateET = (EditText) view.findViewById(R.id.birthdate_update_frag);
-        dataSource = new HealthRecordDataSource(getActivity());
         return view;
+    }
+
+    public void setDataSource(HealthRecordDataSource dataSource)
+    {
+        this.dataSource = dataSource;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //FIXME: Manage the case where data source could not be opened
-        try {
-            dataSource.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         retrievePerson();
         populateWidgets();
     }
@@ -79,7 +77,6 @@ public class UpdatePersonFragment extends Fragment {
         super.onPause();
         //FIXME: update if necessary only
         updatePerson();
-        dataSource.close();
     }
 
     private void populateWidgets()

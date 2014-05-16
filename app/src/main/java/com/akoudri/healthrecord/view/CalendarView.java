@@ -30,6 +30,7 @@ import java.util.Locale;
  */
 public class CalendarView extends View implements View.OnTouchListener {
 
+    private int personId = 0;
     private Calendar _cal, today;
     private Paint paint;
     private int width, height;
@@ -71,6 +72,11 @@ public class CalendarView extends View implements View.OnTouchListener {
             e.printStackTrace();
         }
         setOnTouchListener(this);
+    }
+
+    public void setPersonId(int personId)
+    {
+        this.personId = personId;
     }
 
     @Override
@@ -297,7 +303,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         {
             Intent intent = new Intent("com.akoudri.healthrecord.app.EditDay");
             int day_idx = rects.indexOf(selectedRect);
-            //FIXME: retrieve and put personId
+            intent.putExtra("personId", personId);
             int date = day_idx + 1;
             intent.putExtra("date", date);
             int month = _cal.get(Calendar.MONTH);

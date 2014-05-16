@@ -35,7 +35,6 @@ public class MyTherapistsFragment extends Fragment {
     private View view;
     private int personId;
     private Person person;
-    //private String lang;
 
     public static MyTherapistsFragment newInstance()
     {
@@ -45,30 +44,22 @@ public class MyTherapistsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_therapists, container, false);
-        dataSource = new HealthRecordDataSource(getActivity());
         layout = (GridLayout) view.findViewById(R.id.my_therapists_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
+    }
+
+    public void setDataSource(HealthRecordDataSource dataSource)
+    {
+        this.dataSource = dataSource;
     }
 
     @Override
     public void onResume() {
         super.onResume();
         //FIXME: add just corresponding widget from adding new person - see AddPerson
-        //FIXME: Manage the case where data source could not be opened
-        try {
-            dataSource.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         retrievePerson();
         populateWidgets();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        dataSource.close();
     }
 
     private void retrievePerson() {

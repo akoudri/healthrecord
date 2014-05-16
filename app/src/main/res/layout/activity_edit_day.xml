@@ -20,13 +20,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="2dp"
-                android:src="@drawable/measure"
-                android:onClick="displayMeasures"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="2dp"
                 android:src="@drawable/rv"
                 android:onClick="displayRV"/>
             <ImageButton
@@ -43,6 +36,13 @@
                 android:layout_margin="2dp"
                 android:src="@drawable/medics"
                 android:onClick="displayMedics"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="2dp"
+                android:src="@drawable/measure"
+                android:onClick="displayMeasures"/>
         </LinearLayout>
         <TextView
             android:id="@+id/today_label"

@@ -38,14 +38,14 @@ public class EditDayActivity extends Activity {
         today_label = (TextView) findViewById(R.id.today_label);
         displayCurrentDay();
         personId = getIntent().getIntExtra("personId", 0);
-        measuresFrag = MyMeasuresFragment.newInstance();
         rvFrag = MyRvFragment.newInstance();
         illnessFrag = MyIllnessFragment.newInstance();
         medicsFrag = MyMedicsFragment.newInstance();
+        measuresFrag = MyMeasuresFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.add(R.id.day_layout, measuresFrag);
+        fragTrans.add(R.id.day_layout, rvFrag);
         fragTrans.commit();
-        currentFrag = measuresFrag;
+        currentFrag = rvFrag;
     }
 
     private void displayCurrentDay()

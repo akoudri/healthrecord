@@ -4,18 +4,26 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.MyAnalysisFragment;
 import com.akoudri.healthrecord.fragment.MyCalendarFragment;
 import com.akoudri.healthrecord.fragment.MyTherapistsFragment;
 import com.akoudri.healthrecord.fragment.UpdatePersonFragment;
 
+import java.sql.SQLException;
+
 public class EditPersonActivity extends Activity {
 
-    private Fragment calendarFrag, therapistsFrag, personalFrag, analysisFrag;
+    private HealthRecordDataSource dataSource;
+    private MyCalendarFragment calendarFrag;
+    private MyTherapistsFragment therapistsFrag;
+    private UpdatePersonFragment personalFrag;
+    private MyAnalysisFragment analysisFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
     private int personId = 0;
@@ -25,6 +33,7 @@ public class EditPersonActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_person);
+        dataSource = new HealthRecordDataSource(this);
         personId = getIntent().getIntExtra("personId", 0);
         calendarFrag = MyCalendarFragment.newInstance();
         therapistsFrag = MyTherapistsFragment.newInstance();
@@ -34,6 +43,25 @@ public class EditPersonActivity extends Activity {
         fragTrans.add(R.id.day_layout, calendarFrag);
         fragTrans.commit();
         currentFrag = calendarFrag;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //FIXME: Manage the case where data source could not be opened
+        try {
+            dataSource.open();
+            therapistsFrag.setDataSource(dataSource);
+            personalFrag.setDataSource(dataSource);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataSource.close();
     }
 
     public void displayCalendar(View view)
@@ -74,11 +102,11 @@ public class EditPersonActivity extends Activity {
 
     public void showBirthdayPickerDialog(View view)
     {
-        ((UpdatePersonFragment)personalFrag).showBirthdayPickerDialog(view);
+        personalFrag.showBirthdayPickerDialog(view);
     }
 
     public void addTherapist(View view)
     {
-        ((MyTherapistsFragment)therapistsFrag).addTherapist(view);
+        therapistsFrag.addTherapist(view);
     }
 }

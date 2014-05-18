@@ -18,7 +18,7 @@ public class AppointmentTable {
     public static final String APPOINTMENT_TABLE = "appointment";
     public static final String APPOINTMENT_ID = "_id";
     public static final String APPT_PERSON_REF = "personId";
-    public static final String APPT_THERAPIST_REF = "doctorId";
+    public static final String APPT_THERAPIST_REF = "therapistId";
     public static final String APPOINTMENT_DATE = "date";
     public static final String APPOINTMENT_HOUR = "hour";
     public static final String APPOINTMENT_COMMENT = "comment";
@@ -78,8 +78,8 @@ public class AppointmentTable {
     {
         List<Appointment> res = new ArrayList<Appointment>();
         Cursor cursor = db.query(APPOINTMENT_TABLE, AppointmentCols,
-                personId + "=" + APPT_PERSON_REF + " and " + APPOINTMENT_DATE + "=" + date,
-                null, null, null, null);
+                APPT_PERSON_REF + "=" + personId + " and " + APPOINTMENT_DATE + "=?",
+                new String[] {date}, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {

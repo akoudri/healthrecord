@@ -27,8 +27,7 @@ public class AppointmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
     private int personId;
-    private int day, month, year;
-    private String date;
+    private Calendar currentDay;
     private View view;
     private GridLayout layout;
     private GridLayout.LayoutParams params;
@@ -44,18 +43,22 @@ public class AppointmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        Calendar cal = Calendar.getInstance();
-        day = getActivity().getIntent().getIntExtra("day", cal.get(Calendar.DAY_OF_MONTH));
-        month = getActivity().getIntent().getIntExtra("month", cal.get(Calendar.MONTH));
-        year = getActivity().getIntent().getIntExtra("year", cal.get(Calendar.YEAR));
-        date = String.format("%02d/%02d/%4d", day, month, year);
         return view;
+    }
+
+    public void setCurrentDay(Calendar currentDay)
+    {
+        this.currentDay = currentDay;
     }
 
     private void populateWidgets()
     {
         //FIXME: does not display anything!
         layout.removeAllViews();
+        int day = currentDay.get(Calendar.DAY_OF_MONTH);
+        int month = currentDay.get(Calendar.MONTH) + 1;
+        int year = currentDay.get(Calendar.YEAR);
+        String date = String.format("%02d/%02d/%4d", day, month, year);
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
         if (allAppointments == null || allAppointments.size() == 0) return;
         int margin = 5;
@@ -88,8 +91,6 @@ public class AppointmentFragment extends Fragment {
             editButton.setMinEms(10);
             editButton.setMaxEms(10);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            Drawable img = getResources().getDrawable(R.drawable.rv);
-            editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             //FIXME:set on click listener
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
@@ -100,6 +101,8 @@ public class AppointmentFragment extends Fragment {
             editButton.setLayoutParams(params);
             layout.addView(editButton);
             //remove button
+            rowSpec = GridLayout.spec(r);
+            colSpec = GridLayout.spec(1);
             removeButton = new ImageButton(getActivity());
             removeButton.setBackgroundResource(R.drawable.remove);
             //FIXME: set on click listener

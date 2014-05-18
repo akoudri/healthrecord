@@ -30,6 +30,7 @@ public class EditDayActivity extends Activity {
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
     private int personId = 0;
+    private Calendar currentDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class EditDayActivity extends Activity {
         int date = getIntent().getIntExtra("date", 0);
         int month = getIntent().getIntExtra("month", 0);
         int year = getIntent().getIntExtra("year", 0);
-        Calendar currentDay = Calendar.getInstance();
+        currentDay = Calendar.getInstance();
         currentDay.set(Calendar.DAY_OF_MONTH, date);
         currentDay.set(Calendar.MONTH, month);
         currentDay.set(Calendar.YEAR, year);
@@ -115,6 +116,7 @@ public class EditDayActivity extends Activity {
         try {
             dataSource.open();
             apptFrag.setDataSource(dataSource);
+            apptFrag.setCurrentDay(currentDay);
         } catch (SQLException e) {
             e.printStackTrace();
         }

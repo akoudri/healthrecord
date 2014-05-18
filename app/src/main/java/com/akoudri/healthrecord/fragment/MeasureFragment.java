@@ -21,6 +21,7 @@ public class MeasureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_measure, container, false);
+        //FIXME: make size and cranial perimeter visible only if relevant
         return view;
     }
 

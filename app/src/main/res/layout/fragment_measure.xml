@@ -3,6 +3,7 @@
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!-- TODO: Should be centered horizontally -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,32 +13,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/regular_text_color"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
-                android:text="@string/size"/>
-            <EditText
-                android:id="@+id/edit_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:layout_margin="5dp"
-                android:layout_gravity="left|center_vertical"
-                android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +39,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +65,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +91,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -188,6 +168,33 @@
                     android:minEms="6"
                     android:maxEms="6"/>
             </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:visibility="invisible">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/regular_text_color"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:layout_gravity="right|center_vertical"
+                android:minEms="10"
+                android:maxEms="10"
+                android:text="@string/size"/>
+            <EditText
+                android:id="@+id/edit_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:layout_margin="5dp"
+                android:layout_gravity="left|center_vertical"
+                android:inputType="numberDecimal"
+                android:minEms="6"
+                android:maxEms="6"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

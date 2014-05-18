@@ -15,14 +15,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.akoudri.healthrecord.activity.EditPersonActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 
-import java.sql.SQLException;
 import java.util.Calendar;
 
 
@@ -44,7 +42,7 @@ public class UpdatePersonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_update_person, container, false);
+        view = inflater.inflate(R.layout.fragment_person, container, false);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         String[] btChoices = {"O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " "};
         ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, btChoices);

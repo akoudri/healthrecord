@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.akoudri.healthrecord.activity.AddPersonActivity" >
+    tools:context="com.akoudri.healthrecord.activity.CreatePersonActivity" >
     
     <item android:id="@+id/add_action_settings"
         android:title="@string/action_settings"

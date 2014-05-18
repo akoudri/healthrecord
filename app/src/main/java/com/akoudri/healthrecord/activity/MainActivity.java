@@ -65,6 +65,7 @@ public class MainActivity extends Activity {
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean(dbLoaded, true);
             editor.commit();
+            isDbLoaded = true;
         }
         populateWidgets();
     }
@@ -83,11 +84,12 @@ public class MainActivity extends Activity {
         for (String b : branches)
         {
             dataSource.getTherapyBranchTable().insertTherapyBranch(b);
-            //FIXME: for debug only - to remove
-            dataSource.getPersonTable().insertPerson("Ali", Gender.MALE, "ssn1", BloodType.ABPLUS, "27/08/1974");
-            dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);
-            dataSource.getPersonTherapistTable().insertRelation(1,1);
         }
+        //FIXME: for debug only - to remove
+        dataSource.getPersonTable().insertPerson("Ali", Gender.MALE, "ssn1", BloodType.ABPLUS, "27/08/1974");
+        dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);
+        dataSource.getPersonTherapistTable().insertRelation(1,1);
+        dataSource.getAppointmentTable().insertAppointment(1, 1, "30/06/2014", "11:30", "no comment");
     }
 
     private void populateWidgets()

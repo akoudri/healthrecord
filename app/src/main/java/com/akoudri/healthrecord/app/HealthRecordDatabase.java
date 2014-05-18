@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DeleteTherapistTrigger;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
@@ -23,6 +24,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
     private DeleteTherapistTrigger deleteTherapistTrigger;
+    private AppointmentTable appointmentTable;
 
     public HealthRecordDatabase(Context context)
     {
@@ -41,11 +43,14 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         personTherapistTable.createPersonTherapistTable();
         deleteTherapistTrigger = new DeleteTherapistTrigger(db);
         deleteTherapistTrigger.createDeleteTherapistTrigger();
+        appointmentTable = new AppointmentTable(db);
+        appointmentTable.createAppointmentTable();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //FIXME: this first version simply removes the old tables
+        db.execSQL("drop table if exists " + AppointmentTable.APPOINTMENT_TABLE );
         db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIGGER);
         db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE );
         db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE );

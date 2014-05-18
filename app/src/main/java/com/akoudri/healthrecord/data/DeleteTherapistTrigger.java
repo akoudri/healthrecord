@@ -23,13 +23,13 @@ public class DeleteTherapistTrigger {
         sb.append("after delete on " + PersonTherapistTable.PERSON_THERAPIST_TABLE + " ");
         sb.append("when (");
         sb.append("select count(*) from " + PersonTherapistTable.PERSON_THERAPIST_TABLE +
-            " where " + PersonTherapistTable.THERAPIST_REF + " = old." +
-                PersonTherapistTable.THERAPIST_REF);
+            " where " + PersonTherapistTable.PT_THERAPIST_REF + " = old." +
+                PersonTherapistTable.PT_THERAPIST_REF);
         sb.append(") = 0 ");
         sb.append("begin ");
         sb.append("delete from " + TherapistTable.THERAPIST_TABLE + " ");
         sb.append("where ");
-        sb.append(TherapistTable.THERAPIST_ID + "=" + "old." + PersonTherapistTable.THERAPIST_REF);
+        sb.append(TherapistTable.THERAPIST_ID + "=" + "old." + PersonTherapistTable.PT_THERAPIST_REF);
         sb.append(";");
         sb.append("end;");
         db.execSQL(sb.toString());

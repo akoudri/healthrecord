@@ -8,22 +8,25 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.fragment.MyCalendarFragment;
-import com.akoudri.healthrecord.fragment.MyIllnessFragment;
-import com.akoudri.healthrecord.fragment.MyMeasuresFragment;
-import com.akoudri.healthrecord.fragment.MyMedicsFragment;
-import com.akoudri.healthrecord.fragment.MyRvFragment;
-import com.akoudri.healthrecord.fragment.MyTherapistsFragment;
-import com.akoudri.healthrecord.fragment.UpdatePersonFragment;
+import com.akoudri.healthrecord.fragment.AilmentFragment;
+import com.akoudri.healthrecord.fragment.AppointmentFragment;
+import com.akoudri.healthrecord.fragment.MeasureFragment;
+import com.akoudri.healthrecord.fragment.MedicationFragment;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class EditDayActivity extends Activity {
 
+    private HealthRecordDataSource dataSource;
     private TextView today_label;
-    private Fragment measuresFrag, rvFrag, illnessFrag, medicsFrag;
+    private AppointmentFragment apptFrag;
+    private MeasureFragment measureFrag;
+    private AilmentFragment ailmentFrag;
+    private MedicationFragment medicFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
     private int personId = 0;
@@ -33,19 +36,20 @@ public class EditDayActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_day);
+        dataSource = new HealthRecordDataSource(this);
         //FIXME: retrieve person id from calendar
         //FIXME: make cranial perimeter visible if age > ?
         today_label = (TextView) findViewById(R.id.today_label);
         displayCurrentDay();
         personId = getIntent().getIntExtra("personId", 0);
-        rvFrag = MyRvFragment.newInstance();
-        illnessFrag = MyIllnessFragment.newInstance();
-        medicsFrag = MyMedicsFragment.newInstance();
-        measuresFrag = MyMeasuresFragment.newInstance();
+        apptFrag = AppointmentFragment.newInstance();
+        ailmentFrag = AilmentFragment.newInstance();
+        medicFrag = MedicationFragment.newInstance();
+        measureFrag = MeasureFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.add(R.id.day_layout, rvFrag);
+        fragTrans.add(R.id.day_layout, apptFrag);
         fragTrans.commit();
-        currentFrag = rvFrag;
+        currentFrag = apptFrag;
     }
 
     private void displayCurrentDay()
@@ -70,37 +74,49 @@ public class EditDayActivity extends Activity {
 
     public void displayMeasures(View view)
     {
-        if (currentFrag == measuresFrag) return;
+        if (currentFrag == measureFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, measuresFrag);
+        fragTrans.replace(R.id.day_layout, measureFrag);
         fragTrans.commit();
-        currentFrag = measuresFrag;
+        currentFrag = measureFrag;
     }
 
     public void displayRV(View view)
     {
-        if (currentFrag == rvFrag) return;
+        if (currentFrag == apptFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, rvFrag);
+        fragTrans.replace(R.id.day_layout, apptFrag);
         fragTrans.commit();
-        currentFrag = rvFrag;
+        currentFrag = apptFrag;
     }
 
     public void displayIllness(View view)
     {
-        if (currentFrag == illnessFrag) return;
+        if (currentFrag == ailmentFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, illnessFrag);
+        fragTrans.replace(R.id.day_layout, ailmentFrag);
         fragTrans.commit();
-        currentFrag = illnessFrag;
+        currentFrag = ailmentFrag;
     }
 
     public void displayMedics(View view)
     {
-        if (currentFrag == medicsFrag) return;
+        if (currentFrag == medicFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, medicsFrag);
+        fragTrans.replace(R.id.day_layout, medicFrag);
         fragTrans.commit();
-        currentFrag = medicsFrag;
+        currentFrag = medicFrag;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //FIXME: Manage the case where data source could not be opened
+        try {
+            dataSource.open();
+            apptFrag.setDataSource(dataSource);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

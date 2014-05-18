@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.akoudri.healthrecord.activity.AddPersonActivity"
+            android:name="com.akoudri.healthrecord.activity.CreatePersonActivity"
             android:label="@string/add"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.akoudri.healthrecord.activity.AddTherapistActivity"
+            android:name="com.akoudri.healthrecord.activity.CreateTherapistActivity"
             android:label="@string/add_therapist"
             android:screenOrientation="portrait">
             <intent-filter>

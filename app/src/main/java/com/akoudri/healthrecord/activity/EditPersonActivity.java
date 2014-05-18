@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.fragment.MyAnalysisFragment;
-import com.akoudri.healthrecord.fragment.MyCalendarFragment;
-import com.akoudri.healthrecord.fragment.MyTherapistsFragment;
+import com.akoudri.healthrecord.fragment.AnalysisFragment;
+import com.akoudri.healthrecord.fragment.CalendarFragment;
+import com.akoudri.healthrecord.fragment.TherapistFragment;
 import com.akoudri.healthrecord.fragment.UpdatePersonFragment;
 
 import java.sql.SQLException;
@@ -20,10 +19,10 @@ import java.sql.SQLException;
 public class EditPersonActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
-    private MyCalendarFragment calendarFrag;
-    private MyTherapistsFragment therapistsFrag;
+    private CalendarFragment calendarFrag;
+    private TherapistFragment therapistsFrag;
     private UpdatePersonFragment personalFrag;
-    private MyAnalysisFragment analysisFrag;
+    private AnalysisFragment analysisFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
     private int personId = 0;
@@ -35,10 +34,10 @@ public class EditPersonActivity extends Activity {
         setContentView(R.layout.activity_edit_person);
         dataSource = new HealthRecordDataSource(this);
         personId = getIntent().getIntExtra("personId", 0);
-        calendarFrag = MyCalendarFragment.newInstance();
-        therapistsFrag = MyTherapistsFragment.newInstance();
+        calendarFrag = CalendarFragment.newInstance();
+        therapistsFrag = TherapistFragment.newInstance();
         personalFrag = UpdatePersonFragment.newInstance();
-        analysisFrag = MyAnalysisFragment.newInstance();
+        analysisFrag = AnalysisFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.add(R.id.day_layout, calendarFrag);
         fragTrans.commit();

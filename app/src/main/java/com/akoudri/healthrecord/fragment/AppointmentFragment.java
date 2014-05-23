@@ -1,7 +1,9 @@
 package com.akoudri.healthrecord.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
-import android.graphics.drawable.Drawable;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,6 +34,7 @@ public class AppointmentFragment extends Fragment {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+    private int day, month, year;
 
     public static AppointmentFragment newInstance()
     {
@@ -43,22 +46,28 @@ public class AppointmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
+        day = 0;
+        month = 0;
+        year = 0;
         return view;
     }
 
     public void setCurrentDay(Calendar currentDay)
     {
         this.currentDay = currentDay;
+        day = currentDay.get(Calendar.DAY_OF_MONTH);
+        month = currentDay.get(Calendar.MONTH) + 1;
+        year = currentDay.get(Calendar.YEAR);
     }
 
     private void populateWidgets()
     {
-        //FIXME: does not display anything!
         layout.removeAllViews();
-        int day = currentDay.get(Calendar.DAY_OF_MONTH);
-        int month = currentDay.get(Calendar.MONTH) + 1;
-        int year = currentDay.get(Calendar.YEAR);
+        //int day = currentDay.get(Calendar.DAY_OF_MONTH);
+        //int month = currentDay.get(Calendar.MONTH) + 1;
+        //int year = currentDay.get(Calendar.YEAR);
         String date = String.format("%02d/%02d/%4d", day, month, year);
+        //FIXME: order appointment in regard to time
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
         if (allAppointments == null || allAppointments.size() == 0) return;
         int margin = 5;
@@ -73,6 +82,7 @@ public class AppointmentFragment extends Fragment {
         int r = 0; //row index
         for (Appointment appt : allAppointments)
         {
+            final int apptId = appt.getId();
             therapist = therapistTable.getTherapistWithId(appt.getTherapist());
             branch = branchTable.getBranchWithId(therapist.getBranchId());
             sb = new StringBuilder();
@@ -91,7 +101,15 @@ public class AppointmentFragment extends Fragment {
             editButton.setMinEms(10);
             editButton.setMaxEms(10);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //FIXME:set on click listener
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.UpdateAppointment");
+                    intent.putExtra("personId", personId);
+                    intent.putExtra("apptId", apptId);
+                    startActivity(intent);
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;
@@ -105,7 +123,25 @@ public class AppointmentFragment extends Fragment {
             colSpec = GridLayout.spec(1);
             removeButton = new ImageButton(getActivity());
             removeButton.setBackgroundResource(R.drawable.remove);
-            //FIXME: set on click listener
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new AlertDialog.Builder((AppointmentFragment.this).getActivity())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.removing)
+                            .setMessage(getResources().getString(R.string.remove_appt_question))
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dataSource.getAppointmentTable().removeAppointmentWithId(apptId);
+                                    populateWidgets();
+                                }
+                            })
+                            .setNegativeButton(R.string.no, null)
+                            .show();
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;

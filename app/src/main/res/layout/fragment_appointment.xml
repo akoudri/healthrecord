@@ -16,7 +16,8 @@
             android:layout_gravity="center"
             android:text="@string/add_rv"
             android:textSize="18dp"
-            android:drawableRight="@drawable/plus"/>
+            android:drawableRight="@drawable/plus"
+            android:onClick="createAppt"/>
 
         <GridLayout
             android:id="@+id/my_appointments_grid"

@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="2dp"
-                android:src="@drawable/measure"
+                android:src="@drawable/ruler"
                 android:onClick="displayMeasures"/>
         </LinearLayout>
         <TextView

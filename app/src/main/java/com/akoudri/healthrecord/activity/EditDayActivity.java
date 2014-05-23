@@ -3,6 +3,7 @@ package com.akoudri.healthrecord.activity;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -30,6 +31,7 @@ public class EditDayActivity extends Activity {
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
     private int personId = 0;
+    private int date, month, year;
     private Calendar currentDay;
 
     @Override
@@ -41,8 +43,11 @@ public class EditDayActivity extends Activity {
         //FIXME: retrieve person id from calendar
         //FIXME: make cranial perimeter visible if age > ?
         today_label = (TextView) findViewById(R.id.today_label);
-        displayCurrentDay();
         personId = getIntent().getIntExtra("personId", 0);
+        date = getIntent().getIntExtra("date", 0);
+        month = getIntent().getIntExtra("month", 0);
+        year = getIntent().getIntExtra("year", 0);
+        displayCurrentDay();
         apptFrag = AppointmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
         medicFrag = MedicationFragment.newInstance();
@@ -55,9 +60,6 @@ public class EditDayActivity extends Activity {
 
     private void displayCurrentDay()
     {
-        int date = getIntent().getIntExtra("date", 0);
-        int month = getIntent().getIntExtra("month", 0);
-        int year = getIntent().getIntExtra("year", 0);
         currentDay = Calendar.getInstance();
         currentDay.set(Calendar.DAY_OF_MONTH, date);
         currentDay.set(Calendar.MONTH, month);
@@ -120,5 +122,15 @@ public class EditDayActivity extends Activity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createAppt(View view)
+    {
+        Intent intent = new Intent("com.akoudri.healthrecord.app.AddAppointment");
+        intent.putExtra("personId", personId);
+        intent.putExtra("date", date);
+        intent.putExtra("month", month);
+        intent.putExtra("year", year);
+        startActivity(intent);
     }
 }

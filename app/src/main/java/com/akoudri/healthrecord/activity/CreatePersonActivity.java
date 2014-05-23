@@ -20,7 +20,6 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
-import com.akoudri.healthrecord.fragment.UpdatePersonFragment;
 
 import java.sql.SQLException;
 import java.util.Calendar;

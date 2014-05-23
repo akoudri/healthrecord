@@ -53,5 +53,7 @@
     <string name="add_rv">Ajouter Rendez-Vous</string>
     <string name="add_ailment">Ajouter Maladie</string>
     <string name="add_treatment">Ajouter Traitement</string>
+    <string name="hour">Heure</string>
+    <string name="remove_appt_question">Voulez-vous vraiment supprimer ce rendez-vous ?</string>
 
 </resources>

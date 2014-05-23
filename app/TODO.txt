@@ -1,0 +1,2 @@
+Triggers:
+When removing a person | therapist: delete corresponding appointments from appointment table

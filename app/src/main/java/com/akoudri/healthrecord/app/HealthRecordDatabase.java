@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DeleteTherapistTrigger;
+import com.akoudri.healthrecord.data.RemoveTherapistFromPersonTrigger;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.TherapistTable;
@@ -23,8 +24,9 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private TherapyBranchTable therapyBranchTable;
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
-    private DeleteTherapistTrigger deleteTherapistTrigger;
+    private RemoveTherapistFromPersonTrigger removeTherapistFromPersonTrigger;
     private AppointmentTable appointmentTable;
+    private DeleteTherapistTrigger deleteTherapistTrigger;
 
     public HealthRecordDatabase(Context context)
     {
@@ -41,17 +43,20 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         therapistTable.createTherapistTable();
         personTherapistTable = new PersonTherapistTable(db);
         personTherapistTable.createPersonTherapistTable();
-        deleteTherapistTrigger = new DeleteTherapistTrigger(db);
-        deleteTherapistTrigger.createDeleteTherapistTrigger();
+        removeTherapistFromPersonTrigger = new RemoveTherapistFromPersonTrigger(db);
+        removeTherapistFromPersonTrigger.createRemoveTherapistFromPersonTrigger();
         appointmentTable = new AppointmentTable(db);
         appointmentTable.createAppointmentTable();
+        deleteTherapistTrigger = new DeleteTherapistTrigger(db);
+        deleteTherapistTrigger.createDeleteTherapistTrigger();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //FIXME: this first version simply removes the old tables
+        db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIG);
         db.execSQL("drop table if exists " + AppointmentTable.APPOINTMENT_TABLE );
-        db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIGGER);
+        db.execSQL("drop trigger if exists " + RemoveTherapistFromPersonTrigger.REMOVE_THERAPIST_FROM_PERSON_TRIG);
         db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE );
         db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE );
         db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE );

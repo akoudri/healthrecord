@@ -1,0 +1,62 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateAppointmentActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:alignmentMode="alignBounds">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:alignmentMode="alignBounds"
+            android:layout_gravity="center_horizontal">
+
+            <EditText
+                android:id="@+id/select_appt_hour"
+                android:background="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:inputType="time"
+                android:ems="5"
+                android:layout_gravity="center_vertical"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/rv"
+                android:onClick="selectHour"/>
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/thchoice_select"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"/>
+
+        <!-- FIXME: add multiline comment field -->
+
+        <Button
+            android:text="@string/add"
+            style="@style/TitleButton"
+            android:minEms="8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"
+            android:drawableRight="@drawable/plus"
+            android:onClick="addAppointment"/>
+
+    </LinearLayout>
+</ScrollView>

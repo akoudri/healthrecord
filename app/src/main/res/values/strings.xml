@@ -53,5 +53,7 @@
     <string name="add_rv">Add Appointment</string>
     <string name="add_ailment">Add Ailment</string>
     <string name="add_treatment">Add Treatment</string>
+    <string name="hour">Hour</string>
+    <string name="remove_appt_question">Are you sure you want to remove this appointment ?</string>
 
 </resources>

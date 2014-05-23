@@ -60,19 +60,17 @@ public class AppointmentTable {
         return db.insert(APPOINTMENT_TABLE, null, values);
     }
 
-    /*public List<Appointment> getAllAppointments()
+    public boolean updateAppointment(int apptId, int personId, int therapistId, String date, String hour, String comment)
     {
-        List<Appointment> res = new ArrayList<Appointment>();
-        Cursor cursor = db.query(APPOINTMENT_TABLE, AppointmentCols,
-                null, null, null, null, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast())
-        {
-            res.add(cursorToAppointment(cursor));
-            cursor.moveToNext();
-        }
-        return res;
-    }*/
+        //FIXME: manage null values like in person table - also for other tables
+        ContentValues values = new ContentValues();
+        values.put(APPT_PERSON_REF, personId);
+        values.put(APPT_THERAPIST_REF, therapistId);
+        values.put(APPOINTMENT_DATE, date);
+        values.put(APPOINTMENT_HOUR, hour);
+        values.put(APPOINTMENT_COMMENT, comment);
+        return db.update(APPOINTMENT_TABLE, values, APPOINTMENT_ID + "=" + apptId, null) > 0;
+    }
 
     public List<Appointment> getDayAppointmentsForPerson(int personId, String date)
     {
@@ -87,6 +85,20 @@ public class AppointmentTable {
             cursor.moveToNext();
         }
         return res;
+    }
+
+    public Appointment getAppointmentWithId(int apptId)
+    {
+        Cursor cursor = db.query(APPOINTMENT_TABLE, AppointmentCols,
+                APPOINTMENT_ID + "=" + apptId, null, null, null, null);
+        if (cursor.moveToFirst())
+            return cursorToAppointment(cursor);
+        return null;
+    }
+
+    public boolean removeAppointmentWithId(int apptId)
+    {
+        return db.delete(APPOINTMENT_TABLE, APPOINTMENT_ID + "=" + apptId, null) > 0;
     }
 
     private Appointment cursorToAppointment(Cursor cursor)

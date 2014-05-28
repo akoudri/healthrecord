@@ -41,6 +41,38 @@
         <item>Pediatrician</item>
         <item>Physiotherapist</item>
     </string-array>
+    <string-array name="illnesses">
+        <item>Cholesterol</item>
+        <item>Hypertension</item>
+        <item>Migraine</item>
+        <item>Depression</item>
+        <item>Asthma</item>
+        <item>Bronchiolitis</item>
+        <item>Bronchitis</item>
+        <item>Acne</item>
+        <item>Eczema</item>
+        <item>Herpes</item>
+        <item>Psoriasis</item>
+        <item>Ulcer</item>
+        <item>Osteoarthritis</item>
+        <item>LBP</item>
+        <item>Osteoporosis</item>
+        <item>Rheumatism</item>
+        <item>Sciatica</item>
+        <item>Cataract</item>
+        <item>Diabetes</item>
+        <item>Meningitis</item>
+        <item>Phlebitis</item>
+        <item>Alcoholism</item>
+        <item>Smoking</item>
+        <item>Anorexia</item>
+        <item>Bulimia</item>
+        <item>Nasopharyngitis</item>
+        <item>Allergy</item>
+        <item>Flu</item>
+        <item>Angina</item>
+        <item>Cold</item>
+    </string-array>
     <string name="size">Size(cm)</string>
     <string name="weight">Weight(kg)</string>
     <string name="temperature">Temperature(°C)</string>

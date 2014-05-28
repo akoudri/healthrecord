@@ -87,6 +87,11 @@ public class MainActivity extends Activity {
         {
             dataSource.getTherapyBranchTable().insertTherapyBranch(b);
         }
+        String[] illnesses = getResources().getStringArray(R.array.illnesses);
+        for (String i : illnesses)
+        {
+            dataSource.getIllnessTable().insertIllness(i);
+        }
         //FIXME: for debug only - to remove
         dataSource.getPersonTable().insertPerson("Ali", Gender.MALE, "ssn1", BloodType.ABPLUS, "27/08/1974");
         dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);

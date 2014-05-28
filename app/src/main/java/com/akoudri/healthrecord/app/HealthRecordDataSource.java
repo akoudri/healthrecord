@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.akoudri.healthrecord.data.AppointmentTable;
+import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.TherapistTable;
@@ -20,6 +21,7 @@ public class HealthRecordDataSource {
     private HealthRecordDatabase dbHelper;
     private PersonTable personTable;
     private TherapyBranchTable therapyBranchTable;
+    private IllnessTable illnessTable;
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
     private AppointmentTable appointmentTable;
@@ -34,6 +36,7 @@ public class HealthRecordDataSource {
         db = dbHelper.getWritableDatabase();
         personTable = new PersonTable(db);
         therapyBranchTable = new TherapyBranchTable(db);
+        illnessTable = new IllnessTable(db);
         therapistTable = new TherapistTable(db);
         personTherapistTable = new PersonTherapistTable(db);
         appointmentTable = new AppointmentTable(db);
@@ -51,6 +54,11 @@ public class HealthRecordDataSource {
 
     public TherapyBranchTable getTherapyBranchTable() {
         return therapyBranchTable;
+    }
+
+    public IllnessTable getIllnessTable()
+    {
+        return illnessTable;
     }
 
     public TherapistTable getTherapistTable() {

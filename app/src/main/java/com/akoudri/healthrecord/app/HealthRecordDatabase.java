@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DeleteTherapistTrigger;
+import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.RemoveTherapistFromPersonTrigger;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
@@ -22,6 +23,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     private PersonTable personTable;
     private TherapyBranchTable therapyBranchTable;
+    private IllnessTable illnessTable;
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
     private RemoveTherapistFromPersonTrigger removeTherapistFromPersonTrigger;
@@ -39,6 +41,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         personTable.createPersonTable();
         therapyBranchTable = new TherapyBranchTable(db);
         therapyBranchTable.createTherapyBranchTable();
+        illnessTable = new IllnessTable(db);
+        illnessTable.createIllnessTable();
         therapistTable = new TherapistTable(db);
         therapistTable.createTherapistTable();
         personTherapistTable = new PersonTherapistTable(db);
@@ -55,12 +59,13 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //FIXME: this first version simply removes the old tables
         db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIG);
-        db.execSQL("drop table if exists " + AppointmentTable.APPOINTMENT_TABLE );
+        db.execSQL("drop table if exists " + AppointmentTable.APPOINTMENT_TABLE);
         db.execSQL("drop trigger if exists " + RemoveTherapistFromPersonTrigger.REMOVE_THERAPIST_FROM_PERSON_TRIG);
-        db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE );
-        db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE );
-        db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE );
-        db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE );
+        db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE);
+        db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE);
+        db.execSQL("drop table if exists " + IllnessTable.ILLNESS_TABLE);
+        db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE);
+        db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE);
         onCreate(db);
     }
 }

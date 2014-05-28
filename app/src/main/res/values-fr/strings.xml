@@ -41,6 +41,38 @@
         <item>Pédiatre</item>
         <item>Kinésithérapeute</item>
     </string-array>
+    <string-array name="illnesses">
+        <item>Cholestérol</item>
+        <item>Hypertension</item>
+        <item>Migraine</item>
+        <item>Dépression</item>
+        <item>Asthme</item>
+        <item>Bronchiolite</item>
+        <item>Bronchite</item>
+        <item>Acné</item>
+        <item>Eczéma</item>
+        <item>Herpès</item>
+        <item>Psoriasis</item>
+        <item>Ulcère</item>
+        <item>Arthrose</item>
+        <item>Lombalgie</item>
+        <item>Ostéoporose</item>
+        <item>Rhumatisme</item>
+        <item>Sciatique</item>
+        <item>Cataracte</item>
+        <item>Diabète</item>
+        <item>Méningite</item>
+        <item>Phlébite</item>
+        <item>Alcoolisme</item>
+        <item>Tabagisme</item>
+        <item>Anorexie</item>
+        <item>Boulimie</item>
+        <item>Rhinopharyngite</item>
+        <item>Allergie</item>
+        <item>Grippe</item>
+        <item>Angine</item>
+        <item>Rhume</item>
+    </string-array>
     <string name="size">Taille(cm)</string>
     <string name="weight">Poids(kg)</string>
     <string name="temperature">Température(°C)</string>

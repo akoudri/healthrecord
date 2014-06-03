@@ -72,6 +72,17 @@
         <item>Grippe</item>
         <item>Angine</item>
         <item>Rhume</item>
+        <!-- TODO: check and update english version-->
+        <item>Colique</item>
+        <item>Gastro-entérite</item>
+        <item>Varicelle</item>
+        <item>Diarrhée</item>
+        <item>Rougeole</item>
+        <item>Hémorroides</item>
+        <item>Constipation</item>
+        <item>Jaunisse</item>
+        <item>Rubéole</item>
+        <item>Méningite</item>
     </string-array>
     <string name="size">Taille(cm)</string>
     <string name="weight">Poids(kg)</string>

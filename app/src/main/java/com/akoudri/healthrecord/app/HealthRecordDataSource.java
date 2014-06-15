@@ -5,11 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
+import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
+import com.akoudri.healthrecord.data.TreatmentTable;
 
 import java.sql.SQLException;
 
@@ -26,7 +28,9 @@ public class HealthRecordDataSource {
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
     private AppointmentTable appointmentTable;
-    private AilmentTable ailmentTable; //TODO
+    private AilmentTable ailmentTable;
+    private TreatmentTable treatmentTable;
+    private DrugTable drugTable;
 
     public HealthRecordDataSource(Context context)
     {
@@ -43,6 +47,8 @@ public class HealthRecordDataSource {
         personTherapistTable = new PersonTherapistTable(db);
         appointmentTable = new AppointmentTable(db);
         ailmentTable = new AilmentTable(db);
+        treatmentTable = new TreatmentTable(db);
+        drugTable = new DrugTable(db);
     }
 
     public void close()
@@ -80,5 +86,14 @@ public class HealthRecordDataSource {
     public AilmentTable getAilmentTable()
     {
         return ailmentTable;
+    }
+
+    public TreatmentTable getTreatmentTable() {
+        return treatmentTable;
+    }
+
+    public DrugTable getDrugTable()
+    {
+        return drugTable;
     }
 }

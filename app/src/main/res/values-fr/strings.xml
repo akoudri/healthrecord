@@ -83,6 +83,107 @@
         <item>Jaunisse</item>
         <item>Rubéole</item>
     </string-array>
+    <string-array name="drugs">
+        <item>Doliprane</item>
+        <item>Efferalgan</item>
+        <item>Dafalgan</item>
+        <item>Levothyrox</item>
+        <item>Kardegic</item>
+        <item>Spasfon</item>
+        <item>Tahor</item>
+        <item>Voltarene</item>
+        <item>Methadone Aphp</item>
+        <item>Eludril</item>
+        <item>Ixprim</item>
+        <item>Paracetamol Biogaran</item>
+        <item>Forlax</item>
+        <item>Magne b6</item>
+        <item>Helicidine</item>
+        <item>Piascledine</item>
+        <item>Lamaline</item>
+        <item>Gaviscon</item>
+        <item>Daflon</item>
+        <item>Rhinofluimucil</item>
+        <item>Plavix</item>
+        <item>Subutex</item>
+        <item>Aerius</item>
+        <item>Orelox</item>
+        <item>Dextropropoxyphene Parac Merck</item>
+        <item>Inexium</item>
+        <item>Efferalgan Codeine</item>
+        <item>Di Antalvic</item>
+        <item>Meteospasmyl</item>
+        <item>Toplexil</item>
+        <item>Pivalone</item>
+        <item>Vastarel</item>
+        <item>Advil</item>
+        <item>Dexeryl</item>
+        <item>Renutryl Emlapatch</item>
+        <item>Endotelon</item>
+        <item>Temesta</item>
+        <item>Effexor</item>
+        <item>Paracetamol Sandoz</item>
+        <item>Ventoline</item>
+        <item>Dialgirex</item>
+        <item>Solupred</item>
+        <item>Dextropropoxyphene Parac Biog</item>
+        <item>Pneumorel</item>
+        <item>Inipomp</item>
+        <item>Previscan</item>
+        <item>Aspegic</item>
+        <item>Ginkor</item>
+        <item>Crestor</item>
+        <item>Mediator</item>
+        <item>Seresta</item>
+        <item>Motilium</item>
+        <item>Paracetamol Merck</item>
+        <item>Metformine Merck</item>
+        <item>Celestene</item>
+        <item>Amlor</item>
+        <item>Diamicron</item>
+        <item>Tanakan</item>
+        <item>Atarax</item>
+        <item>Derinox</item>
+        <item>Xyzall</item>
+        <item>Dextropropoxyphene Parac Sand</item>
+        <item>Biprofenid</item>
+        <item>Seretide</item>
+        <item>Coversyl</item>
+        <item>Propofan</item>
+        <item>Rhino Sulforgan</item>
+        <item>Hexaquine</item>
+        <item>Diffu-K</item>
+        <item>Smecta</item>
+        <item>Aprovel</item>
+        <item>Pariet</item>
+        <item>Zaldiar</item>
+        <item>Diprosone</item>
+        <item>Amoxicilline Merck</item>
+        <item>Paracetamol Teva</item>
+        <item>Betadine</item>
+        <item>Lysanxia</item>
+        <item>Alodont</item>
+        <item>Lexomil</item>
+        <item>Dacryoserum</item>
+        <item>Fucidine</item>
+        <item>Stilnox</item>
+        <item>Ketum</item>
+        <item>Lovenox</item>
+        <item>Stablon</item>
+        <item>Art</item>
+        <item>Biocalyptol</item>
+        <item>Thiovalone</item>
+        <item>Debridat</item>
+        <item>Pyostacine</item>
+        <item>Tiorfan</item>
+        <item>Speciafoldine</item>
+        <item>Ogast</item>
+        <item>Rivotril</item>
+        <item>Topalgic</item>
+        <item>Nasonex</item>
+        <item>Coaprovel</item>
+        <item>Xalatan</item>
+    </string-array>
     <string name="size">Taille(cm)</string>
     <string name="weight">Poids(kg)</string>
     <string name="temperature">Température(°C)</string>

@@ -119,6 +119,8 @@ public class EditDayActivity extends Activity {
             dataSource.open();
             apptFrag.setDataSource(dataSource);
             apptFrag.setCurrentDay(currentDay);
+            ailmentFrag.setDataSource(dataSource);
+            ailmentFrag.setCurrentDay(currentDay);
         } catch (SQLException e) {
             e.printStackTrace();
         }

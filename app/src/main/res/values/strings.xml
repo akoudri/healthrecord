@@ -72,6 +72,7 @@
         <item>Flu</item>
         <item>Angina</item>
         <item>Cold</item>
+        <!-- TODO: complete -->
     </string-array>
     <string name="size">Size(cm)</string>
     <string name="weight">Weight(kg)</string>

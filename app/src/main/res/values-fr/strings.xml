@@ -82,7 +82,6 @@
         <item>Constipation</item>
         <item>Jaunisse</item>
         <item>Rubéole</item>
-        <item>Méningite</item>
     </string-array>
     <string name="size">Taille(cm)</string>
     <string name="weight">Poids(kg)</string>

@@ -57,7 +57,7 @@ public class IllnessTable {
         return res;
     }
 
-    public Illness geIllnessWithId(int illnessId)
+    public Illness getIllnessWithId(int illnessId)
     {
         Cursor cursor = db.query(ILLNESS_TABLE, illnessCols,
                 ILLNESS_ID + "=" + illnessId, null, null, null, null);
@@ -66,7 +66,7 @@ public class IllnessTable {
         return null;
     }
 
-    public int getBranchId(String illnessName)
+    public int getIllnessId(String illnessName)
     {
         Cursor cursor = db.query(ILLNESS_TABLE, illnessCols,
                 ILLNESS_NAME + "='" + illnessName + "'", null, null, null, null);

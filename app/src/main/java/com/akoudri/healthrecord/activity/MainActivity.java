@@ -97,6 +97,8 @@ public class MainActivity extends Activity {
         dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);
         dataSource.getPersonTherapistTable().insertRelation(1,1);
         dataSource.getAppointmentTable().insertAppointment(1, 1, "30/06/2014", "11:30", "no comment");
+        dataSource.getAilmentTable().insertAilment(1, 1, false, "12/05/2014", "15/05/2014", "no comment");
+        dataSource.getAilmentTable().insertAilment(1, 2, false, "01/06/2014", null, "no comment");
     }
 
     private void populateWidgets()

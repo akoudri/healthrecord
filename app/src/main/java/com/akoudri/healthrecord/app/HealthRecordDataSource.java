@@ -3,6 +3,7 @@ package com.akoudri.healthrecord.app;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.PersonTable;
@@ -25,6 +26,7 @@ public class HealthRecordDataSource {
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
     private AppointmentTable appointmentTable;
+    private AilmentTable ailmentTable; //TODO
 
     public HealthRecordDataSource(Context context)
     {
@@ -40,6 +42,7 @@ public class HealthRecordDataSource {
         therapistTable = new TherapistTable(db);
         personTherapistTable = new PersonTherapistTable(db);
         appointmentTable = new AppointmentTable(db);
+        ailmentTable = new AilmentTable(db);
     }
 
     public void close()
@@ -72,5 +75,10 @@ public class HealthRecordDataSource {
     public AppointmentTable getAppointmentTable()
     {
         return appointmentTable;
+    }
+
+    public AilmentTable getAilmentTable()
+    {
+        return ailmentTable;
     }
 }

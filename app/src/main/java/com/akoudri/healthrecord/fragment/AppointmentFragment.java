@@ -34,7 +34,9 @@ public class AppointmentFragment extends Fragment {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
-    private int day, month, year;
+    private int day = 0;
+    private int month = 0;
+    private int  year = 0;
 
     public static AppointmentFragment newInstance()
     {
@@ -46,9 +48,6 @@ public class AppointmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        day = 0;
-        month = 0;
-        year = 0;
         return view;
     }
 
@@ -78,6 +77,7 @@ public class AppointmentFragment extends Fragment {
         TherapyBranchTable branchTable = dataSource.getTherapyBranchTable();
         Therapist therapist;
         TherapyBranch branch;
+        //FIXME: optimization -> clear StringBuilder instead on instanciating it for all classes
         StringBuilder sb;
         int r = 0; //row index
         for (Appointment appt : allAppointments)

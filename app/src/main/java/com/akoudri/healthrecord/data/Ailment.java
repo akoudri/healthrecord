@@ -6,6 +6,7 @@ package com.akoudri.healthrecord.data;
 public class Ailment {
 
     private int id;
+    private int personId;
     private int illnessId;
     private boolean isChronic;
     private String startDate;
@@ -18,6 +19,14 @@ public class Ailment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
     public int getIllnessId() {

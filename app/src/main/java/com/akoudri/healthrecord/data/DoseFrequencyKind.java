@@ -5,5 +5,5 @@ package com.akoudri.healthrecord.data;
  */
 public enum DoseFrequencyKind {
     HOUR, DAY,
-    MONTH, YEAR
+    MONTH, YEAR, LIFE
 }

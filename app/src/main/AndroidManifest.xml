@@ -70,6 +70,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!-- FIXME: set correct label -->
         <activity
             android:name="com.akoudri.healthrecord.activity.CreateAppointmentActivity"
             android:label="@string/add_rv"
@@ -86,6 +87,16 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.akoudri.healthrecord.app.UpdateAppointment" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.CreateAilmentActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.CreateAilment" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

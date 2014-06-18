@@ -7,6 +7,7 @@ import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.IllnessTable;
+import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.TherapistTable;
@@ -30,6 +31,7 @@ public class HealthRecordDataSource {
     private AppointmentTable appointmentTable;
     private AilmentTable ailmentTable;
     private TreatmentTable treatmentTable;
+    private MedicationTable medicationTable;
     private DrugTable drugTable;
 
     public HealthRecordDataSource(Context context)
@@ -48,6 +50,7 @@ public class HealthRecordDataSource {
         appointmentTable = new AppointmentTable(db);
         ailmentTable = new AilmentTable(db);
         treatmentTable = new TreatmentTable(db);
+        medicationTable = new MedicationTable(db);
         drugTable = new DrugTable(db);
     }
 
@@ -90,6 +93,10 @@ public class HealthRecordDataSource {
 
     public TreatmentTable getTreatmentTable() {
         return treatmentTable;
+    }
+
+    public MedicationTable getMedicationTable() {
+        return medicationTable;
     }
 
     public DrugTable getDrugTable()

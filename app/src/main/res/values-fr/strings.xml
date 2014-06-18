@@ -198,5 +198,7 @@
     <string name="add_treatment">Ajouter Traitement</string>
     <string name="hour">Heure</string>
     <string name="remove_appt_question">Voulez-vous vraiment supprimer ce rendez-vous ?</string>
+    <string name="illness">Maladie</string>
+    <string name="chronic">Chronique</string>
 
 </resources>

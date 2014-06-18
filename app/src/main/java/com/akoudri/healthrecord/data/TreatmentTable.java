@@ -26,7 +26,7 @@ public class TreatmentTable {
     public static final String TREATMENT_PERMANENT = "isPermanent";
     public static final String TREATMENT_COMMENT = "comment";
 
-    private String[] treatmentCols = {TREATMENT_ID, TREATMENT_PERSON_REF, TREATMENT_AILMENT_REF, TREATMENT_START_DATE,
+    private String[] treatmentCols = {TREATMENT_ID, TREATMENT_PERSON_REF, TREATMENT_AILMENT_REF, TREATMENT_THERAPIST_REF, TREATMENT_START_DATE,
             TREATMENT_END_DATE, TREATMENT_PERMANENT, TREATMENT_COMMENT};
 
     public TreatmentTable(SQLiteDatabase db) {
@@ -55,7 +55,7 @@ public class TreatmentTable {
         db.execSQL(sb.toString());
     }
 
-    public long insertTreatment(int personId, int ailmentId, int therapistId, String startDate, String endDate, boolean isPermanent, boolean isPreventive, String comment) {
+    public long insertTreatment(int personId, int ailmentId, int therapistId, String startDate, String endDate, boolean isPermanent, String comment) {
         ContentValues values = new ContentValues();
         values.put(TREATMENT_PERSON_REF, personId);
         values.put(TREATMENT_AILMENT_REF, ailmentId);
@@ -77,7 +77,7 @@ public class TreatmentTable {
     }
 
     //FIXME: manage null values
-    public boolean updateTreatment(int treatmentId, int personId, int ailmentId, int therapistId, String startDate, String endDate, boolean isPermanent, boolean isPreventive, String comment) {
+    public boolean updateTreatment(int treatmentId, int personId, int ailmentId, int therapistId, String startDate, String endDate, boolean isPermanent, String comment) {
         ContentValues values = new ContentValues();
         values.put(TREATMENT_PERSON_REF, personId);
         values.put(TREATMENT_AILMENT_REF, ailmentId);

@@ -14,7 +14,7 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
-import com.akoudri.healthrecord.fragment.MedicationFragment;
+import com.akoudri.healthrecord.fragment.TreatmentFragment;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -27,7 +27,7 @@ public class EditDayActivity extends Activity {
     private AppointmentFragment apptFrag;
     private MeasureFragment measureFrag;
     private AilmentFragment ailmentFrag;
-    private MedicationFragment medicFrag;
+    private TreatmentFragment treatmentFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
     private int personId = 0;
@@ -50,12 +50,12 @@ public class EditDayActivity extends Activity {
         displayCurrentDay();
         apptFrag = AppointmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
-        medicFrag = MedicationFragment.newInstance();
+        treatmentFrag = TreatmentFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.add(R.id.day_layout, apptFrag);
+        fragTrans.add(R.id.day_layout, measureFrag);
         fragTrans.commit();
-        currentFrag = apptFrag;
+        currentFrag = measureFrag;
     }
 
     private void displayCurrentDay()
@@ -104,11 +104,11 @@ public class EditDayActivity extends Activity {
 
     public void displayMedics(View view)
     {
-        if (currentFrag == medicFrag) return;
+        if (currentFrag == treatmentFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, medicFrag);
+        fragTrans.replace(R.id.day_layout, treatmentFrag);
         fragTrans.commit();
-        currentFrag = medicFrag;
+        currentFrag = treatmentFrag;
     }
 
     @Override
@@ -121,6 +121,8 @@ public class EditDayActivity extends Activity {
             apptFrag.setCurrentDay(currentDay);
             ailmentFrag.setDataSource(dataSource);
             ailmentFrag.setCurrentDay(currentDay);
+            treatmentFrag.setDataSource(dataSource);
+            treatmentFrag.setCurrentDay(currentDay);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,6 +131,16 @@ public class EditDayActivity extends Activity {
     public void createAppt(View view)
     {
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddAppointment");
+        intent.putExtra("personId", personId);
+        intent.putExtra("date", date);
+        intent.putExtra("month", month);
+        intent.putExtra("year", year);
+        startActivity(intent);
+    }
+
+    public void createAilment(View view)
+    {
+        Intent intent = new Intent("com.akoudri.healthrecord.app.CreateAilment");
         intent.putExtra("personId", personId);
         intent.putExtra("date", date);
         intent.putExtra("month", month);

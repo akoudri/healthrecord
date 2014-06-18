@@ -9,6 +9,7 @@ import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DeleteTherapistTrigger;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.IllnessTable;
+import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.RemoveTherapistFromPersonTrigger;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
@@ -29,6 +30,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private IllnessTable illnessTable;
     private AilmentTable ailmentTable;
     private TreatmentTable treatmentTable;
+    private MedicationTable medicationTable;
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
     private RemoveTherapistFromPersonTrigger removeTherapistFromPersonTrigger;
@@ -61,6 +63,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         appointmentTable.createAppointmentTable();
         treatmentTable = new TreatmentTable(db);
         treatmentTable.createTreatmentTable();
+        medicationTable = new MedicationTable(db);
+        medicationTable.createMedicationTable();
         drugTable = new DrugTable(db);
         drugTable.createDrugTable();
         deleteTherapistTrigger = new DeleteTherapistTrigger(db);
@@ -78,6 +82,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE);
         db.execSQL("drop table if exists " + AilmentTable.AILMENT_TABLE);
         db.execSQL("drop table if exists " + IllnessTable.ILLNESS_TABLE);
+        db.execSQL("drop table if exists " + MedicationTable.MEDICATION_TABLE);
         db.execSQL("drop table if exists " + TreatmentTable.TREATMENT_TABLE);
         db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE);
         db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE);

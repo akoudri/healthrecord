@@ -1,7 +1,6 @@
 package com.akoudri.healthrecord.fragment;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,12 +16,13 @@ import com.akoudri.healthrecord.data.Ailment;
 import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
+import com.akoudri.healthrecord.data.Treatment;
 
 import java.util.Calendar;
 import java.util.List;
 
 
-public class AilmentFragment extends Fragment {
+public class TreatmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
     private int personId;
@@ -35,15 +35,15 @@ public class AilmentFragment extends Fragment {
     private int month = 0;
     private int  year = 0;
 
-    public static AilmentFragment newInstance()
+    public static TreatmentFragment newInstance()
     {
-        return new AilmentFragment();
+        return new TreatmentFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_ailment, container, false);
-        layout = (GridLayout) view.findViewById(R.id.ailments_grid);
+        view = inflater.inflate(R.layout.fragment_medication, container, false);
+        layout = (GridLayout) view.findViewById(R.id.treatments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
@@ -56,22 +56,30 @@ public class AilmentFragment extends Fragment {
         year = currentDay.get(Calendar.YEAR);
     }
 
+    public void setDataSource(HealthRecordDataSource dataSource)
+    {
+        this.dataSource = dataSource;
+    }
+
     private void populateWidgets()
     {
         layout.removeAllViews();
         String date = String.format("%02d/%02d/%4d", day, month, year);
-        List<Ailment> dayAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, date);
-        if (dayAilments == null || dayAilments.size() == 0) return;
+        List<Treatment> dayTreatments = dataSource.getTreatmentTable().getDayTreatmentsForPerson(personId, date);
+        if (dayTreatments == null || dayTreatments.size() == 0) return;
         int margin = 5;
         Button editButton;
         ImageButton endButton, removeButton;
         layout.setColumnCount(3);
         IllnessTable illnessTable = dataSource.getIllnessTable();
         Illness illness;
+        AilmentTable ailmentTable = dataSource.getAilmentTable();
+        Ailment ailment;
         int r = 0; //row index
-        for (Ailment ailment : dayAilments)
+        for (Treatment treatment : dayTreatments)
         {
-            final int ailmentId = ailment.getId();
+            final int treatmentId = treatment.getId();
+            ailment = ailmentTable.getAilmentWithId(treatment.getAilmentId());
             illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
             //edit button
             rowSpec = GridLayout.spec(r);
@@ -123,11 +131,6 @@ public class AilmentFragment extends Fragment {
             //next line
             r++;
         }
-    }
-
-    public void setDataSource(HealthRecordDataSource dataSource)
-    {
-        this.dataSource = dataSource;
     }
 
     @Override

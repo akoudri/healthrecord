@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
+import com.akoudri.healthrecord.data.DoseFrequencyKind;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 
@@ -104,6 +105,8 @@ public class MainActivity extends Activity {
         dataSource.getAppointmentTable().insertAppointment(1, 1, "30/06/2014", "11:30", "no comment");
         dataSource.getAilmentTable().insertAilment(1, 1, false, "12/05/2014", "15/05/2014", "no comment");
         dataSource.getAilmentTable().insertAilment(1, 2, false, "01/06/2014", null, "no comment");
+        dataSource.getTreatmentTable().insertTreatment(1, 1, 1, "12/05/2014", "15/05/2014", false, "no comment");
+        dataSource.getMedicationTable().insertMedication(1, 1, 3, DoseFrequencyKind.DAY, "12/05/2014", "15/05/2014");
     }
 
     private void populateWidgets()

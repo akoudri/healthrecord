@@ -390,5 +390,7 @@
     <string name="add_treatment">Add Treatment</string>
     <string name="hour">Hour</string>
     <string name="remove_appt_question">Are you sure you want to remove this appointment ?</string>
+    <string name="illness">Illness</string>
+    <string name="chronic">Chronic</string>
 
 </resources>

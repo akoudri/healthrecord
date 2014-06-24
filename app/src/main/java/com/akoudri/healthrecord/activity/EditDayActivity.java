@@ -147,4 +147,14 @@ public class EditDayActivity extends Activity {
         intent.putExtra("year", year);
         startActivity(intent);
     }
+
+    public void createTreatment(View view)
+    {
+        Intent intent = new Intent("com.akoudri.healthrecord.app.CreateTreatment");
+        intent.putExtra("personId", personId);
+        intent.putExtra("date", date);
+        intent.putExtra("month", month);
+        intent.putExtra("year", year);
+        startActivity(intent);
+    }
 }

@@ -1,2 +1,10 @@
 Triggers:
 When removing a person | therapist: delete corresponding appointments from appointment table
+Think about possible triggers and consistency management
+Think about quick links between views when possible
+Rework contextual menu for each view
+Set widget pointers to final
+Optimize presentation using weight attribute in xml file
+For every non editable EditText, use TextView instead and set background to white
+For comment field, take the CreateTreatment as example
+Optimize the use of layout parameters for for layout set programmatically

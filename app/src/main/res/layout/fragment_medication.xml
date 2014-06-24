@@ -16,7 +16,8 @@
             android:layout_gravity="center"
             android:text="@string/add_treatment"
             android:textSize="18dp"
-            android:drawableRight="@drawable/plus"/>
+            android:drawableRight="@drawable/plus"
+            android:onClick="createTreatment"/>
 
         <GridLayout
             android:id="@+id/treatments_grid"

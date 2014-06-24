@@ -16,6 +16,7 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
+import com.akoudri.healthrecord.data.TherapyBranchTable;
 
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -60,30 +61,6 @@ public class CreateTherapistActivity extends Activity {
         retrievePerson();
         retrieveBranches();
         retrieveOtherTherapists();
-        String[] otherTherapistsStr;
-        if (otherTherapists.size() > 0) {
-            otherTherapistsStr = new String[otherTherapists.size()];
-            int i = 0;
-            TherapyBranch branch = null;
-            String therapyBranchStr;
-            for (Therapist t : otherTherapists) {
-                branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
-                therapyBranchStr = branch.getName();
-                otherTherapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
-            }
-        }
-        else
-        {
-            String s = getResources().getString(R.string.no_other_therapist);
-            otherTherapistsStr = new String[]{s};
-            //TODO: deactivate add button
-        }
-        ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, otherTherapistsStr);
-        thSpinner.setAdapter(thChoicesAdapter);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, getBranches());
-        specialityET.setThreshold(1);
-        specialityET.setAdapter(adapter);
     }
 
     @Override
@@ -99,6 +76,10 @@ public class CreateTherapistActivity extends Activity {
 
     private void retrieveBranches() {
         branches = dataSource.getTherapyBranchTable().getAllBranches();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, getBranches());
+        specialityET.setThreshold(1);
+        specialityET.setAdapter(adapter);
     }
 
     private String[] getBranches()
@@ -124,6 +105,27 @@ public class CreateTherapistActivity extends Activity {
             if (myTherapistIds.contains(t.getId()))
                 iterator.remove();
         }
+        String[] otherTherapistsStr;
+        if (otherTherapists.size() > 0) {
+            otherTherapistsStr = new String[otherTherapists.size()];
+            int i = 0;
+            TherapyBranch branch = null;
+            String therapyBranchStr;
+            TherapyBranchTable branchTable = dataSource.getTherapyBranchTable();
+            for (Therapist th : otherTherapists) {
+                branch = branchTable.getBranchWithId(th.getBranchId());
+                therapyBranchStr = branch.getName();
+                otherTherapistsStr[i++] = th.getName() + " - " + therapyBranchStr;
+            }
+        }
+        else
+        {
+            String s = getResources().getString(R.string.no_other_therapist);
+            otherTherapistsStr = new String[]{s};
+            //TODO: deactivate add button
+        }
+        ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, otherTherapistsStr);
+        thSpinner.setAdapter(thChoicesAdapter);
     }
 
     public void addTherapist(View view)

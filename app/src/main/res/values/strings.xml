@@ -392,5 +392,20 @@
     <string name="remove_appt_question">Are you sure you want to remove this appointment ?</string>
     <string name="illness">Illness</string>
     <string name="chronic">Chronic</string>
+    <string name="prescribedBy">Prescribed by</string>
+    <string name="permanent">Permanent</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="drugs">Drugs</string>
+    <string name="times">times / </string>
+    <string name="frequency">Frequency</string>
+    <string-array name="freqChoice">
+        <item>Hour</item>
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+        <item>Year</item>
+        <item>Life</item>
+    </string-array>
 
 </resources>

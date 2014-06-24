@@ -33,6 +33,8 @@ public class TreatmentTable {
         this.db = db;
     }
 
+    //FIXME: Maybe the persondId field is not needed because the information is born by the corresponding ailment table
+    //but we can anyway keep it because it facilitates querying
     public void createTreatmentTable() {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists " + TREATMENT_TABLE + " (");

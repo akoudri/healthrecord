@@ -83,6 +83,17 @@ public class MedicationTable {
         return db.insert(MEDICATION_TABLE, null, values);
     }
 
+    public long insertMedication(Medication medication)
+    {
+        int treatmentId = medication.getTreatmentId();
+        int drugId = medication.getDrugId();
+        int frequency = medication.getFrequency();
+        DoseFrequencyKind kind = medication.getKind();
+        String startDate = medication.getStartDate();
+        String endDate = medication.getEndDate();
+        return insertMedication(treatmentId, drugId, frequency, kind, startDate, endDate);
+    }
+
     //FIXME: manage null values
     public boolean updateMedication(int medicationId, int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, String endDate) {
         ContentValues values = new ContentValues();
@@ -166,6 +177,11 @@ public class MedicationTable {
             cursor.moveToNext();
         }
         return res;
+    }
+
+    public boolean removeMedicWithId(int medicId)
+    {
+        return db.delete(MEDICATION_TABLE, MEDICATION_ID + "=" + medicId, null) > 0;
     }
 
     //Date shall be formatted this way: dd/mm/yyyy

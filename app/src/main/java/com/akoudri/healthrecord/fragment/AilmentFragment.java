@@ -1,6 +1,8 @@
 package com.akoudri.healthrecord.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -59,7 +61,8 @@ public class AilmentFragment extends Fragment {
     private void populateWidgets()
     {
         layout.removeAllViews();
-        String date = String.format("%02d/%02d/%4d", day, month, year);
+        final String date = String.format("%02d/%02d/%4d", day, month, year);
+        //FIXME: it returns currently ailments that are not in the selected day!!!
         List<Ailment> dayAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, date);
         if (dayAilments == null || dayAilments.size() == 0) return;
         int margin = 5;
@@ -67,12 +70,11 @@ public class AilmentFragment extends Fragment {
         ImageButton endButton, removeButton;
         layout.setColumnCount(3);
         IllnessTable illnessTable = dataSource.getIllnessTable();
-        Illness illness;
         int r = 0; //row index
         for (Ailment ailment : dayAilments)
         {
             final int ailmentId = ailment.getId();
-            illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
+            final Illness illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
             //edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
@@ -83,7 +85,14 @@ public class AilmentFragment extends Fragment {
             editButton.setMinEms(8);
             editButton.setMaxEms(8);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //TODO: add listener
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditAilment");
+                    intent.putExtra("ailmentId", ailmentId);
+                    startActivity(intent);
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;
@@ -97,7 +106,16 @@ public class AilmentFragment extends Fragment {
             colSpec = GridLayout.spec(1);
             endButton = new ImageButton(getActivity());
             endButton.setBackgroundResource(R.drawable.end_illness);
-            //TODO: add listener
+            endButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //FIXME: disable end button when done
+                    AilmentTable table = dataSource.getAilmentTable();
+                    Ailment ailment = table.getAilmentWithId(ailmentId);
+                    ailment.setEndDate(date);
+                    table.updateAilment(ailment);
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;
@@ -111,7 +129,27 @@ public class AilmentFragment extends Fragment {
             colSpec = GridLayout.spec(2);
             removeButton = new ImageButton(getActivity());
             removeButton.setBackgroundResource(R.drawable.remove);
-            //TODO: add listener
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new AlertDialog.Builder(getActivity())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.removing)
+                            .setMessage(getResources().getString(R.string.remove_question)
+                                    + " " + illness.getName() + "?")
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //FIXME: add trigger to remove corresponding treatment and corresponding drugs
+                                    dataSource.getAilmentTable().removeAilmentWithId(ailmentId);
+                                    populateWidgets();
+                                }
+                            })
+                            .setNegativeButton(R.string.no, null)
+                            .show();
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;

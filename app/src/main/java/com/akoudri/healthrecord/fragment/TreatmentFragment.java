@@ -1,6 +1,7 @@
 package com.akoudri.healthrecord.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class TreatmentFragment extends Fragment {
     private void populateWidgets()
     {
         layout.removeAllViews();
-        String date = String.format("%02d/%02d/%4d", day, month, year);
+        final String date = String.format("%02d/%02d/%4d", day, month, year);
         List<Treatment> dayTreatments = dataSource.getTreatmentTable().getDayTreatmentsForPerson(personId, date);
         if (dayTreatments == null || dayTreatments.size() == 0) return;
         int margin = 5;
@@ -91,7 +92,17 @@ public class TreatmentFragment extends Fragment {
             editButton.setMinEms(8);
             editButton.setMaxEms(8);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //TODO: add listener
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditTreatment");
+                    intent.putExtra("treatmentId", treatmentId);
+                    intent.putExtra("day", day);
+                    intent.putExtra("month", month);
+                    intent.putExtra("year", year);
+                    startActivity(intent);
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;

@@ -85,11 +85,28 @@ public class AilmentTable {
         return db.update(AILMENT_TABLE, values, AILMENT_ID + "=" + ailmentId, null) > 0;
     }
 
+    public boolean updateAilment(Ailment ailment)
+    {
+        int ailmentId = ailment.getId();
+        int personId = ailment.getPersonId();
+        int illnessId = ailment.getIllnessId();
+        boolean isChronic = ailment.isChronic();
+        String sDate = ailment.getStartDate();
+        String eDate = ailment.getEndDate();
+        String comment = ailment.getComment();
+        return updateAilment(ailmentId, personId, illnessId, isChronic, sDate, eDate, comment);
+    }
+
     public Ailment getAilmentWithId(int id) {
         Cursor cursor = db.query(AILMENT_TABLE, ailmentCols, AILMENT_ID + "=" + id, null, null, null, null);
         if (cursor.moveToFirst())
             return  cursorToAilment(cursor);
         return null;
+    }
+
+    public boolean removeAilmentWithId(int ailmentId)
+    {
+        return db.delete(AILMENT_TABLE, AILMENT_ID + "=" + ailmentId, null) > 0;
     }
 
     public List<Ailment> getAilmentsForPerson(int personId)

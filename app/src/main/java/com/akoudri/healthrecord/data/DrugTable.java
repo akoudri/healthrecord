@@ -73,6 +73,14 @@ public class DrugTable {
         return null;
     }
 
+    public int getDrugId(String name)
+    {
+        Cursor cursor = db.query(DRUG_TABLE, drugCols, DRUG_NAME + "='" + name + "'", null, null, null, null);
+        if (cursor.moveToFirst())
+            return  cursor.getInt(0);
+        return -1;
+    }
+
     private Drug cursorToDrug(Cursor cursor)
     {
         Drug d = new Drug();

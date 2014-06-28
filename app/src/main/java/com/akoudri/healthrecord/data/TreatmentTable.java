@@ -94,6 +94,19 @@ public class TreatmentTable {
         return db.update(TREATMENT_TABLE, values, TREATMENT_ID + "=" + treatmentId, null) > 0;
     }
 
+    public boolean updateTreatment(Treatment treatment)
+    {
+        int treatmentId = treatment.getId();
+        int personId = treatment.getPersonId();
+        int ailmentId = treatment.getAilmentId();
+        int therapistId = treatment.getTherapistId();
+        String startDate = treatment.getStartDate();
+        String endDate = treatment.getEndDate();
+        boolean isPermanent = treatment.isPermanent();
+        String comment = treatment.getComment();
+        return updateTreatment(treatmentId, personId, ailmentId, therapistId, startDate, endDate, isPermanent, comment);
+    }
+
     public Treatment getTreatmentWithId(int id) {
         Cursor cursor = db.query(TREATMENT_TABLE, treatmentCols, TREATMENT_ID + "=" + id, null, null, null, null);
         if (cursor.moveToFirst())

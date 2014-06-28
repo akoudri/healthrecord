@@ -150,6 +150,7 @@ public class EditDayActivity extends Activity {
 
     public void createTreatment(View view)
     {
+        //FIXME: create treatment only if there is at least one ailment for which there is not treatment
         Intent intent = new Intent("com.akoudri.healthrecord.app.CreateTreatment");
         intent.putExtra("personId", personId);
         intent.putExtra("date", date);

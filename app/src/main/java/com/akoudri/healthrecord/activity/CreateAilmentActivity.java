@@ -46,6 +46,15 @@ public class CreateAilmentActivity extends Activity {
     private void retrieveIllnesses()
     {
         illnesses = dataSource.getIllnessTable().getAllIllnesses();
+        String[] illnessesStr = new String[illnesses.size()];
+        int i = 0;
+        for (Illness illness : illnesses)
+        {
+            illnessesStr[i++] = illness.getName();
+        }
+        ArrayAdapter<String> illnessesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, illnessesStr);
+        illnessActv.setThreshold(1);
+        illnessActv.setAdapter(illnessesAdapter);
     }
 
     @Override
@@ -58,15 +67,6 @@ public class CreateAilmentActivity extends Activity {
             e.printStackTrace();
         }
         retrieveIllnesses();
-        String[] illnessesStr = new String[illnesses.size()];
-        int i = 0;
-        for (Illness illness : illnesses)
-        {
-            illnessesStr[i++] = illness.getName();
-        }
-        ArrayAdapter<String> illnessesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, illnessesStr);
-        illnessActv.setThreshold(1);
-        illnessActv.setAdapter(illnessesAdapter);
     }
 
     public void addAilment(View view)

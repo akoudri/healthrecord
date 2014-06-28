@@ -102,11 +102,31 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.akoudri.healthrecord.activity.EditAilmentActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.EditAilment" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.akoudri.healthrecord.activity.CreateTreatmentActivity"
             android:label="@string/add_rv"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.akoudri.healthrecord.app.CreateTreatment" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.EditTreatmentActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.EditTreatment" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

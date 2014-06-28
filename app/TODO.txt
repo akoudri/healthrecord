@@ -1,5 +1,4 @@
-Triggers:
-When removing a person | therapist: delete corresponding appointments from appointment table
+Triggers: When removing a person | therapist: delete corresponding appointments from appointment table
 Think about possible triggers and consistency management
 Think about quick links between views when possible
 Rework contextual menu for each view
@@ -8,3 +7,12 @@ Optimize presentation using weight attribute in xml file
 For every non editable EditText, use TextView instead and set background to white
 For comment field, take the CreateTreatment as example
 Optimize the use of layout parameters for for layout set programmatically
+Careful with the use of decimal for the fields (ex: 10.25)
+R.string.yes/no -> getResources().getString(...)
+Complete the list of specialties
+Triggers: When removing a treatment, remove corresponding medications
+inner XXXDatePicker classes: rename XXX consequently
+getIntent().getIntExtra("personId", 0); -> Careful default values for database accesses
+Implement day to day navigation from edit day activity
+Improve warning messages
+Use of Set for uniqueness lists

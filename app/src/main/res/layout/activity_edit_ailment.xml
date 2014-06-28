@@ -4,7 +4,7 @@
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateMedicationActivity">
+    tools:context=".EditAilmentActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,7 +12,7 @@
         android:alignmentMode="alignBounds">
 
         <TextView
-            android:text="@string/name"
+            android:text="@string/illness"
             android:textColor="@color/regular_text_color"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:textStyle="bold" />
 
         <AutoCompleteTextView
-            android:id="@+id/medication_add"
+            android:id="@+id/illness_edit"
             android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,43 +30,10 @@
             android:layout_gravity="left"
             android:capitalize="words"/>
 
-        <TextView
-            android:text="@string/frequency"
-            android:textColor="@color/regular_text_color"
+        <CheckBox android:id="@+id/edit_checkbox_chronic"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="center_vertical"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/times_medic"
-                android:background="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:inputType="numberDecimal"
-                android:ems="2"
-                android:layout_gravity="top"/>
-            <TextView
-                android:text="@string/times"
-                android:textColor="@color/regular_text_color"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="top"
-                android:textStyle="bold" />
-            <Spinner
-                android:id="@+id/freq_add"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="top"/>
-        </LinearLayout>
+            android:text="@string/chronic"/>
 
         <TextView
             android:text="@string/start"
@@ -83,7 +50,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/begin_medic"
+                android:id="@+id/edit_begin_medic"
                 android:background="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +66,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar_idle"
-                android:onClick="showBeginMedicPickerDialog"/>
+                android:onClick="editBeginAilmentPickerDialog"/>
         </LinearLayout>
 
         <TextView
@@ -117,7 +84,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/end_medic"
+                android:id="@+id/edit_end_medic"
                 android:background="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,21 +100,21 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar_idle"
-                android:onClick="showEndMedicPickerDialog"/>
+                android:onClick="editEndAilmentPickerDialog"/>
         </LinearLayout>
 
         <!-- FIXME: add multiline comment field -->
 
         <Button
-            android:text="@string/add"
+            android:text="@string/update"
             style="@style/TitleButton"
             android:minEms="8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
-            android:drawableRight="@drawable/plus"
-            android:onClick="addMedication"/>
+            android:drawableRight="@drawable/save"
+            android:onClick="updateAilment"/>
 
     </LinearLayout>
 </ScrollView>

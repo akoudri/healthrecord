@@ -58,7 +58,8 @@ public class EditTreatmentActivity extends Activity {
     private List<Medication> existingMedications;
     private List<Medication> medications;
     private Treatment treatment;
-    private int reqCode = 1;
+    private int reqCreateCode = 1;
+    private int reqEditCode = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,7 +174,15 @@ public class EditTreatmentActivity extends Activity {
             editButton.setMaxEms(8);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //FIXME: add listener for edition
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
+                    intent.putExtra("stored", true);
+                    intent.putExtra("medicationId", medic.getId());
+                    startActivity(intent);
+                }
+            });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.LEFT|Gravity.CENTER;
             //llparams.bottomMargin = margin;
@@ -222,6 +231,7 @@ public class EditTreatmentActivity extends Activity {
         }
         for (final Medication medic : medications)
         {
+            final int pos = medications.indexOf(medic);
             //Linear Layout
             linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -235,7 +245,36 @@ public class EditTreatmentActivity extends Activity {
             editButton.setMaxEms(8);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //FIXME: add listener for edition
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
+                    intent.putExtra("pos",pos);
+                    intent.putExtra("stored", false);
+                    intent.putExtra("treatmentId", medic.getTreatmentId());
+                    intent.putExtra("drugId", medic.getDrugId());
+                    intent.putExtra("frequency", medic.getFrequency());
+                    DoseFrequencyKind kind = medic.getKind();
+                    switch(kind)
+                    {
+                        case HOUR:
+                            intent.putExtra("kind", 0); break;
+                        case DAY:
+                            intent.putExtra("kind", 1); break;
+                        case WEEK:
+                            intent.putExtra("kind", 2); break;
+                        case MONTH:
+                            intent.putExtra("kind", 3); break;
+                        case YEAR:
+                            intent.putExtra("kind", 4); break;
+                        default:
+                            intent.putExtra("kind", 5);
+                    }
+                    intent.putExtra("startDate", medic.getStartDate());
+                    intent.putExtra("endDate", medic.getEndDate());
+                    startActivityForResult(intent, reqEditCode);
+                }
+            });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.LEFT|Gravity.CENTER;
             //llparams.bottomMargin = margin;
@@ -304,12 +343,14 @@ public class EditTreatmentActivity extends Activity {
 
     public void editAddMedic(View view)
     {
+        //TODO:Manage the case where there is no data received -> start activity with no result
         startActivityForResult(new Intent("com.akoudri.healthrecord.app.CreateMedication"), 1);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == reqCode)
+        //TODO:Manage the case where there is no data received
+        if (requestCode == reqCreateCode)
         {
             if (resultCode == RESULT_OK)
             {
@@ -335,6 +376,34 @@ public class EditTreatmentActivity extends Activity {
                 m.setStartDate(data.getStringExtra("sDate"));
                 m.setEndDate(data.getStringExtra("eDate"));
                 medications.add(m);
+            }
+        }
+        if (requestCode == reqEditCode)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                int pos = data.getIntExtra("pos", 0);
+                Medication m = medications.get(pos);
+                m.setDrugId(data.getIntExtra("drugId", 1));
+                m.setFrequency(data.getIntExtra("freq", 1));
+                int kfreq = data.getIntExtra("kfreq", 1);
+                switch (kfreq)
+                {
+                    case 0:
+                        m.setKind(DoseFrequencyKind.HOUR); break;
+                    case 1:
+                        m.setKind(DoseFrequencyKind.DAY); break;
+                    case 2:
+                        m.setKind(DoseFrequencyKind.WEEK); break;
+                    case 3:
+                        m.setKind(DoseFrequencyKind.MONTH); break;
+                    case 4:
+                        m.setKind(DoseFrequencyKind.YEAR); break;
+                    default:
+                        m.setKind(DoseFrequencyKind.LIFE);
+                }
+                m.setStartDate(data.getStringExtra("sDate"));
+                m.setEndDate(data.getStringExtra("eDate"));
             }
         }
     }

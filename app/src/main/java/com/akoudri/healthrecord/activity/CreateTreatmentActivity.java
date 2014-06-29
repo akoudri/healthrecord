@@ -56,7 +56,8 @@ public class CreateTreatmentActivity extends Activity {
     private List<Illness> illnesses;
     private List<Therapist> therapists;
     private List<Medication> medications;
-    private int reqCode = 1;
+    private int reqCreateCode = 1;
+    private int reqEditCode = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +119,7 @@ public class CreateTreatmentActivity extends Activity {
         TherapistTable thTable = dataSource.getTherapistTable();
         for (Integer i : therapistsId)
         {
-           therapists.add(thTable.getTherapistWithId(i));
+            therapists.add(thTable.getTherapistWithId(i));
         }
         String[] therapistStr = new String[therapists.size()];
         TherapyBranchTable brTable = dataSource.getTherapyBranchTable();
@@ -143,6 +144,7 @@ public class CreateTreatmentActivity extends Activity {
         ImageButton removeButton;
         for (final Medication medic : medications)
         {
+            final int pos = medications.indexOf(medic);
             //Linear Layout
             linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -156,7 +158,36 @@ public class CreateTreatmentActivity extends Activity {
             editButton.setMaxEms(8);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //FIXME: add listener for edition
+            editButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
+                    intent.putExtra("pos",pos);
+                    intent.putExtra("stored", false);
+                    intent.putExtra("treatmentId", medic.getTreatmentId());
+                    intent.putExtra("drugId", medic.getDrugId());
+                    intent.putExtra("frequency", medic.getFrequency());
+                    DoseFrequencyKind kind = medic.getKind();
+                    switch(kind)
+                    {
+                        case HOUR:
+                            intent.putExtra("kind", 0); break;
+                        case DAY:
+                            intent.putExtra("kind", 1); break;
+                        case WEEK:
+                            intent.putExtra("kind", 2); break;
+                        case MONTH:
+                            intent.putExtra("kind", 3); break;
+                        case YEAR:
+                            intent.putExtra("kind", 4); break;
+                        default:
+                            intent.putExtra("kind", 5);
+                    }
+                    intent.putExtra("startDate", medic.getStartDate());
+                    intent.putExtra("endDate", medic.getEndDate());
+                    startActivityForResult(intent, reqEditCode);
+                }
+            });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.LEFT|Gravity.CENTER;
             //llparams.bottomMargin = margin;
@@ -220,12 +251,12 @@ public class CreateTreatmentActivity extends Activity {
 
     public void addMedic(View view)
     {
-        startActivityForResult(new Intent("com.akoudri.healthrecord.app.CreateMedication"), 1);
+        startActivityForResult(new Intent("com.akoudri.healthrecord.app.CreateMedication"), reqCreateCode);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == reqCode)
+        if (requestCode == reqCreateCode)
         {
             if (resultCode == RESULT_OK)
             {
@@ -251,6 +282,34 @@ public class CreateTreatmentActivity extends Activity {
                 m.setStartDate(data.getStringExtra("sDate"));
                 m.setEndDate(data.getStringExtra("eDate"));
                 medications.add(m);
+            }
+        }
+        if (requestCode == reqEditCode)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                int pos = data.getIntExtra("pos", 0);
+                Medication m = medications.get(pos);
+                m.setDrugId(data.getIntExtra("drugId", 1));
+                m.setFrequency(data.getIntExtra("freq", 1));
+                int kfreq = data.getIntExtra("kfreq", 1);
+                switch (kfreq)
+                {
+                    case 0:
+                        m.setKind(DoseFrequencyKind.HOUR); break;
+                    case 1:
+                        m.setKind(DoseFrequencyKind.DAY); break;
+                    case 2:
+                        m.setKind(DoseFrequencyKind.WEEK); break;
+                    case 3:
+                        m.setKind(DoseFrequencyKind.MONTH); break;
+                    case 4:
+                        m.setKind(DoseFrequencyKind.YEAR); break;
+                    default:
+                        m.setKind(DoseFrequencyKind.LIFE);
+                }
+                m.setStartDate(data.getStringExtra("sDate"));
+                m.setEndDate(data.getStringExtra("eDate"));
             }
         }
     }

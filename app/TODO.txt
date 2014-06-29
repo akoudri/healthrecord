@@ -16,3 +16,5 @@ getIntent().getIntExtra("personId", 0); -> Careful default values for database a
 Implement day to day navigation from edit day activity
 Improve warning messages
 Use of Set for uniqueness lists
+Check the validity of data passed between activities (in particular when database access follows)
+Be extremely careful when allowing changes in the dates and in the treatments!!!

@@ -126,6 +126,19 @@ public class MedicationTable {
         return db.update(MEDICATION_TABLE, values, MEDICATION_ID + "=" + medicationId, null) > 0;
     }
 
+    public boolean updateMedication(Medication medication)
+    {
+        //(int medicationId, int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, String endDate)
+        int medicationId = medication.getId();
+        int treatmentId = medication.getTreatmentId();
+        int drugId = medication.getDrugId();
+        int frequency = medication.getFrequency();
+        DoseFrequencyKind kind = medication.getKind();
+        String startDate = medication.getStartDate();
+        String endDate = medication.getEndDate();
+        return updateMedication(medicationId, treatmentId, drugId, frequency, kind, startDate, endDate);
+    }
+
     public Medication getMedicationWithId(int id) {
         Cursor cursor = db.query(MEDICATION_TABLE, medicationCols, MEDICATION_ID + "=" + id, null, null, null, null);
         if (cursor.moveToFirst())

@@ -53,7 +53,6 @@ public class CreateTreatmentActivity extends Activity {
     private int date, month, year;
     private String selectedDate;
     private List<Ailment> ailments;
-    private List<Illness> illnesses;
     private List<Therapist> therapists;
     private List<Medication> medications;
     private int reqCreateCode = 1;
@@ -224,7 +223,6 @@ public class CreateTreatmentActivity extends Activity {
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             //FIXME: arbitrary value, see LinearLayout API
             llparams.weight = 0.75f;
-            llparams.gravity = Gravity.LEFT|Gravity.TOP;
             llparams.gravity = Gravity.LEFT|Gravity.CENTER;
             //llparams.bottomMargin = margin;
             llparams.leftMargin = margin;

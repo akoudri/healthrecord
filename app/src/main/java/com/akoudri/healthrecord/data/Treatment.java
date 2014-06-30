@@ -11,7 +11,6 @@ public class Treatment {
     private int therapistId;
     private String startDate;
     private String endDate;
-    private boolean isPermanent;
     private String comment;
 
     public int getId() {
@@ -60,14 +59,6 @@ public class Treatment {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
-    }
-
-    public boolean isPermanent() {
-        return isPermanent;
-    }
-
-    public void setPermanent(boolean isPermanent) {
-        this.isPermanent = isPermanent;
     }
 
     public String getComment() {

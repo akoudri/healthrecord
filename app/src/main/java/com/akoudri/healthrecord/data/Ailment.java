@@ -8,7 +8,6 @@ public class Ailment {
     private int id;
     private int personId;
     private int illnessId;
-    private boolean isChronic;
     private String startDate;
     private String endDate;
     private String comment;
@@ -35,14 +34,6 @@ public class Ailment {
 
     public void setIllnessId(int illnessId) {
         this.illnessId = illnessId;
-    }
-
-    public boolean isChronic() {
-        return isChronic;
-    }
-
-    public void setChronic(boolean isChronic) {
-        this.isChronic = isChronic;
     }
 
     public String getStartDate() {

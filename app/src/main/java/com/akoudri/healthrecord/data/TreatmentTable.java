@@ -23,11 +23,10 @@ public class TreatmentTable {
     public static final String TREATMENT_THERAPIST_REF = "therapistId";
     public static final String TREATMENT_START_DATE = "startDate";
     public static final String TREATMENT_END_DATE = "endDate";
-    public static final String TREATMENT_PERMANENT = "isPermanent";
     public static final String TREATMENT_COMMENT = "comment";
 
     private String[] treatmentCols = {TREATMENT_ID, TREATMENT_PERSON_REF, TREATMENT_AILMENT_REF, TREATMENT_THERAPIST_REF, TREATMENT_START_DATE,
-            TREATMENT_END_DATE, TREATMENT_PERMANENT, TREATMENT_COMMENT};
+            TREATMENT_END_DATE, TREATMENT_COMMENT};
 
     public TreatmentTable(SQLiteDatabase db) {
         this.db = db;
@@ -35,17 +34,16 @@ public class TreatmentTable {
 
     //FIXME: Maybe the persondId field is not needed because the information is born by the corresponding ailment table
     //but we can anyway keep it because it facilitates querying
+    //Actually, we keep it to manage the fact that a treatment could correspond to no ailment!
     public void createTreatmentTable() {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists " + TREATMENT_TABLE + " (");
         sb.append(TREATMENT_ID + " integer primary key autoincrement,");
         sb.append(TREATMENT_PERSON_REF + " integer not null,");
-        sb.append(TREATMENT_AILMENT_REF + " integer not null,");
-        sb.append(TREATMENT_THERAPIST_REF + " integer not null,");
+        sb.append(TREATMENT_AILMENT_REF + " integer,"); //not null for the case where there is no ailment
+        sb.append(TREATMENT_THERAPIST_REF + " integer,"); //not null for the case of auto-medication
         sb.append(TREATMENT_START_DATE + " text,");
-        sb.append(TREATMENT_END_DATE + " text,");
-        //default value to 0 for isPermanent to false
-        sb.append(TREATMENT_PERMANENT + " integer default 0,");
+        sb.append(TREATMENT_END_DATE + " text,"); //treatment with no end date can be considered permanent
         sb.append(TREATMENT_COMMENT + " text,");
         sb.append(" foreign key(" + TREATMENT_PERSON_REF + ") references " + PersonTable.PERSON_TABLE +
                 "(" + PersonTable.PERSON_ID + "),");
@@ -57,7 +55,7 @@ public class TreatmentTable {
         db.execSQL(sb.toString());
     }
 
-    public long insertTreatment(int personId, int ailmentId, int therapistId, String startDate, String endDate, boolean isPermanent, String comment) {
+    public long insertTreatment(int personId, int ailmentId, int therapistId, String startDate, String endDate, String comment) {
         ContentValues values = new ContentValues();
         values.put(TREATMENT_PERSON_REF, personId);
         values.put(TREATMENT_AILMENT_REF, ailmentId);
@@ -70,26 +68,18 @@ public class TreatmentTable {
             values.putNull(TREATMENT_END_DATE);
         else
             values.put(TREATMENT_END_DATE, endDate);
-        if (isPermanent)
-            values.put(TREATMENT_PERMANENT, 1);
-        else
-            values.put(TREATMENT_PERMANENT, 0);
         values.put(TREATMENT_COMMENT, comment);
         return db.insert(TREATMENT_TABLE, null, values);
     }
 
     //FIXME: manage null values
-    public boolean updateTreatment(int treatmentId, int personId, int ailmentId, int therapistId, String startDate, String endDate, boolean isPermanent, String comment) {
+    public boolean updateTreatment(int treatmentId, int personId, int ailmentId, int therapistId, String startDate, String endDate, String comment) {
         ContentValues values = new ContentValues();
         values.put(TREATMENT_PERSON_REF, personId);
         values.put(TREATMENT_AILMENT_REF, ailmentId);
         values.put(TREATMENT_THERAPIST_REF, therapistId);
         values.put(TREATMENT_START_DATE, startDate);
         values.put(TREATMENT_END_DATE, endDate);
-        if (isPermanent)
-            values.put(TREATMENT_PERMANENT, 1);
-        else
-            values.put(TREATMENT_PERMANENT, 0);
         values.put(TREATMENT_COMMENT, comment);
         return db.update(TREATMENT_TABLE, values, TREATMENT_ID + "=" + treatmentId, null) > 0;
     }
@@ -102,9 +92,8 @@ public class TreatmentTable {
         int therapistId = treatment.getTherapistId();
         String startDate = treatment.getStartDate();
         String endDate = treatment.getEndDate();
-        boolean isPermanent = treatment.isPermanent();
         String comment = treatment.getComment();
-        return updateTreatment(treatmentId, personId, ailmentId, therapistId, startDate, endDate, isPermanent, comment);
+        return updateTreatment(treatmentId, personId, ailmentId, therapistId, startDate, endDate, comment);
     }
 
     public Treatment getTreatmentWithId(int id) {
@@ -140,11 +129,6 @@ public class TreatmentTable {
             treatment = cursorToTreatment(cursor);
             startDate = stringToCalendar(treatment.getStartDate());
             endDate = stringToCalendar(treatment.getEndDate());
-            if (treatment.isPermanent()) {
-                res.add(treatment);
-                cursor.moveToNext();
-                continue;
-            }
             if (endDate == null)
             {
                 if (currentDate.equals(startDate) || currentDate.after(startDate)) {
@@ -169,13 +153,42 @@ public class TreatmentTable {
     //This is guaranteed because user does not access this method
     private Calendar stringToCalendar(String date)
     {
-        if (date == null) return null;
+        //FIXME: use regular expression instead
+        if (date == null || date.equalsIgnoreCase("")) return null;
         String[] dateArray = date.split("/");
         int dd = Integer.parseInt(dateArray[0]);
         int mm = Integer.parseInt(dateArray[1]) - 1;
         int yyyy = Integer.parseInt(dateArray[2]);
         Calendar res = Calendar.getInstance();
-        res.set(yyyy, mm, dd, 0, 0, 0);
+        int fmm;
+        switch (mm)
+        {
+            case 0:
+                fmm = Calendar.JANUARY; break;
+            case 1:
+                fmm = Calendar.FEBRUARY; break;
+            case 2:
+                fmm = Calendar.MARCH; break;
+            case 3:
+                fmm = Calendar.APRIL; break;
+            case 4:
+                fmm = Calendar.MAY; break;
+            case 5:
+                fmm = Calendar.JUNE; break;
+            case 6:
+                fmm = Calendar.JULY; break;
+            case 7:
+                fmm = Calendar.AUGUST; break;
+            case 8:
+                fmm = Calendar.SEPTEMBER; break;
+            case 9:
+                fmm = Calendar.OCTOBER; break;
+            case 10:
+                fmm = Calendar.NOVEMBER; break;
+            default:
+                fmm = Calendar.DECEMBER; break;
+        }
+        res.set(yyyy, fmm, dd, 0, 0, 0);
         res.set(Calendar.MILLISECOND, 0);
         return res;
     }
@@ -188,9 +201,7 @@ public class TreatmentTable {
         treatment.setTherapistId(cursor.getInt(3));
         treatment.setStartDate(cursor.getString(4));
         treatment.setEndDate(cursor.getString(5));
-        int isPermanent = cursor.getInt(6);
-        treatment.setPermanent(isPermanent == 1);
-        treatment.setComment(cursor.getString(7));
+        treatment.setComment(cursor.getString(6));
         return treatment;
     }
 

@@ -9,6 +9,8 @@ import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DeleteTherapistTrigger;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.IllnessTable;
+import com.akoudri.healthrecord.data.Measure;
+import com.akoudri.healthrecord.data.MeasureTable;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.RemoveTherapistFromPersonTrigger;
 import com.akoudri.healthrecord.data.PersonTable;
@@ -36,6 +38,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private RemoveTherapistFromPersonTrigger removeTherapistFromPersonTrigger;
     private AppointmentTable appointmentTable;
     private DrugTable drugTable;
+    private MeasureTable measureTable;
     private DeleteTherapistTrigger deleteTherapistTrigger;
 
     public HealthRecordDatabase(Context context)
@@ -67,6 +70,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         medicationTable.createMedicationTable();
         drugTable = new DrugTable(db);
         drugTable.createDrugTable();
+        measureTable = new MeasureTable(db);
+        measureTable.createMeasureTable();
         deleteTherapistTrigger = new DeleteTherapistTrigger(db);
         deleteTherapistTrigger.createDeleteTherapistTrigger();
     }
@@ -76,6 +81,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         //FIXME: this first version simply removes the old tables
         db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIG);
         db.execSQL("drop trigger if exists " + RemoveTherapistFromPersonTrigger.REMOVE_THERAPIST_FROM_PERSON_TRIG);
+        db.execSQL("drop table if exists " + MeasureTable.MEASURE_TABLE);
         db.execSQL("drop table if exists " + DrugTable.DRUG_TABLE);
         db.execSQL("drop table if exists " + AppointmentTable.APPOINTMENT_TABLE);
         db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE);

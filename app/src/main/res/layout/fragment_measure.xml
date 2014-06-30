@@ -50,6 +50,57 @@
                 android:layout_gravity="right|center_vertical"
                 android:minEms="10"
                 android:maxEms="10"
+                android:text="@string/size"/>
+            <EditText
+                android:id="@+id/edit_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:layout_margin="5dp"
+                android:layout_gravity="left|center_vertical"
+                android:inputType="numberDecimal"
+                android:minEms="6"
+                android:maxEms="6"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/regular_text_color"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:layout_gravity="right|center_vertical"
+                android:minEms="10"
+                android:maxEms="10"
+                android:text="@string/cranialPerimeter"/>
+            <EditText
+                android:id="@+id/edit_cranial_perimeter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:layout_gravity="left|center_vertical"
+                android:layout_margin="5dp"
+                android:inputType="numberDecimal"
+                android:minEms="6"
+                android:maxEms="6"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/regular_text_color"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:layout_gravity="right|center_vertical"
+                android:minEms="10"
+                android:maxEms="10"
                 android:text="@string/temperature"/>
             <EditText
                 android:id="@+id/edit_temperature"
@@ -169,58 +220,15 @@
                     android:maxEms="6"/>
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
+        <Button
+            android:text="@string/save"
+            style="@style/TitleButton"
+            android:minEms="8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
-            android:visibility="invisible">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/regular_text_color"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
-                android:text="@string/size"/>
-            <EditText
-                android:id="@+id/edit_size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:layout_margin="5dp"
-                android:layout_gravity="left|center_vertical"
-                android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:visibility="invisible">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/regular_text_color"
-                android:textStyle="bold"
-                android:layout_margin="5dp"
-                android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
-                android:text="@string/cranialPerimeter"/>
-            <EditText
-                android:id="@+id/edit_cranial_perimeter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:layout_gravity="left|center_vertical"
-                android:layout_margin="5dp"
-                android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
-        </LinearLayout>
+            android:drawableRight="@drawable/save"
+            android:onClick="saveMeasures"/>
     </LinearLayout>
 </ScrollView>

@@ -103,10 +103,11 @@ public class MainActivity extends Activity {
         dataSource.getTherapistTable().insertTherapist("Hocine", "0169386556", 1);
         dataSource.getPersonTherapistTable().insertRelation(1,1);
         dataSource.getAppointmentTable().insertAppointment(1, 1, "30/06/2014", "11:30", "no comment");
-        dataSource.getAilmentTable().insertAilment(1, 1, false, "12/05/2014", "15/05/2014", "no comment");
-        dataSource.getAilmentTable().insertAilment(1, 2, false, "01/06/2014", null, "no comment");
-        dataSource.getTreatmentTable().insertTreatment(1, 1, 1, "12/05/2014", "15/05/2014", false, "no comment");
+        dataSource.getAilmentTable().insertAilment(1, 1, "12/05/2014", "15/05/2014", "no comment");
+        dataSource.getAilmentTable().insertAilment(1, 2, "01/06/2014", null, "no comment");
+        dataSource.getTreatmentTable().insertTreatment(1, 1, 1, "12/05/2014", "15/05/2014", "no comment");
         dataSource.getMedicationTable().insertMedication(1, 1, 3, DoseFrequencyKind.DAY, "12/05/2014", "15/05/2014");
+        dataSource.getMeasureTable().insertMeasure(1, "30/06/2014", 80.0, 182, 40, 36.5, 1.0, 12, 8, 70);
     }
 
     private void populateWidgets()

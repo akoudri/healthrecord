@@ -21,7 +21,6 @@ import java.util.List;
 public class CreateAilmentActivity extends Activity {
 
     private AutoCompleteTextView illnessActv;
-    private CheckBox chronicCb;
     private HealthRecordDataSource dataSource;
     private int personId;
     private int date, month, year;
@@ -35,7 +34,6 @@ public class CreateAilmentActivity extends Activity {
         setContentView(R.layout.activity_create_ailment);
         dataSource = new HealthRecordDataSource(this);
         illnessActv = (AutoCompleteTextView) findViewById(R.id.illness_add);
-        chronicCb = (CheckBox) findViewById(R.id.checkbox_chronic);
         personId = getIntent().getIntExtra("personId", 0);
         date = getIntent().getIntExtra("date", 0);
         month = getIntent().getIntExtra("month", 0);
@@ -79,8 +77,7 @@ public class CreateAilmentActivity extends Activity {
         {
             illnessId = (int) dataSource.getIllnessTable().insertIllness(illness);
         }
-        boolean isChronic = chronicCb.isChecked();
-        dataSource.getAilmentTable().insertAilment(personId, illnessId, isChronic, selectedDate, null, "no comment");
+        dataSource.getAilmentTable().insertAilment(personId, illnessId, selectedDate, null, "no comment");
         finish();
     }
 

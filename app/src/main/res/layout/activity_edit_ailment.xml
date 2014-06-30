@@ -30,11 +30,6 @@
             android:layout_gravity="left"
             android:capitalize="words"/>
 
-        <CheckBox android:id="@+id/edit_checkbox_chronic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/chronic"/>
-
         <TextView
             android:text="@string/start"
             android:textColor="@color/regular_text_color"

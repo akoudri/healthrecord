@@ -207,7 +207,35 @@ public class MedicationTable {
         int mm = Integer.parseInt(dateArray[1]) - 1;
         int yyyy = Integer.parseInt(dateArray[2]);
         Calendar res = Calendar.getInstance();
-        res.set(yyyy, mm, dd, 0, 0, 0);
+        int fmm;
+        switch (mm)
+        {
+            case 0:
+                fmm = Calendar.JANUARY; break;
+            case 1:
+                fmm = Calendar.FEBRUARY; break;
+            case 2:
+                fmm = Calendar.MARCH; break;
+            case 3:
+                fmm = Calendar.APRIL; break;
+            case 4:
+                fmm = Calendar.MAY; break;
+            case 5:
+                fmm = Calendar.JUNE; break;
+            case 6:
+                fmm = Calendar.JULY; break;
+            case 7:
+                fmm = Calendar.AUGUST; break;
+            case 8:
+                fmm = Calendar.SEPTEMBER; break;
+            case 9:
+                fmm = Calendar.OCTOBER; break;
+            case 10:
+                fmm = Calendar.NOVEMBER; break;
+            default:
+                fmm = Calendar.DECEMBER; break;
+        }
+        res.set(yyyy, fmm, dd, 0, 0, 0);
         res.set(Calendar.MILLISECOND, 0);
         return res;
     }

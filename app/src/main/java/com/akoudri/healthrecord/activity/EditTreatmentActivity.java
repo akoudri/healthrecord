@@ -46,7 +46,6 @@ public class EditTreatmentActivity extends Activity {
     private Spinner illnessAct;
     private Spinner therapistSpinner;
     private EditText startDateET, endDateET;
-    private CheckBox isPermanent;
     private LinearLayout medicsLayout;
     private HealthRecordDataSource dataSource;
     private int treatmentId;
@@ -72,7 +71,6 @@ public class EditTreatmentActivity extends Activity {
         therapistSpinner = (Spinner) findViewById(R.id.edit_therapist_choice);
         startDateET = (EditText) findViewById(R.id.edit_start_treatment);
         endDateET = (EditText) findViewById(R.id.edit_end_treatment);
-        isPermanent = (CheckBox) findViewById(R.id.edit_checkbox_permanent);
         medicsLayout = (LinearLayout) findViewById(R.id.edit_medics_layout);
         treatmentId = getIntent().getIntExtra("treatmentId", 1);
         day = getIntent().getIntExtra("day", 0);
@@ -334,7 +332,6 @@ public class EditTreatmentActivity extends Activity {
         treatment = dataSource.getTreatmentTable().getTreatmentWithId(treatmentId);
         startDateET.setText(treatment.getStartDate());
         endDateET.setText(treatment.getEndDate());
-        isPermanent.setChecked(treatment.isPermanent());
         retrieveAilments();
         retrieveTherapists();
         retrieveMedics();
@@ -415,12 +412,10 @@ public class EditTreatmentActivity extends Activity {
         //FIXME: check values - add comment field
         Ailment a = ailments.get(illnessAct.getSelectedItemPosition());
         Therapist t = therapists.get(therapistSpinner.getSelectedItemPosition());
-        boolean permanent = isPermanent.isChecked();
         String sDate = startDateET.getText().toString();
         String eDate = endDateET.getText().toString();
         treatment.setAilmentId(a.getId());
         treatment.setTherapistId(t.getId());
-        treatment.setPermanent(permanent);
         treatment.setStartDate(sDate);
         treatment.setEndDate(eDate);
         dataSource.getTreatmentTable().updateTreatment(treatment);

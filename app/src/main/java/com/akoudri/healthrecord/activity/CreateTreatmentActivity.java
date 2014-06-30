@@ -46,7 +46,6 @@ public class CreateTreatmentActivity extends Activity {
     private Spinner illnessAct;
     private Spinner therapistSpinner;
     private EditText endDateET;
-    private CheckBox isPermanent;
     private LinearLayout medicsLayout;
     private HealthRecordDataSource dataSource;
     private int personId;
@@ -68,7 +67,6 @@ public class CreateTreatmentActivity extends Activity {
         illnessAct = (Spinner) findViewById(R.id.illness_choice);
         therapistSpinner = (Spinner) findViewById(R.id.therapist_choice);
         endDateET = (EditText) findViewById(R.id.end_treatment);
-        isPermanent = (CheckBox) findViewById(R.id.checkbox_permanent);
         medicsLayout = (LinearLayout) findViewById(R.id.medics_layout);
         personId = getIntent().getIntExtra("personId", 0);
         date = getIntent().getIntExtra("date", 0);
@@ -319,10 +317,9 @@ public class CreateTreatmentActivity extends Activity {
         //FIXME: check values - add comment field
         Ailment a = ailments.get(illnessAct.getSelectedItemPosition());
         Therapist t = therapists.get(therapistSpinner.getSelectedItemPosition());
-        boolean permanent = isPermanent.isChecked();
         String sDate = selectedDate;
         String eDate = endDateET.getText().toString();
-        int treatmentId = (int) dataSource.getTreatmentTable().insertTreatment(personId, a.getId(), t.getId(), sDate, eDate, permanent, "no comment");
+        int treatmentId = (int) dataSource.getTreatmentTable().insertTreatment(personId, a.getId(), t.getId(), sDate, eDate, "no comment");
         MedicationTable table = dataSource.getMedicationTable();
         for (Medication m : medications)
         {

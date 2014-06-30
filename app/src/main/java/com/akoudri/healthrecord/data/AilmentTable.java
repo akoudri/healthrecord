@@ -20,13 +20,12 @@ public class AilmentTable {
     public static final String AILMENT_ID = "_id";
     public static final String AILMENT_PERSON_REF = "personId";
     public static final String AILMENT_ILLNESS_REF = "illnessId";
-    public static final String AILMENT_CHRONIC = "isChronic";
     public static final String AILMENT_START_DATE = "startDate";
     public static final String AILMENT_END_DATE = "endDate";
     public static final String AILMENT_COMMENT = "comment";
 
     private String[] ailmentCols = {AILMENT_ID, AILMENT_PERSON_REF,AILMENT_ILLNESS_REF,
-            AILMENT_CHRONIC, AILMENT_START_DATE, AILMENT_END_DATE, AILMENT_COMMENT};
+            AILMENT_START_DATE, AILMENT_END_DATE, AILMENT_COMMENT};
 
     public AilmentTable(SQLiteDatabase db) {
         this.db = db;
@@ -38,10 +37,8 @@ public class AilmentTable {
         sb.append(AILMENT_ID + " integer primary key autoincrement,");
         sb.append(AILMENT_PERSON_REF + " integer not null,");
         sb.append(AILMENT_ILLNESS_REF + " integer not null,");
-        //default value to 0 for isChronic to false
-        sb.append(AILMENT_CHRONIC + " integer default 0,");
         sb.append(AILMENT_START_DATE + " text,");
-        sb.append(AILMENT_END_DATE + " text,");
+        sb.append(AILMENT_END_DATE + " text,");//ailment with no end date can be considered chronic
         sb.append(AILMENT_COMMENT + " text,");
         sb.append(" foreign key(" + AILMENT_PERSON_REF + ") references " + PersonTable.PERSON_TABLE +
                 "(" + PersonTable.PERSON_ID + "),");
@@ -51,14 +48,10 @@ public class AilmentTable {
         db.execSQL(sb.toString());
     }
 
-    public long insertAilment(int personId, int illnessId, boolean isChronic, String startDate, String endDate, String comment) {
+    public long insertAilment(int personId, int illnessId, String startDate, String endDate, String comment) {
         ContentValues values = new ContentValues();
         values.put(AILMENT_PERSON_REF, personId);
         values.put(AILMENT_ILLNESS_REF, illnessId);
-        if (isChronic)
-            values.put(AILMENT_CHRONIC, 1);
-        else
-            values.put(AILMENT_CHRONIC, 0);
         if (startDate == null)
             values.putNull(AILMENT_START_DATE);
         else
@@ -71,14 +64,10 @@ public class AilmentTable {
         return db.insert(AILMENT_TABLE, null, values);
     }
 
-    public boolean updateAilment(int ailmentId, int personId, int illnessId, boolean isChronic, String startDate, String endDate, String comment) {
+    public boolean updateAilment(int ailmentId, int personId, int illnessId, String startDate, String endDate, String comment) {
         ContentValues values = new ContentValues();
         values.put(AILMENT_PERSON_REF, personId);
         values.put(AILMENT_ILLNESS_REF, illnessId);
-        if (isChronic)
-            values.put(AILMENT_CHRONIC, 1);
-        else
-            values.put(AILMENT_CHRONIC, 0);
         values.put(AILMENT_START_DATE, startDate);
         values.put(AILMENT_END_DATE, endDate);
         values.put(AILMENT_COMMENT, comment);
@@ -90,11 +79,10 @@ public class AilmentTable {
         int ailmentId = ailment.getId();
         int personId = ailment.getPersonId();
         int illnessId = ailment.getIllnessId();
-        boolean isChronic = ailment.isChronic();
         String sDate = ailment.getStartDate();
         String eDate = ailment.getEndDate();
         String comment = ailment.getComment();
-        return updateAilment(ailmentId, personId, illnessId, isChronic, sDate, eDate, comment);
+        return updateAilment(ailmentId, personId, illnessId, sDate, eDate, comment);
     }
 
     public Ailment getAilmentWithId(int id) {
@@ -135,11 +123,6 @@ public class AilmentTable {
             ailment = cursorToAilment(cursor);
             startDate = stringToCalendar(ailment.getStartDate());
             endDate = stringToCalendar(ailment.getEndDate());
-            if (ailment.isChronic()) {
-                res.add(ailment);
-                cursor.moveToNext();
-                continue;
-            }
             if (endDate == null)
             {
                 if (currentDate.equals(startDate) || currentDate.after(startDate)) {
@@ -164,13 +147,42 @@ public class AilmentTable {
     //This is guaranteed because user does not access this method
     private Calendar stringToCalendar(String date)
     {
-        if (date == null) return null;
+        //FIXME: use regular expression instead
+        if (date == null || date.equalsIgnoreCase("")) return null;
         String[] dateArray = date.split("/");
         int dd = Integer.parseInt(dateArray[0]);
         int mm = Integer.parseInt(dateArray[1]) - 1;
         int yyyy = Integer.parseInt(dateArray[2]);
         Calendar res = Calendar.getInstance();
-        res.set(yyyy, mm, dd, 0, 0, 0);
+        int fmm;
+        switch (mm)
+        {
+            case 0:
+                fmm = Calendar.JANUARY; break;
+            case 1:
+                fmm = Calendar.FEBRUARY; break;
+            case 2:
+                fmm = Calendar.MARCH; break;
+            case 3:
+                fmm = Calendar.APRIL; break;
+            case 4:
+                fmm = Calendar.MAY; break;
+            case 5:
+                fmm = Calendar.JUNE; break;
+            case 6:
+                fmm = Calendar.JULY; break;
+            case 7:
+                fmm = Calendar.AUGUST; break;
+            case 8:
+                fmm = Calendar.SEPTEMBER; break;
+            case 9:
+                fmm = Calendar.OCTOBER; break;
+            case 10:
+                fmm = Calendar.NOVEMBER; break;
+            default:
+                fmm = Calendar.DECEMBER; break;
+        }
+        res.set(yyyy, fmm, dd, 0, 0, 0);
         res.set(Calendar.MILLISECOND, 0);
         return res;
     }
@@ -180,11 +192,9 @@ public class AilmentTable {
         ailment.setId(cursor.getInt(0));
         ailment.setPersonId(cursor.getInt(1));
         ailment.setIllnessId(cursor.getInt(2));
-        int isChronic = cursor.getInt(3);
-        ailment.setChronic(isChronic == 1);
-        ailment.setStartDate(cursor.getString(4));
-        ailment.setEndDate(cursor.getString(5));
-        ailment.setComment(cursor.getString(6));
+        ailment.setStartDate(cursor.getString(3));
+        ailment.setEndDate(cursor.getString(4));
+        ailment.setComment(cursor.getString(5));
         return ailment;
     }
 

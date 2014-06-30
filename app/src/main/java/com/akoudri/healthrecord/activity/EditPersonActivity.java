@@ -33,6 +33,7 @@ public class EditPersonActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_person);
         dataSource = new HealthRecordDataSource(this);
+        //TODO: when personId = 0 -> a new person is being created
         personId = getIntent().getIntExtra("personId", 0);
         calendarFrag = CalendarFragment.newInstance();
         therapistsFrag = TherapistFragment.newInstance();

@@ -117,6 +117,8 @@ public class EditDayActivity extends Activity {
         //FIXME: Manage the case where data source could not be opened
         try {
             dataSource.open();
+            measureFrag.setDataSource(dataSource);
+            measureFrag.setCurrentDay(currentDay);
             apptFrag.setDataSource(dataSource);
             apptFrag.setCurrentDay(currentDay);
             ailmentFrag.setDataSource(dataSource);
@@ -157,5 +159,10 @@ public class EditDayActivity extends Activity {
         intent.putExtra("month", month);
         intent.putExtra("year", year);
         startActivity(intent);
+    }
+
+    public void saveMeasures(View view)
+    {
+        measureFrag.saveMeasures(view);
     }
 }

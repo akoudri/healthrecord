@@ -28,7 +28,6 @@ import java.util.List;
 public class EditAilmentActivity extends Activity {
 
     private AutoCompleteTextView illnessActv;
-    private CheckBox chronicCb;
     private EditText beginMedicET, endMedicET;
     private HealthRecordDataSource dataSource;
     private int ailmentId;
@@ -42,7 +41,6 @@ public class EditAilmentActivity extends Activity {
         setContentView(R.layout.activity_edit_ailment);
         dataSource = new HealthRecordDataSource(this);
         illnessActv = (AutoCompleteTextView) findViewById(R.id.illness_edit);
-        chronicCb = (CheckBox) findViewById(R.id.edit_checkbox_chronic);
         beginMedicET = (EditText) findViewById(R.id.edit_begin_medic);
         endMedicET = (EditText) findViewById(R.id.edit_end_medic);
         ailmentId = getIntent().getIntExtra("ailmentId", 1);
@@ -75,7 +73,6 @@ public class EditAilmentActivity extends Activity {
         retrieveIllnesses();
         int illnessId = ailment.getIllnessId();
         illnessActv.setText(dataSource.getIllnessTable().getIllnessWithId(illnessId).getName());
-        chronicCb.setChecked(ailment.isChronic());
         beginMedicET.setText(ailment.getStartDate());
         endMedicET.setText(ailment.getEndDate());
         //TODO: set comment also
@@ -93,7 +90,6 @@ public class EditAilmentActivity extends Activity {
         ailment.setIllnessId(illnessId);
         ailment.setStartDate(beginMedicET.getText().toString());
         ailment.setEndDate(endMedicET.getText().toString());
-        ailment.setChronic(chronicCb.isChecked());
         dataSource.getAilmentTable().updateAilment(ailment);
         finish();
     }

@@ -43,11 +43,6 @@
             android:layout_margin="5dp"
             android:layout_gravity="left"/>
 
-        <CheckBox android:id="@+id/edit_checkbox_permanent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/permanent"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

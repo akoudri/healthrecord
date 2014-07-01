@@ -4,8 +4,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class MedicationTable {
         sb.append(MEDICATION_DRUG_REF + " integer not null,");
         sb.append(MEDICATION_FREQUENCY + " integer not null,");
         sb.append(MEDICATION_KIND + " integer not null,");
-        sb.append(MEDICATION_START_DATE + " text,");
+        sb.append(MEDICATION_START_DATE + " text,");//medication with no start and end date are for chronic ailments
         sb.append(MEDICATION_END_DATE + " text,");
         sb.append(" foreign key(" + MEDICATION_TREATMENT_REF + ") references " + TreatmentTable.TREATMENT_TABLE +
                 "(" + TreatmentTable.TREATMENT_ID + "),");
@@ -57,28 +58,10 @@ public class MedicationTable {
         values.put(MEDICATION_TREATMENT_REF, treatmentId);
         values.put(MEDICATION_DRUG_REF, drugId);
         values.put(MEDICATION_FREQUENCY, frequency);
-        switch(kind)
-        {
-            case HOUR:
-                values.put(MEDICATION_KIND, 0); break;
-            case DAY:
-                values.put(MEDICATION_KIND, 1); break;
-            case WEEK:
-                values.put(MEDICATION_KIND, 2); break;
-            case MONTH:
-                values.put(MEDICATION_KIND, 3); break;
-            case YEAR:
-                values.put(MEDICATION_KIND, 4); break;
-            default:
-                values.put(MEDICATION_KIND, 5);
-        }
-        if (startDate == null)
-            values.putNull(MEDICATION_START_DATE);
-        else
+        values.put(MEDICATION_KIND, kind.ordinal());
+        if (startDate != null)
             values.put(MEDICATION_START_DATE, startDate);
-        if (endDate == null)
-            values.putNull(MEDICATION_END_DATE);
-        else
+        if (endDate != null)
             values.put(MEDICATION_END_DATE, endDate);
         return db.insert(MEDICATION_TABLE, null, values);
     }
@@ -94,41 +77,21 @@ public class MedicationTable {
         return insertMedication(treatmentId, drugId, frequency, kind, startDate, endDate);
     }
 
-    //FIXME: manage null values
     public boolean updateMedication(int medicationId, int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, String endDate) {
         ContentValues values = new ContentValues();
         values.put(MEDICATION_TREATMENT_REF, treatmentId);
         values.put(MEDICATION_DRUG_REF, drugId);
         values.put(MEDICATION_FREQUENCY, frequency);
-        switch(kind)
-        {
-            case HOUR:
-                values.put(MEDICATION_KIND, 0); break;
-            case DAY:
-                values.put(MEDICATION_KIND, 1); break;
-            case WEEK:
-                values.put(MEDICATION_KIND, 2); break;
-            case MONTH:
-                values.put(MEDICATION_KIND, 3); break;
-            case YEAR:
-                values.put(MEDICATION_KIND, 4); break;
-            default:
-                values.put(MEDICATION_KIND, 5);
-        }
-        if (startDate == null)
-            values.putNull(MEDICATION_START_DATE);
-        else
+        values.put(MEDICATION_KIND, kind.ordinal());
+        if (startDate != null)
             values.put(MEDICATION_START_DATE, startDate);
-        if (endDate == null)
-            values.putNull(MEDICATION_END_DATE);
-        else
+        if (endDate != null)
             values.put(MEDICATION_END_DATE, endDate);
         return db.update(MEDICATION_TABLE, values, MEDICATION_ID + "=" + medicationId, null) > 0;
     }
 
     public boolean updateMedication(Medication medication)
     {
-        //(int medicationId, int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, String endDate)
         int medicationId = medication.getId();
         int treatmentId = medication.getTreatmentId();
         int drugId = medication.getDrugId();
@@ -159,85 +122,9 @@ public class MedicationTable {
         return res;
     }
 
-    public List<Medication> getDayMedicationsForTreatment(int treatmentId, String date)
-    {
-        List<Medication> res = new ArrayList<Medication>();
-        Cursor cursor = db.query(MEDICATION_TABLE, medicationCols, MEDICATION_TREATMENT_REF + "=" + treatmentId, null, null, null, null);
-        cursor.moveToFirst();
-        Medication medication;
-        Calendar currentDate, startDate, endDate;
-        currentDate = stringToCalendar(date);
-        while (! cursor.isAfterLast())
-        {
-            medication = cursorToMedication(cursor);
-            startDate = stringToCalendar(medication.getStartDate());
-            endDate = stringToCalendar(medication.getEndDate());
-            if (endDate == null)
-            {
-                if (currentDate.equals(startDate) || currentDate.after(startDate)) {
-                    res.add(medication);
-                }
-            }
-            else
-            {
-                if (currentDate.equals(startDate) || currentDate.equals(endDate)) {
-                    res.add(medication);
-                }
-                else if (currentDate.after(startDate) && currentDate.before(endDate)) {
-                    res.add(medication);
-                }
-            }
-            cursor.moveToNext();
-        }
-        return res;
-    }
-
     public boolean removeMedicWithId(int medicId)
     {
         return db.delete(MEDICATION_TABLE, MEDICATION_ID + "=" + medicId, null) > 0;
-    }
-
-    //Date shall be formatted this way: dd/mm/yyyy
-    //This is guaranteed because user does not access this method
-    private Calendar stringToCalendar(String date)
-    {
-        if (date == null) return null;
-        String[] dateArray = date.split("/");
-        int dd = Integer.parseInt(dateArray[0]);
-        int mm = Integer.parseInt(dateArray[1]) - 1;
-        int yyyy = Integer.parseInt(dateArray[2]);
-        Calendar res = Calendar.getInstance();
-        int fmm;
-        switch (mm)
-        {
-            case 0:
-                fmm = Calendar.JANUARY; break;
-            case 1:
-                fmm = Calendar.FEBRUARY; break;
-            case 2:
-                fmm = Calendar.MARCH; break;
-            case 3:
-                fmm = Calendar.APRIL; break;
-            case 4:
-                fmm = Calendar.MAY; break;
-            case 5:
-                fmm = Calendar.JUNE; break;
-            case 6:
-                fmm = Calendar.JULY; break;
-            case 7:
-                fmm = Calendar.AUGUST; break;
-            case 8:
-                fmm = Calendar.SEPTEMBER; break;
-            case 9:
-                fmm = Calendar.OCTOBER; break;
-            case 10:
-                fmm = Calendar.NOVEMBER; break;
-            default:
-                fmm = Calendar.DECEMBER; break;
-        }
-        res.set(yyyy, fmm, dd, 0, 0, 0);
-        res.set(Calendar.MILLISECOND, 0);
-        return res;
     }
 
     private Medication cursorToMedication(Cursor cursor) {
@@ -246,24 +133,9 @@ public class MedicationTable {
         medication.setTreatmentId(cursor.getInt(1));
         medication.setDrugId(cursor.getInt(2));
         medication.setFrequency(cursor.getInt(3));
-        int kind = cursor.getInt(4);
-        switch(kind)
-        {
-            case 0:
-                medication.setKind(DoseFrequencyKind.HOUR); break;
-            case 1:
-                medication.setKind(DoseFrequencyKind.DAY); break;
-            case 2:
-                medication.setKind(DoseFrequencyKind.WEEK); break;
-            case 3:
-                medication.setKind(DoseFrequencyKind.MONTH); break;
-            case 4:
-                medication.setKind(DoseFrequencyKind.YEAR); break;
-            default:
-                medication.setKind(DoseFrequencyKind.LIFE);
-        }
-        medication.setStartDate(cursor.getString(5));
-        medication.setEndDate(cursor.getString(6));
+        medication.setKind(HealthRecordUtils.int2kind(cursor.getInt(4)));
+        medication.setStartDate((cursor.isNull(5))?null:cursor.getString(5));
+        medication.setEndDate((cursor.isNull(6))?null:cursor.getString(6));
         return medication;
     }
 

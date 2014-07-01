@@ -43,13 +43,6 @@ public class DrugTable {
         return db.insert(DRUG_TABLE, null, values);
     }
 
-    public boolean updateDrug(int drugId, String name)
-    {
-        ContentValues values = new ContentValues();
-        values.put(DRUG_NAME, name);
-        return db.update(DRUG_TABLE, values, DRUG_ID + "=" + drugId, null) > 0;
-    }
-
     public List<Drug> getAllDrugs()
     {
         List<Drug> res = new ArrayList<Drug>();

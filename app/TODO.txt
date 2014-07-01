@@ -1,16 +1,16 @@
-Triggers: When removing a person | therapist: delete corresponding appointments from appointment table
-Think about possible triggers and consistency management
+Triggers: When removing a person | therapist: delete corresponding appointments from appointment table -- DONE
+Think about possible triggers and consistency management -- Triggers done, missing consistency management -> shall be implemented in java
 Think about quick links between views when possible
 Rework contextual menu for each view
 Set widget pointers to final
 Optimize presentation using weight attribute in xml file
 For every non editable EditText, use TextView instead and set background to white
-For comment field, take the CreateTreatment as example
+Add comment field when necessary
 Optimize the use of layout parameters for for layout set programmatically
 Careful with the use of decimal for the fields (ex: 10.25)
 R.string.yes/no -> getResources().getString(...)
 Complete the list of specialties
-Triggers: When removing a treatment, remove corresponding medications
+Triggers: When removing a treatment, remove corresponding medications -- DONE
 inner XXXDatePicker classes: rename XXX consequently
 getIntent().getIntExtra("personId", 0); -> Careful default values for database accesses
 Implement day to day navigation from edit day activity
@@ -18,4 +18,11 @@ Improve warning messages
 Use of Set for uniqueness lists
 Check the validity of data passed between activities (in particular when database access follows)
 Be extremely careful when allowing changes in the dates and in the treatments!!!
-Merge Creation and Edition activities with one unique "Save" button
+Merge Creation and Edition activities with one unique "Save" button and use diff to activate / deactivate save button
+Improve checking for every fields in every activities / fragments
+Improve visual / effects, transitions between activities / fragments
+Add icons in the calendar
+Rename populateWidgets to createWidgets or fillWidgets
+Consolidate database and take into account changes (in particular for widgets)
+Think about re-putting isChronic in the GUI for ailment (and also for treatment)
+Manage the cases of preventive ailments and auto-medication

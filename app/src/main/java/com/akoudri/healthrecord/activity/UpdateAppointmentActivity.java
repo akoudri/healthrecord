@@ -128,7 +128,7 @@ public class UpdateAppointmentActivity extends Activity {
         String dayStr = dayET.getText().toString();
         String hourStr = hourET.getText().toString();
         //TODO: update also comment
-        dataSource.getAppointmentTable().updateAppointment(apptId, personId, therapistId, dayStr, hourStr, " ");
+        dataSource.getAppointmentTable().updateAppointment(apptId, therapistId, dayStr, hourStr, " ");
         finish();
     }
 

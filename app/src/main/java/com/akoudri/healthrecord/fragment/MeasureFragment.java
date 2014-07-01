@@ -22,7 +22,6 @@ public class MeasureFragment extends Fragment {
     private EditText glucoseET, diaET, sysET, hbET;
     private int personId;
     private int day, month, year;
-    private Calendar currentDay;
     private Measure measure;
 
     public static MeasureFragment newInstance()
@@ -47,7 +46,6 @@ public class MeasureFragment extends Fragment {
 
     public void setCurrentDay(Calendar currentDay)
     {
-        this.currentDay = currentDay;
         day = currentDay.get(Calendar.DAY_OF_MONTH);
         month = currentDay.get(Calendar.MONTH) + 1;
         year = currentDay.get(Calendar.YEAR);
@@ -60,36 +58,52 @@ public class MeasureFragment extends Fragment {
 
     private void populateWidgets()
     {
-        weightET.setText(measure.getWeight() + "");
-        sizeET.setText(measure.getSize() + "");
-        cpET.setText(measure.getCranialPerimeter() + "");
-        tempET.setText(measure.getTemperature() + "");
-        glucoseET.setText(measure.getGlucose() + "");
-        diaET.setText(measure.getDiastolic() + "");
-        sysET.setText(measure.getSystolic() + "");
-        hbET.setText(measure.getHeartbeat() + "");
+        if (measure.getWeight() > 0.0)
+            weightET.setText(measure.getWeight() + "");
+        if (measure.getSize() > 0)
+            sizeET.setText(measure.getSize() + "");
+        if (measure.getCranialPerimeter() > 0)
+            cpET.setText(measure.getCranialPerimeter() + "");
+        if (measure.getTemperature() > 0.0)
+            tempET.setText(measure.getTemperature() + "");
+        if (measure.getGlucose() > 0.0)
+            glucoseET.setText(measure.getGlucose() + "");
+        if (measure.getDiastolic() > 0)
+            diaET.setText(measure.getDiastolic() + "");
+        if (measure.getSystolic() > 0)
+            sysET.setText(measure.getSystolic() + "");
+        if (measure.getHeartbeat() > 0)
+            hbET.setText(measure.getHeartbeat() + "");
     }
 
     public void saveMeasures(View view)
     {
-        /*
-        double weight;
-        int size;
-        int cranialPerimeter;
-        double temperature;
-        double glucose;
-        int diastolic;
-        int systolic;
-        int heartbeat;
+        //TODO: make a diff between captured and saved measure to activate/deactivate save button
         String str;
         str = weightET.getText().toString();
-        if (str.equalsIgnoreCase("")) weight = 0.0;
-        else weight = Double.parseDouble(str);
-        */
-        //TODO
+        double weight = (str.equalsIgnoreCase(""))?0.0:Double.parseDouble(str);
+        str = sizeET.getText().toString();
+        int size = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
+        str = cpET.getText().toString();
+        int cranialPerimeter = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
+        str = tempET.getText().toString();
+        double temperature = (str.equalsIgnoreCase(""))?0.0:Double.parseDouble(str);
+        str = glucoseET.getText().toString();
+        double glucose = (str.equalsIgnoreCase(""))?0.0:Double.parseDouble(str);
+        str = diaET.getText().toString();
+        int diastolic = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
+        str = sysET.getText().toString();
+        int systolic = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
+        str = hbET.getText().toString();
+        int heartbeat = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
+        String date = String.format("%02d/%02d/%04d", day, month, year);
         if (measure == null)
         {
-
+            dataSource.getMeasureTable().insertMeasure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+        }
+        else
+        {
+            dataSource.getMeasureTable().updateMeasureWithDate(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
         }
     }
 

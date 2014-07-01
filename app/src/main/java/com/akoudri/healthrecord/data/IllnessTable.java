@@ -77,10 +77,10 @@ public class IllnessTable {
 
     private Illness cursorToIllness(Cursor cursor)
     {
-        Illness in = new Illness();
-        in.setId(cursor.getInt(0));
-        in.setName(cursor.getString(1));
-        return in;
+        Illness illness = new Illness();
+        illness.setId(cursor.getInt(0));
+        illness.setName(cursor.getString(1));
+        return illness;
     }
 
 }

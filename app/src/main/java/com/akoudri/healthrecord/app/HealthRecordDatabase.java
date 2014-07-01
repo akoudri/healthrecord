@@ -9,12 +9,14 @@ import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DeleteTherapistTrigger;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.IllnessTable;
-import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.data.MeasureTable;
 import com.akoudri.healthrecord.data.MedicationTable;
+import com.akoudri.healthrecord.data.RemoveAilmentTrigger;
+import com.akoudri.healthrecord.data.RemovePersonTrigger;
 import com.akoudri.healthrecord.data.RemoveTherapistFromPersonTrigger;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
+import com.akoudri.healthrecord.data.RemoveTreatmentTrigger;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.data.TreatmentTable;
@@ -39,7 +41,10 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private AppointmentTable appointmentTable;
     private DrugTable drugTable;
     private MeasureTable measureTable;
+    private RemovePersonTrigger removePersonTrigger;
     private DeleteTherapistTrigger deleteTherapistTrigger;
+    private RemoveAilmentTrigger removeAilmentTrigger;
+    private RemoveTreatmentTrigger removeTreatmentTrigger;
 
     public HealthRecordDatabase(Context context)
     {
@@ -72,18 +77,27 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         drugTable.createDrugTable();
         measureTable = new MeasureTable(db);
         measureTable.createMeasureTable();
+        removePersonTrigger = new RemovePersonTrigger(db);
+        removePersonTrigger.createRemovePersonTrigger();
         deleteTherapistTrigger = new DeleteTherapistTrigger(db);
         deleteTherapistTrigger.createDeleteTherapistTrigger();
+        removeAilmentTrigger = new RemoveAilmentTrigger(db);
+        removeAilmentTrigger.createRemoveAilmentTrigger();
+        removeTreatmentTrigger = new RemoveTreatmentTrigger(db);
+        removeTreatmentTrigger.createRemoveTreatmentTrigger();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //FIXME: this first version simply removes the old tables
+        db.execSQL("drop trigger if exists " + RemoveTreatmentTrigger.REMOVE_TREATMENT_TRIG);
+        db.execSQL("drop trigger if exists " + RemoveAilmentTrigger.REMOVE_AILMENT_TRIG);
         db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIG);
+        db.execSQL("drop trigger if exists " + RemovePersonTrigger.REMOVE_PERSON_TRIG);
         db.execSQL("drop trigger if exists " + RemoveTherapistFromPersonTrigger.REMOVE_THERAPIST_FROM_PERSON_TRIG);
         db.execSQL("drop table if exists " + MeasureTable.MEASURE_TABLE);
         db.execSQL("drop table if exists " + DrugTable.DRUG_TABLE);
-        db.execSQL("drop table if exists " + AppointmentTable.APPOINTMENT_TABLE);
+        db.execSQL("drop table if exists " + AppointmentTable.APPT_TABLE);
         db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE);
         db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE);
         db.execSQL("drop table if exists " + AilmentTable.AILMENT_TABLE);

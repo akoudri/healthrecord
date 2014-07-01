@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +53,7 @@ public class PersonTable {
         ContentValues values = new ContentValues();
         values.put(PERSON_NAME, name);
         values.put(PERSON_GENDER, gender.ordinal());
-        if (ssn == null)
-            values.putNull(PERSON_SSN);
-        else
+        if (ssn != null)
             values.put(PERSON_SSN, ssn);
         values.put(PERSON_BLOODTYPE, bloodType.ordinal());
         values.put(PERSON_BIRTHDATE, birthdate);
@@ -66,9 +66,7 @@ public class PersonTable {
         ContentValues values = new ContentValues();
         values.put(PERSON_NAME, name);
         values.put(PERSON_GENDER, gender.ordinal());
-        if (ssn == null)
-            values.putNull(PERSON_SSN);
-        else
+        if (ssn != null)
             values.put(PERSON_SSN, ssn);
         values.put(PERSON_BLOODTYPE, bloodType.ordinal());
         values.put(PERSON_BIRTHDATE, birthdate);
@@ -116,18 +114,7 @@ public class PersonTable {
         }
         person.setSsn(cursor.getString(3));
         int bloodType = cursor.getInt(4);
-        switch (bloodType)
-        {
-            case 0: person.setBloodType(BloodType.OMINUS); break;
-            case 1: person.setBloodType(BloodType.OPLUS); break;
-            case 2: person.setBloodType(BloodType.AMINUS); break;
-            case 3: person.setBloodType(BloodType.APLUS); break;
-            case 4: person.setBloodType(BloodType.BMINUS); break;
-            case 5: person.setBloodType(BloodType.BPLUS); break;
-            case 6: person.setBloodType(BloodType.ABMINUS); break;
-            case 7: person.setBloodType(BloodType.ABPLUS); break;
-            default: person.setBloodType(BloodType.UNKNOWN);
-        }
+        person.setBloodType(HealthRecordUtils.int2bloodType(bloodType));
         person.setBirthdate(cursor.getString(5));
         return person;
     }

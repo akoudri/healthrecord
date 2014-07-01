@@ -23,7 +23,7 @@ public class AppointmentTable {
     public static final String APPT_HOUR = "hour";
     public static final String APPT_COMMENT = "comment";
 
-    private String[] AppointmentCols = {APPT_ID, APPT_THERAPIST_REF, APPT_PERSON_REF,
+    private String[] AppointmentCols = {APPT_ID, APPT_PERSON_REF, APPT_THERAPIST_REF,
             APPT_DATE, APPT_HOUR, APPT_COMMENT};
 
     public AppointmentTable(SQLiteDatabase db)
@@ -77,7 +77,7 @@ public class AppointmentTable {
         List<Appointment> res = new ArrayList<Appointment>();
         Cursor cursor = db.query(APPT_TABLE, AppointmentCols,
                 APPT_PERSON_REF + "=" + personId + " and " + APPT_DATE + "=?",
-                new String[] {date}, null, null, null);
+                new String[] {date}, null, null, APPT_HOUR + " ASC");
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {

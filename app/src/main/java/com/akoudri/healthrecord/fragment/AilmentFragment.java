@@ -20,22 +20,18 @@ import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
 
-import java.util.Calendar;
 import java.util.List;
 
 
 public class AilmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
-    private int personId;
-    private Calendar currentDay;
+    private int personId, day, month, year;
+
     private View view;
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
-    private int day = 0;
-    private int month = 0;
-    private int  year = 0;
 
     public static AilmentFragment newInstance()
     {
@@ -47,21 +43,24 @@ public class AilmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_ailment, container, false);
         layout = (GridLayout) view.findViewById(R.id.ailments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
+        day = getActivity().getIntent().getIntExtra("day", 0);
+        month = getActivity().getIntent().getIntExtra("month", 0);
+        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
-    public void setCurrentDay(Calendar currentDay)
-    {
-        this.currentDay = currentDay;
-        day = currentDay.get(Calendar.DAY_OF_MONTH);
-        month = currentDay.get(Calendar.MONTH) + 1;
-        year = currentDay.get(Calendar.YEAR);
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (dataSource == null) return;
+        createWidgets();
     }
 
-    private void populateWidgets()
+    private void createWidgets()
     {
         layout.removeAllViews();
-        final String date = String.format("%02d/%02d/%4d", day, month, year);
+        final String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         //FIXME: it returns currently ailments that are not in the selected day!!!
         List<Ailment> dayAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, date);
         if (dayAilments == null || dayAilments.size() == 0) return;
@@ -71,7 +70,7 @@ public class AilmentFragment extends Fragment {
         layout.setColumnCount(3);
         IllnessTable illnessTable = dataSource.getIllnessTable();
         int r = 0; //row index
-        for (Ailment ailment : dayAilments)
+        for (final Ailment ailment : dayAilments)
         {
             final int ailmentId = ailment.getId();
             final Illness illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
@@ -110,10 +109,8 @@ public class AilmentFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     //FIXME: disable end button when done
-                    AilmentTable table = dataSource.getAilmentTable();
-                    Ailment ailment = table.getAilmentWithId(ailmentId);
                     ailment.setEndDate(date);
-                    table.updateAilment(ailment);
+                    dataSource.getAilmentTable().updateAilment(ailment);
                 }
             });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
@@ -141,9 +138,8 @@ public class AilmentFragment extends Fragment {
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //FIXME: add trigger to remove corresponding treatment and corresponding drugs
                                     dataSource.getAilmentTable().removeAilmentWithId(ailmentId);
-                                    populateWidgets();
+                                    createWidgets();
                                 }
                             })
                             .setNegativeButton(R.string.no, null)
@@ -166,12 +162,6 @@ public class AilmentFragment extends Fragment {
     public void setDataSource(HealthRecordDataSource dataSource)
     {
         this.dataSource = dataSource;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        populateWidgets();
     }
 
 }

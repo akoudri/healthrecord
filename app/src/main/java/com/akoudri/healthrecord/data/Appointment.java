@@ -6,8 +6,8 @@ package com.akoudri.healthrecord.data;
 public class Appointment {
 
     private int id;
-    private int person;
-    private int therapist;
+    private int personId;
+    private int therapistId;
     private String date;
     private String hour;
     private String comment;
@@ -20,20 +20,20 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getPerson() {
-        return person;
+    public int getPersonId() {
+        return personId;
     }
 
-    public void setPerson(int person) {
-        this.person = person;
+    public void setPersonId(int personId) {
+        this.personId = personId;
     }
 
-    public int getTherapist() {
-        return therapist;
+    public int getTherapistId() {
+        return therapistId;
     }
 
-    public void setTherapist(int therapist) {
-        this.therapist = therapist;
+    public void setTherapistId(int therapistId) {
+        this.therapistId = therapistId;
     }
 
     public String getDate() {

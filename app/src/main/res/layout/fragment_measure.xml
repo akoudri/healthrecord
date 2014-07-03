@@ -22,8 +22,7 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
+                android:layout_weight="6"
                 android:text="@string/weight"/>
             <EditText
                 android:id="@+id/edit_weight"
@@ -33,8 +32,7 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_margin="5dp"
                 android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
+                android:layout_weight="4"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,8 +46,7 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
+                android:layout_weight="6"
                 android:text="@string/size"/>
             <EditText
                 android:id="@+id/edit_size"
@@ -59,8 +56,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="left|center_vertical"
                 android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
+                android:layout_weight="4"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,8 +69,7 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
+                android:layout_weight="6"
                 android:text="@string/cranialPerimeter"/>
             <EditText
                 android:id="@+id/edit_cranial_perimeter"
@@ -84,8 +79,7 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_margin="5dp"
                 android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
+                android:layout_weight="4"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,8 +93,7 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
+                android:layout_weight="1"
                 android:text="@string/temperature"/>
             <EditText
                 android:id="@+id/edit_temperature"
@@ -110,8 +103,7 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_margin="5dp"
                 android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
+                android:layout_weight="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -125,8 +117,7 @@
                 android:textStyle="bold"
                 android:layout_margin="5dp"
                 android:layout_gravity="right|center_vertical"
-                android:minEms="10"
-                android:maxEms="10"
+                android:layout_weight="6"
                 android:text="@string/glucose"/>
             <EditText
                 android:id="@+id/edit_glucose"
@@ -136,8 +127,7 @@
                 android:layout_gravity="left|center_vertical"
                 android:layout_margin="5dp"
                 android:inputType="numberDecimal"
-                android:minEms="6"
-                android:maxEms="6"/>
+                android:layout_weight="4"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -155,8 +145,7 @@
                     android:textStyle="bold"
                     android:layout_margin="5dp"
                     android:layout_gravity="right|center_vertical"
-                    android:minEms="10"
-                    android:maxEms="10"
+                    android:layout_weight="6"
                     android:text="@string/diastolic"/>
                 <EditText
                     android:id="@+id/edit_diastolic"
@@ -166,8 +155,7 @@
                     android:layout_gravity="left|center_vertical"
                     android:layout_margin="5dp"
                     android:inputType="numberDecimal"
-                    android:minEms="6"
-                    android:maxEms="6"/>
+                    android:layout_weight="4"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -180,8 +168,7 @@
                     android:textStyle="bold"
                     android:layout_margin="5dp"
                     android:layout_gravity="right|center_vertical"
-                    android:minEms="10"
-                    android:maxEms="10"
+                    android:layout_weight="6"
                     android:text="@string/systolic"/>
                 <EditText
                     android:id="@+id/edit_systolic"
@@ -191,8 +178,7 @@
                     android:layout_gravity="left|center_vertical"
                     android:layout_margin="5dp"
                     android:inputType="numberDecimal"
-                    android:minEms="6"
-                    android:maxEms="6"/>
+                    android:layout_weight="4"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -205,8 +191,7 @@
                     android:textStyle="bold"
                     android:layout_margin="5dp"
                     android:layout_gravity="right|center_vertical"
-                    android:minEms="10"
-                    android:maxEms="10"
+                    android:layout_weight="6"
                     android:text="@string/heartbeat"/>
                 <EditText
                     android:id="@+id/edit_heartbeat"
@@ -216,8 +201,7 @@
                     android:layout_gravity="left|center_vertical"
                     android:layout_margin="5dp"
                     android:inputType="numberDecimal"
-                    android:minEms="6"
-                    android:maxEms="6"/>
+                    android:layout_weight="4"/>
             </LinearLayout>
         </LinearLayout>
         <Button

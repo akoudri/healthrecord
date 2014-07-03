@@ -19,13 +19,16 @@ import java.sql.SQLException;
 public class EditPersonActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
+    private int personId;
+
     private CalendarFragment calendarFrag;
     private TherapistFragment therapistsFrag;
     private UpdatePersonFragment personalFrag;
     private AnalysisFragment analysisFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
-    private int personId = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,6 @@ public class EditPersonActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_person);
         dataSource = new HealthRecordDataSource(this);
-        //TODO: when personId = 0 -> a new person is being created
         personId = getIntent().getIntExtra("personId", 0);
         calendarFrag = CalendarFragment.newInstance();
         therapistsFrag = TherapistFragment.newInstance();
@@ -48,9 +50,10 @@ public class EditPersonActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        //FIXME: Manage the case where data source could not be opened
+        if (personId == 0) return;
         try {
             dataSource.open();
+            dataSourceLoaded = true;
             therapistsFrag.setDataSource(dataSource);
             personalFrag.setDataSource(dataSource);
         } catch (SQLException e) {
@@ -61,7 +64,12 @@ public class EditPersonActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        dataSource.close();
+        if (personId == 0) return;
+        if (dataSourceLoaded)
+        {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
     }
 
     public void displayCalendar(View view)
@@ -100,13 +108,18 @@ public class EditPersonActivity extends Activity {
         currentFrag = analysisFrag;
     }
 
-    public void showBirthdayPickerDialog(View view)
+    public void pickUpdateBirthdate(View view)
     {
-        personalFrag.showBirthdayPickerDialog(view);
+        personalFrag.pickUpdateBirthdate(view);
     }
 
     public void addTherapist(View view)
     {
         therapistsFrag.addTherapist(view);
+    }
+
+    public void updatePerson(View view)
+    {
+        personalFrag.updatePerson();
     }
 }

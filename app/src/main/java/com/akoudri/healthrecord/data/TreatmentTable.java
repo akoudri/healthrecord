@@ -135,6 +135,11 @@ public class TreatmentTable {
         return res;
     }
 
+    public boolean removeTreatmentWithId(int treatmentId)
+    {
+        return db.delete(TREATMENT_TABLE, TREATMENT_ID + "=" + treatmentId, null) > 0;
+    }
+
     private Treatment cursorToTreatment(Cursor cursor) {
         Treatment treatment = new Treatment();
         treatment.setId(cursor.getInt(0));

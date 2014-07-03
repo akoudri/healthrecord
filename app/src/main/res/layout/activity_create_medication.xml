@@ -26,7 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:ems="10"
             android:layout_gravity="left"
             android:capitalize="words"/>
 
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="numberDecimal"
-                android:ems="2"
+                android:layout_weight="3"
                 android:layout_gravity="top"/>
             <TextView
                 android:text="@string/times"
@@ -59,12 +58,14 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="top"
+                android:layout_weight="3"
                 android:textStyle="bold" />
             <Spinner
                 android:id="@+id/freq_add"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_weight="4"
                 android:layout_gravity="top"/>
         </LinearLayout>
 
@@ -123,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:ems="7"
+                android:layout_weight="8"
                 android:layout_gravity="center_vertical"
                 android:editable="false"/>
 
@@ -132,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="showEndMedicPickerDialog"/>
         </LinearLayout>

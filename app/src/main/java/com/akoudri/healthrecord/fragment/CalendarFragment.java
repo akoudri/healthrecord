@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.view.CalendarView;
 
-//FIXME: for all classes, provide a better management of exceptions
-
 public class CalendarFragment extends Fragment {
 
     private int personId = 0;

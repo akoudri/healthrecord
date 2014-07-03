@@ -21,22 +21,19 @@ import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranch;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
 
-import java.util.Calendar;
 import java.util.List;
 
 
 public class AppointmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
-    private int personId;
-    private Calendar currentDay;
+    private int personId, day, month, year;
+
     private View view;
+
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
-    private int day = 0;
-    private int month = 0;
-    private int  year = 0;
 
     public static AppointmentFragment newInstance()
     {
@@ -48,25 +45,24 @@ public class AppointmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
+        day = getActivity().getIntent().getIntExtra("day", 0);
+        month = getActivity().getIntent().getIntExtra("month", 0);
+        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
-    public void setCurrentDay(Calendar currentDay)
-    {
-        this.currentDay = currentDay;
-        day = currentDay.get(Calendar.DAY_OF_MONTH);
-        month = currentDay.get(Calendar.MONTH) + 1;
-        year = currentDay.get(Calendar.YEAR);
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (dataSource == null) return;
+        createWidgets();
     }
 
-    private void populateWidgets()
+    private void createWidgets()
     {
         layout.removeAllViews();
-        //int day = currentDay.get(Calendar.DAY_OF_MONTH);
-        //int month = currentDay.get(Calendar.MONTH) + 1;
-        //int year = currentDay.get(Calendar.YEAR);
-        String date = String.format("%02d/%02d/%4d", day, month, year);
-        //FIXME: order appointment in regard to time
+        String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
         if (allAppointments == null || allAppointments.size() == 0) return;
         int margin = 5;
@@ -83,7 +79,7 @@ public class AppointmentFragment extends Fragment {
         for (Appointment appt : allAppointments)
         {
             final int apptId = appt.getId();
-            therapist = therapistTable.getTherapistWithId(appt.getTherapist());
+            therapist = therapistTable.getTherapistWithId(appt.getTherapistId());
             branch = branchTable.getBranchWithId(therapist.getBranchId());
             sb = new StringBuilder();
             sb.append(therapist.getName());
@@ -105,7 +101,6 @@ public class AppointmentFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent("com.akoudri.healthrecord.app.UpdateAppointment");
-                    intent.putExtra("personId", personId);
                     intent.putExtra("apptId", apptId);
                     startActivity(intent);
                 }
@@ -135,7 +130,7 @@ public class AppointmentFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dataSource.getAppointmentTable().removeAppointmentWithId(apptId);
-                                    populateWidgets();
+                                    createWidgets();
                                 }
                             })
                             .setNegativeButton(R.string.no, null)
@@ -160,9 +155,4 @@ public class AppointmentFragment extends Fragment {
         this.dataSource = dataSource;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        populateWidgets();
-    }
 }

@@ -11,15 +11,15 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Measure;
 
-import java.util.Calendar;
-
 
 public class MeasureFragment extends Fragment {
 
     private View view;
-    private HealthRecordDataSource dataSource;
+
     private EditText weightET, sizeET, cpET, tempET;
     private EditText glucoseET, diaET, sysET, hbET;
+
+    private HealthRecordDataSource dataSource;
     private int personId;
     private int day, month, year;
     private Measure measure;
@@ -41,14 +41,21 @@ public class MeasureFragment extends Fragment {
         sysET = (EditText) view.findViewById(R.id.edit_systolic);
         hbET = (EditText) view.findViewById(R.id.edit_heartbeat);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
+        day = getActivity().getIntent().getIntExtra("day", 0);
+        month = getActivity().getIntent().getIntExtra("month", 0);
+        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
-    public void setCurrentDay(Calendar currentDay)
-    {
-        day = currentDay.get(Calendar.DAY_OF_MONTH);
-        month = currentDay.get(Calendar.MONTH) + 1;
-        year = currentDay.get(Calendar.YEAR);
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (dataSource == null) return;
+        String date = String.format("%02d/%02d/%04d", day, month + 1, year);
+        measure = dataSource.getMeasureTable().getPersonMeasureWithDate(personId, date);
+        if (measure != null)
+            fillWidgets();
     }
 
     public void setDataSource(HealthRecordDataSource dataSource)
@@ -56,7 +63,7 @@ public class MeasureFragment extends Fragment {
         this.dataSource = dataSource;
     }
 
-    private void populateWidgets()
+    private void fillWidgets()
     {
         if (measure.getWeight() > 0.0)
             weightET.setText(measure.getWeight() + "");
@@ -96,7 +103,7 @@ public class MeasureFragment extends Fragment {
         int systolic = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
         str = hbET.getText().toString();
         int heartbeat = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
-        String date = String.format("%02d/%02d/%04d", day, month, year);
+        String date = String.format("%02d/%02d/%04d", day, month + 1, year);
         if (measure == null)
         {
             dataSource.getMeasureTable().insertMeasure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
@@ -105,15 +112,6 @@ public class MeasureFragment extends Fragment {
         {
             dataSource.getMeasureTable().updateMeasureWithDate(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        String date = String.format("%02d/%02d/%04d", day, month, year);
-        measure = dataSource.getMeasureTable().getPersonMeasureWithDate(personId, date);
-        if (measure != null)
-            populateWidgets();
     }
 
 }

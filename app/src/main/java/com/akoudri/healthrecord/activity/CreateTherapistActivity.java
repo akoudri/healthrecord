@@ -2,8 +2,6 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -13,7 +11,6 @@ import android.widget.Spinner;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
@@ -28,12 +25,13 @@ public class CreateTherapistActivity extends Activity {
     private EditText nameET, phoneNumberET;
     private AutoCompleteTextView specialityET;
     private Spinner thSpinner;
+
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
     private int personId;
+
     private List<Therapist> otherTherapists;
     private List<TherapyBranch> branches;
-    private Person person;
-    //private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,33 +43,31 @@ public class CreateTherapistActivity extends Activity {
         specialityET = (AutoCompleteTextView) findViewById(R.id.speciality_add);
         phoneNumberET = (EditText) findViewById(R.id.phone_number_add);
         dataSource = new HealthRecordDataSource(this);
-        //lang = Locale.getDefault().getDisplayName();
-        personId = getIntent().getIntExtra("personId", 1);
+        personId = getIntent().getIntExtra("personId", 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //FIXME: Manage the case where data source could not be opened
+        if (personId == 0) return;
         try {
             dataSource.open();
+            dataSourceLoaded = true;
+            retrieveBranches();
+            retrieveOtherTherapists();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        retrievePerson();
-        retrieveBranches();
-        retrieveOtherTherapists();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        dataSource.close();
-    }
-
-    private void retrievePerson()
-    {
-        person = dataSource.getPersonTable().getPersonWithId(personId);
+        if (personId == 0) return;
+        if (dataSourceLoaded) {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
     }
 
     private void retrieveBranches() {
@@ -130,6 +126,8 @@ public class CreateTherapistActivity extends Activity {
 
     public void addTherapist(View view)
     {
+        if (personId == 0) return;
+        if (!dataSourceLoaded) return;
         String name = nameET.getText().toString();
         String speciality = specialityET.getText().toString();
         String phoneNumber = phoneNumberET.getText().toString();
@@ -149,30 +147,12 @@ public class CreateTherapistActivity extends Activity {
 
     public void addExistingTherapist(View view)
     {
+        if (personId == 0) return;
+        if (!dataSourceLoaded) return;
         int thIdx = thSpinner.getSelectedItemPosition();
         Therapist th = otherTherapists.get(thIdx);
         dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
         finish();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_person, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.add_action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

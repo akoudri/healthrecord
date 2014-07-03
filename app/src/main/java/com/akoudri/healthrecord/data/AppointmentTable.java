@@ -105,8 +105,8 @@ public class AppointmentTable {
     {
         Appointment appt = new Appointment();
         appt.setId(cursor.getInt(0));
-        appt.setPerson(cursor.getInt(1));
-        appt.setTherapist(cursor.getInt(2));
+        appt.setPersonId(cursor.getInt(1));
+        appt.setTherapistId(cursor.getInt(2));
         appt.setDate(cursor.getString(3));
         appt.setHour(cursor.getString(4));
         appt.setComment((cursor.isNull(5))?null:cursor.getString(5));

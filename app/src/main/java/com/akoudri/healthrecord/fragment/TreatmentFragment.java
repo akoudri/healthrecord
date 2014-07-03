@@ -1,6 +1,8 @@
 package com.akoudri.healthrecord.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,22 +21,18 @@ import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.Treatment;
 
-import java.util.Calendar;
 import java.util.List;
 
 
 public class TreatmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
-    private int personId;
-    private Calendar currentDay;
+    private int personId, day, month, year;
+
     private View view;
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
-    private int day = 0;
-    private int month = 0;
-    private int  year = 0;
 
     public static TreatmentFragment newInstance()
     {
@@ -43,18 +41,21 @@ public class TreatmentFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_medication, container, false);
+        view = inflater.inflate(R.layout.fragment_treatment, container, false);
         layout = (GridLayout) view.findViewById(R.id.treatments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
+        day = getActivity().getIntent().getIntExtra("day", 0);
+        month = getActivity().getIntent().getIntExtra("month", 0);
+        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
-    public void setCurrentDay(Calendar currentDay)
-    {
-        this.currentDay = currentDay;
-        day = currentDay.get(Calendar.DAY_OF_MONTH);
-        month = currentDay.get(Calendar.MONTH) + 1;
-        year = currentDay.get(Calendar.YEAR);
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (dataSource == null) return;
+        createWidgets();
     }
 
     public void setDataSource(HealthRecordDataSource dataSource)
@@ -62,10 +63,10 @@ public class TreatmentFragment extends Fragment {
         this.dataSource = dataSource;
     }
 
-    private void populateWidgets()
+    private void createWidgets()
     {
         layout.removeAllViews();
-        final String date = String.format("%02d/%02d/%4d", day, month, year);
+        final String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<Treatment> dayTreatments = dataSource.getTreatmentTable().getDayTreatmentsForPerson(personId, date);
         if (dayTreatments == null || dayTreatments.size() == 0) return;
         int margin = 5;
@@ -73,15 +74,13 @@ public class TreatmentFragment extends Fragment {
         ImageButton endButton, removeButton;
         layout.setColumnCount(3);
         IllnessTable illnessTable = dataSource.getIllnessTable();
-        Illness illness;
         AilmentTable ailmentTable = dataSource.getAilmentTable();
-        Ailment ailment;
         int r = 0; //row index
-        for (Treatment treatment : dayTreatments)
+        for (final Treatment treatment : dayTreatments)
         {
             final int treatmentId = treatment.getId();
-            ailment = ailmentTable.getAilmentWithId(treatment.getAilmentId());
-            illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
+            final Ailment ailment = ailmentTable.getAilmentWithId(treatment.getAilmentId());
+            final Illness illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
             //edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
@@ -116,7 +115,14 @@ public class TreatmentFragment extends Fragment {
             colSpec = GridLayout.spec(1);
             endButton = new ImageButton(getActivity());
             endButton.setBackgroundResource(R.drawable.end_illness);
-            //TODO: add listener
+            endButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //FIXME: disable end button when done
+                    treatment.setEndDate(date);
+                    dataSource.getTreatmentTable().updateTreatment(treatment);
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;
@@ -130,7 +136,26 @@ public class TreatmentFragment extends Fragment {
             colSpec = GridLayout.spec(2);
             removeButton = new ImageButton(getActivity());
             removeButton.setBackgroundResource(R.drawable.remove);
-            //TODO: add listener
+            removeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new AlertDialog.Builder(getActivity())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.removing)
+                            .setMessage(getResources().getString(R.string.remove_question)
+                                    + " " + illness.getName() + "?")
+                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dataSource.getTreatmentTable().removeTreatmentWithId(treatmentId);
+                                    createWidgets();
+                                }
+                            })
+                            .setNegativeButton(R.string.no, null)
+                            .show();
+                }
+            });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
             params.rightMargin = margin;
             params.leftMargin = margin;
@@ -142,12 +167,6 @@ public class TreatmentFragment extends Fragment {
             //next line
             r++;
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        populateWidgets();
     }
 
 }

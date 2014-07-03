@@ -1,27 +1,23 @@
 package com.akoudri.healthrecord.fragment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.akoudri.healthrecord.activity.EditPersonActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
-
-import java.util.Calendar;
+import com.akoudri.healthrecord.utils.DatePickerFragment;
 
 
 public class UpdatePersonFragment extends Fragment {
@@ -31,7 +27,9 @@ public class UpdatePersonFragment extends Fragment {
     private RadioGroup genderRG;
     private RadioButton maleBtn, femaleBtn;
     private HealthRecordDataSource dataSource;
+
     private View view;
+
     private int personId = 0;
     private Person person;
 
@@ -58,26 +56,21 @@ public class UpdatePersonFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (personId == 0) return;
+        if (dataSource == null) return;
+        person = dataSource.getPersonTable().getPersonWithId(personId);
+        fillWidgets();
+    }
+
     public void setDataSource(HealthRecordDataSource dataSource)
     {
         this.dataSource = dataSource;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        retrievePerson();
-        populateWidgets();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //FIXME: update if necessary only
-        updatePerson();
-    }
-
-    private void populateWidgets()
+    private void fillWidgets()
     {
         if (person == null) return;
         nameET.setText(person.getName());
@@ -88,49 +81,18 @@ public class UpdatePersonFragment extends Fragment {
         }
         ssnET.setText(person.getSsn());
         birthdateET.setText(person.getBirthdate());
-        switch (person.getBloodType()) {
-            case OMINUS:
-                btSpinner.setSelection(0);
-                break;
-            case OPLUS:
-                btSpinner.setSelection(1);
-                break;
-            case AMINUS:
-                btSpinner.setSelection(2);
-                break;
-            case APLUS:
-                btSpinner.setSelection(3);
-                break;
-            case BMINUS:
-                btSpinner.setSelection(4);
-                break;
-            case BPLUS:
-                btSpinner.setSelection(5);
-                break;
-            case ABMINUS:
-                btSpinner.setSelection(6);
-                break;
-            case ABPLUS:
-                btSpinner.setSelection(7);
-                break;
-            default:
-                btSpinner.setSelection(8);
-        }
+        btSpinner.setSelection(person.getBloodType().ordinal());
     }
 
-    private void retrievePerson()
+    public void updatePerson()
     {
-        person = dataSource.getPersonTable().getPersonWithId(personId);
-    }
-
-    private void updatePerson()
-    {
+        if (personId == 0) return;
         //FIXME: check values before inserting
+        //FIXME: check changes before saving -> change the state of the save button consequently
         String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) getActivity().findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
         Gender gender;
-        //FIXME: the returned genderIdx is always -1 !!!
         switch (genderIdx)
         {
             case 0: gender = Gender.MALE; break;
@@ -152,42 +114,16 @@ public class UpdatePersonFragment extends Fragment {
             default:bt = BloodType.UNKNOWN;
         }
         String birthdate = birthdateET.getText().toString();
-        //FIXME: check values before inserting
         dataSource.getPersonTable().updatePerson(person.getId(), name,
                 gender, ssn, bt, birthdate);
+        //TODO change the state of the save button
     }
 
-    public void showBirthdayPickerDialog(View view)
+    public void pickUpdateBirthdate(View view)
     {
-        BirthDatePickerFragment dfrag = new BirthDatePickerFragment();
-        dfrag.setBdet(birthdateET);
-        dfrag.show(getFragmentManager(),"birthDatePicker");
-    }
-
-    public static class BirthDatePickerFragment extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener
-    {
-        private EditText bdet;
-
-        public void setBdet(EditText bdet)
-        {
-            this.bdet = bdet;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            String toDisplay = String.format("%02d/%02d/%4d", day, month+1, year);
-            bdet.setText(toDisplay);
-        }
+        DatePickerFragment dfrag = new DatePickerFragment();
+        dfrag.init(getActivity(), birthdateET);
+        dfrag.show(getFragmentManager(),"Update Birthdate");
     }
 
 }

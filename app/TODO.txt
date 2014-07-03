@@ -26,3 +26,8 @@ Rename populateWidgets to createWidgets or fillWidgets
 Consolidate database and take into account changes (in particular for widgets)
 Think about re-putting isChronic in the GUI for ailment (and also for treatment)
 Manage the cases of preventive ailments and auto-medication
+Refactor Styles
+Consider the use of navigation bar
+Resize correctly the buttons
+Add notification for medics
+Replace printStackTrace by Toasts

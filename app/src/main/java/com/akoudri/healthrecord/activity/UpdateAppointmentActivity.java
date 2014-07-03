@@ -1,30 +1,23 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
+import com.akoudri.healthrecord.utils.DatePickerFragment;
+import com.akoudri.healthrecord.utils.HourPickerFragment;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -32,12 +25,13 @@ public class UpdateAppointmentActivity extends Activity {
 
     private EditText dayET, hourET;
     private Spinner thSpinner;
+
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
     private List<Therapist> therapists;
     private List<Integer> thIds;
-    private int personId, apptId;
+    private int apptId;
     private Appointment appt;
-    //private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,56 +42,39 @@ public class UpdateAppointmentActivity extends Activity {
         hourET = (EditText) findViewById(R.id.update_appt_hour);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
         dataSource = new HealthRecordDataSource(this);
-        //lang = Locale.getDefault().getDisplayName();
-        personId = getIntent().getIntExtra("personId", 0);
         apptId = getIntent().getIntExtra("apptId", 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //FIXME: Manage the case where data source could not be opened
+        if (apptId == 0) return;
         try {
             dataSource.open();
+            dataSourceLoaded = true;
+            appt = dataSource.getAppointmentTable().getAppointmentWithId(apptId);
+            retrieveTherapists();
+            fillWidgets();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        retrieveAppt();
-        String apptDate = appt.getDate();
-        String apptHour = appt.getHour();
-        dayET.setText(apptDate);
-        hourET.setText(apptHour);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (apptId == 0) return;
+        if (dataSourceLoaded) {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
+    }
+
+    private void retrieveTherapists()
+    {
+        List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(appt.getPersonId());
         therapists = new ArrayList<Therapist>();
         thIds = new ArrayList<Integer>();
-        retrieveTherapists();
-        String[] therapistsStr;
-        int thIdx = 0;
-        therapistsStr = new String[therapists.size()];
-        int i = 0;
-        int it = 0;
-        TherapyBranch branch = null;
-        String therapyBranchStr;
-        for (Therapist t : therapists) {
-            if (t.getId() == appt.getTherapist()) thIdx = it;
-            branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
-            therapyBranchStr = branch.getName();
-            therapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
-            it ++;
-        }
-        ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, therapistsStr);
-        thSpinner.setAdapter(thChoicesAdapter);
-        thSpinner.setSelection(thIdx);
-    }
-
-    private void retrieveAppt()
-    {
-        appt = dataSource.getAppointmentTable().getAppointmentWithId(apptId);
-    }
-
-    public void retrieveTherapists()
-    {
-        //retrieve all therapists
-        List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         Therapist t;
         for (Integer i : myTherapistIds)
         {
@@ -107,22 +84,46 @@ public class UpdateAppointmentActivity extends Activity {
         }
     }
 
-    public void showBirthdayPickerDialog(View view)
+    private void fillWidgets()
     {
-        BirthDatePickerFragment dfrag = new BirthDatePickerFragment();
-        dfrag.setBdet(dayET);
-        dfrag.show(getFragmentManager(),"birthDatePicker");
+        String[] therapistsStr = new String[therapists.size()];
+        int thIdx = 0;
+        int i = 0;
+        int it = 0;
+        TherapyBranch branch;
+        String therapyBranchStr;
+        for (Therapist t : therapists) {
+            if (t.getId() == appt.getTherapistId()) thIdx = it;
+            branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
+            therapyBranchStr = branch.getName();
+            therapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
+            it++;
+        }
+        ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, therapistsStr);
+        thSpinner.setAdapter(thChoicesAdapter);
+        thSpinner.setSelection(thIdx);
+        dayET.setText(appt.getDate());
+        hourET.setText(appt.getHour());
     }
 
-    public void selectHour(View view)
+    public void updateAppointmentDay(View view)
     {
-        TimePickerFragment frag = new TimePickerFragment();
-        frag.setApptet(hourET);
-        frag.show(getFragmentManager(), "appointmentPicker");
+        DatePickerFragment dfrag = new DatePickerFragment();
+        dfrag.init(this, dayET);
+        dfrag.show(getFragmentManager(), "Appointment Date Picker");
+    }
+
+    public void updateAppointmentHour(View view)
+    {
+        HourPickerFragment hfrag = new HourPickerFragment();
+        hfrag.init(this, hourET);
+        hfrag.show(getFragmentManager(), "Appointment Hour Picker");
     }
 
     public void updateAppointment(View view)
     {
+        if (apptId == 0) return;
+        if (!dataSourceLoaded) return;
         int thPos = thSpinner.getSelectedItemPosition();
         int therapistId = thIds.get(thPos);
         String dayStr = dayET.getText().toString();
@@ -130,83 +131,6 @@ public class UpdateAppointmentActivity extends Activity {
         //TODO: update also comment
         dataSource.getAppointmentTable().updateAppointment(apptId, therapistId, dayStr, hourStr, " ");
         finish();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        dataSource.close();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_person, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.add_action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public static class BirthDatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener
-    {
-        private EditText apptet;
-
-        public void setBdet(EditText apptet)
-        {
-            this.apptet = apptet;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            String toDisplay = String.format("%02d/%02d/%4d", day, month+1, year);
-            apptet.setText(toDisplay);
-        }
-    }
-
-    public static class TimePickerFragment extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener
-    {
-        private EditText apptet;
-
-        public void setApptet(EditText apptet)
-        {
-            this.apptet = apptet;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR);
-            int min = c.get(Calendar.MINUTE);
-            return new TimePickerDialog(getActivity(), this, hour, min, true);
-        }
-
-        @Override
-        public void onTimeSet(TimePicker timePicker, int hour, int min) {
-            String toDisplay = String.format("%02d:%02d", hour, min);
-            apptet.setText(toDisplay);
-        }
     }
 
 }

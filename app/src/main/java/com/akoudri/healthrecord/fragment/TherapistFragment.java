@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
 
@@ -28,12 +27,14 @@ import java.util.List;
 public class TherapistFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
+    private int personId;
+
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+
     private View view;
-    private int personId;
-    private Person person;
+
 
     public static TherapistFragment newInstance()
     {
@@ -48,25 +49,20 @@ public class TherapistFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (personId == 0) return;
+        if (dataSource == null) return;
+        createWidgets();
+    }
+
     public void setDataSource(HealthRecordDataSource dataSource)
     {
         this.dataSource = dataSource;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        //FIXME: add just corresponding widget from adding new person - see AddPerson
-        retrievePerson();
-        populateWidgets();
-    }
-
-    private void retrievePerson() {
-        person = dataSource.getPersonTable().getPersonWithId(personId);
-    }
-
-    //FIXME: should be called one time at first load only
-    private void populateWidgets()
+    private void createWidgets()
     {
         layout.removeAllViews();
         List<Therapist> allTherapists = new ArrayList<Therapist>();
@@ -134,7 +130,7 @@ public class TherapistFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dataSource.getPersonTherapistTable().removeRelation(personId, p.getId());
-                                    populateWidgets();
+                                    createWidgets();
                                 }
                             })
                             .setNegativeButton(R.string.no, null)
@@ -178,7 +174,6 @@ public class TherapistFragment extends Fragment {
 
     public void addTherapist(View view)
     {
-        //FIXME: use instead a startActivityForResult to not reload all widgets
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");
         intent.putExtra("personId", personId);
         startActivity(intent);

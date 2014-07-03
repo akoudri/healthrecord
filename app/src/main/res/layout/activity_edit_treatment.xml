@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
                 android:layout_gravity="left|center"
-                android:layout_weight="0.5"
+                android:layout_weight="8"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="left|top"
+                android:layout_weight="2"
                 android:src="@drawable/plus"
                 android:onClick="editAddMedic"/>
 
@@ -95,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:ems="7"
+                android:layout_weight="8"
                 android:layout_gravity="center_vertical"
                 android:editable="false"/>
 
@@ -104,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="editStartTreatmentPickerDialog"/>
         </LinearLayout>
@@ -129,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:ems="7"
+                android:layout_weight="8"
                 android:layout_gravity="center_vertical"
                 android:editable="false"/>
 
@@ -138,6 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="editEndTreatmentPickerDialog"/>
         </LinearLayout>

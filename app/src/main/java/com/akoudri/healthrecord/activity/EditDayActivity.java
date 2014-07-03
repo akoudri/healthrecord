@@ -23,6 +23,11 @@ import java.util.Locale;
 public class EditDayActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
+    private int personId = 0;
+    private int day, month, year;
+    private Calendar currentDay;
+
     private TextView today_label;
     private AppointmentFragment apptFrag;
     private MeasureFragment measureFrag;
@@ -30,9 +35,7 @@ public class EditDayActivity extends Activity {
     private TreatmentFragment treatmentFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
-    private int personId = 0;
-    private int date, month, year;
-    private Calendar currentDay;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +43,11 @@ public class EditDayActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_day);
         dataSource = new HealthRecordDataSource(this);
-        //FIXME: retrieve person id from calendar
-        //FIXME: make cranial perimeter visible if age > ?
         today_label = (TextView) findViewById(R.id.today_label);
         personId = getIntent().getIntExtra("personId", 0);
-        date = getIntent().getIntExtra("date", 0);
+        day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
-        displayCurrentDay();
         apptFrag = AppointmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
         treatmentFrag = TreatmentFragment.newInstance();
@@ -58,16 +58,45 @@ public class EditDayActivity extends Activity {
         currentFrag = measureFrag;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0)
+            return;
+        displayCurrentDay();
+        try {
+            dataSource.open();
+            dataSourceLoaded = true;
+            measureFrag.setDataSource(dataSource);
+            apptFrag.setDataSource(dataSource);
+            ailmentFrag.setDataSource(dataSource);
+            treatmentFrag.setDataSource(dataSource);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        if (dataSourceLoaded)
+        {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
+    }
+
     private void displayCurrentDay()
     {
         currentDay = Calendar.getInstance();
-        currentDay.set(Calendar.DAY_OF_MONTH, date);
+        currentDay.set(Calendar.DAY_OF_MONTH, day);
         currentDay.set(Calendar.MONTH, month);
         currentDay.set(Calendar.YEAR, year);
         StringBuilder sb = new StringBuilder();
         sb.append(currentDay.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).toUpperCase());
         sb.append(" ");
-        sb.append(date);
+        sb.append(day);
         sb.append(" ");
         sb.append(currentDay.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()).toUpperCase());
         sb.append(" ");
@@ -111,30 +140,11 @@ public class EditDayActivity extends Activity {
         currentFrag = treatmentFrag;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //FIXME: Manage the case where data source could not be opened
-        try {
-            dataSource.open();
-            measureFrag.setDataSource(dataSource);
-            measureFrag.setCurrentDay(currentDay);
-            apptFrag.setDataSource(dataSource);
-            apptFrag.setCurrentDay(currentDay);
-            ailmentFrag.setDataSource(dataSource);
-            ailmentFrag.setCurrentDay(currentDay);
-            treatmentFrag.setDataSource(dataSource);
-            treatmentFrag.setCurrentDay(currentDay);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void createAppt(View view)
     {
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddAppointment");
         intent.putExtra("personId", personId);
-        intent.putExtra("date", date);
+        intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
         startActivity(intent);
@@ -144,7 +154,7 @@ public class EditDayActivity extends Activity {
     {
         Intent intent = new Intent("com.akoudri.healthrecord.app.CreateAilment");
         intent.putExtra("personId", personId);
-        intent.putExtra("date", date);
+        intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
         startActivity(intent);
@@ -152,10 +162,9 @@ public class EditDayActivity extends Activity {
 
     public void createTreatment(View view)
     {
-        //FIXME: create treatment only if there is at least one ailment for which there is not treatment
         Intent intent = new Intent("com.akoudri.healthrecord.app.CreateTreatment");
         intent.putExtra("personId", personId);
-        intent.putExtra("date", date);
+        intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
         startActivity(intent);
@@ -163,6 +172,7 @@ public class EditDayActivity extends Activity {
 
     public void saveMeasures(View view)
     {
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
         measureFrag.saveMeasures(view);
     }
 }

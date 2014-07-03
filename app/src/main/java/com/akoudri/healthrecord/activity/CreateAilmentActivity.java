@@ -2,13 +2,10 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.CheckBox;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
@@ -21,9 +18,11 @@ import java.util.List;
 public class CreateAilmentActivity extends Activity {
 
     private AutoCompleteTextView illnessActv;
+    
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
     private int personId;
-    private int date, month, year;
+    private int day, month, year;
     private String selectedDate;
     private List<Illness> illnesses;
 
@@ -35,10 +34,34 @@ public class CreateAilmentActivity extends Activity {
         dataSource = new HealthRecordDataSource(this);
         illnessActv = (AutoCompleteTextView) findViewById(R.id.illness_add);
         personId = getIntent().getIntExtra("personId", 0);
-        date = getIntent().getIntExtra("date", 0);
+        day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
-        selectedDate = String.format("%02d/%02d/%04d", date, month + 1, year);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        try {
+            dataSource.open();
+            dataSourceLoaded = true;
+            selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+            retrieveIllnesses();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (dataSourceLoaded)
+        {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
     }
 
     private void retrieveIllnesses()
@@ -55,22 +78,11 @@ public class CreateAilmentActivity extends Activity {
         illnessActv.setAdapter(illnessesAdapter);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //FIXME: Manage the case where data source could not be opened
-        try {
-            dataSource.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        retrieveIllnesses();
-    }
-
     public void addAilment(View view)
     {
-        //TODO: store ailment into db
-        //insertAilment(int personId, int illnessId, boolean isChronic, String startDate, String endDate, String comment)
+        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (!dataSourceLoaded) return;
+        //TODO: check values
         String illness = illnessActv.getText().toString();
         int illnessId = dataSource.getIllnessTable().getIllnessId(illness);
         if (illnessId < 0)
@@ -79,32 +91,6 @@ public class CreateAilmentActivity extends Activity {
         }
         dataSource.getAilmentTable().insertAilment(personId, illnessId, selectedDate, null, "no comment");
         finish();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        dataSource.close();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //TODO
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_person, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.add_action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

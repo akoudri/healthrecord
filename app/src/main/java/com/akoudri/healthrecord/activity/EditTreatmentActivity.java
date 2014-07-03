@@ -2,21 +2,14 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -25,7 +18,6 @@ import android.widget.Spinner;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Ailment;
-import com.akoudri.healthrecord.data.DoseFrequencyKind;
 import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.Medication;
@@ -34,29 +26,32 @@ import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.data.Treatment;
+import com.akoudri.healthrecord.utils.DatePickerFragment;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 //FIXME: check the consistency of the code
 public class EditTreatmentActivity extends Activity {
 
-    private Spinner illnessAct;
+    private Spinner illnessSpinner;
     private Spinner therapistSpinner;
     private EditText startDateET, endDateET;
     private LinearLayout medicsLayout;
+
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
     private int treatmentId;
     private String selectedDate;
     private int day, month, year;
     private List<Ailment> ailments;
-    private List<Illness> illnesses;
     private List<Therapist> therapists;
     private List<Medication> existingMedications;
     private List<Medication> medications;
     private Treatment treatment;
+
     private int reqCreateCode = 1;
     private int reqEditCode = 2;
 
@@ -67,21 +62,56 @@ public class EditTreatmentActivity extends Activity {
         setContentView(R.layout.activity_edit_treatment);
         dataSource = new HealthRecordDataSource(this);
         medications = new ArrayList<Medication>();
-        illnessAct = (Spinner) findViewById(R.id.edit_illness_choice);
+        illnessSpinner = (Spinner) findViewById(R.id.edit_illness_choice);
         therapistSpinner = (Spinner) findViewById(R.id.edit_therapist_choice);
         startDateET = (EditText) findViewById(R.id.edit_start_treatment);
         endDateET = (EditText) findViewById(R.id.edit_end_treatment);
         medicsLayout = (LinearLayout) findViewById(R.id.edit_medics_layout);
-        treatmentId = getIntent().getIntExtra("treatmentId", 1);
+        treatmentId = getIntent().getIntExtra("treatmentId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (treatmentId == 0 || day <= 0 || month <= 0 || year <= 0)
+            return;
+        try {
+            dataSource.open();
+            dataSourceLoaded = true;
+            treatment = dataSource.getTreatmentTable().getTreatmentWithId(treatmentId);
+            existingMedications = dataSource.getMedicationTable().getMedicationsForTreatment(treatmentId);
+            fillWidgets();
+            createWidgets();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (treatmentId == 0 || day <= 0 || month <= 0 || year <= 0)
+            return;
+        if (dataSourceLoaded) {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
+    }
+
+    private void fillWidgets()
+    {
         selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+        startDateET.setText(treatment.getStartDate());
+        endDateET.setText(treatment.getEndDate());
+        retrieveAilments();
+        retrieveTherapists();
     }
 
     private void retrieveAilments()
     {
-        //FIXME: consider using the creation of a view into the database
         int personId = treatment.getPersonId();
         ailments = new ArrayList<Ailment>();
         List<Ailment> allAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, selectedDate);
@@ -113,9 +143,9 @@ public class EditTreatmentActivity extends Activity {
             ailmentStr[i++] = illness.getName() + "-" + a.getStartDate();
         }
         ArrayAdapter<String> illnessAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ailmentStr);
-        illnessAct.setAdapter(illnessAdapter);
+        illnessSpinner.setAdapter(illnessAdapter);
         int ailmentIdx = ailments.indexOf(ailment);
-        if (ailmentIdx > 0) illnessAct.setSelection(ailmentIdx);
+        if (ailmentIdx > 0) illnessSpinner.setSelection(ailmentIdx);
     }
 
     private void retrieveTherapists()
@@ -144,12 +174,7 @@ public class EditTreatmentActivity extends Activity {
         if (thIndex >= 0) therapistSpinner.setSelection(thIndex);
     }
 
-    private void retrieveMedics()
-    {
-        existingMedications = dataSource.getMedicationTable().getMedicationsForTreatment(treatmentId);
-    }
-
-    private void populateMedics()
+    private void createWidgets()
     {
         medicsLayout.removeAllViews();
         LinearLayout linearLayout;
@@ -208,7 +233,7 @@ public class EditTreatmentActivity extends Activity {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     existingMedications.remove(medic);
                                     dataSource.getMedicationTable().removeMedicWithId(medic.getId());
-                                    populateMedics();
+                                    createWidgets();
                                 }
                             })
                             .setNegativeButton(R.string.no, null)
@@ -218,7 +243,6 @@ public class EditTreatmentActivity extends Activity {
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             //FIXME: arbitrary value, see LinearLayout API
             llparams.weight = 0.75f;
-            llparams.gravity = Gravity.LEFT|Gravity.TOP;
             llparams.gravity = Gravity.LEFT|Gravity.CENTER;
             //llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
@@ -252,22 +276,7 @@ public class EditTreatmentActivity extends Activity {
                     intent.putExtra("treatmentId", medic.getTreatmentId());
                     intent.putExtra("drugId", medic.getDrugId());
                     intent.putExtra("frequency", medic.getFrequency());
-                    DoseFrequencyKind kind = medic.getKind();
-                    switch(kind)
-                    {
-                        case HOUR:
-                            intent.putExtra("kind", 0); break;
-                        case DAY:
-                            intent.putExtra("kind", 1); break;
-                        case WEEK:
-                            intent.putExtra("kind", 2); break;
-                        case MONTH:
-                            intent.putExtra("kind", 3); break;
-                        case YEAR:
-                            intent.putExtra("kind", 4); break;
-                        default:
-                            intent.putExtra("kind", 5);
-                    }
+                    intent.putExtra("kind", medic.getKind().ordinal());
                     intent.putExtra("startDate", medic.getStartDate());
                     intent.putExtra("endDate", medic.getEndDate());
                     startActivityForResult(intent, reqEditCode);
@@ -299,7 +308,7 @@ public class EditTreatmentActivity extends Activity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     medications.remove(medic);
-                                    populateMedics();
+                                    createWidgets();
                                 }
                             })
                             .setNegativeButton(R.string.no, null)
@@ -321,30 +330,6 @@ public class EditTreatmentActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //FIXME: Manage the case where data source could not be opened
-        try {
-            dataSource.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        treatment = dataSource.getTreatmentTable().getTreatmentWithId(treatmentId);
-        startDateET.setText(treatment.getStartDate());
-        endDateET.setText(treatment.getEndDate());
-        retrieveAilments();
-        retrieveTherapists();
-        retrieveMedics();
-        populateMedics();
-    }
-
-    public void editAddMedic(View view)
-    {
-        //TODO:Manage the case where there is no data received -> start activity with no result
-        startActivityForResult(new Intent("com.akoudri.healthrecord.app.CreateMedication"), 1);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //TODO:Manage the case where there is no data received
         if (requestCode == reqCreateCode)
@@ -355,21 +340,7 @@ public class EditTreatmentActivity extends Activity {
                 m.setDrugId(data.getIntExtra("drugId", 1));
                 m.setFrequency(data.getIntExtra("freq", 1));
                 int kfreq = data.getIntExtra("kfreq", 1);
-                switch (kfreq)
-                {
-                    case 0:
-                        m.setKind(DoseFrequencyKind.HOUR); break;
-                    case 1:
-                        m.setKind(DoseFrequencyKind.DAY); break;
-                    case 2:
-                        m.setKind(DoseFrequencyKind.WEEK); break;
-                    case 3:
-                        m.setKind(DoseFrequencyKind.MONTH); break;
-                    case 4:
-                        m.setKind(DoseFrequencyKind.YEAR); break;
-                    default:
-                        m.setKind(DoseFrequencyKind.LIFE);
-                }
+                m.setKind(HealthRecordUtils.int2kind(kfreq));
                 m.setStartDate(data.getStringExtra("sDate"));
                 m.setEndDate(data.getStringExtra("eDate"));
                 medications.add(m);
@@ -384,33 +355,29 @@ public class EditTreatmentActivity extends Activity {
                 m.setDrugId(data.getIntExtra("drugId", 1));
                 m.setFrequency(data.getIntExtra("freq", 1));
                 int kfreq = data.getIntExtra("kfreq", 1);
-                switch (kfreq)
-                {
-                    case 0:
-                        m.setKind(DoseFrequencyKind.HOUR); break;
-                    case 1:
-                        m.setKind(DoseFrequencyKind.DAY); break;
-                    case 2:
-                        m.setKind(DoseFrequencyKind.WEEK); break;
-                    case 3:
-                        m.setKind(DoseFrequencyKind.MONTH); break;
-                    case 4:
-                        m.setKind(DoseFrequencyKind.YEAR); break;
-                    default:
-                        m.setKind(DoseFrequencyKind.LIFE);
-                }
+                m.setKind(HealthRecordUtils.int2kind(kfreq));
                 m.setStartDate(data.getStringExtra("sDate"));
                 m.setEndDate(data.getStringExtra("eDate"));
             }
         }
     }
 
+    public void editAddMedic(View view)
+    {
+        if (treatmentId == 0 || day <= 0 || month <= 0 || year <= 0)
+            return;
+        if (!dataSourceLoaded) return;
+        //TODO:Manage the case where there is no data received -> start activity with no result
+        startActivityForResult(new Intent("com.akoudri.healthrecord.app.CreateMedication"), 1);
+    }
+
     public void updateTreatment(View view)
     {
-        //TODO: store treatment into db
-        //It is necessary to guarantee the consistency of the dates before inserting into db
+        if (treatmentId == 0 || day <= 0 || month <= 0 || year <= 0)
+            return;
+        if (!dataSourceLoaded) return;
         //FIXME: check values - add comment field
-        Ailment a = ailments.get(illnessAct.getSelectedItemPosition());
+        Ailment a = ailments.get(illnessSpinner.getSelectedItemPosition());
         Therapist t = therapists.get(therapistSpinner.getSelectedItemPosition());
         String sDate = startDateET.getText().toString();
         String eDate = endDateET.getText().toString();
@@ -428,71 +395,18 @@ public class EditTreatmentActivity extends Activity {
         finish();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        dataSource.close();
-    }
-
     public void editStartTreatmentPickerDialog(View view)
     {
-        EditTreatmentDatePickerFragment dfrag = new EditTreatmentDatePickerFragment();
-        dfrag.setBdet(endDateET);
-        dfrag.show(getFragmentManager(),"StartTreatmentDatePicker");
+        DatePickerFragment dfrag = new DatePickerFragment();
+        dfrag.init(this, endDateET);
+        dfrag.show(getFragmentManager(), "Select Start Treatment Date");
     }
 
     public void editEndTreatmentPickerDialog(View view)
     {
-        EditTreatmentDatePickerFragment dfrag = new EditTreatmentDatePickerFragment();
-        dfrag.setBdet(endDateET);
-        dfrag.show(getFragmentManager(),"EndTreatmentDatePicker");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //TODO
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_person, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.add_action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    //FIXME: restrict the choice of a date for both start date and end date
-    public static class EditTreatmentDatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener
-    {
-        private EditText bdet;
-
-        public void setBdet(EditText bdet)
-        {
-            this.bdet = bdet;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            String toDisplay = String.format("%02d/%02d/%4d", day, month+1, year);
-            bdet.setText(toDisplay);
-        }
+        DatePickerFragment dfrag = new DatePickerFragment();
+        dfrag.init(this, endDateET);
+        dfrag.show(getFragmentManager(),"Select End Treatment Date");
     }
 
 }

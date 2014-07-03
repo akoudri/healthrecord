@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:inputType="textCapWords"
-            android:ems="10"
             android:layout_gravity="left"/>
 
         <TextView
@@ -45,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:ems="10"
             android:layout_gravity="left"
             android:capitalize="words"/>
 
@@ -65,7 +63,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:inputType="phone"
-            android:ems="10"
             android:layout_gravity="left"/>
 
         <Button

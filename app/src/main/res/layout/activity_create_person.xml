@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:inputType="textCapWords"
-            android:ems="10"
             android:layout_gravity="left"/>
 
         <TextView
@@ -51,17 +50,21 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:ems="10"
+                android:layout_weight="8"
                 android:layout_gravity="center_vertical"
-                android:editable="false"/>
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="2"
                 android:src="@drawable/calendar_idle"
-                android:onClick="showBirthdayPickerDialog"/>
+                android:onClick="pickBirthdate"/>
         </LinearLayout>
 
         <TextView
@@ -80,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:inputType="text"
-            android:ems="10"
+            android:layout_weight="1"
             android:layout_gravity="left"/>
 
         <TextView
@@ -135,10 +138,10 @@
         <Button
             android:text="@string/add"
             style="@style/TitleButton"
-            android:minEms="8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:minEms="8"
             android:layout_gravity="center_horizontal"
             android:drawableRight="@drawable/plus"
             android:onClick="addPerson"/>

@@ -50,7 +50,6 @@ public class CalendarView extends View implements View.OnTouchListener {
     private Rect selectedRect = null;
 
     //TODO: add icons in the cells
-    //TODO: manage clicks graphically
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -81,6 +80,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (personId == 0) return;
         width = getWidth();
         height = getHeight();
         ratio = width/480.0f;
@@ -304,8 +304,8 @@ public class CalendarView extends View implements View.OnTouchListener {
             Intent intent = new Intent("com.akoudri.healthrecord.app.EditDay");
             int day_idx = rects.indexOf(selectedRect);
             intent.putExtra("personId", personId);
-            int date = day_idx + 1;
-            intent.putExtra("date", date);
+            int day = day_idx + 1;
+            intent.putExtra("day", day);
             int month = _cal.get(Calendar.MONTH);
             intent.putExtra("month", month);
             int year = _cal.get(Calendar.YEAR);

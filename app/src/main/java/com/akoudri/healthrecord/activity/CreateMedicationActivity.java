@@ -1,36 +1,32 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Drug;
+import com.akoudri.healthrecord.utils.DatePickerFragment;
 
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.List;
 
-//FIXME: voir si il est possible d'utiliser le code bar du médicament
+//TODO: voir si il est possible d'utiliser le code bar du médicament
 public class CreateMedicationActivity extends Activity {
 
     private AutoCompleteTextView medicationActv;
     private Spinner freqSpinner;
     private EditText timesET, beginMedicET, endMedicET;
+
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
     private List<Drug> drugs;
 
     @Override
@@ -55,10 +51,20 @@ public class CreateMedicationActivity extends Activity {
         super.onResume();
         try {
             dataSource.open();
+            dataSourceLoaded = true;
+            retrieveDrugs();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        retrieveDrugs();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (dataSourceLoaded) {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
     }
 
     private void retrieveDrugs()
@@ -77,6 +83,7 @@ public class CreateMedicationActivity extends Activity {
 
     public void addMedication(View view)
     {
+        if (!dataSourceLoaded) return;
         //FIXME: manage null values
         String name = medicationActv.getText().toString();
         int drugId = dataSource.getDrugTable().getDrugId(name);
@@ -98,71 +105,18 @@ public class CreateMedicationActivity extends Activity {
         finish();
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        dataSource.close();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //TODO
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_person, menu);
-        return true;
-    }
-
     public void showBeginMedicPickerDialog(View view)
     {
-        TreatmentDatePickerFragment dfrag = new TreatmentDatePickerFragment();
-        dfrag.setBdet(beginMedicET);
-        dfrag.show(getFragmentManager(),"EndTreatmentDatePicker");
+        DatePickerFragment dfrag = new DatePickerFragment();
+        dfrag.init(this, beginMedicET);
+        dfrag.show(getFragmentManager(),"Pick Start Treatment Date");
     }
 
     public void showEndMedicPickerDialog(View view)
     {
-        TreatmentDatePickerFragment dfrag = new TreatmentDatePickerFragment();
-        dfrag.setBdet(endMedicET);
-        dfrag.show(getFragmentManager(),"EndTreatmentDatePicker");
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.add_action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    //FIXME: restrict the choice of a date for both start date and end date
-    public static class TreatmentDatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener
-    {
-        private EditText bdet;
-
-        public void setBdet(EditText bdet)
-        {
-            this.bdet = bdet;
-        }
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        @Override
-        public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-            String toDisplay = String.format("%02d/%02d/%4d", day, month+1, year);
-            bdet.setText(toDisplay);
-        }
+        DatePickerFragment dfrag = new DatePickerFragment();
+        dfrag.init(this, endMedicET);
+        dfrag.show(getFragmentManager(),"Pick End Treatment Date");
     }
 
 }

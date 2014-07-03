@@ -2,8 +2,6 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -21,13 +19,14 @@ import java.util.List;
 
 public class UpdateTherapistActivity extends Activity {
 
+    private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
+    private int thId;
+    private Therapist therapist;
+    private List<TherapyBranch> branches;
+
     private EditText nameET, phoneNumberET;
     private AutoCompleteTextView specialityET;
-    private HealthRecordDataSource dataSource;
-    private int thId;
-    private List<TherapyBranch> branches;
-    private Therapist therapist;
-    //private String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,61 +37,37 @@ public class UpdateTherapistActivity extends Activity {
         specialityET = (AutoCompleteTextView) findViewById(R.id.speciality_update);
         phoneNumberET = (EditText) findViewById(R.id.phone_number_update);
         dataSource = new HealthRecordDataSource(this);
-        //lang = Locale.getDefault().getDisplayName();
-        thId = getIntent().getIntExtra("therapistId", 1);
+        thId = getIntent().getIntExtra("therapistId", 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //FIXME: Manage the case where data source could not be opened
+        if (thId == 0) return;
         try {
             dataSource.open();
+            dataSourceLoaded = true;
+            therapist = dataSource.getTherapistTable().getTherapistWithId(thId);
+            branches = dataSource.getTherapyBranchTable().getAllBranches();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, getBranches());
+            specialityET.setThreshold(1);
+            specialityET.setAdapter(adapter);
+            fillWidgets();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        retrieveTherapist();
-        retrieveBranches();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, getBranches());
-        specialityET.setThreshold(1);
-        specialityET.setAdapter(adapter);
-        populateWidgets();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        dataSource.close();
-    }
-
-    private void populateWidgets()
-    {
-        if (therapist == null) return;
-        nameET.setText(therapist.getName());
-        TherapyBranch branch = dataSource.getTherapyBranchTable().getBranchWithId(therapist.getBranchId());
-        specialityET.setText(branch.getName());
-        phoneNumberET.setText(therapist.getPhoneNumber());
-    }
-
-    public void updateTherapist(View view)
-    {
-        String name = nameET.getText().toString();
-        String speciality = specialityET.getText().toString();
-        String phoneNumber = phoneNumberET.getText().toString();
-        //FIXME: check values before inserting
-        int branch = dataSource.getTherapyBranchTable().getBranchId(speciality);
-        dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, branch);
-        finish();
-    }
-
-    private void retrieveTherapist()
-    {
-        therapist = dataSource.getTherapistTable().getTherapistWithId(thId);
-    }
-
-    private void retrieveBranches() {
-        branches = dataSource.getTherapyBranchTable().getAllBranches();
+        if (thId == 0) return;
+        if (dataSourceLoaded)
+        {
+            dataSource.close();
+            dataSourceLoaded = false;
+        }
     }
 
     private String[] getBranches()
@@ -106,24 +81,26 @@ public class UpdateTherapistActivity extends Activity {
         return res;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_person, menu);
-        return true;
+    private void fillWidgets()
+    {
+        if (therapist == null) return;
+        nameET.setText(therapist.getName());
+        TherapyBranch branch = dataSource.getTherapyBranchTable().getBranchWithId(therapist.getBranchId());
+        specialityET.setText(branch.getName());
+        phoneNumberET.setText(therapist.getPhoneNumber());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.add_action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void updateTherapist(View view)
+    {
+        if (thId == 0) return;
+        if (!dataSourceLoaded) return;
+        String name = nameET.getText().toString();
+        String speciality = specialityET.getText().toString();
+        String phoneNumber = phoneNumberET.getText().toString();
+        //FIXME: check values before inserting
+        int branch = dataSource.getTherapyBranchTable().getBranchId(speciality);
+        dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, branch);
+        finish();
     }
 
 }

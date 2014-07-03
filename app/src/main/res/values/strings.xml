@@ -407,5 +407,6 @@
         <item>Year</item>
         <item>Life</item>
     </string-array>
+    <string name="date">Date</string>
 
 </resources>

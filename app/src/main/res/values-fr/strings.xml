@@ -215,5 +215,6 @@
         <item>An</item>
         <item>Vie</item>
     </string-array>
+    <string name="date">Date</string>
 
 </resources>

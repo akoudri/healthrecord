@@ -22,12 +22,14 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.8"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.2"
                 android:src="@drawable/plus"
                 android:onClick="addExistingTherapist"/>
         </LinearLayout>
@@ -44,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
-                android:layout_gravity="left"
+                android:layout_gravity="fill_horizontal"
                 android:textStyle="bold" />
 
             <EditText
@@ -54,8 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="textCapWords"
-                android:layout_weight="1"
-                android:layout_gravity="left"/>
+                android:layout_gravity="fill_horizontal"/>
 
             <TextView
                 android:text="@string/speciality"
@@ -63,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
-                android:layout_gravity="left"
+                android:layout_gravity="fill_horizontal"
                 android:textStyle="bold" />
 
             <AutoCompleteTextView
@@ -72,8 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:layout_gravity="left"
+                android:layout_gravity="fill_horizontal"
                 android:capitalize="words"/>
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
-                android:layout_gravity="left"
+                android:layout_gravity="fill_horizontal"
                 android:textStyle="bold" />
 
             <EditText
@@ -92,8 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="phone"
-                android:layout_weight="1"
-                android:layout_gravity="left"/>
+                android:layout_gravity="fill_horizontal"/>
 
             <Button
                 android:text="@string/add"
@@ -102,7 +101,7 @@
                 style="@style/TitleButton"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_horizontal"
-                android:minEms="8"
+                android:ems="8"
                 android:drawableRight="@drawable/plus"
                 android:onClick="addTherapist"/>
         </LinearLayout>

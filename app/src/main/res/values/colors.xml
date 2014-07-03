@@ -6,4 +6,5 @@
     <color name="regular_button_text_color">#e4e355</color>
     <color name="regular_text_color">#e4e355</color>
     <color name="button_pressed_bg_color">#a18436</color>
+    <color name="spinner_text_color">#e4e355</color>
 </resources>

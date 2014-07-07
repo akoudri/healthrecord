@@ -1,0 +1,27 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:alignmentMode="alignBounds">
+
+    <TextView
+        android:text="@string/db_warning"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="left"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/db_warning_ok"
+        android:text="@string/ok"
+        android:layout_weight="0.5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"/>
+
+</LinearLayout>

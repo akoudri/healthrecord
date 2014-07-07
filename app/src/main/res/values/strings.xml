@@ -376,6 +376,15 @@
         <item>Enebrel</item>
         <item>Indocin</item>
     </string-array>
+    <string-array name="measures">
+        <item>Weight</item>
+        <item>Size</item>
+        <item>Cranial Perimeter</item>
+        <item>Temperature</item>
+        <item>Glucose</item>
+        <item>Blood Pressure</item>
+        <item>Heart Beat</item>
+    </string-array>
     <string name="size">Size(cm)</string>
     <string name="weight">Weight(kg)</string>
     <string name="temperature">Temperature(°C)</string>
@@ -408,5 +417,15 @@
         <item>Life</item>
     </string-array>
     <string name="date">Date</string>
+    <string name="with">With</string>
+    <string name="type">Type</string>
+    <string name="display">Display</string>
+    <string name="db_warning">You are violating the uniqueness of some values in the database !</string>
+    <string name="ok">OK</string>
+    <string name="warning">Warning</string>
+    <string name="notValidData">Invalid data</string>
+    <string name="update_saved">Update saved</string>
+    <string name="cell_phone_number">Cell Phone Number</string>
+    <string name="email_address">Email Address</string>
 
 </resources>

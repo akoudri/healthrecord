@@ -38,7 +38,7 @@ public class CreateMedicationActivity extends Activity {
         medicationActv = (AutoCompleteTextView) findViewById(R.id.medication_add);
         freqSpinner = (Spinner) findViewById(R.id.freq_add);
         String[] freqChoice = getResources().getStringArray(R.array.freqChoice);
-        ArrayAdapter<String> freqChoiceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, freqChoice);
+        ArrayAdapter<String> freqChoiceAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, freqChoice);
         freqSpinner.setAdapter(freqChoiceAdapter);
         freqSpinner.setSelection(1);
         timesET = (EditText) findViewById(R.id.times_medic);

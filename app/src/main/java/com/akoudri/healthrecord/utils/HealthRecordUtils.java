@@ -1,9 +1,15 @@
 package com.akoudri.healthrecord.utils;
 
+import android.app.Activity;
+import android.util.Patterns;
+import android.widget.EditText;
+
+import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.DoseFrequencyKind;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Ali Koudri on 01/07/14.
@@ -14,8 +20,9 @@ public final class HealthRecordUtils {
     //This is guaranteed because user does not access this method
     public static Calendar stringToCalendar(String date)
     {
-        //FIXME: use regular expression instead
-        if (date == null || date.equalsIgnoreCase("")) return null;
+        if (date == null) return null;
+        String pattern = "\\d{2}/\\d{2}/\\d{4}";
+        if (!date.matches(pattern)) return null;
         String[] dateArray = date.split("/");
         int dd = Integer.parseInt(dateArray[0]);
         int mm = Integer.parseInt(dateArray[1]) - 1;
@@ -87,6 +94,53 @@ public final class HealthRecordUtils {
             case 7: return BloodType.ABPLUS;
             default: return BloodType.UNKNOWN;
         }
+    }
+
+    public static void highlightActivityFields(Activity activity, EditText... fields)
+    {
+        for (EditText field : fields)
+        {
+            field.setBackgroundColor(activity.getResources().getColor(R.color.notValidField));
+            field.invalidate();
+        }
+    }
+
+    public static void highlightActivityFields(Activity activity, List<EditText> fields, boolean highlight)
+    {
+        if (highlight) {
+            for (EditText field : fields) {
+                field.setBackgroundColor(activity.getResources().getColor(R.color.notValidField));
+                field.invalidate();
+            }
+        }
+        else
+        {
+            for (EditText field : fields) {
+                field.setBackgroundColor(activity.getResources().getColor(android.R.color.white));
+                field.invalidate();
+            }
+        }
+    }
+
+    public static boolean isValidName(String name)
+    {
+        if (name == null) return false;
+        String pattern = "(\\w+(-|\\x20)?\\w+)+";
+        return name.matches(pattern);
+    }
+
+    public static boolean isValidSsn(String ssn)
+    {
+        if (ssn == null) return false;
+        String pattern = "\\s*";
+        return  (! ssn.matches(pattern));
+    }
+
+    public static boolean isValidSpecialty(String specialty)
+    {
+        if (specialty == null) return false;
+        String pattern = "(\\w+(-|\\x20)?\\w+)+";
+        return specialty.matches(pattern);
     }
 
 }

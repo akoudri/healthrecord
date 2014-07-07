@@ -126,7 +126,7 @@ public class CreateTreatmentActivity extends Activity {
             illness = illnessTable.getIllnessWithId(a.getIllnessId());
             ailmentStr[i++] = illness.getName() + "-" + a.getStartDate();
         }
-        ArrayAdapter<String> illnessAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ailmentStr);
+        ArrayAdapter<String> illnessAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, ailmentStr);
         illnessSpinner.setAdapter(illnessAdapter);
     }
 
@@ -148,7 +148,7 @@ public class CreateTreatmentActivity extends Activity {
             branch = brTable.getBranchWithId(t.getBranchId()).getName();
             therapistStr[i++] = t.getName() + "-" + branch;
         }
-        ArrayAdapter<String> thAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, therapistStr);
+        ArrayAdapter<String> thAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistStr);
         therapistSpinner.setAdapter(thAdapter);
     }
 

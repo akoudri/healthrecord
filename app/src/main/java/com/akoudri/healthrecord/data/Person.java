@@ -14,6 +14,18 @@ public class Person {
     private BloodType bloodType;
     private String birthdate;
 
+    //Constructors
+    public Person() {}
+
+    public Person(String name, Gender gender, String ssn, BloodType bloodType, String birthdate)
+    {
+        this.name = name;
+        this.gender = gender;
+        this.ssn = ssn;
+        this.bloodType = bloodType;
+        this.birthdate = birthdate;
+    }
+
     //Methods
 
     public int getId() {
@@ -62,6 +74,16 @@ public class Person {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public boolean equalsTo(Person other)
+    {
+        boolean eqName = name.equals(other.getName());
+        boolean eqGender = (gender == other.getGender());
+        boolean eqSsn = (ssn == null)?other.getSsn() == null:ssn.equals(other.getSsn());
+        boolean eqBt = (bloodType == other.getBloodType());
+        boolean eqBD = birthdate.equals(other.getBirthdate());
+        return eqName && eqGender && eqSsn && eqBt && eqBD;
     }
 
 }

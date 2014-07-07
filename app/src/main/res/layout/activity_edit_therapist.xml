@@ -1,8 +1,10 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".UpdateTherapistActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +21,61 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/name_update_frag"
+            android:id="@+id/name_update_therapist"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textCapWords"
+            android:layout_gravity="fill_horizontal"/>
+
+        <TextView
+            android:text="@string/speciality"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:textStyle="bold" />
+
+        <AutoCompleteTextView
+            android:id="@+id/speciality_update"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:capitalize="words"/>
+
+        <TextView
+            android:text="@string/phoneNumber"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/phone_number_update"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="phone"
+            android:layout_gravity="fill_horizontal"/>
+
+        <TextView
+            android:text="@string/cell_phone_number"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/name_update_cellphone"
             android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,42 +85,7 @@
             android:layout_gravity="fill_horizontal"/>
 
         <TextView
-            android:text="@string/birthdate"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/birthdate_update_frag"
-                android:background="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:inputType="date"
-                android:minEms="5"
-                android:layout_gravity="center_vertical"
-                android:clickable="false"
-                android:cursorVisible="false"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/calendar_idle"
-                android:onClick="pickUpdateBirthdate"/>
-        </LinearLayout>
-
-        <TextView
-            android:text="@string/ssn"
+            android:text="@string/email_address"
             android:textColor="@color/regular_text_color"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -73,61 +94,13 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/ssn_update_frag"
+            android:id="@+id/name_update_email"
             android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:inputType="text"
-            android:layout_gravity="fill_horizontal"/>
-
-        <TextView
-            android:text="@string/gender"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
-        <RadioGroup
-            android:id="@+id/gender_update_frag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal"
-            android:layout_gravity="fill_horizontal">
-            <RadioButton
-                android:id="@+id/male_update_frag"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/male"
-                android:checked="true"
-                android:textColor="@color/regular_text_color"
-                android:textStyle="bold"/>
-            <RadioButton
-                android:id="@+id/female_update_frag"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/female"
-                android:textColor="@color/regular_text_color"
-                android:textStyle="bold"/>
-        </RadioGroup>
-
-        <TextView
-            android:text="@string/blood_type"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/btchoice_update_frag"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="5dp"
+            android:inputType="textEmailAddress"
+            android:maxLength="20"
             android:layout_gravity="fill_horizontal"/>
 
     </LinearLayout>

@@ -3,64 +3,62 @@ package com.akoudri.healthrecord.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
-import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
-public class CreateTherapistActivity extends Activity {
-
-    private EditText nameET, phoneNumberET, cellPhoneET, emailET;
-    private AutoCompleteTextView specialityET;
-    private Spinner thSpinner;
+public class EditTherapistActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId;
-
-    private List<Therapist> otherTherapists;
+    private int thId;
+    private Therapist therapist;
     private List<TherapyBranch> branches;
+
+    private EditText nameET, phoneNumberET, cellPhoneET, emailET;
+    private AutoCompleteTextView specialityET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_create_therapist);
-        thSpinner = (Spinner) findViewById(R.id.thchoice_add);
-        nameET = (EditText) findViewById(R.id.name_add_therapist);
-        specialityET = (AutoCompleteTextView) findViewById(R.id.speciality_add);
-        phoneNumberET = (EditText) findViewById(R.id.phone_number_add);
-        cellPhoneET = (EditText) findViewById(R.id.name_add_cellphone);
-        emailET = (EditText) findViewById(R.id.name_add_email);
+        setContentView(R.layout.activity_edit_therapist);
+        nameET = (EditText) findViewById(R.id.name_update_therapist);
+        specialityET = (AutoCompleteTextView) findViewById(R.id.speciality_update);
+        phoneNumberET = (EditText) findViewById(R.id.phone_number_update);
+        cellPhoneET = (EditText) findViewById(R.id.name_update_cellphone);
+        emailET = (EditText) findViewById(R.id.name_update_email);
         dataSource = new HealthRecordDataSource(this);
-        personId = getIntent().getIntExtra("personId", 0);
+        thId = getIntent().getIntExtra("therapistId", 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0) return;
+        if (thId == 0) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            retrieveBranches();
-            retrieveOtherTherapists();
+            therapist = dataSource.getTherapistTable().getTherapistWithId(thId);
+            branches = dataSource.getTherapyBranchTable().getAllBranches();
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_dropdown_item_1line, getBranches());
+            specialityET.setThreshold(1);
+            specialityET.setAdapter(adapter);
+            fillWidgets();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -69,18 +67,11 @@ public class CreateTherapistActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0) return;
+        if (thId == 0) return;
         if (!dataSourceLoaded) return;
+        updateTherapist();
         dataSource.close();
         dataSourceLoaded = false;
-    }
-
-    private void retrieveBranches() {
-        branches = dataSource.getTherapyBranchTable().getAllBranches();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, getBranches());
-        specialityET.setThreshold(1);
-        specialityET.setAdapter(adapter);
     }
 
     private String[] getBranches()
@@ -94,44 +85,19 @@ public class CreateTherapistActivity extends Activity {
         return res;
     }
 
-    private void retrieveOtherTherapists() {
-        //retrieve all therapists
-        otherTherapists = dataSource.getTherapistTable().getAllTherapists();
-        List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
-        Therapist t;
-        Iterator<Therapist> iterator = otherTherapists.iterator();
-        while (iterator.hasNext())
-        {
-            t = iterator.next();
-            if (myTherapistIds.contains(t.getId()))
-                iterator.remove();
-        }
-        String[] otherTherapistsStr;
-        if (otherTherapists.size() > 0) {
-            otherTherapistsStr = new String[otherTherapists.size()];
-            int i = 0;
-            TherapyBranch branch = null;
-            String therapyBranchStr;
-            TherapyBranchTable branchTable = dataSource.getTherapyBranchTable();
-            for (Therapist th : otherTherapists) {
-                branch = branchTable.getBranchWithId(th.getBranchId());
-                therapyBranchStr = branch.getName();
-                otherTherapistsStr[i++] = th.getName() + " - " + therapyBranchStr;
-            }
-        }
-        else
-        {
-            String s = getResources().getString(R.string.no_other_therapist);
-            otherTherapistsStr = new String[]{s};
-            //TODO: deactivate add button
-        }
-        ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, otherTherapistsStr);
-        thSpinner.setAdapter(thChoicesAdapter);
+    private void fillWidgets()
+    {
+        if (therapist == null) return;
+        nameET.setText(therapist.getName());
+        TherapyBranch branch = dataSource.getTherapyBranchTable().getBranchWithId(therapist.getBranchId());
+        specialityET.setText(branch.getName());
+        phoneNumberET.setText(therapist.getPhoneNumber());
     }
 
-    public void addTherapist(View view)
+    private void updateTherapist()
     {
-        if (personId == 0) return;
+        //FIXME: check whether it is possible to deactivate return button in case of invalid data
+        if (thId == 0) return;
         if (!dataSourceLoaded) return;
         String name = nameET.getText().toString();
         String speciality = specialityET.getText().toString();
@@ -146,13 +112,11 @@ public class CreateTherapistActivity extends Activity {
             if (phoneNumber.equals("")) phoneNumber = null;
             if (cellPhoneNumber.equals("")) cellPhoneNumber = null;
             if (email.equals("")) email = null;
-            int thId = (int) dataSource.getTherapistTable().insertTherapist(name, phoneNumber, cellPhoneNumber, email, branchId);
-            if (thId >= 0) {
-                dataSource.getPersonTherapistTable().insertRelation(personId, thId);
-                finish();
-            }
-            else
-            {
+            Therapist t = new Therapist(name, phoneNumber, cellPhoneNumber, email, branchId);
+            if (therapist.equalsTo(t)) return;
+            boolean hasUpdated = dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, cellPhoneNumber, email, branchId);
+            if (hasUpdated) finish();
+            else {
                 HealthRecordUtils.highlightActivityFields(this, nameET);
                 Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT);
                 toast.show();
@@ -212,16 +176,6 @@ public class CreateTherapistActivity extends Activity {
             toast.show();
         }
         return res;
-    }
-
-    public void addExistingTherapist(View view)
-    {
-        if (personId == 0) return;
-        if (!dataSourceLoaded) return;
-        int thIdx = thSpinner.getSelectedItemPosition();
-        Therapist th = otherTherapists.get(thIdx);
-        dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
-        finish();
     }
 
 }

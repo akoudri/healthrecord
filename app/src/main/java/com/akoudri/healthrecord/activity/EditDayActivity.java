@@ -175,4 +175,5 @@ public class EditDayActivity extends Activity {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
         measureFrag.saveMeasures(view);
     }
+
 }

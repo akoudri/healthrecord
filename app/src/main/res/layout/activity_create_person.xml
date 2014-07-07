@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:inputType="textCapWords"
+            android:maxLength="20"
             android:layout_gravity="fill_horizontal"/>
 
         <TextView
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:layout_weight="0.8"
+                android:minEms="5"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
                 android:cursorVisible="false"/>
@@ -60,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="pickBirthdate"/>
         </LinearLayout>

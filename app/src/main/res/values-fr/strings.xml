@@ -184,6 +184,15 @@
         <item>Coaprovel</item>
         <item>Xalatan</item>
     </string-array>
+    <string-array name="measures">
+        <item>Poids</item>
+        <item>Taille</item>
+        <item>Périmétre Cranien</item>
+        <item>Température</item>
+        <item>Glycémie</item>
+        <item>Tension Artérielle</item>
+        <item>Pouls</item>
+    </string-array>
     <string name="size">Taille(cm)</string>
     <string name="weight">Poids(kg)</string>
     <string name="temperature">Température(°C)</string>
@@ -216,5 +225,15 @@
         <item>Vie</item>
     </string-array>
     <string name="date">Date</string>
+    <string name="with">Avec</string>
+    <string name="type">Type</string>
+    <string name="display">Afficher</string>
+    <string name="db_warning">Vos informations violent l\'unicité des données de la base de données!</string>
+    <string name="ok">OK</string>
+    <string name="warning">Alerte</string>
+    <string name="notValidData">Champs invalides</string>
+    <string name="update_saved">Mise à jour effectuée</string>
+    <string name="cell_phone_number">Numéro de portable</string>
+    <string name="email_address">Courriel</string>
 
 </resources>

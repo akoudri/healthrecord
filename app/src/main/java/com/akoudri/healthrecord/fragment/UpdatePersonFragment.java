@@ -10,14 +10,19 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.akoudri.healthrecord.activity.EditPersonActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 
 public class UpdatePersonFragment extends Fragment {
@@ -43,7 +48,7 @@ public class UpdatePersonFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_person, container, false);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         String[] btChoices = {"O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " "};
-        ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, btChoices);
+        ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, btChoices);
         btSpinner = (Spinner) view.findViewById(R.id.btchoice_update_frag);
         btSpinner.setAdapter(btChoicesAdapter);
         btSpinner.setSelection(8);
@@ -65,6 +70,15 @@ public class UpdatePersonFragment extends Fragment {
         fillWidgets();
     }
 
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        if (personId == 0) return;
+        if (dataSource == null) return;
+        updatePerson();
+    }
+
     public void setDataSource(HealthRecordDataSource dataSource)
     {
         this.dataSource = dataSource;
@@ -84,11 +98,8 @@ public class UpdatePersonFragment extends Fragment {
         btSpinner.setSelection(person.getBloodType().ordinal());
     }
 
-    public void updatePerson()
+    private void updatePerson()
     {
-        if (personId == 0) return;
-        //FIXME: check values before inserting
-        //FIXME: check changes before saving -> change the state of the save button consequently
         String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) getActivity().findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
@@ -99,30 +110,63 @@ public class UpdatePersonFragment extends Fragment {
             default: gender = Gender.FEMALE;
         }
         String ssn = ssnET.getText().toString();
-        int btIdx = btSpinner.getSelectedItemPosition();
-        BloodType bt;
-        switch (btIdx)
-        {
-            case 0: bt = BloodType.OMINUS; break;
-            case 1: bt = BloodType.OPLUS; break;
-            case 2: bt = BloodType.AMINUS; break;
-            case 3: bt = BloodType.APLUS; break;
-            case 4: bt = BloodType.BMINUS; break;
-            case 5: bt = BloodType.BPLUS; break;
-            case 6: bt = BloodType.ABMINUS; break;
-            case 7: bt = BloodType.ABPLUS; break;
-            default:bt = BloodType.UNKNOWN;
-        }
+        BloodType bt = HealthRecordUtils.int2bloodType(btSpinner.getSelectedItemPosition());
         String birthdate = birthdateET.getText().toString();
-        dataSource.getPersonTable().updatePerson(person.getId(), name,
-                gender, ssn, bt, birthdate);
-        //TODO change the state of the save button
+        if (checkFields(name, ssn)) {
+            Person p = new Person(name, gender, ssn, bt, birthdate);
+            if (person.equalsTo(p)) return; //No changes occurred
+            if (ssn.equals("")) ssn = null;
+            boolean res = dataSource.getPersonTable().updatePerson(person.getId(), name,
+                    gender, ssn, bt, birthdate);
+            if (res)
+            {
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else
+            {
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 
-    public void pickUpdateBirthdate(View view)
+    private boolean checkFields(String name, String ssn) {
+        boolean res = true;
+        List<EditText> toHighlight = new ArrayList<EditText>();
+        List<EditText> notToHighlight = new ArrayList<EditText>();
+        //check name
+        boolean checkName = HealthRecordUtils.isValidName(name);
+        res = res && checkName;
+        if (!checkName) toHighlight.add(nameET);
+        else notToHighlight.add(nameET);
+        //check ssn
+        if (!ssn.equals("")) {
+            boolean checkSsn = HealthRecordUtils.isValidSsn(ssn);
+            res = res && checkSsn;
+            if (!checkSsn) toHighlight.add(ssnET);
+            else notToHighlight.add(ssnET);
+        }
+        else notToHighlight.add(ssnET);
+        //display
+        if (toHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(getActivity(), toHighlight, true);
+        if (notToHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(getActivity(), notToHighlight, false);
+        if (!res) {
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        return res;
+    }
+
+    public void pickUpdateBirthdate()
     {
+        if (personId == 0) return;
+        if (dataSource == null) return;
+        Calendar today = Calendar.getInstance();
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(getActivity(), birthdateET);
+        dfrag.init(getActivity(), birthdateET, HealthRecordUtils.stringToCalendar(person.getBirthdate()), null, today);
         dfrag.show(getFragmentManager(),"Update Birthdate");
     }
 

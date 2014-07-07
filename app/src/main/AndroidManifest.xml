@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.akoudri.healthrecord.activity.UpdateTherapistActivity"
+            android:name="com.akoudri.healthrecord.activity.EditTherapistActivity"
             android:label="@string/update_therapist"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -82,7 +82,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.akoudri.healthrecord.activity.UpdateAppointmentActivity"
+            android:name="com.akoudri.healthrecord.activity.EditAppointmentActivity"
             android:label="@string/add_rv"
             android:screenOrientation="portrait">
             <intent-filter>

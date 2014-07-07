@@ -9,14 +9,19 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class CreatePersonActivity extends Activity {
 
@@ -33,7 +38,7 @@ public class CreatePersonActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_person);
         String[] btChoices = {"O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " "};
-        ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, btChoices);
+        ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, btChoices);
         btSpinner = (Spinner) findViewById(R.id.btchoice_add);
         btSpinner.setAdapter(btChoicesAdapter);
         btSpinner.setSelection(8);
@@ -68,6 +73,7 @@ public class CreatePersonActivity extends Activity {
     public void addPerson(View view)
     {
         if (!dataSourceLoaded) return;
+        //retrieve fields
         String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
@@ -78,30 +84,67 @@ public class CreatePersonActivity extends Activity {
             default: gender = Gender.FEMALE;
         }
         String ssn = ssnET.getText().toString();
-        int btIdx = btSpinner.getSelectedItemPosition();
-        BloodType bt;
-        switch (btIdx)
-        {
-            case 0: bt = BloodType.OMINUS; break;
-            case 1: bt = BloodType.OPLUS; break;
-            case 2: bt = BloodType.AMINUS; break;
-            case 3: bt = BloodType.APLUS; break;
-            case 4: bt = BloodType.BMINUS; break;
-            case 5: bt = BloodType.BPLUS; break;
-            case 6: bt = BloodType.ABMINUS; break;
-            case 7: bt = BloodType.ABPLUS; break;
-            default:bt = BloodType.UNKNOWN;
-        }
+        BloodType bt = HealthRecordUtils.int2bloodType(btSpinner.getSelectedItemPosition());
         String birthdate = birthdateET.getText().toString();
-        //FIXME: check values before inserting
-        dataSource.getPersonTable().insertPerson(name, gender, ssn, bt, birthdate);
-        finish();
+        if (checkFields(name, birthdate, ssn)) {
+            if (ssn.equals("")) ssn = null;
+            long id = dataSource.getPersonTable().insertPerson(name, gender, ssn, bt, birthdate);
+            if (id == -1)
+            {
+                HealthRecordUtils.highlightActivityFields(this, nameET, ssnET);
+                Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            else {
+                finish();
+            }
+        }
+    }
+
+    private boolean checkFields(String name, String birthdate, String ssn)
+    {
+        boolean res = true;
+        List<EditText> toHighlight = new ArrayList<EditText>();
+        List<EditText> notToHighlight = new ArrayList<EditText>();
+        //check name
+        boolean checkName = HealthRecordUtils.isValidName(name);
+        res = res && checkName;
+        if (!checkName) toHighlight.add(nameET);
+        else notToHighlight.add(nameET);
+        //check birthdate
+        boolean checkBirthdate = (! birthdate.equalsIgnoreCase(""));
+        res = res && checkBirthdate;
+        if (!checkBirthdate) toHighlight.add(birthdateET);
+        else notToHighlight.add(birthdateET);
+        //check ssn
+        if (! ssn.equals("")) {
+            boolean checkSsn = HealthRecordUtils.isValidSsn(ssn);
+            res = res && checkSsn;
+            if (!checkSsn) toHighlight.add(ssnET);
+            else notToHighlight.add(ssnET);
+        }
+        else notToHighlight.add(ssnET);
+        //display
+        if (toHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(this, toHighlight, true);
+        if (notToHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
+        if (!res) {
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        return res;
     }
 
     public void pickBirthdate(View view)
     {
+        Calendar c = Calendar.getInstance();
+        Calendar initial = Calendar.getInstance();
+        initial.set(Calendar.DAY_OF_MONTH, 1);
+        initial.set(Calendar.MONTH, Calendar.JANUARY);
+        initial.set(Calendar.YEAR, 2000);
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, birthdateET);
+        dfrag.init(this, birthdateET, initial, null, c);
         dfrag.show(getFragmentManager(),"Pick Birthdate");
     }
 

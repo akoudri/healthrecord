@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_margin="5dp"
-            android:layout_gravity="left"
+            android:layout_gravity="fill_horizontal"
             android:textStyle="bold" />
 
         <Spinner
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_margin="5dp"
-            android:layout_gravity="left"/>
+            android:layout_gravity="fill_horizontal"/>
 
         <TextView
             android:text="@string/prescribedBy"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_margin="5dp"
-            android:layout_gravity="left"
+            android:layout_gravity="fill_horizontal"
             android:textStyle="bold" />
 
         <Spinner
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_margin="5dp"
-            android:layout_gravity="left"/>
+            android:layout_gravity="fill_horizontal"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,15 +55,15 @@
                 android:layout_width="match_parent"
                 android:layout_margin="5dp"
                 android:layout_gravity="left|center"
-                android:layout_weight="8"
-                android:textStyle="bold" />
+                android:layout_weight="0.8"
+                android:textStyle="bold"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="left|top"
-                android:layout_weight="2"
+                android:layout_weight="0.2"
                 android:src="@drawable/plus"
                 android:onClick="addMedic"/>
 
@@ -96,16 +96,17 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:layout_weight="8"
+                android:layout_weight="0.8"
                 android:layout_gravity="center_vertical"
-                android:editable="false"/>
+                android:clickable="false"
+                android:cursorVisible="false"/>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="2"
+                android:layout_weight="0.2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="showEndTreatmentPickerDialog"/>
         </LinearLayout>

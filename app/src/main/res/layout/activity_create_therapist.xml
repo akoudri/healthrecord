@@ -15,24 +15,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:alignmentMode="alignBounds"
-            android:background="@drawable/custom_border">
+            android:alignmentMode="alignBounds">
             <Spinner
                 android:id="@+id/thchoice_add"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.8"/>
+                android:layout_weight="0.8"
+                android:layout_gravity="center_vertical"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:layout_gravity="center_vertical"
                 android:layout_weight="0.2"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/plus"
                 android:onClick="addExistingTherapist"/>
         </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/regular_text_color"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="textCapWords"
+                android:maxLength="20"
                 android:layout_gravity="fill_horizontal"/>
 
             <TextView
@@ -92,6 +97,45 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="phone"
+                android:maxLength="20"
+                android:layout_gravity="fill_horizontal"/>
+
+            <TextView
+                android:text="@string/cell_phone_number"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="5dp"
+                android:layout_gravity="fill_horizontal"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/name_add_cellphone"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:inputType="textCapWords"
+                android:maxLength="20"
+                android:layout_gravity="fill_horizontal"/>
+
+            <TextView
+                android:text="@string/email_address"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_margin="5dp"
+                android:layout_gravity="fill_horizontal"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/name_add_email"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:inputType="textEmailAddress"
+                android:maxLength="20"
                 android:layout_gravity="fill_horizontal"/>
 
             <Button

@@ -18,20 +18,34 @@ public class DatePickerFragment extends DialogFragment
 
     private Activity activity;
     private EditText et;
+    private Calendar initial, min, max;
 
     public void init(Activity activity, EditText et)
     {
+        init(activity, et, null, null, null);
+    }
+
+    public void init(Activity activity, EditText et, Calendar initial, Calendar min, Calendar max)
+    {
         this.activity = activity;
         this.et = et;
+        this.initial = initial;
+        this.min = min;
+        this.max = max;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(activity, this, year, month, day);
+        if (initial == null) initial = Calendar.getInstance();
+        int year = initial.get(Calendar.YEAR);
+        int month = initial.get(Calendar.MONTH);
+        int day = initial.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dpd = new DatePickerDialog(activity, this, year, month, day);
+        if (min != null)
+            dpd.getDatePicker().setMinDate(min.getTime().getTime());
+        if (max != null)
+            dpd.getDatePicker().setMaxDate(max.getTime().getTime());
+        return dpd;
     }
 
     @Override

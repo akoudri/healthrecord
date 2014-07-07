@@ -4,7 +4,7 @@
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateMedicationActivity">
+    tools:context=".UpdateAppointmentActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,68 +12,7 @@
         android:alignmentMode="alignBounds">
 
         <TextView
-            android:text="@string/name"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
-        <AutoCompleteTextView
-            android:id="@+id/medication_add"
-            android:background="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:capitalize="words"/>
-
-        <TextView
-            android:text="@string/frequency"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/times_medic"
-                android:background="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:inputType="number"
-                android:minEms="3"
-                android:maxEms="3"
-                android:layout_weight="0.3"
-                android:layout_gravity="center_vertical"/>
-            <TextView
-                android:text="@string/times"
-                android:textColor="@color/regular_text_color"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:ems="3"
-                android:layout_margin="5dp"
-                android:layout_gravity="center_vertical|right"
-                android:layout_weight="0.3"
-                android:textStyle="bold" />
-            <Spinner
-                android:id="@+id/freq_add"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.4"
-                android:layout_gravity="center_vertical|left"/>
-        </LinearLayout>
-
-        <TextView
-            android:text="@string/start"
+            android:text="@string/date"
             android:textColor="@color/regular_text_color"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -87,12 +26,13 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/begin_medic"
+                android:id="@+id/day_appt_update"
                 android:background="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
+                android:ems="4"
                 android:layout_weight="0.8"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
@@ -105,11 +45,11 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.2"
                 android:src="@drawable/calendar_idle"
-                android:onClick="showBeginMedicPickerDialog"/>
+                android:onClick="updateAppointmentDay"/>
         </LinearLayout>
 
         <TextView
-            android:text="@string/end"
+            android:text="@string/hour"
             android:textColor="@color/regular_text_color"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -123,12 +63,13 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/end_medic"
+                android:id="@+id/update_appt_hour"
                 android:background="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:inputType="date"
+                android:inputType="time"
+                android:ems="4"
                 android:layout_weight="0.8"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
@@ -140,22 +81,30 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.2"
-                android:src="@drawable/calendar_idle"
-                android:onClick="showEndMedicPickerDialog"/>
+                android:src="@drawable/rv"
+                android:onClick="updateAppointmentHour"/>
+
         </LinearLayout>
+
+        <Spinner
+            android:id="@+id/thchoice_update"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"/>
 
         <!-- FIXME: add multiline comment field -->
 
         <Button
-            android:text="@string/add"
+            android:text="@string/save"
             style="@style/TitleButton"
-            android:minEms="8"
+            android:ems="8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
-            android:drawableRight="@drawable/plus"
-            android:onClick="addMedication"/>
+            android:drawableRight="@drawable/save"
+            android:onClick="updateAppointment"/>
 
     </LinearLayout>
 </ScrollView>

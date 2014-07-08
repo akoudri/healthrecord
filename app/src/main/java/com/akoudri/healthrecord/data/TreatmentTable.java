@@ -21,51 +21,47 @@ public class TreatmentTable {
     public static final String TREATMENT_TABLE = "treatment";
     public static final String TREATMENT_ID = "_id";
     public static final String TREATMENT_PERSON_REF = "personId";
-    public static final String TREATMENT_AILMENT_REF = "ailmentId";
+    public static final String TREATMENT_ILLNESS_REF = "illnessId";
     public static final String TREATMENT_THERAPIST_REF = "therapistId";
     public static final String TREATMENT_START_DATE = "startDate";
     public static final String TREATMENT_END_DATE = "endDate";
     public static final String TREATMENT_COMMENT = "comment";
 
-    private String[] treatmentCols = {TREATMENT_ID, TREATMENT_PERSON_REF, TREATMENT_AILMENT_REF, TREATMENT_THERAPIST_REF, TREATMENT_START_DATE,
+    private String[] treatmentCols = {TREATMENT_ID, TREATMENT_PERSON_REF, TREATMENT_ILLNESS_REF, TREATMENT_THERAPIST_REF, TREATMENT_START_DATE,
             TREATMENT_END_DATE, TREATMENT_COMMENT};
 
     public TreatmentTable(SQLiteDatabase db) {
         this.db = db;
     }
 
-    //FIXME: Maybe the persondId field is not needed because the information is born by the corresponding ailment table
-    //but we can anyway keep it because it facilitates querying
-    //Actually, we keep it to manage the fact that a treatment could correspond to no ailment!
     public void createTreatmentTable() {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists " + TREATMENT_TABLE + " (");
         sb.append(TREATMENT_ID + " integer primary key autoincrement,");
         sb.append(TREATMENT_PERSON_REF + " integer not null,");
-        sb.append(TREATMENT_AILMENT_REF + " integer,"); //not null for the case of preventive ailment
+        sb.append(TREATMENT_ILLNESS_REF + " integer,"); //not null for the case of preventive treatment
         sb.append(TREATMENT_THERAPIST_REF + " integer,"); //not null for the case of auto-medication
-        sb.append(TREATMENT_START_DATE + " text,");
+        sb.append(TREATMENT_START_DATE + " text not null,");
         sb.append(TREATMENT_END_DATE + " text,"); //treatment with no end date can be considered permanent
         sb.append(TREATMENT_COMMENT + " text,");
         sb.append(" foreign key(" + TREATMENT_PERSON_REF + ") references " + PersonTable.PERSON_TABLE +
                 "(" + PersonTable.PERSON_ID + "),");
-        sb.append(" foreign key(" + TREATMENT_AILMENT_REF + ") references " + AilmentTable.AILMENT_TABLE +
-                "(" + AilmentTable.AILMENT_ID + "),");
+        sb.append(" foreign key(" + TREATMENT_ILLNESS_REF + ") references " + IllnessTable.ILLNESS_TABLE +
+                "(" + IllnessTable.ILLNESS_ID + "),");
         sb.append(" foreign key(" + TREATMENT_THERAPIST_REF + ") references " + TherapistTable.THERAPIST_TABLE +
                 "(" + TherapistTable.THERAPIST_ID + ")");
         sb.append(");");
         db.execSQL(sb.toString());
     }
 
-    public long insertTreatment(int personId, int ailmentId, int therapistId, String startDate, String endDate, String comment) {
+    public long insertTreatment(int personId, int illnessId, int therapistId, String startDate, String endDate, String comment) {
         ContentValues values = new ContentValues();
         values.put(TREATMENT_PERSON_REF, personId);
-        if (ailmentId > 0)
-            values.put(TREATMENT_AILMENT_REF, ailmentId);
+        if (illnessId > 0)
+            values.put(TREATMENT_ILLNESS_REF, illnessId);
         if (therapistId > 0)
             values.put(TREATMENT_THERAPIST_REF, therapistId);
-        if (startDate != null)
-            values.put(TREATMENT_START_DATE, startDate);
+        values.put(TREATMENT_START_DATE, startDate);
         if (endDate != null)
             values.put(TREATMENT_END_DATE, endDate);
         if (comment != null)
@@ -73,26 +69,29 @@ public class TreatmentTable {
         return db.insert(TREATMENT_TABLE, null, values);
     }
 
-    //FIXME: manage null values
-    public boolean updateTreatment(int treatmentId, int ailmentId, int therapistId, String startDate, String endDate, String comment) {
+    public boolean updateTreatment(int treatmentId, int illnessId, int therapistId, String startDate, String endDate, String comment) {
         ContentValues values = new ContentValues();
-        values.put(TREATMENT_AILMENT_REF, ailmentId);
-        values.put(TREATMENT_THERAPIST_REF, therapistId);
+        if (illnessId > 0)
+            values.put(TREATMENT_ILLNESS_REF, illnessId);
+        if (therapistId > 0)
+            values.put(TREATMENT_THERAPIST_REF, therapistId);
         values.put(TREATMENT_START_DATE, startDate);
-        values.put(TREATMENT_END_DATE, endDate);
-        values.put(TREATMENT_COMMENT, comment);
+        if (endDate != null)
+            values.put(TREATMENT_END_DATE, endDate);
+        if (comment != null)
+            values.put(TREATMENT_COMMENT, comment);
         return db.update(TREATMENT_TABLE, values, TREATMENT_ID + "=" + treatmentId, null) > 0;
     }
 
     public boolean updateTreatment(Treatment treatment)
     {
         int treatmentId = treatment.getId();
-        int ailmentId = treatment.getAilmentId();
+        int illnessId = treatment.getIllnessId();
         int therapistId = treatment.getTherapistId();
         String startDate = treatment.getStartDate();
         String endDate = treatment.getEndDate();
         String comment = treatment.getComment();
-        return updateTreatment(treatmentId, ailmentId, therapistId, startDate, endDate, comment);
+        return updateTreatment(treatmentId, illnessId, therapistId, startDate, endDate, comment);
     }
 
     public Treatment getTreatmentWithId(int id) {
@@ -144,7 +143,7 @@ public class TreatmentTable {
         Treatment treatment = new Treatment();
         treatment.setId(cursor.getInt(0));
         treatment.setPersonId(cursor.getInt(1));
-        treatment.setAilmentId((cursor.isNull(2))?0:cursor.getInt(2));
+        treatment.setIllnessId((cursor.isNull(2)) ? 0 : cursor.getInt(2));
         treatment.setTherapistId((cursor.isNull(3))?0:cursor.getInt(3));
         treatment.setStartDate((cursor.isNull(4))?null:cursor.getString(4));
         treatment.setEndDate((cursor.isNull(5))?null:cursor.getString(5));

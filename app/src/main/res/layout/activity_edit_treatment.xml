@@ -20,12 +20,14 @@
             android:layout_gravity="fill_horizontal"
             android:textStyle="bold" />
 
-        <Spinner
+        <AutoCompleteTextView
             android:id="@+id/edit_illness_choice"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"/>
+            android:layout_gravity="fill_horizontal"
+            android:capitalize="words"/>
 
         <TextView
             android:text="@string/prescribedBy"
@@ -147,7 +149,26 @@
                 android:onClick="editEndTreatmentPickerDialog"/>
         </LinearLayout>
 
-        <!-- FIXME: add multiline comment field -->
+        <TextView
+            android:text="@string/comment"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/update_treatment_comment"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:maxLines="5"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="top|left"/>
 
         <Button
             android:text="@string/save"

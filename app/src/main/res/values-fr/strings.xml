@@ -235,5 +235,6 @@
     <string name="update_saved">Mise à jour effectuée</string>
     <string name="cell_phone_number">Numéro de portable</string>
     <string name="email_address">Courriel</string>
+    <string name="comment">Commentaire</string>
 
 </resources>

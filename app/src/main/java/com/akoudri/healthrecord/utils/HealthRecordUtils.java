@@ -1,7 +1,6 @@
 package com.akoudri.healthrecord.utils;
 
 import android.app.Activity;
-import android.util.Patterns;
 import android.widget.EditText;
 
 import com.akoudri.healthrecord.app.R;

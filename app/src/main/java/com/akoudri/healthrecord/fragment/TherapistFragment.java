@@ -146,7 +146,7 @@ public class TherapistFragment extends Fragment {
             removeButton.setLayoutParams(params);
             layout.addView(removeButton);
             //Phone Button
-            //TODO: move the phone button to the Edit Therapist Activity
+            //TODO: presentation with two lines - 4 columns: phone, cellphone, email, sms
             colSpec = GridLayout.spec(2);
             phoneButton = new ImageButton(getActivity());
             phoneButton.setBackgroundResource(R.drawable.phone);

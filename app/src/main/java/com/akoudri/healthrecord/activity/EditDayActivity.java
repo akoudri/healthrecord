@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
 import com.akoudri.healthrecord.fragment.TreatmentFragment;
@@ -20,6 +19,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Locale;
 
+//FIXME: replace the ailment fragment by a "summary day" fragment and set it to default
 public class EditDayActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
@@ -31,7 +31,7 @@ public class EditDayActivity extends Activity {
     private TextView today_label;
     private AppointmentFragment apptFrag;
     private MeasureFragment measureFrag;
-    private AilmentFragment ailmentFrag;
+    //private AilmentFragment ailmentFrag;
     private TreatmentFragment treatmentFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
@@ -49,7 +49,7 @@ public class EditDayActivity extends Activity {
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
         apptFrag = AppointmentFragment.newInstance();
-        ailmentFrag = AilmentFragment.newInstance();
+        //ailmentFrag = AilmentFragment.newInstance();
         treatmentFrag = TreatmentFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
@@ -69,7 +69,7 @@ public class EditDayActivity extends Activity {
             dataSourceLoaded = true;
             measureFrag.setDataSource(dataSource);
             apptFrag.setDataSource(dataSource);
-            ailmentFrag.setDataSource(dataSource);
+            //ailmentFrag.setDataSource(dataSource);
             treatmentFrag.setDataSource(dataSource);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,14 +122,14 @@ public class EditDayActivity extends Activity {
         currentFrag = apptFrag;
     }
 
-    public void displayIllness(View view)
-    {
-        if (currentFrag == ailmentFrag) return;
-        fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, ailmentFrag);
-        fragTrans.commit();
-        currentFrag = ailmentFrag;
-    }
+//    public void displayIllness(View view)
+//    {
+//        if (currentFrag == ailmentFrag) return;
+//        fragTrans = getFragmentManager().beginTransaction();
+//        fragTrans.replace(R.id.day_layout, ailmentFrag);
+//        fragTrans.commit();
+//        currentFrag = ailmentFrag;
+//    }
 
     public void displayMedics(View view)
     {

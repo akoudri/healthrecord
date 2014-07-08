@@ -34,8 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="time"
-                android:ems="4"
-                android:layout_weight="0.8"
+                android:minEms="4"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
                 android:cursorVisible="false"/>
@@ -45,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
                 android:src="@drawable/rv"
                 android:onClick="selectHour"/>
 
@@ -67,7 +65,26 @@
             android:layout_margin="5dp"
             android:layout_gravity="fill_horizontal"/>
 
-        <!-- FIXME: add multiline comment field -->
+        <TextView
+            android:text="@string/comment"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/add_appt_comment"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:maxLines="5"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="top|left"/>
 
         <Button
             android:text="@string/add"

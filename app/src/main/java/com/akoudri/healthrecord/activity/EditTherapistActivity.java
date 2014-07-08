@@ -3,6 +3,7 @@ package com.akoudri.healthrecord.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -69,7 +70,6 @@ public class EditTherapistActivity extends Activity {
         super.onPause();
         if (thId == 0) return;
         if (!dataSourceLoaded) return;
-        updateTherapist();
         dataSource.close();
         dataSourceLoaded = false;
     }
@@ -92,9 +92,11 @@ public class EditTherapistActivity extends Activity {
         TherapyBranch branch = dataSource.getTherapyBranchTable().getBranchWithId(therapist.getBranchId());
         specialityET.setText(branch.getName());
         phoneNumberET.setText(therapist.getPhoneNumber());
+        cellPhoneET.setText(therapist.getCellPhoneNumber());
+        emailET.setText(therapist.getEmail());
     }
 
-    private void updateTherapist()
+    public void updateTherapist(View view)
     {
         //FIXME: check whether it is possible to deactivate return button in case of invalid data
         if (thId == 0) return;

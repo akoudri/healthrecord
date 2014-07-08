@@ -15,8 +15,6 @@ import android.widget.ImageButton;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.data.Ailment;
-import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.Treatment;
@@ -72,15 +70,13 @@ public class TreatmentFragment extends Fragment {
         int margin = 5;
         Button editButton;
         ImageButton endButton, removeButton;
-        layout.setColumnCount(3);
+        layout.setColumnCount(2);
         IllnessTable illnessTable = dataSource.getIllnessTable();
-        AilmentTable ailmentTable = dataSource.getAilmentTable();
         int r = 0; //row index
         for (final Treatment treatment : dayTreatments)
         {
             final int treatmentId = treatment.getId();
-            final Ailment ailment = ailmentTable.getAilmentWithId(treatment.getAilmentId());
-            final Illness illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
+            final Illness illness = illnessTable.getIllnessWithId(treatment.getIllnessId());
             //edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
@@ -110,30 +106,9 @@ public class TreatmentFragment extends Fragment {
             params.setGravity(Gravity.RIGHT);
             editButton.setLayoutParams(params);
             layout.addView(editButton);
-            //end button
-            rowSpec = GridLayout.spec(r);
-            colSpec = GridLayout.spec(1);
-            endButton = new ImageButton(getActivity());
-            endButton.setBackgroundResource(R.drawable.end_illness);
-            endButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //FIXME: disable end button when done
-                    treatment.setEndDate(date);
-                    dataSource.getTreatmentTable().updateTreatment(treatment);
-                }
-            });
-            params = new GridLayout.LayoutParams(rowSpec, colSpec);
-            params.rightMargin = margin;
-            params.leftMargin = margin;
-            params.topMargin = margin;
-            params.bottomMargin = margin;
-            params.setGravity(Gravity.LEFT);
-            endButton.setLayoutParams(params);
-            layout.addView(endButton);
             //remove button
             rowSpec = GridLayout.spec(r);
-            colSpec = GridLayout.spec(2);
+            colSpec = GridLayout.spec(1);
             removeButton = new ImageButton(getActivity());
             removeButton.setBackgroundResource(R.drawable.remove);
             removeButton.setOnClickListener(new View.OnClickListener() {

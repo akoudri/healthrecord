@@ -12,6 +12,16 @@ public class Appointment {
     private String hour;
     private String comment;
 
+    public Appointment() {}
+
+    public Appointment(int personId, int therapistId, String date, String hour, String comment) {
+        this.personId = personId;
+        this.therapistId = therapistId;
+        this.date = date;
+        this.hour = hour;
+        this.comment = comment;
+    }
+
     public int getId() {
         return id;
     }
@@ -58,5 +68,15 @@ public class Appointment {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean equalsTo(Appointment other)
+    {
+        boolean eqPerson = (personId == other.getPersonId());
+        boolean eqTherapist = (therapistId == other.getTherapistId());
+        boolean eqDate = date.equals(other.getDate());
+        boolean eqHour = hour.equals(other.getHour());
+        boolean eqComment = (comment == null)?other.getComment()==null:comment.equals(other.getComment());
+        return eqPerson && eqTherapist && eqDate && eqHour && eqComment;
     }
 }

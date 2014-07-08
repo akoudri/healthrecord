@@ -427,5 +427,6 @@
     <string name="update_saved">Update saved</string>
     <string name="cell_phone_number">Cell Phone Number</string>
     <string name="email_address">Email Address</string>
+    <string name="comment">Comment</string>
 
 </resources>

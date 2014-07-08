@@ -7,7 +7,7 @@ public class Treatment {
 
     private int id;
     private int personId;
-    private int ailmentId;
+    private int illnessId;
     private int therapistId;
     private String startDate;
     private String endDate;
@@ -29,12 +29,12 @@ public class Treatment {
         this.personId = personId;
     }
 
-    public int getAilmentId() {
-        return ailmentId;
+    public int getIllnessId() {
+        return illnessId;
     }
 
-    public void setAilmentId(int ailmentId) {
-        this.ailmentId = ailmentId;
+    public void setIllnessId(int illnessId) {
+        this.illnessId = illnessId;
     }
 
     public int getTherapistId() {

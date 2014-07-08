@@ -15,6 +15,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal|top">
+            <!-- TODO: replace with a summary fragment
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="2dp"
+                android:src="@drawable/illness"
+                android:onClick="displayIllness"/>
+            -->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -29,13 +38,6 @@
                 android:layout_margin="2dp"
                 android:src="@drawable/rv"
                 android:onClick="displayRV"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="2dp"
-                android:src="@drawable/illness"
-                android:onClick="displayIllness"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

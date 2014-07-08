@@ -103,5 +103,16 @@
             android:maxLength="20"
             android:layout_gravity="fill_horizontal"/>
 
+        <Button
+            android:text="@string/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TitleButton"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"
+            android:ems="8"
+            android:drawableRight="@drawable/save"
+            android:onClick="updateTherapist"/>
+
     </LinearLayout>
 </ScrollView>

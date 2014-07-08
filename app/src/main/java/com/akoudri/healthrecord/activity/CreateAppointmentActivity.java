@@ -7,11 +7,13 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.HourPickerFragment;
 
 import java.sql.SQLException;
@@ -21,7 +23,7 @@ import java.util.List;
 
 public class CreateAppointmentActivity extends Activity {
 
-    private EditText hourET;
+    private EditText hourET, commentET;
     private Spinner thSpinner;
     
     private HealthRecordDataSource dataSource;
@@ -38,6 +40,8 @@ public class CreateAppointmentActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_appointment);
         hourET = (EditText) findViewById(R.id.select_appt_hour);
+        commentET = (EditText) findViewById(R.id.add_appt_comment);
+        commentET = (EditText) findViewById(R.id.add_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_select);
         dataSource = new HealthRecordDataSource(this);
         personId = getIntent().getIntExtra("personId", 0);
@@ -64,11 +68,10 @@ public class CreateAppointmentActivity extends Activity {
     protected void onPause() {
         super.onPause();
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (!dataSourceLoaded) return;
         if (dataSourceLoaded)
-        {
-            dataSource.close();
-            dataSourceLoaded = false;
-        }
+        dataSource.close();
+        dataSourceLoaded = false;
     }
     private void retrieveTherapists()
     {
@@ -125,9 +128,27 @@ public class CreateAppointmentActivity extends Activity {
         int thPos = thSpinner.getSelectedItemPosition();
         int therapistId = thIds.get(thPos);
         String hourStr = hourET.getText().toString();
-        dataSource.getAppointmentTable().insertAppointment(personId, therapistId, selectedDate,
-                hourStr, " "); //FIXME: manage null value for comment
-        finish();
+        String comment = commentET.getText().toString();
+        if (checkFields(hourStr)) {
+            if (comment.equals("")) comment = null;
+            dataSource.getAppointmentTable().insertAppointment(personId, therapistId, selectedDate,
+                    hourStr, comment);
+            finish();
+        }
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    private boolean checkFields(String hour)
+    {
+        if (hour.equals("")){
+            HealthRecordUtils.highlightActivityFields(this, hourET);
+            return false;
+        }
+        return true;
     }
 
 }

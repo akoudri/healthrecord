@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,7 +18,6 @@ import android.widget.Spinner;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.data.Ailment;
 import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.Medication;
@@ -36,9 +36,9 @@ import java.util.List;
 //FIXME: check the consistency of the code
 public class EditTreatmentActivity extends Activity {
 
-    private Spinner illnessSpinner;
+    private AutoCompleteTextView illnessActv;
     private Spinner therapistSpinner;
-    private EditText startDateET, endDateET;
+    private EditText startDateET, endDateET, commentET;
     private LinearLayout medicsLayout;
 
     private HealthRecordDataSource dataSource;
@@ -46,7 +46,7 @@ public class EditTreatmentActivity extends Activity {
     private int treatmentId;
     private String selectedDate;
     private int day, month, year;
-    private List<Ailment> ailments;
+    private List<Illness> illnesses;
     private List<Therapist> therapists;
     private List<Medication> existingMedications;
     private List<Medication> medications;
@@ -62,10 +62,11 @@ public class EditTreatmentActivity extends Activity {
         setContentView(R.layout.activity_edit_treatment);
         dataSource = new HealthRecordDataSource(this);
         medications = new ArrayList<Medication>();
-        illnessSpinner = (Spinner) findViewById(R.id.edit_illness_choice);
+        illnessActv = (AutoCompleteTextView) findViewById(R.id.edit_illness_choice);
         therapistSpinner = (Spinner) findViewById(R.id.edit_therapist_choice);
         startDateET = (EditText) findViewById(R.id.edit_start_treatment);
         endDateET = (EditText) findViewById(R.id.edit_end_treatment);
+        commentET = (EditText) findViewById(R.id.update_treatment_comment);
         medicsLayout = (LinearLayout) findViewById(R.id.edit_medics_layout);
         treatmentId = getIntent().getIntExtra("treatmentId", 0);
         day = getIntent().getIntExtra("day", 0);
@@ -95,10 +96,9 @@ public class EditTreatmentActivity extends Activity {
         super.onPause();
         if (treatmentId == 0 || day <= 0 || month <= 0 || year <= 0)
             return;
-        if (dataSourceLoaded) {
-            dataSource.close();
-            dataSourceLoaded = false;
-        }
+        if (!dataSourceLoaded) return;
+        dataSource.close();
+        dataSourceLoaded = false;
     }
 
     private void fillWidgets()
@@ -106,46 +106,29 @@ public class EditTreatmentActivity extends Activity {
         selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
         startDateET.setText(treatment.getStartDate());
         endDateET.setText(treatment.getEndDate());
-        retrieveAilments();
+        retrieveIllnesses();
         retrieveTherapists();
     }
 
-    private void retrieveAilments()
+    private void retrieveIllnesses()
     {
-        int personId = treatment.getPersonId();
-        ailments = new ArrayList<Ailment>();
-        List<Ailment> allAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, selectedDate);
-        List<Treatment> existingTreatments = dataSource.getTreatmentTable().getDayTreatmentsForPerson(personId, selectedDate);
-        int ailmentId;
-        boolean found = false;
-        for(Ailment ailment : allAilments)
-        {
-            ailmentId = ailment.getId();
-            for(Treatment treatment : existingTreatments)
-            {
-                if (treatment.getAilmentId() == ailmentId) {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) ailments.add(ailment);
-            else found = false;
-        }
-        Ailment ailment = dataSource.getAilmentTable().getAilmentWithId(treatment.getAilmentId());
-        ailments.add(ailment);
-        String[] ailmentStr = new String[ailments.size()];
-        IllnessTable illnessTable = dataSource.getIllnessTable();
-        Illness illness;
+        int illnessId = treatment.getIllnessId();
+        String illness = dataSource.getIllnessTable().getIllnessWithId(illnessId).getName();
+        illnesses = dataSource.getIllnessTable().getAllIllnesses();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, getIllnesses());
+        illnessActv.setThreshold(1);
+        illnessActv.setAdapter(adapter);
+        illnessActv.setText(illness);
+    }
+
+    private String[] getIllnesses()
+    {
+        String[] res = new String[illnesses.size()];
         int i = 0;
-        for (Ailment a : ailments)
-        {
-            illness = illnessTable.getIllnessWithId(a.getIllnessId());
-            ailmentStr[i++] = illness.getName() + "-" + a.getStartDate();
-        }
-        ArrayAdapter<String> illnessAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, ailmentStr);
-        illnessSpinner.setAdapter(illnessAdapter);
-        int ailmentIdx = ailments.indexOf(ailment);
-        if (ailmentIdx > 0) illnessSpinner.setSelection(ailmentIdx);
+        for (Illness ill : illnesses)
+            res[i++] = ill.getName();
+        return res;
     }
 
     private void retrieveTherapists()
@@ -377,11 +360,17 @@ public class EditTreatmentActivity extends Activity {
             return;
         if (!dataSourceLoaded) return;
         //FIXME: check values - add comment field
-        Ailment a = ailments.get(illnessSpinner.getSelectedItemPosition());
+        IllnessTable illnessTable = dataSource.getIllnessTable();
+        String illness = illnessActv.getText().toString();
+        int illnessId = dataSource.getIllnessTable().getIllnessId(illness);
+        if (illnessId < 0)
+        {
+            illnessId = (int) illnessTable.insertIllness(illness);
+        }
         Therapist t = therapists.get(therapistSpinner.getSelectedItemPosition());
         String sDate = startDateET.getText().toString();
         String eDate = endDateET.getText().toString();
-        treatment.setAilmentId(a.getId());
+        treatment.setIllnessId(illnessId);
         treatment.setTherapistId(t.getId());
         treatment.setStartDate(sDate);
         treatment.setEndDate(eDate);

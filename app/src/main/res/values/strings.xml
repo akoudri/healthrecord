@@ -428,5 +428,10 @@
     <string name="cell_phone_number">Cell Phone Number</string>
     <string name="email_address">Email Address</string>
     <string name="comment">Comment</string>
+    <string name="duration">Duration</string>
+    <string name="number_of_days">day(s)</string>
+    <string name="med_req">Provide at least one medic!</string>
+    <string name="self">Self</string>
+    <string name="duplicate_medic">Duplicate Medic</string>
 
 </resources>

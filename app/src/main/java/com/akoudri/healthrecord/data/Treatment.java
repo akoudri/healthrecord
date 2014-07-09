@@ -10,7 +10,7 @@ public class Treatment {
     private int illnessId;
     private int therapistId;
     private String startDate;
-    private String endDate;
+    private int duration;
     private String comment;
 
     public int getId() {
@@ -53,12 +53,12 @@ public class Treatment {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public String getComment() {

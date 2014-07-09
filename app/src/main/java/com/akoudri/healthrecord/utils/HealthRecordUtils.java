@@ -121,6 +121,27 @@ public final class HealthRecordUtils {
         }
     }
 
+    //duration: number of days
+    public static String computeEndDate(String startDate, String duration)
+    {
+        if (duration == null || duration.equals("")) return null;
+        int d = Integer.parseInt(duration); //Assuming that duration is well formatted
+        Calendar eCal = HealthRecordUtils.stringToCalendar(startDate);
+        eCal.add(Calendar.DAY_OF_MONTH, d);
+        return String.format("%02d/%02d/%04d", eCal.get(Calendar.DAY_OF_MONTH), eCal.get(Calendar.MONTH)+1, eCal.get(Calendar.YEAR));
+    }
+
+    //duration: number of days
+    public static String computeEndDate(String startDate, int duration)
+    {
+        if (duration == -1) return null;
+        String eDate;
+        Calendar eCal = HealthRecordUtils.stringToCalendar(startDate);
+        eCal.add(Calendar.DAY_OF_MONTH, duration);
+        eDate = String.format("%02d/%02d/%04d", eCal.get(Calendar.DAY_OF_MONTH), eCal.get(Calendar.MONTH)+1, eCal.get(Calendar.YEAR));
+        return eDate;
+    }
+
     public static boolean isValidName(String name)
     {
         if (name == null) return false;

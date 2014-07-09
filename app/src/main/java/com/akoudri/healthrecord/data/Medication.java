@@ -11,7 +11,7 @@ public class Medication {
     private int frequency;
     private DoseFrequencyKind kind;
     private String startDate;
-    private String endDate;
+    private int duration;
 
     public int getId() {
         return id;
@@ -61,11 +61,11 @@ public class Medication {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

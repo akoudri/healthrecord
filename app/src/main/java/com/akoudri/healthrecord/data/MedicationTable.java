@@ -24,11 +24,11 @@ public class MedicationTable {
     public static final String MEDICATION_FREQUENCY = "frequency";
     public static final String MEDICATION_KIND = "kind";
     public static final String MEDICATION_START_DATE = "startDate";
-    public static final String MEDICATION_END_DATE = "endDate";
+    public static final String MEDICATION_DURATION = "duration";
 
 
     private String[] medicationCols = {MEDICATION_ID, MEDICATION_TREATMENT_REF, MEDICATION_DRUG_REF, MEDICATION_FREQUENCY, MEDICATION_KIND, MEDICATION_START_DATE,
-            MEDICATION_END_DATE};
+            MEDICATION_DURATION};
 
     public MedicationTable(SQLiteDatabase db) {
         this.db = db;
@@ -42,8 +42,8 @@ public class MedicationTable {
         sb.append(MEDICATION_DRUG_REF + " integer not null,");
         sb.append(MEDICATION_FREQUENCY + " integer not null,");
         sb.append(MEDICATION_KIND + " integer not null,");
-        sb.append(MEDICATION_START_DATE + " text,");//medication with no start and end date are for chronic ailments
-        sb.append(MEDICATION_END_DATE + " text,");
+        sb.append(MEDICATION_START_DATE + " text not null,");
+        sb.append(MEDICATION_DURATION + " integer,"); //medication with no end date are for chronic ailments
         sb.append(" foreign key(" + MEDICATION_TREATMENT_REF + ") references " + TreatmentTable.TREATMENT_TABLE +
                 "(" + TreatmentTable.TREATMENT_ID + "),");
         sb.append(" foreign key(" + MEDICATION_DRUG_REF + ") references " + DrugTable.DRUG_TABLE +
@@ -53,7 +53,7 @@ public class MedicationTable {
     }
 
     //TODO: check conformity of dates with owning treatment
-    public long insertMedication(int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, String endDate) {
+    public long insertMedication(int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
         ContentValues values = new ContentValues();
         values.put(MEDICATION_TREATMENT_REF, treatmentId);
         values.put(MEDICATION_DRUG_REF, drugId);
@@ -61,8 +61,8 @@ public class MedicationTable {
         values.put(MEDICATION_KIND, kind.ordinal());
         if (startDate != null)
             values.put(MEDICATION_START_DATE, startDate);
-        if (endDate != null)
-            values.put(MEDICATION_END_DATE, endDate);
+        if (duration < 0)
+            values.put(MEDICATION_DURATION, duration);
         return db.insert(MEDICATION_TABLE, null, values);
     }
 
@@ -73,11 +73,11 @@ public class MedicationTable {
         int frequency = medication.getFrequency();
         DoseFrequencyKind kind = medication.getKind();
         String startDate = medication.getStartDate();
-        String endDate = medication.getEndDate();
-        return insertMedication(treatmentId, drugId, frequency, kind, startDate, endDate);
+        int duration = medication.getDuration();
+        return insertMedication(treatmentId, drugId, frequency, kind, startDate, duration);
     }
 
-    public boolean updateMedication(int medicationId, int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, String endDate) {
+    public boolean updateMedication(int medicationId, int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
         ContentValues values = new ContentValues();
         values.put(MEDICATION_TREATMENT_REF, treatmentId);
         values.put(MEDICATION_DRUG_REF, drugId);
@@ -85,8 +85,8 @@ public class MedicationTable {
         values.put(MEDICATION_KIND, kind.ordinal());
         if (startDate != null)
             values.put(MEDICATION_START_DATE, startDate);
-        if (endDate != null)
-            values.put(MEDICATION_END_DATE, endDate);
+        if (duration < 0)
+            values.put(MEDICATION_DURATION, duration);
         return db.update(MEDICATION_TABLE, values, MEDICATION_ID + "=" + medicationId, null) > 0;
     }
 
@@ -98,8 +98,8 @@ public class MedicationTable {
         int frequency = medication.getFrequency();
         DoseFrequencyKind kind = medication.getKind();
         String startDate = medication.getStartDate();
-        String endDate = medication.getEndDate();
-        return updateMedication(medicationId, treatmentId, drugId, frequency, kind, startDate, endDate);
+        int duration = medication.getDuration();
+        return updateMedication(medicationId, treatmentId, drugId, frequency, kind, startDate, duration);
     }
 
     public Medication getMedicationWithId(int id) {
@@ -135,7 +135,7 @@ public class MedicationTable {
         medication.setFrequency(cursor.getInt(3));
         medication.setKind(HealthRecordUtils.int2kind(cursor.getInt(4)));
         medication.setStartDate((cursor.isNull(5))?null:cursor.getString(5));
-        medication.setEndDate((cursor.isNull(6))?null:cursor.getString(6));
+        medication.setDuration((cursor.isNull(6)) ? -1 : cursor.getInt(6));
         return medication;
     }
 

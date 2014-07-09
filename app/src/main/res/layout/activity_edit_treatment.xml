@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:layout_weight="0.8"
+                android:minEms="5"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
                 android:cursorVisible="false"/>
@@ -108,13 +108,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="editStartTreatmentPickerDialog"/>
         </LinearLayout>
 
         <TextView
-            android:text="@string/end"
+            android:text="@string/duration"
             android:textColor="@color/regular_text_color"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -133,20 +132,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:inputType="date"
-                android:layout_weight="0.8"
+                android:inputType="number"
+                android:minEms="2"
+                android:maxEms="2"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
                 android:cursorVisible="false"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
+            <TextView
+                android:text="@string/number_of_days"
+                android:textColor="@color/regular_text_color"
                 android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
-                android:src="@drawable/calendar_idle"
-                android:onClick="editEndTreatmentPickerDialog"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <TextView

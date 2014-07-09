@@ -63,6 +63,7 @@ public class TreatmentFragment extends Fragment {
 
     private void createWidgets()
     {
+        //TODO: put the stop button
         layout.removeAllViews();
         final String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<Treatment> dayTreatments = dataSource.getTreatmentTable().getDayTreatmentsForPerson(personId, date);
@@ -81,7 +82,8 @@ public class TreatmentFragment extends Fragment {
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
             editButton = new Button(getActivity());
-            editButton.setText(illness.getName());
+            String illnessName = (illness==null)?"Preventive Treatment":illness.getName();
+            editButton.setText(illnessName);
             editButton.setTextSize(16);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setMinEms(8);

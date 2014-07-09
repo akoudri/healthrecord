@@ -9,13 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Drug;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 //TODO: voir si il est possible d'utiliser le code bar du médicament
@@ -26,6 +30,7 @@ public class CreateMedicationActivity extends Activity {
     private EditText timesET, beginMedicET, endMedicET;
 
     private HealthRecordDataSource dataSource;
+    private String selectedDate;
     private boolean dataSourceLoaded = false;
     private List<Drug> drugs;
 
@@ -52,6 +57,8 @@ public class CreateMedicationActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
+            selectedDate = getIntent().getStringExtra("date");
+            beginMedicET.setText(selectedDate);
             retrieveDrugs();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,10 +68,9 @@ public class CreateMedicationActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (dataSourceLoaded) {
-            dataSource.close();
-            dataSourceLoaded = false;
-        }
+        if (!dataSourceLoaded) return;
+        dataSource.close();
+        dataSourceLoaded = false;
     }
 
     private void retrieveDrugs()
@@ -84,39 +90,67 @@ public class CreateMedicationActivity extends Activity {
     public void addMedication(View view)
     {
         if (!dataSourceLoaded) return;
-        //FIXME: manage null values
         String name = medicationActv.getText().toString();
+        String timesStr = timesET.getText().toString();
+        if (!checkFields(name, timesStr))
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
         int drugId = dataSource.getDrugTable().getDrugId(name);
         if (drugId < 0)
         {
             drugId = (int) dataSource.getDrugTable().insertDrug(name);
         }
-        int freq = Integer.parseInt(timesET.getText().toString());
+        int freq = Integer.parseInt(timesStr);
         int kfreq = freqSpinner.getSelectedItemPosition();
         String sDate = beginMedicET.getText().toString();
-        String eDate = endMedicET.getText().toString();
+        String d = endMedicET.getText().toString();
+        int duration = (d.equals(""))?-1:Integer.parseInt(d);
         Intent data = new Intent();
         data.putExtra("drugId", drugId);
         data.putExtra("freq", freq);
         data.putExtra("kfreq", kfreq);
         data.putExtra("sDate", sDate);
-        data.putExtra("eDate", eDate);
+        data.putExtra("duration", duration);
         setResult(RESULT_OK, data);
         finish();
+    }
+
+    private boolean checkFields(String name, String times)
+    {
+        boolean res = true;
+        List<EditText> toHighlight = new ArrayList<EditText>();
+        List<EditText> notToHighlight = new ArrayList<EditText>();
+        //check name
+        boolean checkName = (name != null && !name.equals(""));
+        res = res && checkName;
+        if (!checkName) toHighlight.add(medicationActv);
+        else notToHighlight.add(medicationActv);
+        //check times
+        boolean checkTimes = (times != null && !times.equals(""));
+        res = res && checkTimes;
+        if (!checkTimes) toHighlight.add(timesET);
+        else notToHighlight.add(timesET);
+        //display
+        if (toHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(this, toHighlight, true);
+        if (notToHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
+        if (!res) {
+            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        return res;
     }
 
     public void showBeginMedicPickerDialog(View view)
     {
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, beginMedicET);
+        Calendar c = HealthRecordUtils.stringToCalendar(selectedDate);
+        dfrag.init(this, beginMedicET, c, c, null);
         dfrag.show(getFragmentManager(),"Pick Start Treatment Date");
-    }
-
-    public void showEndMedicPickerDialog(View view)
-    {
-        DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, endMedicET);
-        dfrag.show(getFragmentManager(),"Pick End Treatment Date");
     }
 
 }

@@ -236,5 +236,10 @@
     <string name="cell_phone_number">Numéro de portable</string>
     <string name="email_address">Courriel</string>
     <string name="comment">Commentaire</string>
+    <string name="duration">Durée</string>
+    <string name="number_of_days">jour(s)</string>
+    <string name="med_req">Veuillez ajouter au moins un médicament</string>
+    <string name="self">Moi-même</string>
+    <string name="duplicate_medic">Médicament en double</string>
 
 </resources>

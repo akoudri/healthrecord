@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
@@ -51,6 +53,7 @@ public class EditTreatmentActivity extends Activity {
     private List<Medication> existingMedications;
     private List<Medication> medications;
     private Treatment treatment;
+    private int thPos = 0;
 
     private int reqCreateCode = 1;
     private int reqEditCode = 2;
@@ -64,6 +67,17 @@ public class EditTreatmentActivity extends Activity {
         medications = new ArrayList<Medication>();
         illnessActv = (AutoCompleteTextView) findViewById(R.id.edit_illness_choice);
         therapistSpinner = (Spinner) findViewById(R.id.edit_therapist_choice);
+        therapistSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                thPos = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //Nothing to do
+            }
+        });
         startDateET = (EditText) findViewById(R.id.edit_start_treatment);
         endDateET = (EditText) findViewById(R.id.edit_end_treatment);
         commentET = (EditText) findViewById(R.id.update_treatment_comment);
@@ -105,7 +119,10 @@ public class EditTreatmentActivity extends Activity {
     {
         selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
         startDateET.setText(treatment.getStartDate());
-        endDateET.setText(treatment.getEndDate());
+        int d = treatment.getDuration();
+        if (d >= 0)
+        endDateET.setText(treatment.getDuration() + "");
+        commentET.setText(treatment.getComment());
         retrieveIllnesses();
         retrieveTherapists();
     }
@@ -113,7 +130,7 @@ public class EditTreatmentActivity extends Activity {
     private void retrieveIllnesses()
     {
         int illnessId = treatment.getIllnessId();
-        String illness = dataSource.getIllnessTable().getIllnessWithId(illnessId).getName();
+        String illness = (illnessId==0)?"":dataSource.getIllnessTable().getIllnessWithId(illnessId).getName();
         illnesses = dataSource.getIllnessTable().getAllIllnesses();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, getIllnesses());
@@ -141,10 +158,11 @@ public class EditTreatmentActivity extends Activity {
         {
            therapists.add(thTable.getTherapistWithId(i));
         }
-        String[] therapistStr = new String[therapists.size()];
+        String[] therapistStr = new String[therapists.size()+1];
+        therapistStr[0] = getResources().getString(R.string.self);
         TherapyBranchTable brTable = dataSource.getTherapyBranchTable();
         String branch;
-        int i = 0;
+        int i = 1;
         for (Therapist t : therapists)
         {
             branch = brTable.getBranchWithId(t.getBranchId()).getName();
@@ -152,9 +170,13 @@ public class EditTreatmentActivity extends Activity {
         }
         ArrayAdapter<String> thAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistStr);
         therapistSpinner.setAdapter(thAdapter);
-        Therapist therapist = dataSource.getTherapistTable().getTherapistWithId(treatment.getTherapistId());
-        int thIndex = therapists.indexOf(therapist);
-        if (thIndex >= 0) therapistSpinner.setSelection(thIndex);
+        int thId = treatment.getTherapistId();
+        if (thId != 0)
+        {
+            Therapist therapist = dataSource.getTherapistTable().getTherapistWithId(thId);
+            therapistSpinner.setSelection(therapists.indexOf(therapist) + 1);
+        }
+
     }
 
     private void createWidgets()
@@ -184,7 +206,6 @@ public class EditTreatmentActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
-                    intent.putExtra("stored", true);
                     intent.putExtra("medicationId", medic.getId());
                     startActivity(intent);
                 }
@@ -261,7 +282,7 @@ public class EditTreatmentActivity extends Activity {
                     intent.putExtra("frequency", medic.getFrequency());
                     intent.putExtra("kind", medic.getKind().ordinal());
                     intent.putExtra("startDate", medic.getStartDate());
-                    intent.putExtra("endDate", medic.getEndDate());
+                    intent.putExtra("duration", medic.getDuration());
                     startActivityForResult(intent, reqEditCode);
                 }
             });
@@ -315,6 +336,7 @@ public class EditTreatmentActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //TODO:Manage the case where there is no data received
+        //FIXME: check values before setting the object
         if (requestCode == reqCreateCode)
         {
             if (resultCode == RESULT_OK)
@@ -325,7 +347,7 @@ public class EditTreatmentActivity extends Activity {
                 int kfreq = data.getIntExtra("kfreq", 1);
                 m.setKind(HealthRecordUtils.int2kind(kfreq));
                 m.setStartDate(data.getStringExtra("sDate"));
-                m.setEndDate(data.getStringExtra("eDate"));
+                m.setDuration(data.getIntExtra("duration", -1));
                 medications.add(m);
             }
         }
@@ -340,40 +362,64 @@ public class EditTreatmentActivity extends Activity {
                 int kfreq = data.getIntExtra("kfreq", 1);
                 m.setKind(HealthRecordUtils.int2kind(kfreq));
                 m.setStartDate(data.getStringExtra("sDate"));
-                m.setEndDate(data.getStringExtra("eDate"));
+                m.setDuration(data.getIntExtra("duration", -1));
             }
         }
     }
 
     public void editAddMedic(View view)
     {
+        //FIXME: check the upper bounds of the medic before inserting it
         if (treatmentId == 0 || day <= 0 || month <= 0 || year <= 0)
             return;
         if (!dataSourceLoaded) return;
         //TODO:Manage the case where there is no data received -> start activity with no result
-        startActivityForResult(new Intent("com.akoudri.healthrecord.app.CreateMedication"), 1);
+        Intent intent = new Intent("com.akoudri.healthrecord.app.CreateMedication");
+        intent.putExtra("date", selectedDate);
+        startActivityForResult(intent, 1);
     }
 
     public void updateTreatment(View view)
     {
+        //FIXME: check the upper bounds of the medic before updating it
         if (treatmentId == 0 || day <= 0 || month <= 0 || year <= 0)
             return;
         if (!dataSourceLoaded) return;
-        //FIXME: check values - add comment field
+        if ((existingMedications.size()+medications.size() == 0))
+        {
+            Toast toast = Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.med_req), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
         IllnessTable illnessTable = dataSource.getIllnessTable();
         String illness = illnessActv.getText().toString();
-        int illnessId = dataSource.getIllnessTable().getIllnessId(illness);
-        if (illnessId < 0)
-        {
-            illnessId = (int) illnessTable.insertIllness(illness);
+        int illnessId = 0;
+        if (! illness.equals("")) {
+            illnessId = dataSource.getIllnessTable().getIllnessId(illness);
+            if (illnessId < 0) {
+                illnessId = (int) illnessTable.insertIllness(illness);
+            }
         }
-        Therapist t = therapists.get(therapistSpinner.getSelectedItemPosition());
+        Therapist t;
+        if (thPos == 0)
+            t = null;
+        else
+            t = therapists.get(therapistSpinner.getSelectedItemPosition());
         String sDate = startDateET.getText().toString();
-        String eDate = endDateET.getText().toString();
-        treatment.setIllnessId(illnessId);
-        treatment.setTherapistId(t.getId());
         treatment.setStartDate(sDate);
-        treatment.setEndDate(eDate);
+        int duration = -1;
+        String d = endDateET.getText().toString();
+        if (!d.equals("")) duration = Integer.parseInt(d);
+        treatment.setDuration(duration);
+        treatment.setIllnessId(illnessId);
+        if (t != null)
+            treatment.setTherapistId(t.getId());
+        else
+            treatment.setTherapistId(0);
+        String comment = commentET.getText().toString();
+        if (comment.equals("")) comment = null;
+        treatment.setComment(comment);
+        //FIXME: detect change before updating db
         dataSource.getTreatmentTable().updateTreatment(treatment);
         MedicationTable table = dataSource.getMedicationTable();
         for (Medication m : medications)
@@ -389,13 +435,6 @@ public class EditTreatmentActivity extends Activity {
         DatePickerFragment dfrag = new DatePickerFragment();
         dfrag.init(this, endDateET);
         dfrag.show(getFragmentManager(), "Select Start Treatment Date");
-    }
-
-    public void editEndTreatmentPickerDialog(View view)
-    {
-        DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, endDateET);
-        dfrag.show(getFragmentManager(),"Select End Treatment Date");
     }
 
 }

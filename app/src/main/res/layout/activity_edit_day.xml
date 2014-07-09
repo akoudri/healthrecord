@@ -15,15 +15,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal|top">
-            <!-- TODO: replace with a summary fragment
+            <!-- TODO: set appropriate icon-->
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="2dp"
-                android:src="@drawable/illness"
-                android:onClick="displayIllness"/>
-            -->
+                android:src="@drawable/overview"
+                android:onClick="displayOverview"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

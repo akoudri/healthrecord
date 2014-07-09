@@ -433,5 +433,8 @@
     <string name="med_req">Provide at least one medic!</string>
     <string name="self">Self</string>
     <string name="duplicate_medic">Duplicate Medic</string>
+    <string name="number_of_measures">Number of measures</string>
+    <string name="number_of_appt">Number of appointments</string>
+    <string name="number_of_ailments">Number of ailments</string>
 
 </resources>

@@ -14,6 +14,7 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
+import com.akoudri.healthrecord.fragment.OverviewFragment;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -29,9 +30,9 @@ public class EditDayActivity extends Activity {
     private Calendar currentDay;
 
     private TextView today_label;
+    private OverviewFragment ovFrag;
     private AppointmentFragment apptFrag;
     private MeasureFragment measureFrag;
-    //private AilmentFragment ailmentFrag;
     private AilmentFragment ailmentFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
@@ -48,12 +49,12 @@ public class EditDayActivity extends Activity {
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
+        ovFrag = OverviewFragment.newInstance();
         apptFrag = AppointmentFragment.newInstance();
-        //ailmentFrag = AilmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.add(R.id.day_layout, measureFrag);
+        fragTrans.add(R.id.day_layout, ovFrag);
         fragTrans.commit();
         currentFrag = measureFrag;
     }
@@ -67,9 +68,9 @@ public class EditDayActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
+            ovFrag.setDataSource(dataSource);
             measureFrag.setDataSource(dataSource);
             apptFrag.setDataSource(dataSource);
-            //ailmentFrag.setDataSource(dataSource);
             ailmentFrag.setDataSource(dataSource);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,6 +103,15 @@ public class EditDayActivity extends Activity {
         sb.append(" ");
         sb.append(year);
         today_label.setText(sb.toString());
+    }
+
+    public void displayOverview(View view)
+    {
+        if (currentFrag == ovFrag) return;
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.day_layout, ovFrag);
+        fragTrans.commit();
+        currentFrag = ovFrag;
     }
 
     public void displayMeasures(View view)

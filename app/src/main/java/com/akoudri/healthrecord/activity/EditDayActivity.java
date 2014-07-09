@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
-import com.akoudri.healthrecord.fragment.TreatmentFragment;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -32,7 +32,7 @@ public class EditDayActivity extends Activity {
     private AppointmentFragment apptFrag;
     private MeasureFragment measureFrag;
     //private AilmentFragment ailmentFrag;
-    private TreatmentFragment treatmentFrag;
+    private AilmentFragment ailmentFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
 
@@ -50,7 +50,7 @@ public class EditDayActivity extends Activity {
         year = getIntent().getIntExtra("year", 0);
         apptFrag = AppointmentFragment.newInstance();
         //ailmentFrag = AilmentFragment.newInstance();
-        treatmentFrag = TreatmentFragment.newInstance();
+        ailmentFrag = AilmentFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.add(R.id.day_layout, measureFrag);
@@ -70,7 +70,7 @@ public class EditDayActivity extends Activity {
             measureFrag.setDataSource(dataSource);
             apptFrag.setDataSource(dataSource);
             //ailmentFrag.setDataSource(dataSource);
-            treatmentFrag.setDataSource(dataSource);
+            ailmentFrag.setDataSource(dataSource);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -122,22 +122,13 @@ public class EditDayActivity extends Activity {
         currentFrag = apptFrag;
     }
 
-//    public void displayIllness(View view)
-//    {
-//        if (currentFrag == ailmentFrag) return;
-//        fragTrans = getFragmentManager().beginTransaction();
-//        fragTrans.replace(R.id.day_layout, ailmentFrag);
-//        fragTrans.commit();
-//        currentFrag = ailmentFrag;
-//    }
-
-    public void displayMedics(View view)
+    public void displayAilments(View view)
     {
-        if (currentFrag == treatmentFrag) return;
+        if (currentFrag == ailmentFrag) return;
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, treatmentFrag);
+        fragTrans.replace(R.id.day_layout, ailmentFrag);
         fragTrans.commit();
-        currentFrag = treatmentFrag;
+        currentFrag = ailmentFrag;
     }
 
     public void createAppt(View view)
@@ -153,16 +144,6 @@ public class EditDayActivity extends Activity {
     public void createAilment(View view)
     {
         Intent intent = new Intent("com.akoudri.healthrecord.app.CreateAilment");
-        intent.putExtra("personId", personId);
-        intent.putExtra("day", day);
-        intent.putExtra("month", month);
-        intent.putExtra("year", year);
-        startActivity(intent);
-    }
-
-    public void createTreatment(View view)
-    {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.CreateTreatment");
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);

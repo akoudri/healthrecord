@@ -12,12 +12,12 @@ import com.akoudri.healthrecord.data.MeasureTable;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
+import com.akoudri.healthrecord.data.RemoveAilmentTrigger;
 import com.akoudri.healthrecord.data.RemovePersonTrigger;
 import com.akoudri.healthrecord.data.RemoveTherapistFromPersonTrigger;
-import com.akoudri.healthrecord.data.RemoveTreatmentTrigger;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
-import com.akoudri.healthrecord.data.TreatmentTable;
+import com.akoudri.healthrecord.data.AilmentTable;
 
 /**
  * Created by Ali Koudri on 01/04/14.
@@ -31,7 +31,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private TherapyBranchTable therapyBranchTable;
     private IllnessTable illnessTable;
     //private AilmentTable ailmentTable;
-    private TreatmentTable treatmentTable;
+    private AilmentTable ailmentTable;
     private MedicationTable medicationTable;
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
@@ -42,7 +42,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private RemovePersonTrigger removePersonTrigger;
     private DeleteTherapistTrigger deleteTherapistTrigger;
     //private RemoveAilmentTrigger removeAilmentTrigger;
-    private RemoveTreatmentTrigger removeTreatmentTrigger;
+    private RemoveAilmentTrigger removeAilmentTrigger;
 
     public HealthRecordDatabase(Context context)
     {
@@ -67,8 +67,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         removeTherapistFromPersonTrigger.createRemoveTherapistFromPersonTrigger();
         appointmentTable = new AppointmentTable(db);
         appointmentTable.createAppointmentTable();
-        treatmentTable = new TreatmentTable(db);
-        treatmentTable.createTreatmentTable();
+        ailmentTable = new AilmentTable(db);
+        ailmentTable.createTreatmentTable();
         medicationTable = new MedicationTable(db);
         medicationTable.createMedicationTable();
         drugTable = new DrugTable(db);
@@ -81,14 +81,14 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         deleteTherapistTrigger.createDeleteTherapistTrigger();
         //removeAilmentTrigger = new RemoveAilmentTrigger(db);
         //removeAilmentTrigger.createRemoveAilmentTrigger();
-        removeTreatmentTrigger = new RemoveTreatmentTrigger(db);
-        removeTreatmentTrigger.createRemoveTreatmentTrigger();
+        removeAilmentTrigger = new RemoveAilmentTrigger(db);
+        removeAilmentTrigger.createRemoveTreatmentTrigger();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //FIXME: this first version simply removes the old tables
-        db.execSQL("drop trigger if exists " + RemoveTreatmentTrigger.REMOVE_TREATMENT_TRIG);
+        db.execSQL("drop trigger if exists " + RemoveAilmentTrigger.REMOVE_AILMENT_TRIG);
         //db.execSQL("drop trigger if exists " + RemoveAilmentTrigger.REMOVE_AILMENT_TRIG);
         db.execSQL("drop trigger if exists " + DeleteTherapistTrigger.DELETE_THERAPIST_TRIG);
         db.execSQL("drop trigger if exists " + RemovePersonTrigger.REMOVE_PERSON_TRIG);
@@ -101,7 +101,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         //db.execSQL("drop table if exists " + AilmentTable.AILMENT_TABLE);
         db.execSQL("drop table if exists " + IllnessTable.ILLNESS_TABLE);
         db.execSQL("drop table if exists " + MedicationTable.MEDICATION_TABLE);
-        db.execSQL("drop table if exists " + TreatmentTable.TREATMENT_TABLE);
+        db.execSQL("drop table if exists " + AilmentTable.AILMENT_TABLE);
         db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE);
         db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE);
         onCreate(db);

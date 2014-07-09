@@ -103,7 +103,7 @@ public class EditMedicationActivity extends Activity {
             medic = new Medication();
             Intent intent = getIntent();
             pos = intent.getIntExtra("pos", 0);
-            medic.setTreatmentId(intent.getIntExtra("treatmentId", 0));
+            medic.setAilmentId(intent.getIntExtra("treatmentId", 0));
             medic.setDrugId(intent.getIntExtra("drugId", 0));
             medic.setFrequency(intent.getIntExtra("frequency", 0));
             int kind = intent.getIntExtra("kind", 0);

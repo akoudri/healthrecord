@@ -12,7 +12,7 @@ import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
-import com.akoudri.healthrecord.data.TreatmentTable;
+import com.akoudri.healthrecord.data.AilmentTable;
 
 import java.sql.SQLException;
 
@@ -30,7 +30,7 @@ public class HealthRecordDataSource {
     private PersonTherapistTable personTherapistTable;
     private AppointmentTable appointmentTable;
     //private AilmentTable ailmentTable;
-    private TreatmentTable treatmentTable;
+    private AilmentTable ailmentTable;
     private MedicationTable medicationTable;
     private DrugTable drugTable;
     private MeasureTable measureTable;
@@ -50,7 +50,7 @@ public class HealthRecordDataSource {
         personTherapistTable = new PersonTherapistTable(db);
         appointmentTable = new AppointmentTable(db);
         //ailmentTable = new AilmentTable(db);
-        treatmentTable = new TreatmentTable(db);
+        ailmentTable = new AilmentTable(db);
         medicationTable = new MedicationTable(db);
         drugTable = new DrugTable(db);
         measureTable = new MeasureTable(db);
@@ -93,8 +93,8 @@ public class HealthRecordDataSource {
 //        return ailmentTable;
 //    }
 
-    public TreatmentTable getTreatmentTable() {
-        return treatmentTable;
+    public AilmentTable getAilmentTable() {
+        return ailmentTable;
     }
 
     public MedicationTable getMedicationTable() {

@@ -401,7 +401,7 @@
     <string name="remove_appt_question">Are you sure you want to remove this appointment ?</string>
     <string name="illness">Illness</string>
     <string name="chronic">Chronic</string>
-    <string name="prescribedBy">Prescribed by</string>
+    <string name="prescribedBy">Treated by</string>
     <string name="permanent">Permanent</string>
     <string name="start">Start</string>
     <string name="end">End</string>

@@ -6,7 +6,7 @@ package com.akoudri.healthrecord.data;
 public class Medication {
 
     private int id;
-    private int treatmentId;
+    private int ailmentId;
     private int drugId;
     private int frequency;
     private DoseFrequencyKind kind;
@@ -21,12 +21,12 @@ public class Medication {
         this.id = id;
     }
 
-    public int getTreatmentId() {
-        return treatmentId;
+    public int getAilmentId() {
+        return ailmentId;
     }
 
-    public void setTreatmentId(int treatmentId) {
-        this.treatmentId = treatmentId;
+    public void setAilmentId(int ailmentId) {
+        this.ailmentId = ailmentId;
     }
 
     public int getDrugId() {

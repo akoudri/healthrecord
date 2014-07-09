@@ -29,9 +29,9 @@ public class RemovePersonTrigger {
         sb.append("where ");
         sb.append(PersonTherapistTable.PT_PERSON_REF + "=" + "old." + PersonTable.PERSON_ID);
         sb.append(";");
-        sb.append("delete from " + TreatmentTable.TREATMENT_TABLE + " ");
+        sb.append("delete from " + AilmentTable.AILMENT_TABLE + " ");
         sb.append("where ");
-        sb.append(TreatmentTable.TREATMENT_PERSON_REF + "=" + "old." + PersonTable.PERSON_ID);
+        sb.append(AilmentTable.AILMENT_PERSON_REF + "=" + "old." + PersonTable.PERSON_ID);
         sb.append(";");
         sb.append("delete from " + MeasureTable.MEASURE_TABLE + " ");
         sb.append("where ");

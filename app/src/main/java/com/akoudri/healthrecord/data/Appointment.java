@@ -5,6 +5,7 @@ package com.akoudri.healthrecord.data;
  */
 public class Appointment {
 
+    //TODO: add eventually a duration to perform checking
     private int id;
     private int personId;
     private int therapistId;

@@ -19,7 +19,7 @@ public class MedicationTable {
     //Table
     public static final String MEDICATION_TABLE = "medication";
     public static final String MEDICATION_ID = "_id";
-    public static final String MEDICATION_TREATMENT_REF = "treatmentId";
+    public static final String MEDICATION_AILMENT_REF = "ailmentId";
     public static final String MEDICATION_DRUG_REF = "drugId";
     public static final String MEDICATION_FREQUENCY = "frequency";
     public static final String MEDICATION_KIND = "kind";
@@ -27,7 +27,7 @@ public class MedicationTable {
     public static final String MEDICATION_DURATION = "duration";
 
 
-    private String[] medicationCols = {MEDICATION_ID, MEDICATION_TREATMENT_REF, MEDICATION_DRUG_REF, MEDICATION_FREQUENCY, MEDICATION_KIND, MEDICATION_START_DATE,
+    private String[] medicationCols = {MEDICATION_ID, MEDICATION_AILMENT_REF, MEDICATION_DRUG_REF, MEDICATION_FREQUENCY, MEDICATION_KIND, MEDICATION_START_DATE,
             MEDICATION_DURATION};
 
     public MedicationTable(SQLiteDatabase db) {
@@ -38,24 +38,24 @@ public class MedicationTable {
         StringBuilder sb = new StringBuilder();
         sb.append("create table if not exists " + MEDICATION_TABLE + " (");
         sb.append(MEDICATION_ID + " integer primary key autoincrement,");
-        sb.append(MEDICATION_TREATMENT_REF + " integer not null,");
+        sb.append(MEDICATION_AILMENT_REF + " integer not null,");
         sb.append(MEDICATION_DRUG_REF + " integer not null,");
         sb.append(MEDICATION_FREQUENCY + " integer not null,");
         sb.append(MEDICATION_KIND + " integer not null,");
         sb.append(MEDICATION_START_DATE + " text not null,");
         sb.append(MEDICATION_DURATION + " integer,"); //medication with no end date are for chronic ailments
-        sb.append(" foreign key(" + MEDICATION_TREATMENT_REF + ") references " + TreatmentTable.TREATMENT_TABLE +
-                "(" + TreatmentTable.TREATMENT_ID + "),");
+        sb.append(" foreign key(" + MEDICATION_AILMENT_REF + ") references " + AilmentTable.AILMENT_TABLE +
+                "(" + AilmentTable.AILMENT_ID + "),");
         sb.append(" foreign key(" + MEDICATION_DRUG_REF + ") references " + DrugTable.DRUG_TABLE +
                 "(" + DrugTable.DRUG_ID + ")");
         sb.append(");");
         db.execSQL(sb.toString());
     }
 
-    //TODO: check conformity of dates with owning treatment
-    public long insertMedication(int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
+    //TODO: check conformity of dates with owning ailment
+    public long insertMedication(int ailmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
         ContentValues values = new ContentValues();
-        values.put(MEDICATION_TREATMENT_REF, treatmentId);
+        values.put(MEDICATION_AILMENT_REF, ailmentId);
         values.put(MEDICATION_DRUG_REF, drugId);
         values.put(MEDICATION_FREQUENCY, frequency);
         values.put(MEDICATION_KIND, kind.ordinal());
@@ -68,24 +68,24 @@ public class MedicationTable {
 
     public long insertMedication(Medication medication)
     {
-        int treatmentId = medication.getTreatmentId();
+        int ailmentId = medication.getAilmentId();
         int drugId = medication.getDrugId();
         int frequency = medication.getFrequency();
         DoseFrequencyKind kind = medication.getKind();
         String startDate = medication.getStartDate();
         int duration = medication.getDuration();
-        return insertMedication(treatmentId, drugId, frequency, kind, startDate, duration);
+        return insertMedication(ailmentId, drugId, frequency, kind, startDate, duration);
     }
 
-    public boolean updateMedication(int medicationId, int treatmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
+    public boolean updateMedication(int medicationId, int ailmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
         ContentValues values = new ContentValues();
-        values.put(MEDICATION_TREATMENT_REF, treatmentId);
+        values.put(MEDICATION_AILMENT_REF, ailmentId);
         values.put(MEDICATION_DRUG_REF, drugId);
         values.put(MEDICATION_FREQUENCY, frequency);
         values.put(MEDICATION_KIND, kind.ordinal());
         if (startDate != null)
             values.put(MEDICATION_START_DATE, startDate);
-        if (duration < 0)
+        if (duration > 0)
             values.put(MEDICATION_DURATION, duration);
         return db.update(MEDICATION_TABLE, values, MEDICATION_ID + "=" + medicationId, null) > 0;
     }
@@ -93,13 +93,13 @@ public class MedicationTable {
     public boolean updateMedication(Medication medication)
     {
         int medicationId = medication.getId();
-        int treatmentId = medication.getTreatmentId();
+        int ailmentId = medication.getAilmentId();
         int drugId = medication.getDrugId();
         int frequency = medication.getFrequency();
         DoseFrequencyKind kind = medication.getKind();
         String startDate = medication.getStartDate();
         int duration = medication.getDuration();
-        return updateMedication(medicationId, treatmentId, drugId, frequency, kind, startDate, duration);
+        return updateMedication(medicationId, ailmentId, drugId, frequency, kind, startDate, duration);
     }
 
     public Medication getMedicationWithId(int id) {
@@ -109,10 +109,10 @@ public class MedicationTable {
         return null;
     }
 
-    public List<Medication> getMedicationsForTreatment(int treatmentId)
+    public List<Medication> getMedicationsForAilment(int ailmentId)
     {
         List<Medication> res = new ArrayList<Medication>();
-        Cursor cursor = db.query(MEDICATION_TABLE, medicationCols, MEDICATION_TREATMENT_REF + "=" + treatmentId, null, null, null, null);
+        Cursor cursor = db.query(MEDICATION_TABLE, medicationCols, MEDICATION_AILMENT_REF + "=" + ailmentId, null, null, null, null);
         cursor.moveToFirst();
         while (! cursor.isAfterLast())
         {
@@ -130,7 +130,7 @@ public class MedicationTable {
     private Medication cursorToMedication(Cursor cursor) {
         Medication medication = new Medication();
         medication.setId(cursor.getInt(0));
-        medication.setTreatmentId(cursor.getInt(1));
+        medication.setAilmentId(cursor.getInt(1));
         medication.setDrugId(cursor.getInt(2));
         medication.setFrequency(cursor.getInt(3));
         medication.setKind(HealthRecordUtils.int2kind(cursor.getInt(4)));

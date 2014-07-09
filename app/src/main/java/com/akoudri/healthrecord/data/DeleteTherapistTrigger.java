@@ -31,9 +31,9 @@ public class DeleteTherapistTrigger {
         sb.append("where ");
         sb.append(PersonTherapistTable.PT_THERAPIST_REF + "=" + "old." + TherapistTable.THERAPIST_ID);
         sb.append(";");
-        sb.append("delete from " + TreatmentTable.TREATMENT_TABLE + " ");
+        sb.append("delete from " + AilmentTable.AILMENT_TABLE + " ");
         sb.append("where ");
-        sb.append(TreatmentTable.TREATMENT_THERAPIST_REF + "=" + "old." + TherapistTable.THERAPIST_ID);
+        sb.append(AilmentTable.AILMENT_THERAPIST_REF + "=" + "old." + TherapistTable.THERAPIST_ID);
         sb.append(";");
         sb.append("end;");
         db.execSQL(sb.toString());

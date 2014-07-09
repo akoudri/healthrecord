@@ -209,7 +209,7 @@
     <string name="remove_appt_question">Voulez-vous vraiment supprimer ce rendez-vous ?</string>
     <string name="illness">Maladie</string>
     <string name="chronic">Chronique</string>
-    <string name="prescribedBy">Prescrit par</string>
+    <string name="prescribedBy">Soigné par</string>
     <string name="permanent">Permanent</string>
     <string name="start">Début</string>
     <string name="end">Fin</string>

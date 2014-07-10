@@ -66,7 +66,7 @@ public class TherapistFragment extends Fragment {
     {
         layout.removeAllViews();
         List<Therapist> allTherapists = new ArrayList<Therapist>();
-        int margin = 5;
+        int margin = 4;
         List<Integer> therapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         for (Integer i : therapistIds)
         {
@@ -75,10 +75,10 @@ public class TherapistFragment extends Fragment {
         if (allTherapists == null || allTherapists.size() == 0)
             return;
         Button editButton;
-        ImageButton removeButton, phoneButton;
+        ImageButton removeButton, phoneButton, cellphoneButton, smsButton, emailButton;
         TherapyBranch branch = null;
         String therapyBranch;
-        layout.setColumnCount(3);
+        layout.setColumnCount(5);
         int r = 0; //row index
         for (final Therapist p : allTherapists)
         {
@@ -87,16 +87,16 @@ public class TherapistFragment extends Fragment {
             therapyBranch = branch.getName();
             //add edit button
             rowSpec = GridLayout.spec(r);
-            colSpec = GridLayout.spec(0);
+            colSpec = GridLayout.spec(0,4);
             editButton = new Button(getActivity());
             editButton.setText(p.getName() + "\n" + therapyBranch);
             editButton.setTextSize(16);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            editButton.setMinEms(8);
-            editButton.setMaxEms(8);
+            editButton.setMinEms(12);
+            editButton.setMaxEms(12);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            Drawable img = getResources().getDrawable(R.drawable.doctor);
-            editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+            //Drawable img = getResources().getDrawable(R.drawable.doctor);
+            //editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -110,11 +110,11 @@ public class TherapistFragment extends Fragment {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
-            params.setGravity(Gravity.RIGHT);
+            params.setGravity(Gravity.CENTER);
             editButton.setLayoutParams(params);
             layout.addView(editButton);
             //add remove button
-            colSpec = GridLayout.spec(1);
+            colSpec = GridLayout.spec(4);
             removeButton = new ImageButton(getActivity());
             removeButton.setBackgroundResource(R.drawable.remove);
             removeButton.setOnClickListener(new View.OnClickListener() {
@@ -145,9 +145,11 @@ public class TherapistFragment extends Fragment {
             params.setGravity(Gravity.LEFT);
             removeButton.setLayoutParams(params);
             layout.addView(removeButton);
+            //Next line
+            r++;
             //Phone Button
-            //TODO: presentation with two lines - 4 columns: phone, cellphone, email, sms
-            colSpec = GridLayout.spec(2);
+            rowSpec = GridLayout.spec(r);
+            colSpec = GridLayout.spec(0);
             phoneButton = new ImageButton(getActivity());
             phoneButton.setBackgroundResource(R.drawable.phone);
             if (p.getPhoneNumber() != null) {
@@ -165,9 +167,77 @@ public class TherapistFragment extends Fragment {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
-            params.setGravity(Gravity.LEFT);
+            params.setGravity(Gravity.CENTER);
             phoneButton.setLayoutParams(params);
             layout.addView(phoneButton);
+            //Cellphone Button
+            colSpec = GridLayout.spec(1);
+            cellphoneButton = new ImageButton(getActivity());
+            cellphoneButton.setBackgroundResource(R.drawable.cellphone);
+            if (p.getCellPhoneNumber() != null) {
+                cellphoneButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + p.getCellPhoneNumber()));
+                        startActivity(intent);
+                    }
+                });
+            }
+            params = new GridLayout.LayoutParams(rowSpec, colSpec);
+            params.rightMargin = margin;
+            params.leftMargin = margin;
+            params.topMargin = margin;
+            params.bottomMargin = margin;
+            params.setGravity(Gravity.CENTER);
+            cellphoneButton.setLayoutParams(params);
+            layout.addView(cellphoneButton);
+            //Sms Button
+            colSpec = GridLayout.spec(2);
+            smsButton = new ImageButton(getActivity());
+            smsButton.setBackgroundResource(R.drawable.sms);
+            if (p.getPhoneNumber() != null) {
+                phoneButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //FIXME: send sms
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
+                        startActivity(intent);
+                    }
+                });
+            }
+            params = new GridLayout.LayoutParams(rowSpec, colSpec);
+            params.rightMargin = margin;
+            params.leftMargin = margin;
+            params.topMargin = margin;
+            params.bottomMargin = margin;
+            params.setGravity(Gravity.CENTER);
+            smsButton.setLayoutParams(params);
+            layout.addView(smsButton);
+            //Email Button
+            colSpec = GridLayout.spec(3);
+            emailButton = new ImageButton(getActivity());
+            emailButton.setBackgroundResource(R.drawable.email);
+            if (p.getEmail() != null) {
+                emailButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //FIXME: send an email
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
+                        startActivity(intent);
+                    }
+                });
+            }
+            params = new GridLayout.LayoutParams(rowSpec, colSpec);
+            params.rightMargin = margin;
+            params.leftMargin = margin;
+            params.topMargin = margin;
+            params.bottomMargin = margin;
+            params.setGravity(Gravity.CENTER);
+            emailButton.setLayoutParams(params);
+            layout.addView(emailButton);
             //next line
             r++;
         }

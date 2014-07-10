@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
     {
         layout.removeAllViews();
         List<Person> allPersons = dataSource.getPersonTable().getAllPersons();
-        int margin = 10;
+        int margin = 4;
         if (allPersons == null || allPersons.size() == 0)
             return;
         Button editButton;
@@ -119,11 +119,11 @@ public class MainActivity extends Activity {
             editButton.setText(p.getName());
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setTextSize(16);
-            editButton.setMinEms(8);
-            editButton.setMaxEms(8);
+            editButton.setMinEms(12);
+            editButton.setMaxEms(12);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            Drawable img = getResources().getDrawable(R.drawable.heart);
-            editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+            //Drawable img = getResources().getDrawable(R.drawable.heart);
+            //editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -137,7 +137,7 @@ public class MainActivity extends Activity {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
-            params.setGravity(Gravity.RIGHT);
+            params.setGravity(Gravity.CENTER);
             editButton.setLayoutParams(params);
             layout.addView(editButton);
             //add remove button
@@ -170,7 +170,7 @@ public class MainActivity extends Activity {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
-            params.setGravity(Gravity.LEFT);
+            params.setGravity(Gravity.CENTER);
             removeButton.setLayoutParams(params);
             layout.addView(removeButton);
             //next line

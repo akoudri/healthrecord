@@ -54,6 +54,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
         _cal = Calendar.getInstance();
         today = Calendar.getInstance();
         rects = new ArrayList<Rect>();

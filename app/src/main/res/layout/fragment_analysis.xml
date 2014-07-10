@@ -47,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:layout_weight="0.8"
+                android:minEms="5"
+                android:maxEms="5"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
                 android:cursorVisible="false"/>
@@ -57,7 +58,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="setMeasureStartDate"/>
         </LinearLayout>
@@ -83,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:inputType="date"
-                android:layout_weight="0.8"
+                android:minEms="5"
+                android:maxEms="5"
                 android:layout_gravity="center_vertical"
                 android:clickable="false"
                 android:cursorVisible="false"/>
@@ -93,7 +94,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
                 android:src="@drawable/calendar_idle"
                 android:onClick="setMeasureEndDate"/>
         </LinearLayout>
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
-            android:drawableRight="@drawable/analysis"/>
+            android:drawableRight="@drawable/eye"/>
 
     </LinearLayout>
 </ScrollView>

@@ -82,13 +82,13 @@ public class AilmentFragment extends Fragment {
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
             editButton = new Button(getActivity());
-            //FIXME: use localisation
-            String illnessName = (illness==null)?"Preventive Treatment":illness.getName();
+            String pt = getResources().getString(R.string.preventive_treatment);
+            String illnessName = (illness==null)?pt:illness.getName();
             editButton.setText(illnessName);
             editButton.setTextSize(16);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            editButton.setMinEms(8);
-            editButton.setMaxEms(8);
+            editButton.setMinEms(12);
+            editButton.setMaxEms(12);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -106,7 +106,7 @@ public class AilmentFragment extends Fragment {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
-            params.setGravity(Gravity.RIGHT);
+            params.setGravity(Gravity.CENTER);
             editButton.setLayoutParams(params);
             layout.addView(editButton);
             //remove button
@@ -139,7 +139,7 @@ public class AilmentFragment extends Fragment {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
-            params.setGravity(Gravity.LEFT);
+            params.setGravity(Gravity.CENTER);
             removeButton.setLayoutParams(params);
             layout.addView(removeButton);
             //next line

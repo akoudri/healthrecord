@@ -438,5 +438,6 @@
     <string name="number_of_ailments">Number of ailments</string>
     <string name="no_change">No change to save</string>
     <string name="data_saved">Data saved</string>
+    <string name="preventive_treatment">Preventive Treatment</string>
 
 </resources>

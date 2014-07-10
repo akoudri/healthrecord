@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   viewBox="0 0 282 282"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   width="100%"
+   height="100%"
+   sodipodi:docname="eye.svg">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1280"
+     inkscape:window-height="750"
+     id="namedview23"
+     showgrid="false"
+     inkscape:zoom="1.2756757"
+     inkscape:cx="141"
+     inkscape:cy="92.5"
+     inkscape:window-x="1440"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3842"
+       y2="290.48999"
+       gradientUnits="userSpaceOnUse"
+       y1="227.86"
+       x2="142.57001"
+       x1="142.64999">
+      <stop
+         id="stop3828"
+         stop-color="#fff"
+         offset="0" />
+      <stop
+         id="stop3830"
+         stop-color="#bbb"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3844"
+       y2="203.08"
+       gradientUnits="userSpaceOnUse"
+       y1="276.64999"
+       x2="128.57001"
+       x1="168.57001">
+      <stop
+         id="stop3790"
+         stop-color="#fff"
+         offset="0" />
+      <stop
+         id="stop3792"
+         stop-color="#fff"
+         stop-opacity="0"
+         offset="1" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3846"
+       y2="387.48999"
+       gradientUnits="userSpaceOnUse"
+       y1="347.51001"
+       x2="118.92"
+       x1="86.372002">
+      <stop
+         id="stop3798"
+         stop-color="#fff"
+         offset="0" />
+      <stop
+         id="stop3800"
+         stop-color="#fff"
+         stop-opacity=".22807"
+         offset="1" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-2,46.036105)">
+    <g
+       id="g3834"
+       transform="matrix(1.3278,0,0,1.3278,-47.684,-219.22)">
+      <path
+         id="path3824"
+         style="color:#000000;fill:url(#linearGradient3842)"
+         d="m 142.84,175.22 c -42.289,0 -78.752,24.841 -95.656,60.719 16.908,35.869 53.373,60.719 95.656,60.719 42.285,0 78.78,-24.847 95.688,-60.719 -16.904,-35.88 -53.396,-60.719 -95.688,-60.719 z"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3768"
+         style="text-indent:0;text-transform:none;block-progression:tb;color:#000000"
+         d="m 142.84,170.22 c -44.247,0 -82.481,26.013 -100.19,63.594 a 5.0005,5.0005 0 0 0 0,4.25 c 17.71,37.571 55.946,63.594 100.19,63.594 44.243,0 82.508,-26.018 100.22,-63.594 a 5.0005,5.0005 0 0 0 0,-4.25 c -17.7,-37.58 -55.97,-63.59 -100.22,-63.59 z m 0,10 c 39.461,0 73.434,22.733 89.969,55.719 -16.538,32.979 -50.515,55.719 -89.969,55.719 -39.452,0 -73.399,-22.74 -89.938,-55.719 16.535,-32.986 50.478,-55.719 89.938,-55.719 z"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3785"
+         style="text-indent:0;text-transform:none;block-progression:tb;color:#000000"
+         d="m 142.86,174.51 c -33.863,0 -61.429,27.566 -61.429,61.429 0,33.863 27.566,61.429 61.429,61.429 33.863,0 61.429,-27.566 61.429,-61.429 0,-33.863 -27.566,-61.429 -61.429,-61.429 z"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3783"
+         style="color:#000000;fill:url(#linearGradient3844)"
+         d="m 142.88,185.19 c -28.089,0 -50.75,22.661 -50.75,50.75 0,28.089 22.661,50.75 50.75,50.75 28.089,0 50.719,-22.661 50.719,-50.75 0,-28.089 -22.63,-50.75 -50.719,-50.75 z"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3775"
+         style="color:#000000"
+         transform="matrix(1.2517,0,0,1.2517,-44.001,-79.05)"
+         d="m 171.43,251.65 a 22.143,22.143 0 1 1 -44.286,0 22.143,22.143 0 1 1 44.286,0 z"
+         inkscape:connector-curvature="0" />
+      <path
+         id="path3777"
+         style="color:#000000;fill:url(#linearGradient3846)"
+         transform="matrix(0.76812,0,0,0.76812,46.514,-70.991)"
+         d="m 123.57,368.43 a 24.643,24.643 0 1 1 -49.286,0 24.643,24.643 0 1 1 49.286,0 z"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+  <metadata
+     id="metadata21">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Eye icon</dc:title>
+        <dc:date>2013-09-03T18:36:21</dc:date>
+        <dc:description>Oeil.</dc:description>
+        <dc:source>http://openclipart.org/detail/182888/eye-icon-by-justin-ternet-182888</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Justin Ternet</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>euil</rdf:li>
+            <rdf:li>eye</rdf:li>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>logo</rdf:li>
+            <rdf:li>oeil</rdf:li>
+            <rdf:li>pictograph</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

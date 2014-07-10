@@ -56,7 +56,7 @@ public class EditDayActivity extends Activity {
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.add(R.id.day_layout, ovFrag);
         fragTrans.commit();
-        currentFrag = measureFrag;
+        currentFrag = ovFrag;
     }
 
     @Override
@@ -164,7 +164,7 @@ public class EditDayActivity extends Activity {
     public void saveMeasures(View view)
     {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
-        measureFrag.saveMeasures(view);
+        measureFrag.saveMeasures();
     }
 
 }

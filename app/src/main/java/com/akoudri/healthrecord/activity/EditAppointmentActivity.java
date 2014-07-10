@@ -136,13 +136,19 @@ public class EditAppointmentActivity extends Activity {
         String comment = commentET.getText().toString();
         if (comment.equals("")) comment = null;
         Appointment a = new Appointment(appt.getPersonId(), therapistId, dayStr, hourStr, comment);
-        //FIXME: eventually deactivate save button -> also for other activities
-        if (! appt.equalsTo(a)) {
-            dataSource.getAppointmentTable().updateAppointment(apptId, therapistId, dayStr, hourStr, comment);
-            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT);
-            toast.show();
+        if (appt.equalsTo(a))
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+            return;
         }
-        finish();
+        a.setId(apptId);
+        boolean res = dataSource.getAppointmentTable().updateAppointment(apptId, therapistId, dayStr, hourStr, comment);
+        if (res)
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -154,8 +154,7 @@ public class CreateTherapistActivity extends Activity {
             else
             {
                 HealthRecordUtils.highlightActivityFields(this, nameET);
-                Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -208,8 +207,7 @@ public class CreateTherapistActivity extends Activity {
         if (notToHighlight.size() > 0)
             HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
         if (!res) {
-            Toast toast = Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         return res;
     }

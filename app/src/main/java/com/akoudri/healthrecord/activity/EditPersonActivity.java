@@ -115,9 +115,8 @@ public class EditPersonActivity extends Activity {
 
     public void addTherapist(View view)
     {
-        therapistsFrag.addTherapist(view);
+        therapistsFrag.addTherapist();
     }
-
 
     public void setMeasureStartDate(View view)
     {
@@ -127,5 +126,10 @@ public class EditPersonActivity extends Activity {
     public void setMeasureEndDate(View view)
     {
         analysisFrag.setMeasureEndDate();
+    }
+
+    public void updatePerson(View view)
+    {
+        personalFrag.updatePerson();
     }
 }

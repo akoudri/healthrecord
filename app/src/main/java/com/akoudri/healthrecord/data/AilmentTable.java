@@ -62,7 +62,7 @@ public class AilmentTable {
         if (therapistId >= 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
         values.put(AILMENT_START_DATE, startDate);
-        if (duration > 0)
+        if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
         if (comment != null)
             values.put(AILMENT_COMMENT, comment);
@@ -73,13 +73,18 @@ public class AilmentTable {
         ContentValues values = new ContentValues();
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
+        else values.putNull(AILMENT_ILLNESS_REF);
         if (therapistId >= 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
+        else values.putNull(AILMENT_THERAPIST_REF);
         values.put(AILMENT_START_DATE, startDate);
-        if (duration > 0)
+        if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
+        else
+            values.putNull(AILMENT_DURATION);
         if (comment != null)
             values.put(AILMENT_COMMENT, comment);
+        else values.putNull(AILMENT_COMMENT);
         return db.update(AILMENT_TABLE, values, AILMENT_ID + "=" + ailmentId, null) > 0;
     }
 

@@ -121,7 +121,7 @@ public class EditAilmentActivity extends Activity {
         startDateET.setText(ailment.getStartDate());
         int d = ailment.getDuration();
         if (d >= 0)
-        endDateET.setText(ailment.getDuration() + "");
+            endDateET.setText(ailment.getDuration() + "");
         commentET.setText(ailment.getComment());
         retrieveIllnesses();
         retrieveTherapists();
@@ -407,28 +407,40 @@ public class EditAilmentActivity extends Activity {
         else
             t = therapists.get(thPos-1);
         String sDate = startDateET.getText().toString();
-        ailment.setStartDate(sDate);
+        //ailment.setStartDate(sDate);
         int duration = -1;
         String d = endDateET.getText().toString();
         if (!d.equals("")) duration = Integer.parseInt(d);
-        ailment.setDuration(duration);
-        ailment.setIllnessId(illnessId);
+        //ailment.setDuration(duration);
+        //ailment.setIllnessId(illnessId);
+        /*
         if (t != null)
             ailment.setTherapistId(t.getId());
         else
             ailment.setTherapistId(0);
+            */
+        int thId = (t == null)?0:t.getId();
         String comment = commentET.getText().toString();
         if (comment.equals("")) comment = null;
-        ailment.setComment(comment);
-        //FIXME: detect change before updating db
-        dataSource.getAilmentTable().updateAilment(ailment);
-        MedicationTable table = dataSource.getMedicationTable();
-        for (Medication m : medications)
+        //ailment.setComment(comment);
+        Ailment a = new Ailment(ailment.getPersonId(), illnessId, thId, sDate, duration, comment);
+        if (ailment.equalsTo(a))
         {
-            m.setAilmentId(ailmentId);
-            table.insertMedication(m);
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+            return;
         }
-        finish();
+        a.setId(ailmentId);
+        boolean res = dataSource.getAilmentTable().updateAilment(a);
+        if (res) {
+            MedicationTable table = dataSource.getMedicationTable();
+            for (Medication m : medications) {
+                m.setAilmentId(ailmentId);
+                table.insertMedication(m);
+            }
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
     }
 
     public void editStartAilmentPickerDialog(View view)

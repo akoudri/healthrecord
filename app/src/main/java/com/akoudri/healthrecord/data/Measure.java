@@ -17,6 +17,21 @@ public class Measure {
     private int systolic;
     private int heartbeat;
 
+    public Measure() {}
+
+    public Measure(int personId, String date, double weight, int size, int cranialPerimeter, double temperature, double glucose, int diastolic, int systolic, int heartbeat) {
+        this.personId = personId;
+        this.date = date;
+        this.weight = weight;
+        this.size = size;
+        this.cranialPerimeter = cranialPerimeter;
+        this.temperature = temperature;
+        this.glucose = glucose;
+        this.diastolic = diastolic;
+        this.systolic = systolic;
+        this.heartbeat = heartbeat;
+    }
+
     public int getId() {
         return id;
     }
@@ -103,5 +118,18 @@ public class Measure {
 
     public void setHeartbeat(int heartbeat) {
         this.heartbeat = heartbeat;
+    }
+
+    public boolean equalsTo(Measure other)
+    {
+        return personId == other.getPersonId() && date.equals(other.getDate()) &&
+                weight == other.getWeight() && size == other.getSize() && cranialPerimeter == other.getCranialPerimeter() &&
+                temperature == other.getTemperature() && glucose == other.getGlucose() && diastolic == other.getDiastolic() &&
+                systolic == other.getSystolic() && heartbeat == other.getHeartbeat();
+    }
+
+    public boolean isNull(){
+        return weight == 0.0 && size == 0 && cranialPerimeter == 0 && temperature == 0.0 &&
+                glucose == 0.0 && diastolic == 0 && systolic == 0 && heartbeat == 0;
     }
 }

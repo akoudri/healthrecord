@@ -69,6 +69,8 @@ public class AppointmentTable {
         values.put(APPT_HOUR, hour);
         if (comment != null)
             values.put(APPT_COMMENT, comment);
+        else
+            values.putNull(APPT_COMMENT);
         return db.update(APPT_TABLE, values, APPT_ID + "=" + apptId, null) > 0;
     }
 

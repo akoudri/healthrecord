@@ -89,20 +89,36 @@ public class MeasureTable {
         ContentValues values = new ContentValues();
         if (weight > 0.0)
             values.put(MEASURE_WEIGHT, weight);
+        else
+            values.putNull(MEASURE_WEIGHT);
         if (size > 0)
             values.put(MEASURE_SIZE, size);
+        else
+            values.putNull(MEASURE_SIZE);
         if (cranialPerimeter > 0)
             values.put(MEASURE_CRANIAL_PERIMETER, cranialPerimeter);
+        else
+            values.putNull(MEASURE_CRANIAL_PERIMETER);
         if (temperature > 0.0)
             values.put(MEASURE_TEMPERATURE, temperature);
+        else
+            values.putNull(MEASURE_TEMPERATURE);
         if (glucose > 0.0)
             values.put(MEASURE_GLUCOSE, glucose);
+        else
+            values.putNull(MEASURE_GLUCOSE);
         if (diastolic > 0)
             values.put(MEASURE_DIASTOLIC, diastolic);
+        else
+            values.putNull(MEASURE_DIASTOLIC);
         if (systolic > 0)
             values.put(MEASURE_SYSTOLIC, systolic);
+        else
+            values.putNull(MEASURE_SYSTOLIC);
         if (heartbeat > 0)
             values.put(MEASURE_HEARTBEAT, heartbeat);
+        else
+            values.putNull(MEASURE_HEARTBEAT);
         return db.update(MEASURE_TABLE, values, MEASURE_PERSON_REF + "=" + personId + " and " + MEASURE_DATE + "='" + date + "'", null) > 0;
     }
 

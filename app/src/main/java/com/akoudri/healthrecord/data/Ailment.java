@@ -13,6 +13,17 @@ public class Ailment {
     private int duration;
     private String comment;
 
+    public Ailment() {}
+
+    public Ailment(int personId, int illnessId, int therapistId, String startDate, int duration, String comment) {
+        this.personId = personId;
+        this.illnessId = illnessId;
+        this.therapistId = therapistId;
+        this.startDate = startDate;
+        this.duration = duration;
+        this.comment = comment;
+    }
+
     public int getId() {
         return id;
     }
@@ -67,5 +78,13 @@ public class Ailment {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean equalsTo(Ailment other)
+    {
+        boolean checkComment = (comment == null)?other.comment == null:comment.equals(other.getComment());
+        return personId == other.getPersonId() && illnessId == other.getIllnessId() &&
+                therapistId == other.getTherapistId() && startDate.equals(other.getStartDate()) &&
+                duration == other.getDuration() && checkComment;
     }
 }

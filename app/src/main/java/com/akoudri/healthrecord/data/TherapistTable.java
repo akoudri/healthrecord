@@ -63,8 +63,11 @@ public class TherapistTable {
         ContentValues values = new ContentValues();
         values.put(THERAPIST_NAME, name);
         if (phoneNumber != null) values.put(THERAPIST_PHONENUMBER, phoneNumber);
+        else values.putNull(THERAPIST_PHONENUMBER);
         if (cellPhoneNumber != null) values.put(THERAPIST_CELLPHONENUMBER, cellPhoneNumber);
+        else values.putNull(THERAPIST_CELLPHONENUMBER);
         if (email != null) values.put(THERAPIST_EMAIL, email);
+        else values.putNull(THERAPIST_EMAIL);
         values.put(THERAPIST_BRANCHID, branchId);
         return db.update(THERAPIST_TABLE, values, THERAPIST_ID + "=" + therapistId, null) > 0;
     }

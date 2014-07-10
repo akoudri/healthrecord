@@ -68,6 +68,8 @@ public class PersonTable {
         values.put(PERSON_GENDER, gender.ordinal());
         if (ssn != null)
             values.put(PERSON_SSN, ssn);
+        else
+            values.putNull(PERSON_SSN);
         values.put(PERSON_BLOODTYPE, bloodType.ordinal());
         values.put(PERSON_BIRTHDATE, birthdate);
         return db.update(PERSON_TABLE, values, PERSON_ID + "=" + personId, null) > 0;

@@ -92,8 +92,7 @@ public class CreatePersonActivity extends Activity {
             if (id == -1)
             {
                 HealthRecordUtils.highlightActivityFields(this, nameET, ssnET);
-                Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT).show();
             }
             else {
                 finish();
@@ -130,8 +129,7 @@ public class CreatePersonActivity extends Activity {
         if (notToHighlight.size() > 0)
             HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
         if (!res) {
-            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         return res;
     }

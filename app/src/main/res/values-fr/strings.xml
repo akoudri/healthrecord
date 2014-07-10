@@ -244,5 +244,7 @@
     <string name="number_of_measures">Nombre de mesures</string>
     <string name="number_of_appt">Nombre de RV</string>
     <string name="number_of_ailments">Nombre de maladies</string>
+    <string name="no_change">Pas de changement à enregistrer</string>
+    <string name="data_saved">Données enregistrées</string>
 
 </resources>

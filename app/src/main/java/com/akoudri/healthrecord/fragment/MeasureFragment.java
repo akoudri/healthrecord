@@ -6,10 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Measure;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MeasureFragment extends Fragment {
@@ -83,35 +88,116 @@ public class MeasureFragment extends Fragment {
             hbET.setText(measure.getHeartbeat() + "");
     }
 
-    public void saveMeasures(View view)
+    public void saveMeasures()
     {
-        //TODO: make a diff between captured and saved measure to activate/deactivate save button
-        String str;
-        str = weightET.getText().toString();
-        double weight = (str.equalsIgnoreCase(""))?0.0:Double.parseDouble(str);
-        str = sizeET.getText().toString();
-        int size = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
-        str = cpET.getText().toString();
-        int cranialPerimeter = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
-        str = tempET.getText().toString();
-        double temperature = (str.equalsIgnoreCase(""))?0.0:Double.parseDouble(str);
-        str = glucoseET.getText().toString();
-        double glucose = (str.equalsIgnoreCase(""))?0.0:Double.parseDouble(str);
-        str = diaET.getText().toString();
-        int diastolic = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
-        str = sysET.getText().toString();
-        int systolic = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
-        str = hbET.getText().toString();
-        int heartbeat = (str.equalsIgnoreCase(""))?0:Integer.parseInt(str);
+        String weightStr = weightET.getText().toString();
+        String sizeStr = sizeET.getText().toString();
+        String cpStr = cpET.getText().toString();
+        String tempStr = tempET.getText().toString();
+        String glucoseStr = glucoseET.getText().toString();
+        String diaStr = diaET.getText().toString();
+        String sysStr = sysET.getText().toString();
+        String hbStr = hbET.getText().toString();
+        if (!checkFields(weightStr, sizeStr, cpStr, tempStr, glucoseStr, diaStr, sysStr, hbStr)) return;
+        double weight = (weightStr.equalsIgnoreCase(""))?0.0:Double.parseDouble(weightStr);
+        int size = (sizeStr.equalsIgnoreCase(""))?0:Integer.parseInt(sizeStr);
+        int cranialPerimeter = (cpStr.equalsIgnoreCase(""))?0:Integer.parseInt(cpStr);
+        double temperature = (tempStr.equalsIgnoreCase(""))?0.0:Double.parseDouble(tempStr);
+        double glucose = (glucoseStr.equalsIgnoreCase(""))?0.0:Double.parseDouble(glucoseStr);
+        int diastolic = (diaStr.equalsIgnoreCase(""))?0:Integer.parseInt(diaStr);
+        int systolic = (sysStr.equalsIgnoreCase(""))?0:Integer.parseInt(sysStr);
+        int heartbeat = (hbStr.equalsIgnoreCase(""))?0:Integer.parseInt(hbStr);
         String date = String.format("%02d/%02d/%04d", day, month + 1, year);
         if (measure == null)
         {
-            dataSource.getMeasureTable().insertMeasure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+            Measure m = new Measure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+            if (m.isNull())
+            {
+                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                dataSource.getMeasureTable().insertMeasure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
+            }
         }
         else
         {
-            dataSource.getMeasureTable().updateMeasureWithDate(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+            Measure m = new Measure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+            if (!measure.equalsTo(m))
+            {
+                dataSource.getMeasureTable().updateMeasureWithDate(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+                measure.setWeight(weight);
+                measure.setSize(size);
+                measure.setCranialPerimeter(cranialPerimeter);
+                measure.setTemperature(temperature);
+                measure.setGlucose(glucose);
+                measure.setDiastolic(diastolic);
+                measure.setSystolic(systolic);
+                measure.setHeartbeat(heartbeat);
+                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    private boolean checkFields(String weight, String size, String cp, String temp, String glucose, String dia, String sys, String hb)
+    {
+        boolean res = true;
+        List<EditText> toHighlight = new ArrayList<EditText>();
+        List<EditText> notToHighlight = new ArrayList<EditText>();
+        //Check weight
+        boolean checkWeight = (weight.equals("") || weight.matches("\\d{1,3}(\\.\\d{1,2})?"));
+        res = res && checkWeight;
+        if (!checkWeight) toHighlight.add(weightET);
+        else notToHighlight.add(weightET);
+        //check size
+        boolean checkSize = (size.equals("") || size.matches("\\d{2,3}"));
+        res = res && checkSize;
+        if (!checkSize) toHighlight.add(sizeET);
+        else notToHighlight.add(sizeET);
+        //check cp
+        boolean checkCP = (cp.equals("") || cp.matches("\\d{2}"));
+        res = res && checkCP;
+        if (!checkCP) toHighlight.add(cpET);
+        else notToHighlight.add(cpET);
+        //check temp
+        boolean checkTemp = (temp.equals("") || temp.matches("\\d{2}(\\.\\d{1})?"));
+        res = res && checkTemp;
+        if (!checkTemp) toHighlight.add(tempET);
+        else notToHighlight.add(tempET);
+        //check glucose
+        boolean checkGlucose = (glucose.equals("") || glucose.matches("\\d{1}(\\.\\d{1,2})?"));
+        res = res && checkGlucose;
+        if (!checkGlucose) toHighlight.add(glucoseET);
+        else notToHighlight.add(glucoseET);
+        //check dia
+        boolean checkDia = (dia.equals("") || dia.matches("\\d{1,2}"));
+        res = res && checkDia;
+        if (!checkDia) toHighlight.add(diaET);
+        else notToHighlight.add(diaET);
+        //check sys
+        boolean checkSys = (sys.equals("") || sys.matches("\\d{1,2}"));
+        res = res && checkSys;
+        if (!checkSys) toHighlight.add(sysET);
+        else notToHighlight.add(sysET);
+        //check hb
+        boolean checkHB = (hb.equals("") || hb.matches("\\d{2,3}"));
+        res = res && checkHB;
+        if (!checkHB) toHighlight.add(hbET);
+        else notToHighlight.add(hbET);
+        //display
+        if (toHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(getActivity(), toHighlight, true);
+        if (notToHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(getActivity(), notToHighlight, false);
+        if (!res) {
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        return res;
     }
 
 }

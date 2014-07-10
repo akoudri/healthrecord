@@ -85,8 +85,12 @@ public class MedicationTable {
         values.put(MEDICATION_KIND, kind.ordinal());
         if (startDate != null)
             values.put(MEDICATION_START_DATE, startDate);
+        else
+            values.putNull(MEDICATION_START_DATE);
         if (duration > 0)
             values.put(MEDICATION_DURATION, duration);
+        else
+            values.putNull(MEDICATION_DURATION);
         return db.update(MEDICATION_TABLE, values, MEDICATION_ID + "=" + medicationId, null) > 0;
     }
 

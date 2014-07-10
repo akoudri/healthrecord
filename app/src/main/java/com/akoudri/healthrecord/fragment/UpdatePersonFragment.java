@@ -70,15 +70,6 @@ public class UpdatePersonFragment extends Fragment {
         fillWidgets();
     }
 
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        if (personId == 0) return;
-        if (dataSource == null) return;
-        updatePerson();
-    }
-
     public void setDataSource(HealthRecordDataSource dataSource)
     {
         this.dataSource = dataSource;
@@ -98,8 +89,10 @@ public class UpdatePersonFragment extends Fragment {
         btSpinner.setSelection(person.getBloodType().ordinal());
     }
 
-    private void updatePerson()
+    public void updatePerson()
     {
+        if (personId == 0) return;
+        if (dataSource == null) return;
         String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) getActivity().findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
@@ -113,20 +106,26 @@ public class UpdatePersonFragment extends Fragment {
         BloodType bt = HealthRecordUtils.int2bloodType(btSpinner.getSelectedItemPosition());
         String birthdate = birthdateET.getText().toString();
         if (checkFields(name, ssn)) {
-            Person p = new Person(name, gender, ssn, bt, birthdate);
-            if (person.equalsTo(p)) return; //No changes occurred
             if (ssn.equals("")) ssn = null;
+            Person p = new Person(name, gender, ssn, bt, birthdate);
+            if (person.equalsTo(p)){
+                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return; //No changes occurred
+            }
             boolean res = dataSource.getPersonTable().updatePerson(person.getId(), name,
                     gender, ssn, bt, birthdate);
             if (res)
             {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT);
-                toast.show();
+                person.setName(name);
+                person.setGender(gender);
+                person.setSsn(ssn);
+                person.setBloodType(bt);
+                person.setBirthdate(birthdate);
+                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -154,8 +153,7 @@ public class UpdatePersonFragment extends Fragment {
         if (notToHighlight.size() > 0)
             HealthRecordUtils.highlightActivityFields(getActivity(), notToHighlight, false);
         if (!res) {
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         return res;
     }

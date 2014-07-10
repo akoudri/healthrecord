@@ -173,7 +173,7 @@ public class TherapistFragment extends Fragment {
         }
     }
 
-    public void addTherapist(View view)
+    public void addTherapist()
     {
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");
         intent.putExtra("personId", personId);

@@ -98,7 +98,6 @@ public class EditTherapistActivity extends Activity {
 
     public void updateTherapist(View view)
     {
-        //FIXME: check whether it is possible to deactivate return button in case of invalid data
         if (thId == 0) return;
         if (!dataSourceLoaded) return;
         String name = nameET.getText().toString();
@@ -115,13 +114,18 @@ public class EditTherapistActivity extends Activity {
             if (cellPhoneNumber.equals("")) cellPhoneNumber = null;
             if (email.equals("")) email = null;
             Therapist t = new Therapist(name, phoneNumber, cellPhoneNumber, email, branchId);
-            if (therapist.equalsTo(t)) return;
+            if (therapist.equalsTo(t)) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            }
             boolean hasUpdated = dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, cellPhoneNumber, email, branchId);
-            if (hasUpdated) finish();
+            if (hasUpdated) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
+                finish();
+            }
             else {
                 HealthRecordUtils.highlightActivityFields(this, nameET);
-                Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT);
-                toast.show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.db_warning), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -174,8 +178,7 @@ public class EditTherapistActivity extends Activity {
         if (notToHighlight.size() > 0)
             HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
         if (!res) {
-            Toast toast = Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         return res;
     }

@@ -49,7 +49,6 @@ public class HealthRecordDataSource {
         therapistTable = new TherapistTable(db);
         personTherapistTable = new PersonTherapistTable(db);
         appointmentTable = new AppointmentTable(db);
-        //ailmentTable = new AilmentTable(db);
         ailmentTable = new AilmentTable(db);
         medicationTable = new MedicationTable(db);
         drugTable = new DrugTable(db);
@@ -87,11 +86,6 @@ public class HealthRecordDataSource {
     {
         return appointmentTable;
     }
-
-//    public AilmentTable getAilmentTable()
-//    {
-//        return ailmentTable;
-//    }
 
     public AilmentTable getAilmentTable() {
         return ailmentTable;

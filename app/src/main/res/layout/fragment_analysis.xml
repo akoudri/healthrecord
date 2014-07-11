@@ -10,35 +10,46 @@
         android:padding="2dp"
         android:alignmentMode="alignBounds">
 
-        <TextView
-            android:text="@string/type"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/measure_choice"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="fill_horizontal"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:text="@string/start"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="left"
-            android:textStyle="bold" />
+            <TextView
+                android:text="@string/type"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:minEms="5"
+                android:maxEms="5"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/measure_choice"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/start"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:minEms="5"
+                android:maxEms="5"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/start_measure"
@@ -63,19 +74,21 @@
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
-        <TextView
-            android:text="@string/end"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/end"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:minEms="5"
+                android:maxEms="5"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/end_measure"

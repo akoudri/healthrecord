@@ -397,14 +397,14 @@
     <string name="add_rv">Add Appointment</string>
     <string name="add_ailment">Add Ailment</string>
     <string name="add_treatment">Add Treatment</string>
-    <string name="hour">Hour</string>
+    <string name="hour">Hour: </string>
     <string name="remove_appt_question">Are you sure you want to remove this appointment ?</string>
     <string name="illness">Illness</string>
     <string name="chronic">Chronic</string>
-    <string name="prescribedBy">Treated by</string>
+    <string name="prescribedBy">Treated by: </string>
     <string name="permanent">Permanent</string>
-    <string name="start">Start</string>
-    <string name="end">End</string>
+    <string name="start">Start: </string>
+    <string name="end">End: </string>
     <string name="drugs">Drugs</string>
     <string name="times">times / </string>
     <string name="frequency">Frequency</string>
@@ -416,9 +416,9 @@
         <item>Year</item>
         <item>Life</item>
     </string-array>
-    <string name="date">Date</string>
-    <string name="with">With</string>
-    <string name="type">Type</string>
+    <string name="date">Date: </string>
+    <string name="with">With: </string>
+    <string name="type">Type: </string>
     <string name="display">Display</string>
     <string name="db_warning">You are violating the uniqueness of some values in the database !</string>
     <string name="ok">OK</string>
@@ -428,7 +428,7 @@
     <string name="cell_phone_number">Cell Phone Number</string>
     <string name="email_address">Email Address</string>
     <string name="comment">Comment</string>
-    <string name="duration">Duration</string>
+    <string name="duration">Duration: </string>
     <string name="number_of_days">day(s)</string>
     <string name="med_req">Provide at least one medic!</string>
     <string name="self">Self</string>
@@ -440,5 +440,7 @@
     <string name="data_saved">Data saved</string>
     <string name="preventive_treatment">Preventive Treatment</string>
     <string name="no_therapist_found">No therapist found</string>
+    <string name="add_existing_therapist">Add existing therapist</string>
+    <string name="add_new_therapist">Add new therapist</string>
 
 </resources>

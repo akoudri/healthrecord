@@ -72,8 +72,7 @@ public class CreateAppointmentActivity extends Activity {
         super.onPause();
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
         if (!dataSourceLoaded) return;
-        if (dataSourceLoaded)
-            dataSource.close();
+        dataSource.close();
         dataSourceLoaded = false;
     }
     private void retrieveTherapists()

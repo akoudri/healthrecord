@@ -205,14 +205,14 @@
     <string name="add_rv">Ajouter Rendez-Vous</string>
     <string name="add_ailment">Ajouter Maladie</string>
     <string name="add_treatment">Ajouter Traitement</string>
-    <string name="hour">Heure</string>
+    <string name="hour">Heure: </string>
     <string name="remove_appt_question">Voulez-vous vraiment supprimer ce rendez-vous ?</string>
     <string name="illness">Maladie</string>
     <string name="chronic">Chronique</string>
-    <string name="prescribedBy">Soigné par</string>
+    <string name="prescribedBy">Soigné par: </string>
     <string name="permanent">Permanent</string>
-    <string name="start">Début</string>
-    <string name="end">Fin</string>
+    <string name="start">Début: </string>
+    <string name="end">Fin: </string>
     <string name="drugs">Médicaments</string>
     <string name="times">fois / </string>
     <string name="frequency">Fréquence</string>
@@ -224,9 +224,9 @@
         <item>An</item>
         <item>Vie</item>
     </string-array>
-    <string name="date">Date</string>
-    <string name="with">Avec</string>
-    <string name="type">Type</string>
+    <string name="date">Date: </string>
+    <string name="with">Avec: </string>
+    <string name="type">Type: </string>
     <string name="display">Afficher</string>
     <string name="db_warning">Vos informations violent l\'unicité des données de la base de données!</string>
     <string name="ok">OK</string>
@@ -236,7 +236,7 @@
     <string name="cell_phone_number">Numéro de portable</string>
     <string name="email_address">Courriel</string>
     <string name="comment">Commentaire</string>
-    <string name="duration">Durée</string>
+    <string name="duration">Durée: </string>
     <string name="number_of_days">jour(s)</string>
     <string name="med_req">Veuillez ajouter au moins un médicament</string>
     <string name="self">Moi-même</string>
@@ -248,5 +248,7 @@
     <string name="data_saved">Données enregistrées</string>
     <string name="preventive_treatment">Traitement Préventif</string>
     <string name="no_therapist_found">Pas de spécialiste trouvé</string>
+    <string name="add_existing_therapist">Ajout d\'un spécialiste existant</string>
+    <string name="add_new_therapist">Ajout d\'un nouveau spécialiste</string>
 
 </resources>

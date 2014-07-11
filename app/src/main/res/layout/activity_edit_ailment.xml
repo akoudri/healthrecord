@@ -45,19 +45,21 @@
             android:layout_margin="5dp"
             android:layout_gravity="fill_horizontal"/>
 
-        <TextView
-            android:text="@string/start"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="left"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/start"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:minEms="4"
+                android:maxEms="4"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edit_start_ailment"
@@ -81,19 +83,21 @@
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
-        <TextView
-            android:text="@string/duration"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/duration"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:minEms="4"
+                android:maxEms="4"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edit_end_ailment"
@@ -140,7 +144,8 @@
                 android:layout_gravity="left|top"
                 android:layout_weight="0.2"
                 android:src="@drawable/plus"
-                android:onClick="editAddMedic"/>
+                android:onClick="editAddMedic"
+                style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 

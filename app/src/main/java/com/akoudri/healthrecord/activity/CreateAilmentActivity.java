@@ -166,14 +166,15 @@ public class CreateAilmentActivity extends Activity {
             //Linear Layout
             linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
             medicsLayout.addView(linearLayout);
             //Text View
             editButton = new Button(this);
             final String name = dataSource.getDrugTable().getDrugWithId(medic.getDrugId()).getName();
             editButton.setText(name);
             editButton.setTextSize(16);
-            editButton.setMinEms(8);
-            editButton.setMaxEms(8);
+            editButton.setMinEms(10);
+            editButton.setMaxEms(10);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             editButton.setOnClickListener(new View.OnClickListener() {
@@ -191,14 +192,12 @@ public class CreateAilmentActivity extends Activity {
                     startActivityForResult(intent, reqEditCode);
                 }
             });
-            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            llparams.gravity = Gravity.LEFT|Gravity.CENTER;
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams.gravity = Gravity.CENTER_VERTICAL;
             //llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
             //llparams.topMargin = margin;
             llparams.rightMargin = margin;
-            //FIXME: arbitrary value, see LinearLayout API
-            llparams.weight = 0.25f;
             editButton.setLayoutParams(llparams);
             linearLayout.addView(editButton);
             //Remove Button
@@ -224,10 +223,8 @@ public class CreateAilmentActivity extends Activity {
                             .show();
                 }
             });
-            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            //FIXME: arbitrary value, see LinearLayout API
-            llparams.weight = 0.75f;
-            llparams.gravity = Gravity.LEFT|Gravity.CENTER;
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams.gravity = Gravity.CENTER_VERTICAL;
             //llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
             //llparams.topMargin = margin;

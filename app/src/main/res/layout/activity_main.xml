@@ -18,7 +18,6 @@
             android:layout_gravity="center"
             android:text="@string/add_person"
             android:textSize="18dp"
-            android:drawableRight="@drawable/plus"
             android:onClick="addPerson"/>
 
         <GridLayout

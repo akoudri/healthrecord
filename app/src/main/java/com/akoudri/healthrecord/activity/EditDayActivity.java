@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
@@ -125,7 +126,14 @@ public class EditDayActivity extends Activity {
 
     public void displayRV(View view)
     {
+        if (!dataSourceLoaded) return;
         if (currentFrag == apptFrag) return;
+        int count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
+        if (count == 0)
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_therapist_found), Toast.LENGTH_SHORT).show();
+            return;
+        }
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, apptFrag);
         fragTrans.commit();

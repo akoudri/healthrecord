@@ -191,8 +191,7 @@ public class EditMedicationActivity extends Activity {
         if (notToHighlight.size() > 0)
             HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
         if (!res) {
-            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         return res;
     }

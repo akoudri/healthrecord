@@ -247,5 +247,6 @@
     <string name="no_change">Pas de changement à enregistrer</string>
     <string name="data_saved">Données enregistrées</string>
     <string name="preventive_treatment">Traitement Préventif</string>
+    <string name="no_therapist_found">Pas de spécialiste trouvé</string>
 
 </resources>

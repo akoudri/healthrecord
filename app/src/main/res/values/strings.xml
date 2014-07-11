@@ -439,5 +439,6 @@
     <string name="no_change">No change to save</string>
     <string name="data_saved">Data saved</string>
     <string name="preventive_treatment">Preventive Treatment</string>
+    <string name="no_therapist_found">No therapist found</string>
 
 </resources>

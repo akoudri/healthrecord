@@ -59,7 +59,8 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar_idle"
-                android:onClick="setMeasureStartDate"/>
+                android:onClick="setMeasureStartDate"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <TextView
@@ -95,7 +96,8 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar_idle"
-                android:onClick="setMeasureEndDate"/>
+                android:onClick="setMeasureEndDate"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <Button

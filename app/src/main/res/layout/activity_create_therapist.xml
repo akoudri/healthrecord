@@ -30,7 +30,8 @@
                 android:layout_weight="0.2"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/plus"
-                android:onClick="addExistingTherapist"/>
+                android:onClick="addExistingTherapist"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <View

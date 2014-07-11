@@ -21,11 +21,8 @@ public class EditPersonActivity extends Activity {
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
     private int personId;
+    private int numFrag;
 
-    private CalendarFragment calendarFrag;
-    private TherapistFragment therapistsFrag;
-    private UpdatePersonFragment personalFrag;
-    private AnalysisFragment analysisFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
 
@@ -37,14 +34,21 @@ public class EditPersonActivity extends Activity {
         setContentView(R.layout.activity_edit_person);
         dataSource = new HealthRecordDataSource(this);
         personId = getIntent().getIntExtra("personId", 0);
-        calendarFrag = CalendarFragment.newInstance();
-        therapistsFrag = TherapistFragment.newInstance();
-        personalFrag = UpdatePersonFragment.newInstance();
-        analysisFrag = AnalysisFragment.newInstance();
+        numFrag = getIntent().getIntExtra("numFrag", 0);
+        switch (numFrag)
+        {
+            case 0:
+                currentFrag = UpdatePersonFragment.newInstance(); break;
+            case 1:
+                currentFrag = CalendarFragment.newInstance(); break;
+            case 2:
+                currentFrag = TherapistFragment.newInstance(); break;
+            default:
+                currentFrag = AnalysisFragment.newInstance();
+        }
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.add(R.id.day_layout, calendarFrag);
+        fragTrans.add(R.id.day_layout, currentFrag);
         fragTrans.commit();
-        currentFrag = calendarFrag;
     }
 
     @Override
@@ -54,8 +58,10 @@ public class EditPersonActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            therapistsFrag.setDataSource(dataSource);
-            personalFrag.setDataSource(dataSource);
+            if (numFrag == 0)
+                ((UpdatePersonFragment)currentFrag).setDataSource(dataSource);
+            if (numFrag == 2)
+                ((TherapistFragment)currentFrag).setDataSource(dataSource);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,64 +78,29 @@ public class EditPersonActivity extends Activity {
         }
     }
 
-    public void displayCalendar(View view)
-    {
-        if (currentFrag == calendarFrag) return;
-        fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, calendarFrag);
-        fragTrans.commit();
-        currentFrag = calendarFrag;
-    }
-
-    public void displayTherapists(View view)
-    {
-        if (currentFrag == therapistsFrag) return;
-        fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, therapistsFrag);
-        fragTrans.commit();
-        currentFrag = therapistsFrag;
-    }
-
-    public void displayData(View view)
-    {
-        if (currentFrag == personalFrag) return;
-        fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, personalFrag);
-        fragTrans.commit();
-        currentFrag = personalFrag;
-    }
-
-    public void displayAnalysis(View view)
-    {
-        if (currentFrag == analysisFrag) return;
-        fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, analysisFrag);
-        fragTrans.commit();
-        currentFrag = analysisFrag;
-    }
-
     public void pickUpdateBirthdate(View view)
     {
-        personalFrag.pickUpdateBirthdate();
+        ((UpdatePersonFragment)currentFrag).pickUpdateBirthdate();
     }
 
     public void addTherapist(View view)
     {
-        therapistsFrag.addTherapist();
+        ((TherapistFragment)currentFrag).addTherapist();
     }
 
     public void setMeasureStartDate(View view)
     {
-        analysisFrag.setMeasureStartDate();
+        ((AnalysisFragment)currentFrag).setMeasureStartDate();
     }
 
     public void setMeasureEndDate(View view)
     {
-        analysisFrag.setMeasureEndDate();
+        ((AnalysisFragment)currentFrag).setMeasureEndDate();
     }
 
     public void updatePerson(View view)
     {
-        personalFrag.updatePerson();
+        ((UpdatePersonFragment)currentFrag).updatePerson();
+        finish();
     }
 }

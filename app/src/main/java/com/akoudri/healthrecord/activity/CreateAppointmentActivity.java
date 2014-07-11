@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ public class CreateAppointmentActivity extends Activity {
 
     private EditText hourET, commentET;
     private Spinner thSpinner;
-    
+
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
     private List<Therapist> therapists;
@@ -57,6 +58,8 @@ public class CreateAppointmentActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
+            //we assume here that if this activity has been loaded
+            //then there is at least one therapist
             retrieveTherapists();
             fillWidgets();
         } catch (SQLException e) {
@@ -70,7 +73,7 @@ public class CreateAppointmentActivity extends Activity {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
         if (!dataSourceLoaded) return;
         if (dataSourceLoaded)
-        dataSource.close();
+            dataSource.close();
         dataSourceLoaded = false;
     }
     private void retrieveTherapists()
@@ -91,23 +94,14 @@ public class CreateAppointmentActivity extends Activity {
     {
         String[] therapistsStr;
         selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
-        if (therapists.size() > 0) {
-            therapistsStr = new String[therapists.size()];
-            int i = 0;
-            TherapyBranch branch;
-            String therapyBranchStr;
-            for (Therapist t : therapists) {
-                branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
-                therapyBranchStr = branch.getName();
-                therapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
-            }
-        }
-        else
-        {
-            //FIXME: put appropriate string
-            String s = getResources().getString(R.string.no_other_therapist);
-            therapistsStr = new String[]{s};
-            //TODO: deactivate add button
+        therapistsStr = new String[therapists.size()];
+        int i = 0;
+        TherapyBranch branch;
+        String therapyBranchStr;
+        for (Therapist t : therapists) {
+            branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
+            therapyBranchStr = branch.getName();
+            therapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
         }
         ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistsStr);
         thSpinner.setAdapter(thChoicesAdapter);
@@ -124,7 +118,6 @@ public class CreateAppointmentActivity extends Activity {
     {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
         if (!dataSourceLoaded) return;
-        //TODO: check values
         int thPos = thSpinner.getSelectedItemPosition();
         int therapistId = thIds.get(thPos);
         String hourStr = hourET.getText().toString();

@@ -43,7 +43,8 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar_idle"
-                android:onClick="updateAppointmentDay"/>
+                android:onClick="updateAppointmentDay"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <TextView
@@ -78,7 +79,8 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/rv"
-                android:onClick="updateAppointmentHour"/>
+                android:onClick="updateAppointmentHour"
+                style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/cellphone_idle" android:state_pressed="false"/>
+    <item android:drawable="@drawable/cellphone_pressed" android:state_pressed="true"/>
+    <item android:drawable="@drawable/cellphone_disabled" android:state_enabled="false"/>
+</selector>

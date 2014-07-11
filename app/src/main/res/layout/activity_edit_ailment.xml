@@ -77,7 +77,8 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar_idle"
-                android:onClick="editStartAilmentPickerDialog"/>
+                android:onClick="editStartAilmentPickerDialog"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <TextView

@@ -62,7 +62,8 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar_idle"
-                android:onClick="pickBirthdate"/>
+                android:onClick="pickBirthdate"
+                style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
         <TextView

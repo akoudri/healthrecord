@@ -61,6 +61,16 @@ public class PersonTherapistTable {
         return db.delete(PERSON_THERAPIST_TABLE, req, null) > 0;
     }
 
+    public int countTherapistsForPerson(int personId)
+    {
+        String req = "select count(*) from " + PERSON_THERAPIST_TABLE + " where " + PT_PERSON_REF + "=" + personId;
+        Cursor count = db.rawQuery(req, null);
+        if (!count.moveToFirst()) return 0;
+        int res = count.getInt(0);
+        count.close();
+        return res;
+    }
+
     public List<Integer> getTherapistIdsForPersonId(int personId)
     {
         List<Integer> res = new ArrayList<Integer>();

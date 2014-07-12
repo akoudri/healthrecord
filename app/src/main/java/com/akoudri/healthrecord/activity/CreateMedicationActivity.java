@@ -48,6 +48,7 @@ public class CreateMedicationActivity extends Activity {
         freqSpinner.setSelection(1);
         timesET = (EditText) findViewById(R.id.times_medic);
         beginMedicET = (EditText) findViewById(R.id.begin_medic);
+        beginMedicET.setKeyListener(null);
         endMedicET = (EditText) findViewById(R.id.end_medic);
     }
 

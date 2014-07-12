@@ -79,6 +79,7 @@ public class EditAilmentActivity extends Activity {
             }
         });
         startDateET = (EditText) findViewById(R.id.edit_start_ailment);
+        startDateET.setKeyListener(null);
         endDateET = (EditText) findViewById(R.id.edit_end_ailment);
         commentET = (EditText) findViewById(R.id.update_ailment_comment);
         medicsLayout = (LinearLayout) findViewById(R.id.edit_medics_layout);

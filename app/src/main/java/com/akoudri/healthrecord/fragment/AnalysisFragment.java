@@ -32,7 +32,9 @@ public class AnalysisFragment extends Fragment {
         ArrayAdapter<String> measureChoicesAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, measureChoices);
         measureSpinner.setAdapter(measureChoicesAdapter);
         startET = (EditText) view.findViewById(R.id.start_measure);
+        startET.setKeyListener(null);
         endET = (EditText) view.findViewById(R.id.end_measure);
+        endET.setKeyListener(null);
         //TODO: add number of points ?
         return view;
     }

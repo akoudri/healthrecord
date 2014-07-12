@@ -46,6 +46,7 @@ public class CreatePersonActivity extends Activity {
         genderRG = (RadioGroup) findViewById(R.id.gender_add);
         ssnET = (EditText) findViewById(R.id.ssn_add);
         birthdateET = (EditText) findViewById(R.id.birthdate_add);
+        birthdateET.setKeyListener(null);
         dataSource = new HealthRecordDataSource(this);
     }
 

@@ -58,6 +58,7 @@ public class UpdatePersonFragment extends Fragment {
         maleBtn = (RadioButton) view.findViewById(R.id.male_update_frag);
         femaleBtn = (RadioButton) view.findViewById(R.id.female_update_frag);
         birthdateET = (EditText) view.findViewById(R.id.birthdate_update_frag);
+        birthdateET.setKeyListener(null);
         return view;
     }
 

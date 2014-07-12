@@ -41,6 +41,7 @@ public class CreateAppointmentActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_appointment);
         hourET = (EditText) findViewById(R.id.select_appt_hour);
+        hourET.setKeyListener(null);
         commentET = (EditText) findViewById(R.id.add_appt_comment);
         commentET = (EditText) findViewById(R.id.add_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_select);

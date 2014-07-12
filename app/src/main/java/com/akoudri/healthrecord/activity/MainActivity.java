@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -124,8 +125,8 @@ public class MainActivity extends Activity {
             personButton.setMinEms(14);
             personButton.setMaxEms(14);
             personButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //Drawable img = getResources().getDrawable(R.drawable.heart);
-            //personButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+            Drawable img = getResources().getDrawable(R.drawable.heart);
+            personButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             personButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

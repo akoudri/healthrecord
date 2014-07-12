@@ -42,7 +42,9 @@ public class EditAppointmentActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_appointment);
         dayET = (EditText) findViewById(R.id.day_appt_update);
+        dayET.setKeyListener(null);
         hourET = (EditText) findViewById(R.id.update_appt_hour);
+        hourET.setKeyListener(null);
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
         dataSource = new HealthRecordDataSource(this);

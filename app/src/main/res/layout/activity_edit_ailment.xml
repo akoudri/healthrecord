@@ -69,9 +69,8 @@
                 android:layout_margin="5dp"
                 android:inputType="date"
                 android:minEms="5"
-                android:layout_gravity="center_vertical"
-                android:clickable="false"
-                android:cursorVisible="false"/>
+                android:maxEms="5"
+                android:layout_gravity="center_vertical"/>
 
             <ImageButton
                 android:layout_width="wrap_content"

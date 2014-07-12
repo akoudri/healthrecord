@@ -14,7 +14,7 @@
     <string name="blood_type">Blood Type</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
-    <string name="update">Update Profile</string>
+    <string name="update">Update</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="manage_ailments">Ailments</string>
@@ -443,5 +443,6 @@
     <string name="add_existing_therapist">Add existing therapist</string>
     <string name="add_new_therapist">Add new therapist</string>
     <string name="add_drug">Add drug </string>
+    <string name="stop">Stop</string>
 
 </resources>

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ public class AilmentFragment extends Fragment {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+
+    private int aId = 0;
 
     public static AilmentFragment newInstance()
     {
@@ -63,15 +66,14 @@ public class AilmentFragment extends Fragment {
 
     private void createWidgets()
     {
-        //TODO: put the stop button
         layout.removeAllViews();
         final String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<Ailment> dayAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, date);
         if (dayAilments == null || dayAilments.size() == 0) return;
-        int margin = 5;
-        Button editButton;
-        ImageButton endButton, removeButton;
-        layout.setColumnCount(2);
+        int margin = 1;
+        Button ailmentButton, editButton, stopButton, removeButton;
+        ImageButton rButton;
+        layout.setColumnCount(3);
         IllnessTable illnessTable = dataSource.getIllnessTable();
         int r = 0; //row index
         for (final Ailment ailment : dayAilments)
@@ -80,25 +82,23 @@ public class AilmentFragment extends Fragment {
             final Illness illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
             //edit_idle button
             rowSpec = GridLayout.spec(r);
-            colSpec = GridLayout.spec(0);
-            editButton = new Button(getActivity());
+            colSpec = GridLayout.spec(0,3);
+            ailmentButton = new Button(getActivity());
             String pt = getResources().getString(R.string.preventive_treatment);
             String illnessName = (illness==null)?pt:illness.getName();
-            editButton.setText(illnessName);
-            editButton.setTextSize(16);
-            editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            editButton.setMinEms(12);
-            editButton.setMaxEms(12);
-            editButton.setBackgroundResource(R.drawable.healthrecord_button);
-            editButton.setOnClickListener(new View.OnClickListener() {
+            ailmentButton.setText(illnessName);
+            ailmentButton.setTextSize(16);
+            ailmentButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            ailmentButton.setMinEms(12);
+            ailmentButton.setMaxEms(12);
+            ailmentButton.setBackgroundResource(R.drawable.healthrecord_button);
+            ailmentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditAilment");
-                    intent.putExtra("ailmentId", ailmentId);
-                    intent.putExtra("day", day);
-                    intent.putExtra("month", month);
-                    intent.putExtra("year", year);
-                    startActivity(intent);
+                    int id = AilmentFragment.this.aId;
+                    if (id == ailmentId) AilmentFragment.this.aId = 0;
+                    else AilmentFragment.this.aId = ailmentId;
+                    createWidgets();
                 }
             });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
@@ -107,41 +107,103 @@ public class AilmentFragment extends Fragment {
             params.topMargin = margin;
             params.bottomMargin = margin;
             params.setGravity(Gravity.CENTER);
-            editButton.setLayoutParams(params);
-            layout.addView(editButton);
-            //remove_idle button
-            rowSpec = GridLayout.spec(r);
-            colSpec = GridLayout.spec(1);
-            removeButton = new ImageButton(getActivity());
-            removeButton.setBackgroundResource(R.drawable.remove);
-            removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    new AlertDialog.Builder(getActivity())
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle(R.string.removing)
-                            .setMessage(getResources().getString(R.string.remove_question)
-                                    + " " + illness.getName() + "?")
-                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
-                            {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dataSource.getAilmentTable().removeAilmentWithId(ailmentId);
-                                    createWidgets();
-                                }
-                            })
-                            .setNegativeButton(R.string.no, null)
-                            .show();
-                }
-            });
-            params = new GridLayout.LayoutParams(rowSpec, colSpec);
-            params.rightMargin = margin;
-            params.leftMargin = margin;
-            params.topMargin = margin;
-            params.bottomMargin = margin;
-            params.setGravity(Gravity.CENTER);
-            removeButton.setLayoutParams(params);
-            layout.addView(removeButton);
+            ailmentButton.setLayoutParams(params);
+            layout.addView(ailmentButton);
+            if (this.aId == ailmentId) {
+                //Next line
+                r++;
+                //Edit Button
+                rowSpec = GridLayout.spec(r);
+                colSpec = GridLayout.spec(0);
+                editButton = new Button(getActivity());
+                editButton.setText(getResources().getString(R.string.edit));
+                editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+                editButton.setTextSize(12);
+                editButton.setMinEms(5);
+                editButton.setBackgroundResource(R.drawable.healthrecord_button);
+                Drawable img = getResources().getDrawable(R.drawable.update);
+                editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditAilment");
+                        intent.putExtra("ailmentId", ailmentId);
+                        intent.putExtra("day", day);
+                        intent.putExtra("month", month);
+                        intent.putExtra("year", year);
+                        startActivity(intent);
+                    }
+                });
+                params = new GridLayout.LayoutParams(rowSpec, colSpec);
+                params.rightMargin = margin;
+                params.leftMargin = margin;
+                params.topMargin = margin;
+                params.bottomMargin = margin;
+                params.setGravity(Gravity.CENTER);
+                editButton.setLayoutParams(params);
+                layout.addView(editButton);
+                //Stop Button
+                colSpec = GridLayout.spec(1);
+                stopButton = new Button(getActivity());
+                stopButton.setText(getResources().getString(R.string.stop));
+                stopButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+                stopButton.setTextSize(12);
+                stopButton.setMinEms(5);
+                stopButton.setBackgroundResource(R.drawable.healthrecord_button);
+                img = getResources().getDrawable(R.drawable.stop);
+                stopButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+                stopButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //TODO
+                    }
+                });
+                params = new GridLayout.LayoutParams(rowSpec, colSpec);
+                params.rightMargin = margin;
+                params.leftMargin = margin;
+                params.topMargin = margin;
+                params.bottomMargin = margin;
+                params.setGravity(Gravity.CENTER);
+                stopButton.setLayoutParams(params);
+                layout.addView(stopButton);
+                //Remove Button
+                colSpec = GridLayout.spec(2);
+                removeButton = new Button(getActivity());
+                removeButton.setText(getResources().getString(R.string.remove));
+                removeButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+                removeButton.setTextSize(12);
+                removeButton.setMinEms(5);
+                removeButton.setBackgroundResource(R.drawable.healthrecord_button);
+                img = getResources().getDrawable(R.drawable.delete);
+                removeButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+                removeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new AlertDialog.Builder(getActivity())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle(R.string.removing)
+                                .setMessage(getResources().getString(R.string.remove_question)
+                                        + " " + illness.getName() + "?")
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dataSource.getAilmentTable().removeAilmentWithId(ailmentId);
+                                        createWidgets();
+                                    }
+                                })
+                                .setNegativeButton(R.string.no, null)
+                                .show();
+                    }
+                });
+                params = new GridLayout.LayoutParams(rowSpec, colSpec);
+                params.rightMargin = margin;
+                params.leftMargin = margin;
+                params.topMargin = margin;
+                params.bottomMargin = margin;
+                params.setGravity(Gravity.CENTER);
+                removeButton.setLayoutParams(params);
+                layout.addView(removeButton);
+            }
             //next line
             r++;
         }

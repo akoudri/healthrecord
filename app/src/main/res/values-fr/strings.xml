@@ -13,7 +13,7 @@
     <string name="female">Féminin</string>
     <string name="blood_type">Groupe Sanguin</string>
     <string name="edit">Editer</string>
-    <string name="remove">Supprimer</string>
+    <string name="remove">Supp.</string>
     <string name="update">Mettre à jour</string>
     <string name="save">Sauvegarder</string>
     <string name="cancel">Annuler</string>
@@ -251,5 +251,6 @@
     <string name="add_existing_therapist">Ajout d\'un spécialiste existant</string>
     <string name="add_new_therapist">Ajout d\'un nouveau spécialiste</string>
     <string name="add_drug">Ajouter médicament </string>
+    <string name="stop">Stop</string>
 
 </resources>

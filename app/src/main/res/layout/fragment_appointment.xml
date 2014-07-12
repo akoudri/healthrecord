@@ -16,6 +16,7 @@
             android:layout_gravity="center"
             android:text="@string/add_rv"
             android:textSize="18dp"
+            android:drawableRight="@drawable/add"
             android:onClick="createAppt"/>
 
         <GridLayout

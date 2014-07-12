@@ -78,7 +78,7 @@ public class AilmentFragment extends Fragment {
         {
             final int ailmentId = ailment.getId();
             final Illness illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
-            //edit button
+            //edit_idle button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
             editButton = new Button(getActivity());
@@ -109,7 +109,7 @@ public class AilmentFragment extends Fragment {
             params.setGravity(Gravity.CENTER);
             editButton.setLayoutParams(params);
             layout.addView(editButton);
-            //remove button
+            //remove_idle button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(1);
             removeButton = new ImageButton(getActivity());

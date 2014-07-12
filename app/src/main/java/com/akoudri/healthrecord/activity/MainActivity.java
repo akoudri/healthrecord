@@ -113,7 +113,8 @@ public class MainActivity extends Activity {
         for (final Person p : allPersons)
         {
             final int personId = p.getId();
-            //add edit button
+            int nbMeasures = dataSource.getMeasureTable().getTotalMeasureCountForPerson(personId);
+            //add edit_idle button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,5);
             personButton = new Button(this);
@@ -201,6 +202,7 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                     }
                 });
+                if (nbMeasures == 0) analysisButton.setEnabled(false);
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
                 params.rightMargin = margin;
                 params.leftMargin = margin;
@@ -230,7 +232,7 @@ public class MainActivity extends Activity {
                 params.setGravity(Gravity.CENTER);
                 editButton.setLayoutParams(params);
                 layout.addView(editButton);
-                //add remove button
+                //add remove_idle button
                 rowSpec = GridLayout.spec(r);
                 colSpec = GridLayout.spec(4);
                 removeButton = new ImageButton(this);

@@ -86,7 +86,7 @@ public class TherapistFragment extends Fragment {
             final int id = p.getId();
             branch = dataSource.getTherapyBranchTable().getBranchWithId(p.getBranchId());
             therapyBranch = branch.getName();
-            //add edit button
+            //add edit_idle button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,4);
             therapistButton = new Button(getActivity());
@@ -96,7 +96,7 @@ public class TherapistFragment extends Fragment {
             therapistButton.setMinEms(11);
             therapistButton.setMaxEms(11);
             therapistButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //Drawable img = getResources().getDrawable(R.drawable.doctor);
+            //Drawable img = getResources().getDrawable(R.drawable.doctor_idle);
             //therapistButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             therapistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,7 +116,7 @@ public class TherapistFragment extends Fragment {
             therapistButton.setLayoutParams(params);
             layout.addView(therapistButton);
             if (this.therapistId == id) {
-                //add remove button
+                //add remove_idle button
                 colSpec = GridLayout.spec(4);
                 removeButton = new ImageButton(getActivity());
                 removeButton.setBackgroundResource(R.drawable.remove);
@@ -163,7 +163,7 @@ public class TherapistFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
-                }
+                } else phoneButton.setEnabled(false);
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
                 params.rightMargin = margin;
                 params.leftMargin = margin;
@@ -185,8 +185,7 @@ public class TherapistFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
-                } else
-                    cellphoneButton.setEnabled(false);
+                } else cellphoneButton.setEnabled(false);
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
                 params.rightMargin = margin;
                 params.leftMargin = margin;
@@ -199,17 +198,17 @@ public class TherapistFragment extends Fragment {
                 colSpec = GridLayout.spec(2);
                 smsButton = new ImageButton(getActivity());
                 smsButton.setBackgroundResource(R.drawable.sms);
-                if (p.getPhoneNumber() != null) {
+                if (p.getCellPhoneNumber() != null) {
                     phoneButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //FIXME: send sms
+                            //FIXME: send sms_idle
                             Intent intent = new Intent(Intent.ACTION_CALL);
                             intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
                             startActivity(intent);
                         }
                     });
-                }
+                } else smsButton.setEnabled(false);
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
                 params.rightMargin = margin;
                 params.leftMargin = margin;
@@ -226,13 +225,13 @@ public class TherapistFragment extends Fragment {
                     emailButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //FIXME: send an email
+                            //FIXME: send an email_idle
                             Intent intent = new Intent(Intent.ACTION_CALL);
                             intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
                             startActivity(intent);
                         }
                     });
-                }
+                } else emailButton.setEnabled(false);
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
                 params.rightMargin = margin;
                 params.leftMargin = margin;

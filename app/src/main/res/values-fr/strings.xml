@@ -250,5 +250,6 @@
     <string name="no_therapist_found">Pas de spécialiste trouvé</string>
     <string name="add_existing_therapist">Ajout d\'un spécialiste existant</string>
     <string name="add_new_therapist">Ajout d\'un nouveau spécialiste</string>
+    <string name="add_drug">Ajouter médicament </string>
 
 </resources>

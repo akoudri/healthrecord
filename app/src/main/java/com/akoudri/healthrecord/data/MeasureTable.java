@@ -12,7 +12,7 @@ public class MeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String MEASURE_TABLE = "measure";
+    public static final String MEASURE_TABLE = "measure_idle";
     public static final String MEASURE_ID = "_id";
     public static final String MEASURE_PERSON_REF = "personId";
     public static final String MEASURE_DATE = "date";
@@ -128,6 +128,16 @@ public class MeasureTable {
         if (cursor.moveToFirst())
             return cursorToMeasure(cursor);
         return null;
+    }
+
+    public int getTotalMeasureCountForPerson(int personId)
+    {
+        String req = "select count(*) from " + MEASURE_TABLE + " where " + MEASURE_PERSON_REF + "=" + personId;
+        Cursor count  = db.rawQuery(req, null);
+        if (! count.moveToFirst()) return 0;
+        int res = count.getInt(0);
+        count.close();
+        return res;
     }
 
     private Measure cursorToMeasure(Cursor cursor)

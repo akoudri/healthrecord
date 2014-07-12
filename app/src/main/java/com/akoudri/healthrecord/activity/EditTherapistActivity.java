@@ -145,7 +145,7 @@ public class EditTherapistActivity extends Activity {
         res = res && checkSpecialty;
         if (!checkSpecialty) toHighlight.add(specialityET);
         else notToHighlight.add(specialityET);
-        //Check phone number
+        //Check phone_idle number
         if (! phoneNumber.equals(""))
         {
             boolean checkPhoneNumber = Patterns.PHONE.matcher(phoneNumber).matches();
@@ -154,7 +154,7 @@ public class EditTherapistActivity extends Activity {
             else notToHighlight.add(phoneNumberET);
         }
         else notToHighlight.add(phoneNumberET);
-        //check cell phone number
+        //check cell phone_idle number
         if (! cellPhoneNumber.equals(""))
         {
             boolean checkCellPhoneNumber = Patterns.PHONE.matcher(cellPhoneNumber).matches();
@@ -163,7 +163,7 @@ public class EditTherapistActivity extends Activity {
             else notToHighlight.add(cellPhoneET);
         }
         else notToHighlight.add(cellPhoneET);
-        //check email
+        //check email_idle
         if (! email.equals(""))
         {
             boolean checkEmail = Patterns.EMAIL_ADDRESS.matcher(email).matches();

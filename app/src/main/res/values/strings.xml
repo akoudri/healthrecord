@@ -442,5 +442,6 @@
     <string name="no_therapist_found">No therapist found</string>
     <string name="add_existing_therapist">Add existing therapist</string>
     <string name="add_new_therapist">Add new therapist</string>
+    <string name="add_drug">Add drug </string>
 
 </resources>

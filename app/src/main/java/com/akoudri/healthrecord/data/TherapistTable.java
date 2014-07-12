@@ -20,7 +20,7 @@ public class TherapistTable {
     public static final String THERAPIST_NAME = "name";
     public static final String THERAPIST_PHONENUMBER = "phoneNumber";
     public static final String THERAPIST_CELLPHONENUMBER = "cellPhoneNumber";
-    public static final String THERAPIST_EMAIL = "email";
+    public static final String THERAPIST_EMAIL = "email_idle";
     public static final String THERAPIST_BRANCHID = "branchId";
 
     private String[] therapistCols = {THERAPIST_ID, THERAPIST_NAME,

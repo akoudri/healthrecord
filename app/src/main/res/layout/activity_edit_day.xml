@@ -29,6 +29,7 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
             <ImageButton
+                android:id="@+id/overview_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -37,6 +38,7 @@
                 android:onClick="displayOverview"
                 style="?android:attr/borderlessButtonStyle"/>
             <ImageButton
+                android:id="@+id/measure_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -45,6 +47,7 @@
                 android:onClick="displayMeasures"
                 style="?android:attr/borderlessButtonStyle"/>
             <ImageButton
+                android:id="@+id/rv_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -53,6 +56,7 @@
                 android:onClick="displayRV"
                 style="?android:attr/borderlessButtonStyle"/>
             <ImageButton
+                android:id="@+id/illness_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

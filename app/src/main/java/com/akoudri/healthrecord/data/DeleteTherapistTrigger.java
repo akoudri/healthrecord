@@ -16,7 +16,7 @@ public class DeleteTherapistTrigger {
         this.db = db;
     }
 
-    //FIXME: do not remove corresponding treatment, only set therapist to null
+    //FIXME: do not remove_idle corresponding treatment, only set therapist to null
     public void createDeleteTherapistTrigger()
     {
         StringBuilder sb = new StringBuilder();

@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/calendar_idle"
+                android:src="@drawable/calendar"
                 android:onClick="setMeasureStartDate"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/calendar_idle"
+                android:src="@drawable/calendar"
                 android:onClick="setMeasureEndDate"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>

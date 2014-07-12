@@ -17,6 +17,7 @@
             android:layout_gravity="center"
             android:text="@string/add_therapist"
             android:textSize="18dp"
+            android:drawableRight="@drawable/add"
             android:onClick="addTherapist"/>
 
         <GridLayout

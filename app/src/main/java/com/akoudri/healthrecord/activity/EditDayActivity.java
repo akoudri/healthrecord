@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,9 @@ public class EditDayActivity extends Activity {
     private int day, month, year;
     private Calendar currentDay;
 
+    private ImageButton ovButton, measureButton, rvButton, illnessButton;
+    private ImageButton currentButton;
+
     private TextView today_label;
     private OverviewFragment ovFrag;
     private AppointmentFragment apptFrag;
@@ -46,6 +51,10 @@ public class EditDayActivity extends Activity {
         setContentView(R.layout.activity_edit_day);
         dataSource = new HealthRecordDataSource(this);
         today_label = (TextView) findViewById(R.id.today_label);
+        ovButton = (ImageButton) findViewById(R.id.overview_button);
+        measureButton = (ImageButton) findViewById(R.id.measure_button);
+        rvButton = (ImageButton) findViewById(R.id.rv_button);
+        illnessButton = (ImageButton) findViewById(R.id.illness_button);
         personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
@@ -58,6 +67,8 @@ public class EditDayActivity extends Activity {
         fragTrans.add(R.id.day_layout, ovFrag);
         fragTrans.commit();
         currentFrag = ovFrag;
+        currentButton = ovButton;
+        currentButton.setEnabled(false);
     }
 
     @Override
@@ -112,6 +123,9 @@ public class EditDayActivity extends Activity {
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, ovFrag);
         fragTrans.commit();
+        currentButton.setEnabled(true);
+        ovButton.setEnabled(false);
+        currentButton = ovButton;
         currentFrag = ovFrag;
     }
 
@@ -121,6 +135,9 @@ public class EditDayActivity extends Activity {
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, measureFrag);
         fragTrans.commit();
+        currentButton.setEnabled(true);
+        measureButton.setEnabled(false);
+        currentButton = measureButton;
         currentFrag = measureFrag;
     }
 
@@ -137,6 +154,9 @@ public class EditDayActivity extends Activity {
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, apptFrag);
         fragTrans.commit();
+        currentButton.setEnabled(true);
+        rvButton.setEnabled(false);
+        currentButton = rvButton;
         currentFrag = apptFrag;
     }
 
@@ -146,6 +166,9 @@ public class EditDayActivity extends Activity {
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, ailmentFrag);
         fragTrans.commit();
+        currentButton.setEnabled(true);
+        illnessButton.setEnabled(false);
+        currentButton = illnessButton;
         currentFrag = ailmentFrag;
     }
 

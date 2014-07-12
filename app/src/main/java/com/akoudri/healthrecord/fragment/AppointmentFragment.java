@@ -87,7 +87,7 @@ public class AppointmentFragment extends Fragment {
             sb.append(branch.getName());
             sb.append("\n");
             sb.append(appt.getHour());
-            //edit button
+            //edit_idle button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
             editButton = new Button(getActivity());
@@ -113,7 +113,7 @@ public class AppointmentFragment extends Fragment {
             params.setGravity(Gravity.CENTER);
             editButton.setLayoutParams(params);
             layout.addView(editButton);
-            //remove button
+            //remove_idle button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(1);
             removeButton = new ImageButton(getActivity());

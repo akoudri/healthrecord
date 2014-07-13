@@ -157,7 +157,7 @@ public class CreateAilmentActivity extends Activity {
         medicsLayout.removeAllViews();
         LinearLayout linearLayout;
         LinearLayout.LayoutParams llparams;
-        int margin = 10;
+        int margin = 4;
         Button editButton;
         ImageButton removeButton;
         for (final Medication medic : medications)
@@ -194,15 +194,15 @@ public class CreateAilmentActivity extends Activity {
             });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.CENTER_VERTICAL;
-            //llparams.bottomMargin = margin;
+            llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
-            //llparams.topMargin = margin;
+            llparams.topMargin = margin;
             llparams.rightMargin = margin;
             editButton.setLayoutParams(llparams);
             linearLayout.addView(editButton);
             //Remove Button
             removeButton = new ImageButton(this);
-            removeButton.setBackgroundResource(R.drawable.remove);
+            removeButton.setBackgroundResource(R.drawable.remove_idle);
             removeButton.setOnClickListener(new View.OnClickListener() {
                 //FIXME: R.string.yes/no -> getResources().getString(...)
                 //also in other files
@@ -225,9 +225,9 @@ public class CreateAilmentActivity extends Activity {
             });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.CENTER_VERTICAL;
-            //llparams.bottomMargin = margin;
+            llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
-            //llparams.topMargin = margin;
+            llparams.topMargin = margin;
             llparams.rightMargin = margin;
             removeButton.setLayoutParams(llparams);
             linearLayout.addView(removeButton);

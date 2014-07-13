@@ -192,7 +192,7 @@ public class EditAilmentActivity extends Activity {
         medicsLayout.removeAllViews();
         LinearLayout linearLayout;
         LinearLayout.LayoutParams llparams;
-        int margin = 10;
+        int margin = 4;
         Button editButton;
         ImageButton removeButton;
         for (final Medication medic : existingMedications)
@@ -221,9 +221,9 @@ public class EditAilmentActivity extends Activity {
             });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.CENTER_VERTICAL;
-            //llparams.bottomMargin = margin;
+            llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
-            //llparams.topMargin = margin;
+            llparams.topMargin = margin;
             llparams.rightMargin = margin;
             editButton.setLayoutParams(llparams);
             linearLayout.addView(editButton);
@@ -253,9 +253,9 @@ public class EditAilmentActivity extends Activity {
             });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.CENTER_VERTICAL;
-            //llparams.bottomMargin = margin;
+            llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
-            //llparams.topMargin = margin;
+            llparams.topMargin = margin;
             llparams.rightMargin = margin;
             removeButton.setLayoutParams(llparams);
             linearLayout.addView(removeButton);

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
@@ -72,8 +71,8 @@ public class AilmentFragment extends Fragment {
         if (dayAilments == null || dayAilments.size() == 0) return;
         int margin = 1;
         Button ailmentButton, editButton, stopButton, removeButton;
-        ImageButton rButton;
         layout.setColumnCount(3);
+        int childWidth = layout.getWidth()/3 - 2*margin;
         IllnessTable illnessTable = dataSource.getIllnessTable();
         int r = 0; //row index
         for (final Ailment ailment : dayAilments)
@@ -89,8 +88,8 @@ public class AilmentFragment extends Fragment {
             ailmentButton.setText(illnessName);
             ailmentButton.setTextSize(16);
             ailmentButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            ailmentButton.setMinEms(12);
-            ailmentButton.setMaxEms(12);
+            ailmentButton.setMinEms(14);
+            ailmentButton.setMaxEms(14);
             ailmentButton.setBackgroundResource(R.drawable.healthrecord_button);
             ailmentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,6 +138,7 @@ public class AilmentFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
+                params.width = childWidth;
                 params.setGravity(Gravity.CENTER);
                 editButton.setLayoutParams(params);
                 layout.addView(editButton);
@@ -163,6 +163,7 @@ public class AilmentFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
+                params.width = childWidth;
                 params.setGravity(Gravity.CENTER);
                 stopButton.setLayoutParams(params);
                 layout.addView(stopButton);
@@ -200,6 +201,7 @@ public class AilmentFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
+                params.width = childWidth;
                 params.setGravity(Gravity.CENTER);
                 removeButton.setLayoutParams(params);
                 layout.addView(removeButton);

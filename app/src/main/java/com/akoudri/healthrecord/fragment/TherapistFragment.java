@@ -67,7 +67,7 @@ public class TherapistFragment extends Fragment {
     {
         layout.removeAllViews();
         List<Therapist> allTherapists = new ArrayList<Therapist>();
-        int margin = 4;
+        int margin = 1;
         List<Integer> therapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         for (Integer i : therapistIds)
         {
@@ -93,8 +93,8 @@ public class TherapistFragment extends Fragment {
             therapistButton.setText(p.getName() + "\n" + therapyBranch);
             therapistButton.setTextSize(16);
             therapistButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            therapistButton.setMinEms(11);
-            therapistButton.setMaxEms(11);
+            therapistButton.setMinEms(10);
+            therapistButton.setMaxEms(10);
             therapistButton.setBackgroundResource(R.drawable.healthrecord_button);
             //Drawable img = getResources().getDrawable(R.drawable.doctor_idle);
             //therapistButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
@@ -169,7 +169,7 @@ public class TherapistFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
-                params.setGravity(Gravity.CENTER);
+                params.setGravity(Gravity.LEFT);
                 phoneButton.setLayoutParams(params);
                 layout.addView(phoneButton);
                 //Cellphone Button
@@ -191,7 +191,7 @@ public class TherapistFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
-                params.setGravity(Gravity.CENTER);
+                params.setGravity(Gravity.LEFT);
                 cellphoneButton.setLayoutParams(params);
                 layout.addView(cellphoneButton);
                 //Sms Button
@@ -214,7 +214,7 @@ public class TherapistFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
-                params.setGravity(Gravity.CENTER);
+                params.setGravity(Gravity.LEFT);
                 smsButton.setLayoutParams(params);
                 layout.addView(smsButton);
                 //Email Button
@@ -237,13 +237,13 @@ public class TherapistFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
-                params.setGravity(Gravity.CENTER);
+                params.setGravity(Gravity.LEFT);
                 emailButton.setLayoutParams(params);
                 layout.addView(emailButton);
                 //Edit Button
                 colSpec = GridLayout.spec(4);
                 editButton = new ImageButton(getActivity());
-                editButton.setBackgroundResource(R.drawable.edit);
+                editButton.setBackgroundResource(R.drawable.edit_idle);
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -257,7 +257,7 @@ public class TherapistFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
-                params.setGravity(Gravity.CENTER);
+                params.setGravity(Gravity.LEFT);
                 editButton.setLayoutParams(params);
                 layout.addView(editButton);
             }

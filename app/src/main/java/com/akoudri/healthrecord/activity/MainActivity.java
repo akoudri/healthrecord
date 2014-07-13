@@ -104,7 +104,7 @@ public class MainActivity extends Activity {
     {
         layout.removeAllViews();
         List<Person> allPersons = dataSource.getPersonTable().getAllPersons();
-        int margin = 4;
+        int margin = 1;
         if (allPersons == null || allPersons.size() == 0)
             return;
         Button personButton;
@@ -122,8 +122,8 @@ public class MainActivity extends Activity {
             personButton.setText(p.getName());
             personButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             personButton.setTextSize(16);
-            personButton.setMinEms(14);
-            personButton.setMaxEms(14);
+            personButton.setMinEms(13);
+            personButton.setMaxEms(13);
             personButton.setBackgroundResource(R.drawable.healthrecord_button);
             Drawable img = getResources().getDrawable(R.drawable.heart);
             personButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);

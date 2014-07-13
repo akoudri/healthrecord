@@ -68,10 +68,11 @@ public class AppointmentFragment extends Fragment {
         String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
         if (allAppointments == null || allAppointments.size() == 0) return;
-        int margin = 2;
+        int margin = 1;
         Button apptButton, removeButton, editButton;
         ImageButton rButton;
         layout.setColumnCount(2);
+        int childWidth = layout.getWidth()/2 - 4*margin;
         TherapistTable therapistTable = dataSource.getTherapistTable();
         TherapyBranchTable branchTable = dataSource.getTherapyBranchTable();
         Therapist therapist;
@@ -97,8 +98,8 @@ public class AppointmentFragment extends Fragment {
             apptButton.setText(sb.toString());
             apptButton.setTextSize(16);
             apptButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            apptButton.setMinEms(14);
-            apptButton.setMaxEms(14);
+            apptButton.setMinEms(12);
+            apptButton.setMaxEms(12);
             apptButton.setBackgroundResource(R.drawable.healthrecord_button);
             apptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,9 +127,9 @@ public class AppointmentFragment extends Fragment {
                 editButton = new Button(getActivity());
                 editButton.setText(getResources().getString(R.string.edit));
                 editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-                editButton.setTextSize(16);
-                editButton.setMinEms(7);
-                editButton.setMaxEms(7);
+                editButton.setTextSize(12);
+                editButton.setMinEms(4);
+                editButton.setMaxEms(4);
                 editButton.setBackgroundResource(R.drawable.healthrecord_button);
                 Drawable img = getResources().getDrawable(R.drawable.update);
                 editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
@@ -145,6 +146,7 @@ public class AppointmentFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
+                params.width = childWidth;
                 params.setGravity(Gravity.CENTER);
                 editButton.setLayoutParams(params);
                 layout.addView(editButton);
@@ -153,9 +155,9 @@ public class AppointmentFragment extends Fragment {
                 removeButton = new Button(getActivity());
                 removeButton.setText(getResources().getString(R.string.remove));
                 removeButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-                removeButton.setTextSize(16);
-                removeButton.setMinEms(7);
-                removeButton.setMaxEms(7);
+                removeButton.setTextSize(12);
+                removeButton.setMinEms(4);
+                removeButton.setMaxEms(4);
                 removeButton.setBackgroundResource(R.drawable.healthrecord_button);
                 img = getResources().getDrawable(R.drawable.delete);
                 removeButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
@@ -182,6 +184,7 @@ public class AppointmentFragment extends Fragment {
                 params.leftMargin = margin;
                 params.topMargin = margin;
                 params.bottomMargin = margin;
+                params.width = childWidth;
                 params.setGravity(Gravity.CENTER);
                 removeButton.setLayoutParams(params);
                 layout.addView(removeButton);

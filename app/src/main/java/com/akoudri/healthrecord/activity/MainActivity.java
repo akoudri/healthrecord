@@ -119,7 +119,9 @@ public class MainActivity extends Activity {
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,5);
             personButton = new Button(this);
-            personButton.setText(p.getName());
+            String pName = p.getName();
+            if (pName.length() > 25) pName = pName.substring(0,25) + "...";
+            personButton.setText(pName);
             personButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             personButton.setTextSize(16);
             personButton.setMinEms(13);

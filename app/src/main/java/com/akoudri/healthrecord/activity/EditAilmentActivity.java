@@ -205,7 +205,10 @@ public class EditAilmentActivity extends Activity {
             //Text View
             editButton = new Button(this);
             final String name = dataSource.getDrugTable().getDrugWithId(medic.getDrugId()).getName();
-            editButton.setText(name);
+            String eName;
+            if (name.length() > 20) eName = name.substring(0,20) + "...";
+            else eName = name;
+            editButton.setText(eName);
             editButton.setTextSize(16);
             editButton.setMinEms(10);
             editButton.setMaxEms(10);
@@ -270,7 +273,10 @@ public class EditAilmentActivity extends Activity {
             //Text View
             editButton = new Button(this);
             final String name = dataSource.getDrugTable().getDrugWithId(medic.getDrugId()).getName();
-            editButton.setText(name);
+            String eName;
+            if (name.length() > 20) eName = name.substring(0,20) + "...";
+            else eName = name;
+            editButton.setText(eName);
             editButton.setTextSize(16);
             editButton.setMinEms(8);
             editButton.setMaxEms(8);

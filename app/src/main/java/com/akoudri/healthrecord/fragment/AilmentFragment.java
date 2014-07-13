@@ -85,6 +85,7 @@ public class AilmentFragment extends Fragment {
             ailmentButton = new Button(getActivity());
             String pt = getResources().getString(R.string.preventive_treatment);
             String illnessName = (illness==null)?pt:illness.getName();
+            if (illnessName.length() > 20) illnessName = illnessName.substring(0,20) + "...";
             ailmentButton.setText(illnessName);
             ailmentButton.setTextSize(16);
             ailmentButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));

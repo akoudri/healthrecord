@@ -86,11 +86,14 @@ public class TherapistFragment extends Fragment {
             final int id = p.getId();
             branch = dataSource.getTherapyBranchTable().getBranchWithId(p.getBranchId());
             therapyBranch = branch.getName();
+            if (therapyBranch.length() > 20) therapyBranch = therapyBranch.substring(0,20) + "...";
             //add edit_idle button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,4);
             therapistButton = new Button(getActivity());
-            therapistButton.setText(p.getName() + "\n" + therapyBranch);
+            String tName = p.getName();
+            if (tName.length() > 20) tName = tName.substring(0,20) + "...";
+            therapistButton.setText(tName + "\n" + therapyBranch);
             therapistButton.setTextSize(16);
             therapistButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             therapistButton.setMinEms(10);

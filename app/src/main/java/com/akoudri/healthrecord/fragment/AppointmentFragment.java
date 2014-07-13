@@ -86,9 +86,13 @@ public class AppointmentFragment extends Fragment {
             therapist = therapistTable.getTherapistWithId(appt.getTherapistId());
             branch = branchTable.getBranchWithId(therapist.getBranchId());
             sb = new StringBuilder();
-            sb.append(therapist.getName());
-            sb.append("-");
-            sb.append(branch.getName());
+            String tName = therapist.getName();
+            if (tName.length() > 25) tName = tName.substring(0,25) + "...";
+            sb.append(tName);
+            sb.append("\n");
+            String bName = branch.getName();
+            if (bName.length() > 25) bName = bName.substring(0,25) + "...";
+            sb.append(bName);
             sb.append("\n");
             sb.append(appt.getHour());
             //Appt button

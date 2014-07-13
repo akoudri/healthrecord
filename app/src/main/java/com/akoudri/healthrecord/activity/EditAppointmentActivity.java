@@ -96,12 +96,16 @@ public class EditAppointmentActivity extends Activity {
         int i = 0;
         int it = 0;
         TherapyBranch branch;
+        String tName;
         String therapyBranchStr;
         for (Therapist t : therapists) {
+            tName = t.getName();
+            if (tName.length() > 20) tName = tName.substring(0,20) + "...";
             if (t.getId() == appt.getTherapistId()) thIdx = it;
             branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
             therapyBranchStr = branch.getName();
-            therapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
+            if (therapyBranchStr.length() > 10) therapyBranchStr = therapyBranchStr.substring(0,10) + "...";
+            therapistsStr[i++] = tName + " - " + therapyBranchStr;
             it++;
         }
         ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistsStr);

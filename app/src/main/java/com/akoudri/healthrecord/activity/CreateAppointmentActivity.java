@@ -97,11 +97,15 @@ public class CreateAppointmentActivity extends Activity {
         therapistsStr = new String[therapists.size()];
         int i = 0;
         TherapyBranch branch;
+        String tName;
         String therapyBranchStr;
         for (Therapist t : therapists) {
+            tName = t.getName();
+            if (tName.length() > 20) tName = tName.substring(0,20) + "...";
             branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
             therapyBranchStr = branch.getName();
-            therapistsStr[i++] = t.getName() + " - " + therapyBranchStr;
+            if (therapyBranchStr.length() > 10) therapyBranchStr = therapyBranchStr.substring(0,10) + "...";
+            therapistsStr[i++] = tName + "-" + therapyBranchStr;
         }
         ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistsStr);
         thSpinner.setAdapter(thChoicesAdapter);

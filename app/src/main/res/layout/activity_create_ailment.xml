@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="fill_horizontal"
+            android:inputType="text"
             android:capitalize="words"/>
 
         <TextView
@@ -131,7 +132,6 @@
             android:layout_margin="5dp"
             android:inputType="textMultiLine"
             android:minLines="5"
-            android:maxLines="5"
             android:layout_gravity="fill_horizontal"
             android:gravity="top|left"/>
 

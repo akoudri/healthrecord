@@ -84,7 +84,6 @@
             android:layout_margin="5dp"
             android:inputType="textMultiLine"
             android:minLines="5"
-            android:maxLines="5"
             android:layout_gravity="fill_horizontal"
             android:gravity="top|left"/>
 

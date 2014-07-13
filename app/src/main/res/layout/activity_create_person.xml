@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:inputType="textCapWords"
-            android:maxLength="20"
             android:layout_gravity="fill_horizontal"/>
 
         <TextView

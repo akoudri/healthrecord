@@ -41,7 +41,7 @@ public class AilmentTable {
         sb.append(AILMENT_PERSON_REF + " integer not null,");
         sb.append(AILMENT_ILLNESS_REF + " integer,"); //not null for the case of preventive ailment
         sb.append(AILMENT_THERAPIST_REF + " integer,"); //not null for the case of auto-medication
-        sb.append(AILMENT_START_DATE + " text not null,");
+        sb.append(AILMENT_START_DATE + " integer not null,");
         sb.append(AILMENT_DURATION + " integer,"); //ailment with no end date can be considered permanent
         sb.append(AILMENT_COMMENT + " text,");
         sb.append(" foreign key(" + AILMENT_PERSON_REF + ") references " + PersonTable.PERSON_TABLE +
@@ -55,13 +55,14 @@ public class AilmentTable {
     }
 
     public long insertAilment(int personId, int illnessId, int therapistId, String startDate, int duration, String comment) {
+        Calendar c = HealthRecordUtils.stringToCalendar(startDate);
         ContentValues values = new ContentValues();
         values.put(AILMENT_PERSON_REF, personId);
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
         if (therapistId >= 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
-        values.put(AILMENT_START_DATE, startDate);
+        values.put(AILMENT_START_DATE, c.getTimeInMillis());
         if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
         if (comment != null)
@@ -70,6 +71,7 @@ public class AilmentTable {
     }
 
     public boolean updateAilment(int ailmentId, int illnessId, int therapistId, String startDate, int duration, String comment) {
+        Calendar c = HealthRecordUtils.stringToCalendar(startDate);
         ContentValues values = new ContentValues();
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
@@ -77,7 +79,7 @@ public class AilmentTable {
         if (therapistId >= 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
         else values.putNull(AILMENT_THERAPIST_REF);
-        values.put(AILMENT_START_DATE, startDate);
+        values.put(AILMENT_START_DATE, c.getTimeInMillis());
         if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
         else
@@ -153,7 +155,11 @@ public class AilmentTable {
         ailment.setPersonId(cursor.getInt(1));
         ailment.setIllnessId((cursor.isNull(2)) ? 0 : cursor.getInt(2));
         ailment.setTherapistId((cursor.isNull(3))?0:cursor.getInt(3));
-        ailment.setStartDate((cursor.isNull(4))?null:cursor.getString(4));
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(cursor.getLong(4));
+        String date = String.format("%02d/%02d/%04d",
+                c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
+        ailment.setStartDate(date);
         ailment.setDuration((cursor.isNull(5))?-1:cursor.getInt(5));
         ailment.setComment((cursor.isNull(6))?null:cursor.getString(6));
         return ailment;

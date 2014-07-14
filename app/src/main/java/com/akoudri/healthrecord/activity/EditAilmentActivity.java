@@ -454,7 +454,7 @@ public class EditAilmentActivity extends Activity {
     public void editStartAilmentPickerDialog(View view)
     {
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, endDateET);
+        dfrag.init(this, startDateET);
         dfrag.show(getFragmentManager(), "Select Start Ailment Date");
     }
 

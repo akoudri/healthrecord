@@ -9,6 +9,7 @@ import android.view.Window;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.ChangeStatus;
 import com.akoudri.healthrecord.fragment.AnalysisFragment;
 import com.akoudri.healthrecord.fragment.CalendarFragment;
 import com.akoudri.healthrecord.fragment.TherapistFragment;
@@ -100,7 +101,8 @@ public class EditPersonActivity extends Activity {
 
     public void updatePerson(View view)
     {
-        ((UpdatePersonFragment)currentFrag).updatePerson();
-        finish();
+        ChangeStatus status = ((UpdatePersonFragment) currentFrag).updatePerson();
+        if (status == ChangeStatus.CHANGED)
+            finish();
     }
 }

@@ -115,12 +115,14 @@ public class MainActivity extends Activity {
         {
             final int personId = p.getId();
             int nbMeasures = dataSource.getMeasureTable().getTotalMeasureCountForPerson(personId);
-            //add edit_idle button
+            //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,5);
             personButton = new Button(this);
-            String pName = p.getName();
-            if (pName.length() > 25) pName = pName.substring(0,25) + "...";
+            String name = p.getName();
+            final String pName;
+            if (name.length() > 25) pName = name.substring(0,25) + "...";
+            else pName = name;
             personButton.setText(pName);
             personButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             personButton.setTextSize(16);
@@ -205,7 +207,7 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                     }
                 });
-                if (nbMeasures == 0) analysisButton.setEnabled(false);
+                if (nbMeasures < 2) analysisButton.setEnabled(false);
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
                 params.rightMargin = margin;
                 params.leftMargin = margin;
@@ -235,7 +237,7 @@ public class MainActivity extends Activity {
                 params.setGravity(Gravity.CENTER);
                 editButton.setLayoutParams(params);
                 layout.addView(editButton);
-                //add remove_idle button
+                //add remove button
                 rowSpec = GridLayout.spec(r);
                 colSpec = GridLayout.spec(4);
                 removeButton = new ImageButton(this);
@@ -247,7 +249,7 @@ public class MainActivity extends Activity {
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle(R.string.removing)
                                 .setMessage(getResources().getString(R.string.remove_question)
-                                        + " " + p.getName() + "?")
+                                        + " " + pName + "?")
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -276,6 +278,7 @@ public class MainActivity extends Activity {
 
     public void addPerson(View view)
     {
+        personId = 0;
         startActivity(new Intent("com.akoudri.healthrecord.app.AddPerson"));
     }
 

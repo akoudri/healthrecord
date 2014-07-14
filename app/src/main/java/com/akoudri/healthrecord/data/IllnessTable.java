@@ -15,7 +15,7 @@ public class IllnessTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String ILLNESS_TABLE = "illness_idle";
+    public static final String ILLNESS_TABLE = "illness";
     public static final String ILLNESS_ID = "_id";
     public static final String ILLNESS_NAME = "name";
 
@@ -72,7 +72,7 @@ public class IllnessTable {
                 ILLNESS_NAME + "='" + illnessName + "'", null, null, null, null);
         if (cursor.moveToFirst())
             return cursor.getInt(0);
-        return -1; //illness_idle name not found
+        return -1; //illness name not found
     }
 
     private Illness cursorToIllness(Cursor cursor)

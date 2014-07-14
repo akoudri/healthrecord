@@ -116,6 +116,7 @@ public class EditTherapistActivity extends Activity {
             Therapist t = new Therapist(name, phoneNumber, cellPhoneNumber, email, branchId);
             if (therapist.equalsTo(t)) {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                finish();
                 return;
             }
             boolean hasUpdated = dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, cellPhoneNumber, email, branchId);
@@ -145,7 +146,7 @@ public class EditTherapistActivity extends Activity {
         res = res && checkSpecialty;
         if (!checkSpecialty) toHighlight.add(specialityET);
         else notToHighlight.add(specialityET);
-        //Check phone_idle number
+        //Check phone number
         if (! phoneNumber.equals(""))
         {
             boolean checkPhoneNumber = Patterns.PHONE.matcher(phoneNumber).matches();
@@ -154,7 +155,7 @@ public class EditTherapistActivity extends Activity {
             else notToHighlight.add(phoneNumberET);
         }
         else notToHighlight.add(phoneNumberET);
-        //check cell phone_idle number
+        //check cell phone number
         if (! cellPhoneNumber.equals(""))
         {
             boolean checkCellPhoneNumber = Patterns.PHONE.matcher(cellPhoneNumber).matches();
@@ -163,7 +164,7 @@ public class EditTherapistActivity extends Activity {
             else notToHighlight.add(cellPhoneET);
         }
         else notToHighlight.add(cellPhoneET);
-        //check email_idle
+        //check email
         if (! email.equals(""))
         {
             boolean checkEmail = Patterns.EMAIL_ADDRESS.matcher(email).matches();

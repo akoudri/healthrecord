@@ -12,7 +12,7 @@ public class MeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String MEASURE_TABLE = "measure_idle";
+    public static final String MEASURE_TABLE = "measure";
     public static final String MEASURE_ID = "_id";
     public static final String MEASURE_PERSON_REF = "personId";
     public static final String MEASURE_DATE = "date";

@@ -113,6 +113,7 @@ public class EditAppointmentActivity extends Activity {
         thSpinner.setSelection(thIdx);
         dayET.setText(appt.getDate());
         hourET.setText(appt.getHour());
+        commentET.setText(appt.getComment());
     }
 
     public void updateAppointmentDay(View view)
@@ -126,8 +127,13 @@ public class EditAppointmentActivity extends Activity {
 
     public void updateAppointmentHour(View view)
     {
+        if (apptId == 0) return;
+        if (!dataSourceLoaded) return;
+        String[] h = appt.getHour().split(":");
+        int hour = Integer.parseInt(h[0]);
+        int min = Integer.parseInt(h[1]);
         HourPickerFragment hfrag = new HourPickerFragment();
-        hfrag.init(this, hourET);
+        hfrag.init(this, hourET, hour, min);
         hfrag.show(getFragmentManager(), "Appointment Hour Picker");
     }
 
@@ -145,6 +151,7 @@ public class EditAppointmentActivity extends Activity {
         if (appt.equalsTo(a))
         {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+            finish();
             return;
         }
         a.setId(apptId);

@@ -151,6 +151,7 @@ public class EditDayActivity extends Activity {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_therapist_found), Toast.LENGTH_SHORT).show();
             return;
         }
+        apptFrag.resetAppointmentId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, apptFrag);
         fragTrans.commit();
@@ -163,6 +164,7 @@ public class EditDayActivity extends Activity {
     public void displayAilments(View view)
     {
         if (currentFrag == ailmentFrag) return;
+        ailmentFrag.resetAilmentId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, ailmentFrag);
         fragTrans.commit();
@@ -174,6 +176,7 @@ public class EditDayActivity extends Activity {
 
     public void createAppt(View view)
     {
+        apptFrag.resetAppointmentId();
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddAppointment");
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);
@@ -184,6 +187,7 @@ public class EditDayActivity extends Activity {
 
     public void createAilment(View view)
     {
+        ailmentFrag.resetAilmentId();
         Intent intent = new Intent("com.akoudri.healthrecord.app.CreateAilment");
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);

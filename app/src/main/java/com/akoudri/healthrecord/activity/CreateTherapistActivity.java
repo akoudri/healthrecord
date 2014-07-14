@@ -123,7 +123,6 @@ public class CreateTherapistActivity extends Activity {
         {
             String s = getResources().getString(R.string.no_other_therapist);
             otherTherapistsStr = new String[]{s};
-            //TODO: deactivate add button
         }
         ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, otherTherapistsStr);
         thSpinner.setAdapter(thChoicesAdapter);
@@ -174,7 +173,7 @@ public class CreateTherapistActivity extends Activity {
         res = res && checkSpecialty;
         if (!checkSpecialty) toHighlight.add(specialityET);
         else notToHighlight.add(specialityET);
-        //Check phone_idle number
+        //Check phone number
         if (! phoneNumber.equals(""))
         {
             boolean checkPhoneNumber = Patterns.PHONE.matcher(phoneNumber).matches();
@@ -183,7 +182,7 @@ public class CreateTherapistActivity extends Activity {
             else notToHighlight.add(phoneNumberET);
         }
         else notToHighlight.add(phoneNumberET);
-        //check cell phone_idle number
+        //check cell phone number
         if (! cellPhoneNumber.equals(""))
         {
             boolean checkCellPhoneNumber = Patterns.PHONE.matcher(cellPhoneNumber).matches();
@@ -192,7 +191,7 @@ public class CreateTherapistActivity extends Activity {
             else notToHighlight.add(cellPhoneET);
         }
         else notToHighlight.add(cellPhoneET);
-        //check email_idle
+        //check email
         if (! email.equals(""))
         {
             boolean checkEmail = Patterns.EMAIL_ADDRESS.matcher(email).matches();

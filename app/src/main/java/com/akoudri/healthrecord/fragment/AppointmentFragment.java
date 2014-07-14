@@ -203,4 +203,9 @@ public class AppointmentFragment extends Fragment {
         this.dataSource = dataSource;
     }
 
+    public void resetAppointmentId()
+    {
+        appointmentId = 0;
+    }
+
 }

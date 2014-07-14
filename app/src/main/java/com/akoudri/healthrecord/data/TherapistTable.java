@@ -20,7 +20,7 @@ public class TherapistTable {
     public static final String THERAPIST_NAME = "name";
     public static final String THERAPIST_PHONENUMBER = "phoneNumber";
     public static final String THERAPIST_CELLPHONENUMBER = "cellPhoneNumber";
-    public static final String THERAPIST_EMAIL = "email_idle";
+    public static final String THERAPIST_EMAIL = "email";
     public static final String THERAPIST_BRANCHID = "branchId";
 
     private String[] therapistCols = {THERAPIST_ID, THERAPIST_NAME,
@@ -93,6 +93,29 @@ public class TherapistTable {
         if (cursor.moveToFirst())
             return cursorToTherapist(cursor);
         return null;
+    }
+
+    public Therapist getTherapistWithName(String name)
+    {
+        Cursor cursor = db.query(THERAPIST_TABLE, therapistCols,
+                THERAPIST_NAME + "='" + name + "'", null, null, null, null);
+        if (cursor.moveToFirst())
+            return cursorToTherapist(cursor);
+        return null;
+    }
+
+    public List<Therapist> getTherapistsWithBranchId(int branchId)
+    {
+        List<Therapist> res = new ArrayList<Therapist>();
+        Cursor cursor = db.query(THERAPIST_TABLE, therapistCols, THERAPIST_BRANCHID + "=" + branchId,
+                null, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToTherapist(cursor));
+            cursor.moveToNext();
+        }
+        return res;
     }
 
     private Therapist cursorToTherapist(Cursor cursor)

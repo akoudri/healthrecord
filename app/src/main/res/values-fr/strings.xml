@@ -228,10 +228,10 @@
     <string name="with">Avec: </string>
     <string name="type">Type: </string>
     <string name="display">Afficher</string>
-    <string name="db_warning">Vos informations violent l\'unicité des données de la base de données!</string>
+    <string name="db_warning">Violation de l\'intégrité des données</string>
     <string name="ok">OK</string>
     <string name="warning">Alerte</string>
-    <string name="notValidData">Champs invalides</string>
+    <string name="notValidData">Champs incomplets ou invalides</string>
     <string name="update_saved">Mise à jour effectuée</string>
     <string name="cell_phone_number">Numéro de portable</string>
     <string name="email_address">Courriel</string>
@@ -252,5 +252,8 @@
     <string name="add_new_therapist">Ajout d\'un nouveau spécialiste</string>
     <string name="add_drug">Ajouter médicament </string>
     <string name="stop">Stop</string>
+    <string name="current_size">Taille actuelle: </string>
+    <string name="current_weight">Poids actuel: </string>
+    <string name="doctor">Nom du médecin traitant</string>
 
 </resources>

@@ -167,7 +167,10 @@ public class EditAilmentActivity extends Activity {
         for (Therapist t : therapists)
         {
             branch = brTable.getBranchWithId(t.getBranchId()).getName();
-            therapistStr[i++] = t.getName() + "-" + branch;
+            if (branch.length() > 10) branch = branch.substring(0,10);
+            String tName = t.getName();
+            if (tName.length() > 20) tName = tName.substring(0,20);
+            therapistStr[i++] = tName + "-" + branch;
         }
         ArrayAdapter<String> thAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistStr);
         therapistSpinner.setAdapter(thAdapter);
@@ -431,6 +434,7 @@ public class EditAilmentActivity extends Activity {
         if (ailment.equalsTo(a))
         {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+            finish();
             return;
         }
         a.setId(ailmentId);

@@ -149,22 +149,22 @@ public class MeasureFragment extends Fragment {
         List<EditText> toHighlight = new ArrayList<EditText>();
         List<EditText> notToHighlight = new ArrayList<EditText>();
         //Check weight
-        boolean checkWeight = (weight.equals("") || weight.matches("\\d{1,3}(\\.\\d{1,2})?"));
+        boolean checkWeight = (weight.equals("") || weight.matches("1?\\d{1,2}(\\.\\d{1,2})?"));
         res = res && checkWeight;
         if (!checkWeight) toHighlight.add(weightET);
         else notToHighlight.add(weightET);
         //check size
-        boolean checkSize = (size.equals("") || size.matches("\\d{2,3}"));
+        boolean checkSize = (size.equals("") || size.matches("(1|2)?\\d{2}"));
         res = res && checkSize;
         if (!checkSize) toHighlight.add(sizeET);
         else notToHighlight.add(sizeET);
         //check cp
-        boolean checkCP = (cp.equals("") || cp.matches("\\d{2}"));
+        boolean checkCP = (cp.equals("") || cp.matches("[3-5]\\d"));
         res = res && checkCP;
         if (!checkCP) toHighlight.add(cpET);
         else notToHighlight.add(cpET);
         //check temp
-        boolean checkTemp = (temp.equals("") || temp.matches("\\d{2}(\\.\\d{1})?"));
+        boolean checkTemp = (temp.equals("") || temp.matches("(3[5-9]|4[0-1])(\\.\\d{1})?"));
         res = res && checkTemp;
         if (!checkTemp) toHighlight.add(tempET);
         else notToHighlight.add(tempET);
@@ -174,17 +174,17 @@ public class MeasureFragment extends Fragment {
         if (!checkGlucose) toHighlight.add(glucoseET);
         else notToHighlight.add(glucoseET);
         //check dia
-        boolean checkDia = (dia.equals("") || dia.matches("\\d{1,2}"));
+        boolean checkDia = (dia.equals("") || dia.matches("1?\\d"));
         res = res && checkDia;
         if (!checkDia) toHighlight.add(diaET);
         else notToHighlight.add(diaET);
         //check sys
-        boolean checkSys = (sys.equals("") || sys.matches("\\d{1,2}"));
+        boolean checkSys = (sys.equals("") || sys.matches("1?\\d"));
         res = res && checkSys;
         if (!checkSys) toHighlight.add(sysET);
         else notToHighlight.add(sysET);
         //check hb
-        boolean checkHB = (hb.equals("") || hb.matches("\\d{2,3}"));
+        boolean checkHB = (hb.equals("") || hb.matches("1?\\d{2}"));
         res = res && checkHB;
         if (!checkHB) toHighlight.add(hbET);
         else notToHighlight.add(hbET);

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
+import com.akoudri.healthrecord.data.ChangeStatus;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
@@ -90,10 +91,10 @@ public class UpdatePersonFragment extends Fragment {
         btSpinner.setSelection(person.getBloodType().ordinal());
     }
 
-    public void updatePerson()
+    public ChangeStatus updatePerson()
     {
-        if (personId == 0) return;
-        if (dataSource == null) return;
+        if (personId == 0) return ChangeStatus.INVALID_PERSON;
+        if (dataSource == null) return ChangeStatus.DATABASE_CLOSED;
         String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) getActivity().findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
@@ -111,7 +112,7 @@ public class UpdatePersonFragment extends Fragment {
             Person p = new Person(name, gender, ssn, bt, birthdate);
             if (person.equalsTo(p)){
                 Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-                return; //No changes occurred
+                return ChangeStatus.UNCHANGED;
             }
             boolean res = dataSource.getPersonTable().updatePerson(person.getId(), name,
                     gender, ssn, bt, birthdate);
@@ -123,12 +124,15 @@ public class UpdatePersonFragment extends Fragment {
                 person.setBloodType(bt);
                 person.setBirthdate(birthdate);
                 Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+                return ChangeStatus.CHANGED;
             }
             else
             {
                 Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
+                return ChangeStatus.INVALID_DATA;
             }
         }
+        return ChangeStatus.INVALID_DATA;
     }
 
     private boolean checkFields(String name, String ssn) {

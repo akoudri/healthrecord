@@ -87,7 +87,7 @@ public class TherapistFragment extends Fragment {
             branch = dataSource.getTherapyBranchTable().getBranchWithId(p.getBranchId());
             therapyBranch = branch.getName();
             if (therapyBranch.length() > 20) therapyBranch = therapyBranch.substring(0,20) + "...";
-            //add edit_idle button
+            //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,4);
             therapistButton = new Button(getActivity());
@@ -99,7 +99,7 @@ public class TherapistFragment extends Fragment {
             therapistButton.setMinEms(10);
             therapistButton.setMaxEms(10);
             therapistButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //Drawable img = getResources().getDrawable(R.drawable.doctor_idle);
+            //Drawable img = getResources().getDrawable(R.drawable.doctor);
             //therapistButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             therapistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,7 +119,7 @@ public class TherapistFragment extends Fragment {
             therapistButton.setLayoutParams(params);
             layout.addView(therapistButton);
             if (this.therapistId == id) {
-                //add remove_idle button
+                //add remove button
                 colSpec = GridLayout.spec(4);
                 removeButton = new ImageButton(getActivity());
                 removeButton.setBackgroundResource(R.drawable.remove);
@@ -205,7 +205,7 @@ public class TherapistFragment extends Fragment {
                     phoneButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //FIXME: send sms_idle
+                            //FIXME: send sms
                             Intent intent = new Intent(Intent.ACTION_CALL);
                             intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
                             startActivity(intent);
@@ -228,7 +228,7 @@ public class TherapistFragment extends Fragment {
                     emailButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //FIXME: send an email_idle
+                            //FIXME: send an email
                             Intent intent = new Intent(Intent.ACTION_CALL);
                             intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
                             startActivity(intent);
@@ -246,7 +246,7 @@ public class TherapistFragment extends Fragment {
                 //Edit Button
                 colSpec = GridLayout.spec(4);
                 editButton = new ImageButton(getActivity());
-                editButton.setBackgroundResource(R.drawable.edit_idle);
+                editButton.setBackgroundResource(R.drawable.edit);
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -271,6 +271,7 @@ public class TherapistFragment extends Fragment {
 
     public void addTherapist()
     {
+        therapistId = 0;
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");
         intent.putExtra("personId", personId);
         startActivity(intent);

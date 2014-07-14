@@ -145,7 +145,10 @@ public class CreateAilmentActivity extends Activity {
         for (Therapist t : therapists)
         {
             branch = brTable.getBranchWithId(t.getBranchId()).getName();
-            therapistStr[i++] = t.getName() + "-" + branch;
+            if (branch.length() > 10) branch = branch.substring(0,10);
+            String tName = t.getName();
+            if (tName.length() > 20) tName = tName.substring(0,20);
+            therapistStr[i++] = tName + "-" + branch;
         }
         ArrayAdapter<String> thAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistStr);
         therapistSpinner.setAdapter(thAdapter);
@@ -205,7 +208,7 @@ public class CreateAilmentActivity extends Activity {
             linearLayout.addView(editButton);
             //Remove Button
             removeButton = new ImageButton(this);
-            removeButton.setBackgroundResource(R.drawable.remove_idle);
+            removeButton.setBackgroundResource(R.drawable.remove);
             removeButton.setOnClickListener(new View.OnClickListener() {
                 //FIXME: R.string.yes/no -> getResources().getString(...)
                 //also in other files

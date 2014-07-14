@@ -420,10 +420,10 @@
     <string name="with">With: </string>
     <string name="type">Type: </string>
     <string name="display">Display</string>
-    <string name="db_warning">You are violating the uniqueness of some values in the database !</string>
+    <string name="db_warning">Data integrity violation</string>
     <string name="ok">OK</string>
     <string name="warning">Warning</string>
-    <string name="notValidData">Invalid data</string>
+    <string name="notValidData">Incomplete or invalid data</string>
     <string name="update_saved">Update saved</string>
     <string name="cell_phone_number">Cell Phone Number</string>
     <string name="email_address">Email Address</string>
@@ -444,5 +444,8 @@
     <string name="add_new_therapist">Add new therapist</string>
     <string name="add_drug">Add drug </string>
     <string name="stop">Stop</string>
+    <string name="current_size">Current size: </string>
+    <string name="current_weight">Current weight: </string>
+    <string name="doctor">Doctor</string>
 
 </resources>

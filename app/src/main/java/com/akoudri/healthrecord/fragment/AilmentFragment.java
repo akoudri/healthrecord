@@ -79,7 +79,7 @@ public class AilmentFragment extends Fragment {
         {
             final int ailmentId = ailment.getId();
             final Illness illness = illnessTable.getIllnessWithId(ailment.getIllnessId());
-            //edit_idle button
+            //edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,3);
             ailmentButton = new Button(getActivity());
@@ -210,6 +210,11 @@ public class AilmentFragment extends Fragment {
             //next line
             r++;
         }
+    }
+
+    public void resetAilmentId()
+    {
+        aId = 0;
     }
 
 }

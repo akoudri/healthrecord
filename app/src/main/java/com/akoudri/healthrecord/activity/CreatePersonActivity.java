@@ -87,7 +87,6 @@ public class CreatePersonActivity extends Activity {
     protected void onPause() {
         super.onPause();
         if (! dataSourceLoaded) return;
-        if (dataSourceLoaded)
         dataSource.close();
         dataSourceLoaded = false;
     }

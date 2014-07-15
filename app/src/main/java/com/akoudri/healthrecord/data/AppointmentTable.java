@@ -4,7 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -19,12 +22,11 @@ public class AppointmentTable {
     public static final String APPT_ID = "_id";
     public static final String APPT_PERSON_REF = "personId";
     public static final String APPT_THERAPIST_REF = "therapistId";
-    public static final String APPT_DATE = "date";
-    public static final String APPT_HOUR = "hour";
+    public static final String APPT_DATE = "date"; //contains also hour and min
     public static final String APPT_COMMENT = "comment";
 
     private String[] AppointmentCols = {APPT_ID, APPT_PERSON_REF, APPT_THERAPIST_REF,
-            APPT_DATE, APPT_HOUR, APPT_COMMENT};
+            APPT_DATE, APPT_COMMENT};
 
     public AppointmentTable(SQLiteDatabase db)
     {
@@ -38,8 +40,7 @@ public class AppointmentTable {
         sb.append(APPT_ID + " integer primary key autoincrement,");
         sb.append(APPT_PERSON_REF + " integer not null,");
         sb.append(APPT_THERAPIST_REF + " integer not null,");
-        sb.append(APPT_DATE + " text not null,");
-        sb.append(APPT_HOUR + " text not null,");
+        sb.append(APPT_DATE + " integer not null,");
         sb.append(APPT_COMMENT + " text,");
         sb.append(" foreign key(" + APPT_PERSON_REF + ") references " + PersonTable.PERSON_TABLE +
                 "(" + PersonTable.PERSON_ID + "),");
@@ -51,11 +52,11 @@ public class AppointmentTable {
 
     public long insertAppointment(int personId, int therapistId, String date, String hour, String comment)
     {
+        Calendar c = HealthRecordUtils.datehourToCalendar(date, hour);
         ContentValues values = new ContentValues();
         values.put(APPT_PERSON_REF, personId);
         values.put(APPT_THERAPIST_REF, therapistId);
-        values.put(APPT_DATE, date);
-        values.put(APPT_HOUR, hour);
+        values.put(APPT_DATE, c.getTimeInMillis());
         if (comment != null)
             values.put(APPT_COMMENT, comment);
         return db.insert(APPT_TABLE, null, values);
@@ -63,10 +64,10 @@ public class AppointmentTable {
 
     public boolean updateAppointment(int apptId, int therapistId, String date, String hour, String comment)
     {
+        Calendar c = HealthRecordUtils.datehourToCalendar(date, hour);
         ContentValues values = new ContentValues();
         values.put(APPT_THERAPIST_REF, therapistId);
-        values.put(APPT_DATE, date);
-        values.put(APPT_HOUR, hour);
+        values.put(APPT_DATE, c.getTimeInMillis());
         if (comment != null)
             values.put(APPT_COMMENT, comment);
         else
@@ -76,10 +77,12 @@ public class AppointmentTable {
 
     public List<Appointment> getDayAppointmentsForPerson(int personId, String date)
     {
+        long ms = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+        long me = ms + 86400000L;//24h in ms
         List<Appointment> res = new ArrayList<Appointment>();
         Cursor cursor = db.query(APPT_TABLE, AppointmentCols,
-                APPT_PERSON_REF + "=" + personId + " and " + APPT_DATE + "=?",
-                new String[] {date}, null, null, APPT_HOUR + " ASC");
+                APPT_PERSON_REF + "=" + personId + " and " + APPT_DATE + ">=" + ms + " and " + APPT_DATE + "<" + me,
+                null, null, null, APPT_DATE + " ASC");
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {
@@ -109,9 +112,12 @@ public class AppointmentTable {
         appt.setId(cursor.getInt(0));
         appt.setPersonId(cursor.getInt(1));
         appt.setTherapistId(cursor.getInt(2));
-        appt.setDate(cursor.getString(3));
-        appt.setHour(cursor.getString(4));
-        appt.setComment((cursor.isNull(5))?null:cursor.getString(5));
+        String[] d = HealthRecordUtils.millisToLongdatestring(cursor.getLong(3)).split("/");
+        String date = String.format("%s/%s/%s", d[0], d[1], d[2]);
+        String hour = String.format("%s:%s", d[3], d[4]);
+        appt.setDate(date);
+        appt.setHour(hour);
+        appt.setComment((cursor.isNull(4))?null:cursor.getString(5));
         return appt;
     }
 

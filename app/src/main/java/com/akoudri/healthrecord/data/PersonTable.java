@@ -43,7 +43,7 @@ public class PersonTable {
         sb.append(PERSON_GENDER + " int not null,");
         sb.append(PERSON_SSN + " text unique,");
         sb.append(PERSON_BLOODTYPE + " int,");
-        sb.append(PERSON_BIRTHDATE + " text not null");
+        sb.append(PERSON_BIRTHDATE + " integer not null");
         sb.append(");");
         db.execSQL(sb.toString());
     }
@@ -56,7 +56,8 @@ public class PersonTable {
         if (ssn != null)
             values.put(PERSON_SSN, ssn);
         values.put(PERSON_BLOODTYPE, bloodType.ordinal());
-        values.put(PERSON_BIRTHDATE, birthdate);
+        long bd = HealthRecordUtils.stringToCalendar(birthdate).getTimeInMillis();
+        values.put(PERSON_BIRTHDATE, bd);
         return db.insert(PERSON_TABLE, null, values);
     }
 
@@ -71,7 +72,8 @@ public class PersonTable {
         else
             values.putNull(PERSON_SSN);
         values.put(PERSON_BLOODTYPE, bloodType.ordinal());
-        values.put(PERSON_BIRTHDATE, birthdate);
+        long bd = HealthRecordUtils.stringToCalendar(birthdate).getTimeInMillis();
+        values.put(PERSON_BIRTHDATE, bd);
         return db.update(PERSON_TABLE, values, PERSON_ID + "=" + personId, null) > 0;
     }
 
@@ -117,7 +119,8 @@ public class PersonTable {
         person.setSsn(cursor.getString(3));
         int bloodType = cursor.getInt(4);
         person.setBloodType(HealthRecordUtils.int2bloodType(bloodType));
-        person.setBirthdate(cursor.getString(5));
+        long bd = cursor.getLong(5);
+        person.setBirthdate(HealthRecordUtils.millisToDatestring(bd));
         return person;
     }
 

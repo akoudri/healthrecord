@@ -42,7 +42,7 @@ public class MedicationTable {
         sb.append(MEDICATION_DRUG_REF + " integer not null,");
         sb.append(MEDICATION_FREQUENCY + " integer not null,");
         sb.append(MEDICATION_KIND + " integer not null,");
-        sb.append(MEDICATION_START_DATE + " text not null,");
+        sb.append(MEDICATION_START_DATE + " integer not null,");
         sb.append(MEDICATION_DURATION + " integer,"); //medication with no end date are for chronic ailments
         sb.append(" foreign key(" + MEDICATION_AILMENT_REF + ") references " + AilmentTable.AILMENT_TABLE +
                 "(" + AilmentTable.AILMENT_ID + "),");
@@ -59,8 +59,8 @@ public class MedicationTable {
         values.put(MEDICATION_DRUG_REF, drugId);
         values.put(MEDICATION_FREQUENCY, frequency);
         values.put(MEDICATION_KIND, kind.ordinal());
-        if (startDate != null)
-            values.put(MEDICATION_START_DATE, startDate);
+        long d = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
+        values.put(MEDICATION_START_DATE, d);
         if (duration < 0)
             values.put(MEDICATION_DURATION, duration);
         return db.insert(MEDICATION_TABLE, null, values);
@@ -83,10 +83,8 @@ public class MedicationTable {
         values.put(MEDICATION_DRUG_REF, drugId);
         values.put(MEDICATION_FREQUENCY, frequency);
         values.put(MEDICATION_KIND, kind.ordinal());
-        if (startDate != null)
-            values.put(MEDICATION_START_DATE, startDate);
-        else
-            values.putNull(MEDICATION_START_DATE);
+        long d = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
+        values.put(MEDICATION_START_DATE, d);
         if (duration > 0)
             values.put(MEDICATION_DURATION, duration);
         else
@@ -138,7 +136,8 @@ public class MedicationTable {
         medication.setDrugId(cursor.getInt(2));
         medication.setFrequency(cursor.getInt(3));
         medication.setKind(HealthRecordUtils.int2kind(cursor.getInt(4)));
-        medication.setStartDate((cursor.isNull(5))?null:cursor.getString(5));
+        long d = cursor.getLong(5);
+        medication.setStartDate(HealthRecordUtils.millisToDatestring(d));
         medication.setDuration((cursor.isNull(6)) ? -1 : cursor.getInt(6));
         return medication;
     }

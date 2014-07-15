@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
+
 /**
  * Created by Ali Koudri on 30/06/14.
+ * FIXME: shall I split the table in V2 ?
  */
 public class MeasureTable {
 
@@ -39,7 +42,7 @@ public class MeasureTable {
         sb.append("create table if not exists " + MEASURE_TABLE + "(");
         sb.append(MEASURE_ID + " integer primary key autoincrement,");
         sb.append(MEASURE_PERSON_REF + " integer not null,");
-        sb.append(MEASURE_DATE + " text not null,");
+        sb.append(MEASURE_DATE + " integer not null,");
         sb.append(MEASURE_WEIGHT + " real,");
         sb.append(MEASURE_SIZE + " integer,");
         sb.append(MEASURE_CRANIAL_PERIMETER + " integer,");
@@ -62,7 +65,7 @@ public class MeasureTable {
             return -1;
         ContentValues values = new ContentValues();
         values.put(MEASURE_PERSON_REF, personId);
-        values.put(MEASURE_DATE, date);
+        values.put(MEASURE_DATE, HealthRecordUtils.stringToCalendar(date).getTimeInMillis());
         if (weight > 0.0)
             values.put(MEASURE_WEIGHT, weight);
         if (size > 0)
@@ -119,12 +122,14 @@ public class MeasureTable {
             values.put(MEASURE_HEARTBEAT, heartbeat);
         else
             values.putNull(MEASURE_HEARTBEAT);
-        return db.update(MEASURE_TABLE, values, MEASURE_PERSON_REF + "=" + personId + " and " + MEASURE_DATE + "='" + date + "'", null) > 0;
+        long d = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+        return db.update(MEASURE_TABLE, values, MEASURE_PERSON_REF + "=" + personId + " and " + MEASURE_DATE + "=" + d, null) > 0;
     }
 
     public Measure getPersonMeasureWithDate(int personId, String date)
     {
-        Cursor cursor = db.query(MEASURE_TABLE, measureCols, MEASURE_PERSON_REF + "=" + personId + " and " + MEASURE_DATE + "='" + date + "'", null, null, null, null);
+        long d = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+        Cursor cursor = db.query(MEASURE_TABLE, measureCols, MEASURE_PERSON_REF + "=" + personId + " and " + MEASURE_DATE + "=" + d, null, null, null, null);
         if (cursor.moveToFirst())
             return cursorToMeasure(cursor);
         return null;
@@ -145,7 +150,8 @@ public class MeasureTable {
         Measure measure = new Measure();
         measure.setId(cursor.getInt(0));
         measure.setPersonId(cursor.getInt(1));
-        measure.setDate(cursor.getString(2));
+        long d = cursor.getLong(2);
+        measure.setDate(HealthRecordUtils.millisToDatestring(d));
         measure.setWeight(cursor.isNull(3)?0.0:cursor.getDouble(3));
         measure.setSize(cursor.isNull(4)?0:cursor.getInt(4));
         measure.setCranialPerimeter(cursor.isNull(5)?0:cursor.getInt(5));

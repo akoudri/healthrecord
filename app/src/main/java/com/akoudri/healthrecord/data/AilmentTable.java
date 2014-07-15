@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -55,14 +54,13 @@ public class AilmentTable {
     }
 
     public long insertAilment(int personId, int illnessId, int therapistId, String startDate, int duration, String comment) {
-        Calendar c = HealthRecordUtils.stringToCalendar(startDate);
         ContentValues values = new ContentValues();
         values.put(AILMENT_PERSON_REF, personId);
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
         if (therapistId >= 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
-        values.put(AILMENT_START_DATE, c.getTimeInMillis());
+        values.put(AILMENT_START_DATE, HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis());
         if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
         if (comment != null)
@@ -71,7 +69,6 @@ public class AilmentTable {
     }
 
     public boolean updateAilment(int ailmentId, int illnessId, int therapistId, String startDate, int duration, String comment) {
-        Calendar c = HealthRecordUtils.stringToCalendar(startDate);
         ContentValues values = new ContentValues();
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
@@ -79,7 +76,7 @@ public class AilmentTable {
         if (therapistId >= 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
         else values.putNull(AILMENT_THERAPIST_REF);
-        values.put(AILMENT_START_DATE, c.getTimeInMillis());
+        values.put(AILMENT_START_DATE, HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis());
         if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
         else
@@ -111,34 +108,16 @@ public class AilmentTable {
     public List<Ailment> getDayAilmentsForPerson(int personId, String date)
     {
         List<Ailment> res = new ArrayList<Ailment>();
-        Cursor cursor = db.query(AILMENT_TABLE, ailmentCols, AILMENT_PERSON_REF + "=" + personId, null, null, null, null);
-        cursor.moveToFirst();
+        long today = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+        Cursor cursor = db.query(AILMENT_TABLE, ailmentCols, AILMENT_PERSON_REF + "=" + personId +
+                " and " + AILMENT_START_DATE + "<=" + today + " and (" + AILMENT_DURATION + " is null or " + AILMENT_START_DATE + " + " +
+                AILMENT_DURATION + " * 86400000 > " + today + ")", null, null, null, null);
         Ailment ailment;
-        String sDate;
-        Calendar currentDate, startDate, endDate;
-        currentDate = HealthRecordUtils.stringToCalendar(date);
-        //FIXME: improve the following algorithm with the use of duration
+        cursor.moveToFirst();
         while (! cursor.isAfterLast())
         {
             ailment = cursorToAilment(cursor);
-            sDate = ailment.getStartDate();
-            startDate = HealthRecordUtils.stringToCalendar(sDate);
-            endDate = HealthRecordUtils.stringToCalendar(HealthRecordUtils.computeEndDate(sDate, ailment.getDuration()));
-            if (endDate == null)
-            {
-                if (currentDate.equals(startDate) || currentDate.after(startDate)) {
-                    res.add(ailment);
-                }
-            }
-            else
-            {
-                if (currentDate.equals(startDate) || currentDate.equals(endDate)) {
-                    res.add(ailment);
-                }
-                else if (currentDate.after(startDate) && currentDate.before(endDate)) {
-                    res.add(ailment);
-                }
-            }
+            res.add(ailment);
             cursor.moveToNext();
         }
         return res;
@@ -155,11 +134,7 @@ public class AilmentTable {
         ailment.setPersonId(cursor.getInt(1));
         ailment.setIllnessId((cursor.isNull(2)) ? 0 : cursor.getInt(2));
         ailment.setTherapistId((cursor.isNull(3))?0:cursor.getInt(3));
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(cursor.getLong(4));
-        String date = String.format("%02d/%02d/%04d",
-                c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
-        ailment.setStartDate(date);
+        ailment.setStartDate(HealthRecordUtils.millisToDatestring(cursor.getLong(4)));
         ailment.setDuration((cursor.isNull(5))?-1:cursor.getInt(5));
         ailment.setComment((cursor.isNull(6))?null:cursor.getString(6));
         return ailment;

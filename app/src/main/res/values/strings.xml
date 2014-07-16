@@ -447,5 +447,6 @@
     <string name="current_size">Current size: </string>
     <string name="current_weight">Current weight: </string>
     <string name="doctor">Doctor</string>
+    <string name="overlapping_ailment">Illness already declared for this period</string>
 
 </resources>

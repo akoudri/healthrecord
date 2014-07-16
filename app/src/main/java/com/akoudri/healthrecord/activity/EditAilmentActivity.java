@@ -54,6 +54,7 @@ public class EditAilmentActivity extends Activity {
     private List<Medication> medications;
     private Ailment ailment;
     private int thPos = 0;
+    private boolean removeOccurred = false;
 
     private int reqCreateCode = 1;
     private int reqEditCode = 2;
@@ -249,7 +250,8 @@ public class EditAilmentActivity extends Activity {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     existingMedications.remove(medic);
-                                    dataSource.getMedicationTable().removeMedicWithId(medic.getId());
+                                    boolean r = dataSource.getMedicationTable().removeMedicWithId(medic.getId());
+                                    if (r) removeOccurred = true;
                                     createWidgets();
                                 }
                             })
@@ -300,14 +302,12 @@ public class EditAilmentActivity extends Activity {
                     startActivityForResult(intent, reqEditCode);
                 }
             });
-            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.LEFT|Gravity.CENTER;
-            //llparams.bottomMargin = margin;
+            llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
-            //llparams.topMargin = margin;
+            llparams.topMargin = margin;
             llparams.rightMargin = margin;
-            //FIXME: arbitrary value, see LinearLayout API
-            llparams.weight = 0.25f;
             editButton.setLayoutParams(llparams);
             linearLayout.addView(editButton);
             //Remove Button
@@ -334,13 +334,10 @@ public class EditAilmentActivity extends Activity {
                 }
             });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            //FIXME: arbitrary value, see LinearLayout API
-            llparams.weight = 0.75f;
-            llparams.gravity = Gravity.LEFT|Gravity.TOP;
-            llparams.gravity = Gravity.LEFT|Gravity.CENTER;
-            //llparams.bottomMargin = margin;
+            llparams.gravity = Gravity.CENTER_VERTICAL;
+            llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
-            //llparams.topMargin = margin;
+            llparams.topMargin = margin;
             llparams.rightMargin = margin;
             removeButton.setLayoutParams(llparams);
             linearLayout.addView(removeButton);
@@ -349,8 +346,6 @@ public class EditAilmentActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //TODO:Manage the case where there is no data received
-        //FIXME: check values before setting the object
         if (requestCode == reqCreateCode)
         {
             if (resultCode == RESULT_OK)
@@ -383,11 +378,9 @@ public class EditAilmentActivity extends Activity {
 
     public void editAddMedic(View view)
     {
-        //FIXME: check the upper bounds of the medic before inserting it
         if (ailmentId == 0 || day <= 0 || month <= 0 || year <= 0)
             return;
         if (!dataSourceLoaded) return;
-        //TODO:Manage the case where there is no data received -> start activity with no result
         Intent intent = new Intent("com.akoudri.healthrecord.app.CreateMedication");
         intent.putExtra("date", selectedDate);
         startActivityForResult(intent, 1);
@@ -395,7 +388,6 @@ public class EditAilmentActivity extends Activity {
 
     public void updateAilment(View view)
     {
-        //FIXME: check the upper bounds of the medic before updating it
         if (ailmentId == 0 || day <= 0 || month <= 0 || year <= 0)
             return;
         if (!dataSourceLoaded) return;
@@ -408,38 +400,44 @@ public class EditAilmentActivity extends Activity {
                 illnessId = (int) illnessTable.insertIllness(illness);
             }
         }
+        else
+        {
+            if (medications.size() + existingMedications.size() == 0)
+            {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         Therapist t;
         if (thPos == 0)
             t = null;
         else
             t = therapists.get(thPos-1);
         String sDate = startDateET.getText().toString();
-        //ailment.setStartDate(sDate);
         int duration = -1;
         String d = endDateET.getText().toString();
         if (!d.equals("")) duration = Integer.parseInt(d);
-        //ailment.setDuration(duration);
-        //ailment.setIllnessId(illnessId);
-        /*
-        if (t != null)
-            ailment.setTherapistId(t.getId());
-        else
-            ailment.setTherapistId(0);
-            */
         int thId = (t == null)?0:t.getId();
         String comment = commentET.getText().toString();
         if (comment.equals("")) comment = null;
         //ailment.setComment(comment);
         Ailment a = new Ailment(ailment.getPersonId(), illnessId, thId, sDate, duration, comment);
-        if (ailment.equalsTo(a))
+        if (ailment.equalsTo(a) && medications.size() == 0 && !removeOccurred)
         {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+            removeOccurred = false;
             finish();
             return;
         }
         a.setId(ailmentId);
-        boolean res = dataSource.getAilmentTable().updateAilment(a);
-        if (res) {
+        int res = dataSource.getAilmentTable().updateAilment(a);
+        if (res == -1)
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.overlapping_ailment), Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        if (res > 0) {
             MedicationTable table = dataSource.getMedicationTable();
             for (Medication m : medications) {
                 m.setAilmentId(ailmentId);

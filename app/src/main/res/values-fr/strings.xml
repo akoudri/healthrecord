@@ -255,5 +255,6 @@
     <string name="current_size">Taille actuelle: </string>
     <string name="current_weight">Poids actuel: </string>
     <string name="doctor">Nom du médecin traitant</string>
+    <string name="overlapping_ailment">Maladie déjà déclarée dans cette période</string>
 
 </resources>

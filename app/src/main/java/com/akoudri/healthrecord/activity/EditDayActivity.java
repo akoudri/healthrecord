@@ -84,6 +84,9 @@ public class EditDayActivity extends Activity {
             measureFrag.setDataSource(dataSource);
             apptFrag.setDataSource(dataSource);
             ailmentFrag.setDataSource(dataSource);
+            int count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
+            if (count == 0)
+                rvButton.setEnabled(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -145,12 +148,6 @@ public class EditDayActivity extends Activity {
     {
         if (!dataSourceLoaded) return;
         if (currentFrag == apptFrag) return;
-        int count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
-        if (count == 0)
-        {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_therapist_found), Toast.LENGTH_SHORT).show();
-            return;
-        }
         apptFrag.resetAppointmentId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, apptFrag);

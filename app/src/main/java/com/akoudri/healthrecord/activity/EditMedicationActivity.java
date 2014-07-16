@@ -132,11 +132,7 @@ public class EditMedicationActivity extends Activity {
         String name = medicationActv.getText().toString();
         String timesStr = timesET.getText().toString();
         if (!checkFields(name, timesStr))
-        {
-            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
             return;
-        }
         int drugId = dataSource.getDrugTable().getDrugId(name);
         if (drugId < 0)
         {

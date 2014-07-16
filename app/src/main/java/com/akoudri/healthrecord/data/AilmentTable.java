@@ -55,12 +55,14 @@ public class AilmentTable {
 
     public long insertAilment(int personId, int illnessId, int therapistId, String startDate, int duration, String comment) {
         ContentValues values = new ContentValues();
+        long sd = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
+        if (isOverlapping(personId, illnessId, sd, duration)) return -2;
         values.put(AILMENT_PERSON_REF, personId);
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
         if (therapistId >= 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
-        values.put(AILMENT_START_DATE, HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis());
+        values.put(AILMENT_START_DATE, sd);
         if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
         if (comment != null)
@@ -68,8 +70,10 @@ public class AilmentTable {
         return db.insert(AILMENT_TABLE, null, values);
     }
 
-    public boolean updateAilment(int ailmentId, int illnessId, int therapistId, String startDate, int duration, String comment) {
+    public int updateAilment(int ailmentId, int illnessId, int therapistId, String startDate, int duration, String comment) {
         ContentValues values = new ContentValues();
+        long sd = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
+        if (isOverlappingAilment(ailmentId, illnessId, sd, duration)) return -1;
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
         else values.putNull(AILMENT_ILLNESS_REF);
@@ -84,10 +88,10 @@ public class AilmentTable {
         if (comment != null)
             values.put(AILMENT_COMMENT, comment);
         else values.putNull(AILMENT_COMMENT);
-        return db.update(AILMENT_TABLE, values, AILMENT_ID + "=" + ailmentId, null) > 0;
+        return db.update(AILMENT_TABLE, values, AILMENT_ID + "=" + ailmentId, null);
     }
 
-    public boolean updateAilment(Ailment ailment)
+    public int updateAilment(Ailment ailment)
     {
         int ailmentId = ailment.getId();
         int illnessId = ailment.getIllnessId();
@@ -126,6 +130,64 @@ public class AilmentTable {
     public boolean removeAilmentWithId(int ailmentId)
     {
         return db.delete(AILMENT_TABLE, AILMENT_ID + "=" + ailmentId, null) > 0;
+    }
+
+    private boolean isOverlapping(int personId, int illnessId, long startDate, int duration)
+    {
+        boolean res = false;
+        String req, sreq1, sreq2;
+        if (duration == -1)
+        {
+            sreq1 = "(" + AILMENT_DURATION + " is null)";
+            sreq2 = "(" + AILMENT_DURATION + " is not null and ((" + AILMENT_START_DATE + "<=" + startDate + " and " + AILMENT_START_DATE + ">=" +
+                    startDate + "-" + AILMENT_DURATION + "* 86400000) or (" + AILMENT_START_DATE + ">=" + startDate +")))";
+        }
+        else
+        {
+            int d = duration * 86400000 - 1000;
+            long endDate = startDate + d;
+            sreq1 = "(" + AILMENT_DURATION + " is not null and ((" + AILMENT_START_DATE + "<=" + startDate + " and " +
+                    AILMENT_START_DATE +">=" + startDate + "-" + AILMENT_DURATION + "* 86400000) or (" + AILMENT_START_DATE +
+                    "<=" + endDate + " and " + AILMENT_START_DATE + ">=" + endDate + "-" + AILMENT_DURATION + "* 86400000) or (" +
+                    AILMENT_START_DATE + ">=" + startDate + " and " + AILMENT_START_DATE + "<=" + endDate + "-" + AILMENT_DURATION + "* 86400000)))";
+            sreq2 = "(" + AILMENT_DURATION + " is null and (" + AILMENT_START_DATE + "<=" + startDate + " or " + AILMENT_START_DATE + "<=" + endDate +"))";
+        }
+        req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_PERSON_REF + "=" + personId + " and " +
+                AILMENT_ILLNESS_REF + "=" + illnessId + " and (" + sreq1 + " or " + sreq2 + ")";
+        Cursor count  = db.rawQuery(req, null);
+        if (!count.moveToFirst()) return false;
+        res = (count.getInt(0) > 0);
+        count.close();
+        return res;
+    }
+
+    private boolean isOverlappingAilment(int ailmentId, int illnessId, long startDate, int duration)
+    {
+        boolean res = false;
+        String req, sreq1, sreq2;
+        if (duration == -1)
+        {
+            sreq1 = "(" + AILMENT_DURATION + " is null)";
+            sreq2 = "(" + AILMENT_DURATION + " is not null and ((" + AILMENT_START_DATE + "<=" + startDate + " and " + AILMENT_START_DATE + ">=" +
+                    startDate + "-" + AILMENT_DURATION + "* 86400000) or (" + AILMENT_START_DATE + ">=" + startDate +")))";
+        }
+        else
+        {
+            int d = duration * 86400000 - 1000;
+            long endDate = startDate + d;
+            sreq1 = "(" + AILMENT_DURATION + " is not null and ((" + AILMENT_START_DATE + "<=" + startDate + " and " +
+                    AILMENT_START_DATE +">=" + startDate + "-" + AILMENT_DURATION + "* 86400000) or (" + AILMENT_START_DATE +
+                    "<=" + endDate + " and " + AILMENT_START_DATE + ">=" + endDate + "-" + AILMENT_DURATION + "* 86400000) or (" +
+                    AILMENT_START_DATE + ">=" + startDate + " and " + AILMENT_START_DATE + "<=" + endDate + "-" + AILMENT_DURATION + "* 86400000)))";
+            sreq2 = "(" + AILMENT_DURATION + " is null and (" + AILMENT_START_DATE + "<=" + startDate + " or " + AILMENT_START_DATE + "<=" + endDate +"))";
+        }
+        req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_ID + "=" + ailmentId + " and " +
+                AILMENT_ILLNESS_REF + "=" + illnessId + " and (" + sreq1 + " or " + sreq2 + ")";
+        Cursor count  = db.rawQuery(req, null);
+        if (!count.moveToFirst()) return false;
+        res = (count.getInt(0) > 0);
+        count.close();
+        return res;
     }
 
     private Ailment cursorToAilment(Cursor cursor) {

@@ -29,7 +29,6 @@ public class HealthRecordDataSource {
     private TherapistTable therapistTable;
     private PersonTherapistTable personTherapistTable;
     private AppointmentTable appointmentTable;
-    //private AilmentTable ailmentTable;
     private AilmentTable ailmentTable;
     private MedicationTable medicationTable;
     private DrugTable drugTable;

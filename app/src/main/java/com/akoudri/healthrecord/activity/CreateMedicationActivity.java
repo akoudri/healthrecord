@@ -94,11 +94,7 @@ public class CreateMedicationActivity extends Activity {
         String name = medicationActv.getText().toString();
         String timesStr = timesET.getText().toString();
         if (!checkFields(name, timesStr))
-        {
-            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
             return;
-        }
         int drugId = dataSource.getDrugTable().getDrugId(name);
         if (drugId < 0)
         {
@@ -140,8 +136,7 @@ public class CreateMedicationActivity extends Activity {
         if (notToHighlight.size() > 0)
             HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
         if (!res) {
-            Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         return res;
     }

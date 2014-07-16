@@ -33,7 +33,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//I trust the user to not create two same ailments on overlapping periods
+//TODO: Add constraint on corresponding table
 public class CreateAilmentActivity extends Activity {
 
     private AutoCompleteTextView illnessActv;
@@ -261,8 +262,7 @@ public class CreateAilmentActivity extends Activity {
                 {
                     if (med.getDrugId() == drugId)
                     {
-                        Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.duplicate_medic), Toast.LENGTH_SHORT);
-                        toast.show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.duplicate_medic), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -294,7 +294,6 @@ public class CreateAilmentActivity extends Activity {
 
     public void addAilment(View view)
     {
-        //FIXME: check the upper bounds of the medic before inserting it
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0)
             return;
         if (!dataSourceLoaded) return;
@@ -307,6 +306,15 @@ public class CreateAilmentActivity extends Activity {
             if (illnessId < 0)
             {
                 illnessId = (int) illnessTable.insertIllness(illness);
+            }
+        }
+        else
+        {
+            if (medications.size() == 0)
+            {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                finish();
+                return;
             }
         }
         Therapist t;
@@ -322,6 +330,18 @@ public class CreateAilmentActivity extends Activity {
         if (comment.equals("")) comment = null;
         int therapistId = (t==null)?0:t.getId();
         int ailmentId = (int) dataSource.getAilmentTable().insertAilment(personId, illnessId, therapistId, sDate, duration, comment);
+        if (ailmentId == -2)
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.overlapping_ailment), Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        if (ailmentId == -1)
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         MedicationTable table = dataSource.getMedicationTable();
         for (Medication m : medications)
         {

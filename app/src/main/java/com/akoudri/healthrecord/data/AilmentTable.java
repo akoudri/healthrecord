@@ -54,9 +54,9 @@ public class AilmentTable {
     }
 
     public long insertAilment(int personId, int illnessId, int therapistId, String startDate, int duration, String comment) {
-        ContentValues values = new ContentValues();
         long sd = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
         if (isOverlapping(personId, illnessId, sd, duration)) return -2;
+        ContentValues values = new ContentValues();
         values.put(AILMENT_PERSON_REF, personId);
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
@@ -71,9 +71,9 @@ public class AilmentTable {
     }
 
     public int updateAilment(int ailmentId, int illnessId, int therapistId, String startDate, int duration, String comment) {
-        ContentValues values = new ContentValues();
         long sd = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
         if (isOverlappingAilment(ailmentId, illnessId, sd, duration)) return -1;
+        ContentValues values = new ContentValues();
         if (illnessId >= 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
         else values.putNull(AILMENT_ILLNESS_REF);
@@ -115,7 +115,7 @@ public class AilmentTable {
         long today = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
         Cursor cursor = db.query(AILMENT_TABLE, ailmentCols, AILMENT_PERSON_REF + "=" + personId +
                 " and " + AILMENT_START_DATE + "<=" + today + " and (" + AILMENT_DURATION + " is null or " + AILMENT_START_DATE + " + " +
-                AILMENT_DURATION + " * 86400000 > " + today + ")", null, null, null, null);
+                AILMENT_DURATION + " * 86400000 >= " + today + ")", null, null, null, null);
         Ailment ailment;
         cursor.moveToFirst();
         while (! cursor.isAfterLast())
@@ -134,7 +134,6 @@ public class AilmentTable {
 
     private boolean isOverlapping(int personId, int illnessId, long startDate, int duration)
     {
-        boolean res = false;
         String req, sreq1, sreq2;
         if (duration == -1)
         {
@@ -156,14 +155,13 @@ public class AilmentTable {
                 AILMENT_ILLNESS_REF + "=" + illnessId + " and (" + sreq1 + " or " + sreq2 + ")";
         Cursor count  = db.rawQuery(req, null);
         if (!count.moveToFirst()) return false;
-        res = (count.getInt(0) > 0);
+        boolean res = (count.getInt(0) > 0);
         count.close();
         return res;
     }
 
     private boolean isOverlappingAilment(int ailmentId, int illnessId, long startDate, int duration)
     {
-        boolean res = false;
         String req, sreq1, sreq2;
         if (duration == -1)
         {
@@ -181,11 +179,11 @@ public class AilmentTable {
                     AILMENT_START_DATE + ">=" + startDate + " and " + AILMENT_START_DATE + "<=" + endDate + "-" + AILMENT_DURATION + "* 86400000)))";
             sreq2 = "(" + AILMENT_DURATION + " is null and (" + AILMENT_START_DATE + "<=" + startDate + " or " + AILMENT_START_DATE + "<=" + endDate +"))";
         }
-        req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_ID + "=" + ailmentId + " and " +
+        req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_ID + "<>" + ailmentId + " and " +
                 AILMENT_ILLNESS_REF + "=" + illnessId + " and (" + sreq1 + " or " + sreq2 + ")";
         Cursor count  = db.rawQuery(req, null);
         if (!count.moveToFirst()) return false;
-        res = (count.getInt(0) > 0);
+        boolean res = (count.getInt(0) > 0);
         count.close();
         return res;
     }

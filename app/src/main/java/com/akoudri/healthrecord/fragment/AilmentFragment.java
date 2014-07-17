@@ -16,8 +16,10 @@ import android.widget.GridLayout;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Ailment;
+import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.List;
 
@@ -145,18 +147,29 @@ public class AilmentFragment extends Fragment {
                 layout.addView(editButton);
                 //Stop Button
                 colSpec = GridLayout.spec(1);
+                boolean has_duration = (ailment.getDuration() >= 0);
                 stopButton = new Button(getActivity());
                 stopButton.setText(getResources().getString(R.string.stop));
                 stopButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 stopButton.setTextSize(12);
                 stopButton.setMinEms(5);
                 stopButton.setBackgroundResource(R.drawable.healthrecord_button);
-                img = getResources().getDrawable(R.drawable.stop);
+                if (!has_duration)
+                    img = getResources().getDrawable(R.drawable.stop);
+                else
+                    img = getResources().getDrawable(R.drawable.stop_disabled);
                 stopButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
                 stopButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
+                        Ailment a = ailment;
+                        long start = HealthRecordUtils.stringToCalendar(ailment.getStartDate()).getTimeInMillis();
+                        long end = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+                        long d = end - start;
+                        int duration = (int)(d / 86400000);
+                        a.setDuration(duration);
+                        dataSource.getAilmentTable().updateAilment(a);
+                        createWidgets();
                     }
                 });
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
@@ -168,6 +181,7 @@ public class AilmentFragment extends Fragment {
                 params.setGravity(Gravity.CENTER);
                 stopButton.setLayoutParams(params);
                 layout.addView(stopButton);
+                if (has_duration) stopButton.setEnabled(false);
                 //Remove Button
                 colSpec = GridLayout.spec(2);
                 removeButton = new Button(getActivity());

@@ -104,7 +104,7 @@ public class CreateMedicationActivity extends Activity {
         int kfreq = freqSpinner.getSelectedItemPosition();
         String sDate = beginMedicET.getText().toString();
         String d = endMedicET.getText().toString();
-        int duration = (d.equals(""))?-1:Integer.parseInt(d) + 1;
+        int duration = (d.equals(""))?-1:Integer.parseInt(d) - 1;
         Intent data = new Intent();
         data.putExtra("drugId", drugId);
         data.putExtra("freq", freq);

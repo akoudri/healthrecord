@@ -14,7 +14,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.AilmentTable;
+import com.akoudri.healthrecord.data.AppointmentTable;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +32,7 @@ import java.util.Locale;
 public class CalendarView extends View implements View.OnTouchListener {
 
     private int personId = 0; //id of the person
+    private HealthRecordDataSource dataSource; //data source
     private Calendar _cal, today; //_cal is used to iterate over the days of the calendar, today represents the current day
     private Paint paint; //for drawing on the canvas
     private int width, height; //to store the dimension of the screen
@@ -76,6 +81,10 @@ public class CalendarView extends View implements View.OnTouchListener {
     public void setPersonId(int personId)
     {
         this.personId = personId;
+    }
+
+    public void setDataSource(HealthRecordDataSource dataSource){
+        this.dataSource = dataSource;
     }
 
     @Override
@@ -176,6 +185,12 @@ public class CalendarView extends View implements View.OnTouchListener {
     //display any day of the month except actual day
     private void displayDaysOfTheMonth(Canvas canvas)
     {
+        AilmentTable ailmentTable = null;
+        AppointmentTable appointmentTable = null;
+        if (dataSource != null){
+            ailmentTable = dataSource.getAilmentTable();
+            appointmentTable = dataSource.getAppointmentTable();
+        }
         rects.clear(); //clear the list of rects
         //prepare the painting for days different of actual day
         paint.setColor(getResources().getColor(R.color.regular_text_color));
@@ -225,7 +240,10 @@ public class CalendarView extends View implements View.OnTouchListener {
             rects.add(rect);
             if (isToday())
             {
-                displayCurrentDate(canvas);
+                if (dataSource != null)
+                    displayCurrentDate(canvas, appointmentTable, ailmentTable);
+                else
+                    displayCurrentDate(canvas);
                 continue;
             }
             rectf = new RectF(rect);
@@ -236,6 +254,24 @@ public class CalendarView extends View implements View.OnTouchListener {
             if (_cal.before(today))
             {
                 canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
+            }
+            if (dataSource != null)
+            {
+                paint.setStyle(Paint.Style.FILL);
+                if (appointmentTable.countAppointmentsForDay(personId, _cal.getTimeInMillis()) > 0)
+                {
+                    int xa = (int) (rect.left + stepx / 3);
+                    int yi = (int) (rect.top + 5);
+                    paint.setColor(getResources().getColor(R.color.rvColor));
+                    canvas.drawCircle(xa, yi, 3, paint);
+                }
+                if (ailmentTable.countAilmentsForDay(personId, _cal.getTimeInMillis()) > 0) {
+                    int xa = (int) (rect.right - stepx / 3);
+                    int yi = (int) (rect.top + 5);
+                    paint.setColor(getResources().getColor(R.color.rvColor));
+                    canvas.drawCircle(xa, yi, 3, paint);
+                }
+                paint.setColor(getResources().getColor(R.color.regular_text_color));
             }
         }
     }
@@ -250,6 +286,33 @@ public class CalendarView extends View implements View.OnTouchListener {
         paint.setColor(getResources().getColor(R.color.app_bg_color));
         canvas.drawText("" + day, rect.left + stepx / 2, rect.top + delta, paint);
         paint.setColor(getResources().getColor(R.color.regular_text_color));
+    }
+
+    private void displayCurrentDate(Canvas canvas, AppointmentTable appointmentTable, AilmentTable ailmentTable)
+    {
+        int day = _cal.get(Calendar.DAY_OF_MONTH);
+        Rect rect = rects.get(day - 1);
+        RectF rectf = new RectF(rect);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRoundRect(rectf, corner, corner, paint);
+        paint.setColor(getResources().getColor(R.color.app_bg_color));
+        canvas.drawText("" + day, rect.left + stepx / 2, rect.top + delta, paint);
+        paint.setStyle(Paint.Style.FILL);
+        if (appointmentTable.countAppointmentsForDay(personId, _cal.getTimeInMillis()) > 0)
+        {
+            int xa = (int) (rect.left + stepx / 3);
+            int yi = (int) (rect.top + 5);
+            paint.setColor(getResources().getColor(R.color.rvColor));
+            canvas.drawCircle(xa, yi, 3, paint);
+        }
+        if (ailmentTable.countAilmentsForDay(personId, _cal.getTimeInMillis()) > 0) {
+            int xa = (int) (rect.right - stepx / 3);
+            int yi = (int) (rect.top + 5);
+            paint.setColor(getResources().getColor(R.color.rvColor));
+            canvas.drawCircle(xa, yi, 3, paint);
+        }
+        paint.setColor(getResources().getColor(R.color.regular_text_color));
+        paint.setStyle(Paint.Style.STROKE);
     }
 
     @Override

@@ -123,7 +123,7 @@ public class EditMedicationActivity extends Activity {
         beginMedicET.setText(medic.getStartDate());
         int d = medic.getDuration() + 1;
         if (d > 0)
-            endMedicET.setText(medic.getDuration()+"");
+            endMedicET.setText(d+"");
     }
 
     public void editAddMedication(View view)

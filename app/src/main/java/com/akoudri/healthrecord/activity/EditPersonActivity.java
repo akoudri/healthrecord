@@ -61,6 +61,8 @@ public class EditPersonActivity extends Activity {
             dataSourceLoaded = true;
             if (numFrag == 0)
                 ((UpdatePersonFragment)currentFrag).setDataSource(dataSource);
+            if (numFrag == 1)
+                ((CalendarFragment)currentFrag).setDataSource(dataSource);
             if (numFrag == 2)
                 ((TherapistFragment)currentFrag).setDataSource(dataSource);
         } catch (SQLException e) {
@@ -72,11 +74,9 @@ public class EditPersonActivity extends Activity {
     protected void onPause() {
         super.onPause();
         if (personId == 0) return;
-        if (dataSourceLoaded)
-        {
-            dataSource.close();
-            dataSourceLoaded = false;
-        }
+        if (!dataSourceLoaded) return;
+        dataSource.close();
+        dataSourceLoaded = false;
     }
 
     public void pickUpdateBirthdate(View view)

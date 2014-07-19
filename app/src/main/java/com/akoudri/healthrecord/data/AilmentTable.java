@@ -188,6 +188,18 @@ public class AilmentTable {
         return res;
     }
 
+    public int countAilmentsForDay(int personId, long date)
+    {
+        String req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_PERSON_REF + "=" + personId +
+                " and " + AILMENT_START_DATE + "<=" + date + " and (" + AILMENT_DURATION + " is null or " + AILMENT_START_DATE + " + " +
+                AILMENT_DURATION + " * 86400000 >= " + date + ")";
+        Cursor count = db.rawQuery(req, null);
+        if (!count.moveToFirst()) return 0;
+        int res = count.getInt(0);
+        count.close();
+        return res;
+    }
+
     private Ailment cursorToAilment(Cursor cursor) {
         Ailment ailment = new Ailment();
         ailment.setId(cursor.getInt(0));

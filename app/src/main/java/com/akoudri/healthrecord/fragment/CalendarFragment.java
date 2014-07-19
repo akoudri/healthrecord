@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.view.CalendarView;
 
@@ -26,5 +27,10 @@ public class CalendarFragment extends Fragment {
         calendarView = (CalendarView) view.findViewById(R.id.calendar_view);
         calendarView.setPersonId(personId);
         return view;
+    }
+
+    public void setDataSource(HealthRecordDataSource dataSource)
+    {
+        calendarView.setDataSource(dataSource);
     }
 }

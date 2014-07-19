@@ -94,11 +94,9 @@ public class EditDayActivity extends Activity {
     protected void onPause()
     {
         super.onPause();
-        if (dataSourceLoaded)
-        {
-            dataSource.close();
-            dataSourceLoaded = false;
-        }
+        if (!dataSourceLoaded) return;
+        dataSource.close();
+        dataSourceLoaded = false;
     }
 
     private void displayCurrentDay()

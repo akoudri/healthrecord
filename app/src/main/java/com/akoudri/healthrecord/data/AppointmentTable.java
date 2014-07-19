@@ -92,6 +92,17 @@ public class AppointmentTable {
         return res;
     }
 
+    public int countAppointmentsForDay(int personId, long date)
+    {
+        long me = date + 86400000L;//24h in ms
+        String req = "select count(*) from " + APPT_TABLE + " where " + APPT_PERSON_REF + "=" + personId + " and " + APPT_DATE + ">=" + date + " and " + APPT_DATE + "<" + me;
+        Cursor count = db.rawQuery(req, null);
+        if (!count.moveToFirst()) return 0;
+        int res = count.getInt(0);
+        count.close();
+        return res;
+    }
+
     public Appointment getAppointmentWithId(int apptId)
     {
         Cursor cursor = db.query(APPT_TABLE, AppointmentCols,

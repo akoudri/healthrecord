@@ -74,10 +74,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (dataSourceLoaded) {
-            dataSource.close();
-            dataSourceLoaded = false;
-        }
+        if (!dataSourceLoaded) return;
+        dataSource.close();
+        dataSourceLoaded = false;
     }
 
     //Called at first use to preload default data

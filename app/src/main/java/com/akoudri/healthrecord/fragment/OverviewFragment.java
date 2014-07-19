@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 
 public class OverviewFragment extends Fragment {
 
     private View view;
+    private TextView nbMeasures, nbAppts, nbAilments, nbMedics;
 
     private HealthRecordDataSource dataSource;
     private int personId;
@@ -26,6 +29,10 @@ public class OverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_overview, container, false);
+        nbMeasures = (TextView) view.findViewById(R.id.number_of_measures);
+        nbAppts = (TextView) view.findViewById(R.id.number_of_appts);
+        nbAilments = (TextView) view.findViewById(R.id.number_of_ailments);
+        nbMedics = (TextView) view.findViewById(R.id.number_of_medics);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         day = getActivity().getIntent().getIntExtra("day", 0);
         month = getActivity().getIntent().getIntExtra("month", 0);
@@ -39,7 +46,7 @@ public class OverviewFragment extends Fragment {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
         if (dataSource == null) return;
         String date = String.format("%02d/%02d/%04d", day, month + 1, year);
-        //fillWidgets();
+        fillWidgets(date);
     }
 
     public void setDataSource(HealthRecordDataSource dataSource)
@@ -47,9 +54,12 @@ public class OverviewFragment extends Fragment {
         this.dataSource = dataSource;
     }
 
-    private void fillWidgets()
+    private void fillWidgets(String date)
     {
-        //TODO
+        int count = dataSource.getMeasureTable().getDayMeasureCountForPerson(personId, date);
+        nbMeasures.setText(count + "");
+        count = dataSource.getAppointmentTable().countAppointmentsForDay(personId, HealthRecordUtils.stringToCalendar(date).getTimeInMillis());
+        nbAppts.setText(count + "");
     }
 
 }

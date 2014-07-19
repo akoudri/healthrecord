@@ -145,6 +145,22 @@ public class MeasureTable {
         return res;
     }
 
+    public int getDayMeasureCountForPerson(int personId, String date)
+    {
+        Measure m = getPersonMeasureWithDate(personId, date);
+        if (m == null) return 0;
+        int count = 0;
+        if (m.getWeight() > 0.0) count ++;
+        if (m.getSize() > 0) count ++;
+        if (m.getCranialPerimeter() > 0) count ++;
+        if (m.getTemperature() > 0.0) count ++;
+        if (m.getGlucose() > 0.0) count ++;
+        if (m.getDiastolic() > 0) count ++;
+        if (m.getSystolic() > 0) count ++;
+        if (m.getHeartbeat() > 0) count ++;
+        return count;
+    }
+
     private Measure cursorToMeasure(Cursor cursor)
     {
         Measure measure = new Measure();

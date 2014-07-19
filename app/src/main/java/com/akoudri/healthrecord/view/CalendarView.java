@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.akoudri.healthrecord.activity.EditPersonActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.AilmentTable;
@@ -54,6 +55,8 @@ public class CalendarView extends View implements View.OnTouchListener {
     //used to manage navigation between months
     private int tx = 0;
     private int ty = 0;
+
+    EditPersonActivity activity;
 
     //TODO: add icons in the cells
 
@@ -241,7 +244,7 @@ public class CalendarView extends View implements View.OnTouchListener {
             if (isToday())
             {
                 if (dataSource != null)
-                    displayCurrentDate(canvas, appointmentTable, ailmentTable);
+                    displayCurrentDate(canvas);
                 else
                     displayCurrentDate(canvas);
                 continue;
@@ -255,9 +258,11 @@ public class CalendarView extends View implements View.OnTouchListener {
             {
                 canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
             }
+            /*
             if (dataSource != null)
             {
                 paint.setStyle(Paint.Style.FILL);
+
                 if (appointmentTable.countAppointmentsForDay(personId, _cal.getTimeInMillis()) > 0)
                 {
                     int xa = (int) (rect.left + stepx / 3);
@@ -265,6 +270,7 @@ public class CalendarView extends View implements View.OnTouchListener {
                     paint.setColor(getResources().getColor(R.color.rvColor));
                     canvas.drawCircle(xa, yi, 3, paint);
                 }
+
                 if (ailmentTable.countAilmentsForDay(personId, _cal.getTimeInMillis()) > 0) {
                     int xa = (int) (rect.right - stepx / 3);
                     int yi = (int) (rect.top + 5);
@@ -273,6 +279,7 @@ public class CalendarView extends View implements View.OnTouchListener {
                 }
                 paint.setColor(getResources().getColor(R.color.regular_text_color));
             }
+            */
         }
     }
 

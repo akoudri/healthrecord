@@ -14,8 +14,8 @@
         revision="19.1.0"
         sha1="b1701c49371231e0423b7588539f24bdab485019"/>
     <item
-        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-1bd09adae01d10f8f097a7c54535018843cfa550.jar"
-        jar="/opt/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-80e85aee6c33e4fc4cc206fd9669bbbb2f31b598.jar"
+        jar="/media/Donnees/Tools_Linux/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>

@@ -15,6 +15,8 @@ public class CalendarFragment extends Fragment {
     private int personId = 0;
     private CalendarView calendarView;
 
+    private HealthRecordDataSource dataSource;
+
     public static CalendarFragment newInstance()
     {
         return new CalendarFragment();
@@ -31,6 +33,12 @@ public class CalendarFragment extends Fragment {
 
     public void setDataSource(HealthRecordDataSource dataSource)
     {
+        this.dataSource = dataSource;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         calendarView.setDataSource(dataSource);
     }
 }

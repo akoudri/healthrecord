@@ -3,23 +3,20 @@ package com.akoudri.healthrecord.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
 import com.akoudri.healthrecord.app.R;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,50 +24,53 @@ import java.util.Locale;
 
 /**
  * Created by Ali Koudri on 27/04/14.
+ * Implements a calendar view for health record
  */
 public class CalendarView extends View implements View.OnTouchListener {
 
-    private int personId = 0;
-    private Calendar _cal, today;
-    private Paint paint;
-    private int width, height;
-    private String[] daysOfWeek;
-    private List<Rect> rects;
-    private static final int titleSize = 42;
-    private static final int tableTitleSize = 20;
-    private static final int corner = 5;
-    private static final float nbRatio = 0.3f;
-    private float delta;
-    private float ratio;
-    private float stepx, stepy;
-    private float yCalendar;
-    private float tsize, ttsize;
-    private Bitmap next, previous;
-    private Rect[] nav = new Rect[2];
-    private Rect selectedRect = null;
+    private int personId = 0; //id of the person
+    private Calendar _cal, today; //_cal is used to iterate over the days of the calendar, today represents the current day
+    private Paint paint; //for drawing on the canvas
+    private int width, height; //to store the dimension of the screen
+    private String[] daysOfWeek; //to display on the screen
+    private List<Rect> rects; //list of coordinates representing the days
+    private float ratio; //used to adapt sizes between various screen configurations
+    private static final int titleSize = 42; //absolute size of the month.year
+    private static final int tableTitleSize = 20; //absolute size of the days
+    private float tsize, ttsize; //relative size of the month.year and days
+    private static final int corner = 5; //radius of the rectangles
+    private static final float nbRatio = 0.3f; //used to calculate delta
+    private float delta; //internal vertical space in the cells
+    private float stepx, stepy; //used to display the cells of the calendar -> 7x6 cells
+    private float yCalendar; //y coordinate for the first row of the calendar
+    private Bitmap next, previous; //Images for navigation
+    //private Rect[] nav = new Rect[2]; //Locations to display navigation images
+    private Rect selectedRect = null; //references the cell that has been touched by the user
+
+    //used to manage navigation between months
+    private int tx = 0;
+    private int ty = 0;
 
     //TODO: add icons in the cells
 
+
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        paint = new Paint();
+        paint = new Paint();//set paint object
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        _cal = Calendar.getInstance();
+        _cal = Calendar.getInstance();//set _cal and today to current day
+        _cal.set(Calendar.HOUR_OF_DAY, 0);
+        _cal.set(Calendar.MINUTE, 0);
+        _cal.set(Calendar.SECOND, 0);
+        _cal.set(Calendar.MILLISECOND, 0);
         today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
         rects = new ArrayList<Rect>();
-        initDaysOfWeek();
-        AssetManager assetManager = context.getAssets();
-        InputStream inputStream;
-        try {
-            inputStream = assetManager.open("images/next.png");
-            next = BitmapFactory.decodeStream(inputStream);
-            inputStream.close();
-            inputStream = assetManager.open("images/previous.png");
-            previous = BitmapFactory.decodeStream(inputStream);
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        initDaysOfWeek(); //retrieve the localized days of the week
+        //listen touch events
         setOnTouchListener(this);
     }
 
@@ -81,7 +81,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (personId == 0) return;
+        if (personId == 0) return; //nothing to display
         width = getWidth();
         height = getHeight();
         ratio = width/480.0f;
@@ -91,11 +91,11 @@ public class CalendarView extends View implements View.OnTouchListener {
         yCalendar = 3 * (tsize + ttsize) + 10;
         stepy = (height - yCalendar) / 6;
         delta = stepy * (nbRatio + 1) / 2;
-        canvas.drawColor(getResources().getColor(R.color.app_bg_color));
+        canvas.drawColor(getResources().getColor(R.color.app_bg_color)); //set bg to app bg
         displayTitleDate(canvas);
-        displayNavigation(canvas);
-        displayDays(canvas);
-        displayNumbers(canvas);
+        //displayNavigation(canvas);
+        displayDaysOfTheWeek(canvas);
+        displayDaysOfTheMonth(canvas);
         highlightRect(canvas);
         invalidate();
     }
@@ -108,18 +108,18 @@ public class CalendarView extends View implements View.OnTouchListener {
         WindowManager w = ((Activity)getContext()).getWindowManager();
         w.getDefaultDisplay().getSize(size);
         width = size.x;
-        //FIXME: compute the right height
+        //set the ratio between the width and the height of the view
         height = (int) (size.x * 1.5);
         setMeasuredDimension(width, height);
     }
 
+    //returns whether the current day (_cal) is the actual day (today)
     private boolean isToday()
     {
-        return  (today.get(Calendar.YEAR) == _cal.get(Calendar.YEAR)) &&
-            (today.get(Calendar.MONTH) == _cal.get(Calendar.MONTH)) &&
-            (today.get(Calendar.DATE) == _cal.get(Calendar.DATE));
+        return _cal.equals(today);
     }
 
+    //displays the date title
     private void displayTitleDate(Canvas canvas)
     {
         paint.setColor(getResources().getColor(R.color.regular_text_color));
@@ -132,7 +132,8 @@ public class CalendarView extends View implements View.OnTouchListener {
         canvas.drawText(currentDate, getWidth() / 2, 2 * tsize, paint);
     }
 
-    private void displayDays(Canvas canvas)
+    //display the days of the weeks
+    private void displayDaysOfTheWeek(Canvas canvas)
     {
         paint.setColor(getResources().getColor(R.color.regular_text_color));
         paint.setStrokeWidth(1);
@@ -151,6 +152,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         canvas.drawLine(0, y, width, y, paint);
     }
 
+    //initialize the array containing the days of the week - With localization
     private void initDaysOfWeek()
     {
         Calendar c = Calendar.getInstance();
@@ -162,6 +164,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         }
     }
 
+    //computes the coordinates of any cell of the calendar
     private Rect getRect(int x, int y)
     {
         int left = (int) (x * stepx + 1);
@@ -171,9 +174,11 @@ public class CalendarView extends View implements View.OnTouchListener {
         return new Rect(left, top, right, bottom);
     }
 
-    private void displayNumbers(Canvas canvas)
+    //display any day of the month except actual day
+    private void displayDaysOfTheMonth(Canvas canvas)
     {
-        rects.clear();
+        rects.clear(); //clear the list of rects
+        //prepare the painting for days different of actual day
         paint.setColor(getResources().getColor(R.color.regular_text_color));
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize((int)(stepy * nbRatio));
@@ -186,8 +191,10 @@ public class CalendarView extends View implements View.OnTouchListener {
         _cal.set(Calendar.DAY_OF_MONTH, min);
         int firstDay = _cal.get(Calendar.DAY_OF_WEEK);
         int firstx = (firstDay + 5) % 7;
+        //used to draw rects
         Rect rect;
         RectF rectf;
+        int c = corner / 2; //for the oblique line
         //Draw the first day
         int x = firstx;
         int y = 0;
@@ -204,6 +211,10 @@ public class CalendarView extends View implements View.OnTouchListener {
             canvas.drawRoundRect(rectf, corner, corner, paint);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawText("" + 1, rect.left + stepx / 2, rect.top + delta, paint);
+            if (_cal.before(today))
+            {
+                canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
+            }
         }
         //Draw other days
         for (int i = min + 1; i <= max; i++)
@@ -223,52 +234,54 @@ public class CalendarView extends View implements View.OnTouchListener {
             canvas.drawRoundRect(rectf, corner, corner, paint);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawText("" + i, rect.left + stepx / 2, rect.top + delta, paint);
+            if (_cal.before(today))
+            {
+                canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
+            }
         }
     }
 
     private void displayCurrentDate(Canvas canvas)
     {
         int day = _cal.get(Calendar.DAY_OF_MONTH);
-        paint.setColor(getResources().getColor(R.color.title_button_text_color));
-        paint.setStrokeWidth(3.0f);
         Rect rect = rects.get(day - 1);
         RectF rectf = new RectF(rect);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawRoundRect(rectf, corner, corner, paint);
         paint.setStyle(Paint.Style.FILL);
+        canvas.drawRoundRect(rectf, corner, corner, paint);
+        paint.setColor(getResources().getColor(R.color.app_bg_color));
         canvas.drawText("" + day, rect.left + stepx / 2, rect.top + delta, paint);
         paint.setColor(getResources().getColor(R.color.regular_text_color));
-        paint.setStrokeWidth(2.0f);
-    }
-
-    private void displayNavigation(Canvas canvas)
-    {
-        if (next == null && previous == null)
-            return;
-        int left = 20;
-        int top = (int) tsize;
-        int right = (int) (left + tsize);
-        int bottom = (int) (top + tsize);
-        nav[0] = new Rect(left, top, right, bottom);
-        left = width - 20 - (int) tsize;
-        right = (int) (left + tsize);
-        nav[1] = new Rect(left, top, right, bottom);
-        canvas.drawBitmap(previous, null, nav[0], null);
-        canvas.drawBitmap(next, null, nav[1], null);
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        int x = (int) event.getX();
-        int y = (int) event.getY();
+        int xm;
         switch (event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                selectedRect = getSelectedRect(x, y);
+                tx = (int) event.getX();
+                ty = (int) event.getY();
+                selectedRect = getSelectedRect(tx, ty);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                selectedRect = null;
                 break;
             case MotionEvent.ACTION_UP:
-                manageClick(x, y);
+                if (ty < yCalendar) {
+                    xm = (int) event.getX();
+                    int xdiff = xm - tx;
+                    if (xdiff > 50)
+                        _cal.add(Calendar.MONTH, -1);
+                    else if (xdiff < -50)
+                        _cal.add(Calendar.MONTH, 1);
+                    tx = 0;
+                    ty = 0;
+                }
+                else manageClick(tx, ty);
+                selectedRect = null;
+                break;
+            default:
                 selectedRect = null;
                 break;
         }
@@ -296,10 +309,6 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     private void manageClick(int x, int y)
     {
-        if (nav[0].contains(x, y))
-            _cal.add(Calendar.MONTH, -1);
-        if (nav[1].contains(x, y))
-            _cal.add(Calendar.MONTH, 1);
         if (selectedRect != null)
         {
             Intent intent = new Intent("com.akoudri.healthrecord.app.EditDay");

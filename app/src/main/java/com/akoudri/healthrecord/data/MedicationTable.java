@@ -61,7 +61,7 @@ public class MedicationTable {
         values.put(MEDICATION_KIND, kind.ordinal());
         long d = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
         values.put(MEDICATION_START_DATE, d);
-        if (duration < 0)
+        if (duration >= 0)
             values.put(MEDICATION_DURATION, duration);
         return db.insert(MEDICATION_TABLE, null, values);
     }
@@ -85,7 +85,7 @@ public class MedicationTable {
         values.put(MEDICATION_KIND, kind.ordinal());
         long d = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
         values.put(MEDICATION_START_DATE, d);
-        if (duration > 0)
+        if (duration >= 0)
             values.put(MEDICATION_DURATION, duration);
         else
             values.putNull(MEDICATION_DURATION);

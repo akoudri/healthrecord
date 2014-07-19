@@ -325,7 +325,7 @@ public class CreateAilmentActivity extends Activity {
         String sDate = selectedDate;
         int duration = -1;
         String d = endDateET.getText().toString();
-        if (!d.equals("")) duration = Integer.parseInt(d);
+        if (!d.equals("")) duration = Integer.parseInt(d) - 1;
         String comment = commentET.getText().toString();
         if (comment.equals("")) comment = null;
         int therapistId = (t==null)?0:t.getId();

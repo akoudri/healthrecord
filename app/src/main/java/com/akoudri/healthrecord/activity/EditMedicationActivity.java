@@ -121,8 +121,8 @@ public class EditMedicationActivity extends Activity {
         timesET.setText(medic.getFrequency() + "");
         freqSpinner.setSelection(medic.getKind().ordinal());
         beginMedicET.setText(medic.getStartDate());
-        int d = medic.getDuration();
-        if (d >= 0)
+        int d = medic.getDuration() + 1;
+        if (d > 0)
             endMedicET.setText(medic.getDuration()+"");
     }
 
@@ -142,7 +142,7 @@ public class EditMedicationActivity extends Activity {
         int kfreq = freqSpinner.getSelectedItemPosition();
         String sDate = beginMedicET.getText().toString();
         String d = endMedicET.getText().toString();
-        int duration = (d.equals(""))?-1:Integer.parseInt(d);
+        int duration = (d.equals(""))?-1:Integer.parseInt(d) + 1;
         if (stored)
         {
             medic.setDrugId(drugId);

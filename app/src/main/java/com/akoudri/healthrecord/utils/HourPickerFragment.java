@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import java.util.Calendar;
-
 /**
  * Created by Ali Koudri on 03/07/14.
  */

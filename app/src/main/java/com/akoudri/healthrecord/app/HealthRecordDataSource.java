@@ -3,6 +3,7 @@ package com.akoudri.healthrecord.app;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.IllnessTable;
@@ -12,7 +13,6 @@ import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
-import com.akoudri.healthrecord.data.AilmentTable;
 
 import java.sql.SQLException;
 

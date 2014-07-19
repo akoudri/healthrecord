@@ -121,9 +121,9 @@ public class EditAilmentActivity extends Activity {
     {
         selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
         startDateET.setText(ailment.getStartDate());
-        int d = ailment.getDuration();
-        if (d >= 0)
-            endDateET.setText(ailment.getDuration() + "");
+        int d = ailment.getDuration() + 1;
+        if (d > 0)
+            endDateET.setText(d + "");
         commentET.setText(ailment.getComment());
         retrieveIllnesses();
         retrieveTherapists();
@@ -416,7 +416,7 @@ public class EditAilmentActivity extends Activity {
         String sDate = startDateET.getText().toString();
         int duration = -1;
         String d = endDateET.getText().toString();
-        if (!d.equals("")) duration = Integer.parseInt(d);
+        if (!d.equals("")) duration = Integer.parseInt(d) - 1;
         int thId = (t == null)?0:t.getId();
         String comment = commentET.getText().toString();
         if (comment.equals("")) comment = null;

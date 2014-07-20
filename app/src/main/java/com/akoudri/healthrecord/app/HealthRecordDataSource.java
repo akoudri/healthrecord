@@ -34,6 +34,8 @@ public class HealthRecordDataSource {
     private DrugTable drugTable;
     private MeasureTable measureTable;
 
+    private boolean isOpened = false;
+
     private static HealthRecordDataSource instance;
 
     public static HealthRecordDataSource getInstance(Context context)
@@ -51,65 +53,97 @@ public class HealthRecordDataSource {
     public void open() throws SQLException
     {
         db = dbHelper.getWritableDatabase();
-        personTable = new PersonTable(db);
-        therapyBranchTable = new TherapyBranchTable(db);
-        illnessTable = new IllnessTable(db);
-        therapistTable = new TherapistTable(db);
-        personTherapistTable = new PersonTherapistTable(db);
-        appointmentTable = new AppointmentTable(db);
-        ailmentTable = new AilmentTable(db);
-        medicationTable = new MedicationTable(db);
-        drugTable = new DrugTable(db);
-        measureTable = new MeasureTable(db);
+        isOpened = true;
     }
 
     public void close()
     {
+        if (!isOpened) return;
         dbHelper.close();
+        personTable = null;
+        therapyBranchTable = null;
+        illnessTable = null;
+        therapistTable = null;
+        personTherapistTable = null;
+        appointmentTable = null;
+        ailmentTable = null;
+        medicationTable = null;
+        drugTable = null;
+        measureTable = null;
+        isOpened = false;
     }
 
     public PersonTable getPersonTable()
     {
+        if (!isOpened) return null;
+        if (personTable == null)
+            personTable = new PersonTable(db);
         return personTable;
     }
 
     public TherapyBranchTable getTherapyBranchTable() {
+        if (!isOpened) return null;
+        if (therapyBranchTable == null)
+            therapyBranchTable = new TherapyBranchTable(db);
         return therapyBranchTable;
     }
 
     public IllnessTable getIllnessTable()
     {
+        if (!isOpened) return null;
+        if (illnessTable == null)
+            illnessTable = new IllnessTable(db);
         return illnessTable;
     }
 
     public TherapistTable getTherapistTable() {
+        if (!isOpened) return null;
+        if (therapistTable == null)
+            therapistTable = new TherapistTable(db);
         return therapistTable;
     }
 
     public PersonTherapistTable getPersonTherapistTable() {
+        if (!isOpened) return null;
+            personTherapistTable = new PersonTherapistTable(db);
         return personTherapistTable;
     }
 
     public AppointmentTable getAppointmentTable()
     {
+        if (!isOpened) return null;
+        if (appointmentTable == null)
+            appointmentTable = new AppointmentTable(db);
         return appointmentTable;
     }
 
     public AilmentTable getAilmentTable() {
+        if (!isOpened) return null;
+        if (ailmentTable == null)
+            ailmentTable = new AilmentTable(db);
         return ailmentTable;
     }
 
     public MedicationTable getMedicationTable() {
+        if (!isOpened) return null;
+        if (medicationTable == null)
+            medicationTable = new MedicationTable(db);
         return medicationTable;
     }
 
     public DrugTable getDrugTable()
     {
+        if (!isOpened) return null;
+        if (drugTable == null)
+            drugTable = new DrugTable(db);
         return drugTable;
     }
 
     public MeasureTable getMeasureTable()
     {
+        if (!isOpened) return null;
+        if (measureTable == null)
+            measureTable = new MeasureTable(db);
         return measureTable;
     }
 }

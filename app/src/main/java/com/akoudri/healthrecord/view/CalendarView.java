@@ -329,9 +329,6 @@ public class CalendarView extends View implements View.OnTouchListener {
                 ty = (int) event.getY();
                 selectedRect = getSelectedRect(tx, ty);
                 break;
-            case MotionEvent.ACTION_MOVE:
-                selectedRect = null;
-                break;
             case MotionEvent.ACTION_UP:
                 if (ty < yCalendar) {
                     xm = (int) event.getX();

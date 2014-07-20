@@ -56,10 +56,15 @@ public class OverviewFragment extends Fragment {
 
     private void fillWidgets(String date)
     {
-        int count = dataSource.getMeasureTable().getDayMeasureCountForPerson(personId, date);
+        long d = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+        int count = dataSource.getMeasureTable().countMeasuresForDay(personId, d);
         nbMeasures.setText(count + "");
-        count = dataSource.getAppointmentTable().countAppointmentsForDay(personId, HealthRecordUtils.stringToCalendar(date).getTimeInMillis());
+        count = dataSource.getAppointmentTable().countAppointmentsForDay(personId, d);
         nbAppts.setText(count + "");
+        count = dataSource.getAilmentTable().countAilmentsForDay(personId, d);
+        nbAilments.setText(count + "");
+        count = dataSource.getMedicationTable().countMedicsForDay(personId, d);
+        nbMedics.setText(count + "");
     }
 
 }

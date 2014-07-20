@@ -35,7 +35,7 @@ public class EditMedicationActivity extends Activity {
     private int medicationId;
     private Medication medic;
     private boolean stored;
-    private int pos = 0;
+    private int pos = -1;
     private List<Drug> drugs;
 
     @Override
@@ -101,10 +101,10 @@ public class EditMedicationActivity extends Activity {
         }
         else
         {
+            //FIXME: manage the cases data are not valid
             medic = new Medication();
             Intent intent = getIntent();
-            pos = intent.getIntExtra("pos", 0);
-            medic.setAilmentId(intent.getIntExtra("treatmentId", 0));
+            pos = intent.getIntExtra("pos", -1);
             medic.setDrugId(intent.getIntExtra("drugId", 0));
             medic.setFrequency(intent.getIntExtra("frequency", 0));
             int kind = intent.getIntExtra("kind", 0);

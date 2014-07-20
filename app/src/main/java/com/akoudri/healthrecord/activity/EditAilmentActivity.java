@@ -48,6 +48,7 @@ public class EditAilmentActivity extends Activity {
     private int ailmentId;
     private String selectedDate;
     private int day, month, year;
+
     private List<Illness> illnesses;
     private List<Therapist> therapists;
     private List<Medication> existingMedications;
@@ -88,6 +89,7 @@ public class EditAilmentActivity extends Activity {
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
+        selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
     }
 
     @Override
@@ -119,7 +121,6 @@ public class EditAilmentActivity extends Activity {
 
     private void fillWidgets()
     {
-        selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
         startDateET.setText(ailment.getStartDate());
         int d = ailment.getDuration() + 1;
         if (d > 0)
@@ -283,17 +284,16 @@ public class EditAilmentActivity extends Activity {
             else eName = name;
             editButton.setText(eName);
             editButton.setTextSize(16);
-            editButton.setMinEms(8);
-            editButton.setMaxEms(8);
+            editButton.setMinEms(10);
+            editButton.setMaxEms(10);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
-                    intent.putExtra("pos",pos);
-                    intent.putExtra("stored", false);
-                    intent.putExtra("ailmentId", medic.getAilmentId());
+                    intent.putExtra("pos", pos);
+                    intent.putExtra("medicationId", 0);
                     intent.putExtra("drugId", medic.getDrugId());
                     intent.putExtra("frequency", medic.getFrequency());
                     intent.putExtra("kind", medic.getKind().ordinal());
@@ -303,7 +303,7 @@ public class EditAilmentActivity extends Activity {
                 }
             });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            llparams.gravity = Gravity.LEFT|Gravity.CENTER;
+            llparams.gravity = Gravity.CENTER_VERTICAL;
             llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
             llparams.topMargin = margin;
@@ -333,7 +333,7 @@ public class EditAilmentActivity extends Activity {
                             .show();
                 }
             });
-            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             llparams.gravity = Gravity.CENTER_VERTICAL;
             llparams.bottomMargin = margin;
             llparams.leftMargin = margin;
@@ -350,7 +350,10 @@ public class EditAilmentActivity extends Activity {
         {
             if (resultCode == RESULT_OK)
             {
+                //FIXME: manage the case where ids are not valid - change default values
                 Medication m = new Medication();
+                m.setPersonId(ailment.getPersonId());
+                m.setAilmentId(ailment.getId());
                 m.setDrugId(data.getIntExtra("drugId", 1));
                 m.setFrequency(data.getIntExtra("freq", 1));
                 int kfreq = data.getIntExtra("kfreq", 1);
@@ -364,8 +367,11 @@ public class EditAilmentActivity extends Activity {
         {
             if (resultCode == RESULT_OK)
             {
+                //FIXME: manage the case where ids are not valid - change default values
                 int pos = data.getIntExtra("pos", 0);
                 Medication m = medications.get(pos);
+                m.setPersonId(ailment.getPersonId());
+                m.setAilmentId(ailment.getId());
                 m.setDrugId(data.getIntExtra("drugId", 1));
                 m.setFrequency(data.getIntExtra("freq", 1));
                 int kfreq = data.getIntExtra("kfreq", 1);
@@ -400,14 +406,6 @@ public class EditAilmentActivity extends Activity {
                 illnessId = (int) illnessTable.insertIllness(illness);
             }
         }
-        else
-        {
-            if (medications.size() + existingMedications.size() == 0)
-            {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
         Therapist t;
         if (thPos == 0)
             t = null;
@@ -420,7 +418,6 @@ public class EditAilmentActivity extends Activity {
         int thId = (t == null)?0:t.getId();
         String comment = commentET.getText().toString();
         if (comment.equals("")) comment = null;
-        //ailment.setComment(comment);
         Ailment a = new Ailment(ailment.getPersonId(), illnessId, thId, sDate, duration, comment);
         if (ailment.equalsTo(a) && medications.size() == 0 && !removeOccurred)
         {
@@ -440,7 +437,6 @@ public class EditAilmentActivity extends Activity {
         if (res > 0) {
             MedicationTable table = dataSource.getMedicationTable();
             for (Medication m : medications) {
-                m.setAilmentId(ailmentId);
                 table.insertMedication(m);
             }
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();

@@ -6,6 +6,7 @@ import android.view.Window;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.view.CalendarContentProvider;
 import com.akoudri.healthrecord.view.CalendarView;
 
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 /**
  * Created by Ali Koudri on 19/07/14.
  */
-public class CalendarActivity extends Activity {
+public class CalendarActivity extends Activity implements CalendarContentProvider {
 
     private CalendarView calendarView;
 
@@ -40,6 +41,7 @@ public class CalendarActivity extends Activity {
             dataSource.open();
             dataSourceLoaded = true;
             calendarView.setPersonId(personId);
+            calendarView.setCalendarContentProvider(this);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,5 +55,29 @@ public class CalendarActivity extends Activity {
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
+    }
+
+    @Override
+    public int countAppointmentsForDay(int personId, long date) {
+        if (!dataSourceLoaded) return 0;
+        return dataSource.getAppointmentTable().countAppointmentsForDay(personId, date);
+    }
+
+    @Override
+    public int countAilmentsForDay(int personId, long date) {
+        if (!dataSourceLoaded) return 0;
+        return dataSource.getAilmentTable().countAilmentsForDay(personId, date);
+    }
+
+    @Override
+    public int countMeasuresForDay(int personId, long date) {
+        if (!dataSourceLoaded) return 0;
+        return dataSource.getMeasureTable().countMeasuresForDay(personId, date);
+    }
+
+    @Override
+    public int countMedicsForDay(int personId, long date) {
+        if (!dataSourceLoaded) return 0;
+        return dataSource.getMedicationTable().countMedicsForDay(personId, date);
     }
 }

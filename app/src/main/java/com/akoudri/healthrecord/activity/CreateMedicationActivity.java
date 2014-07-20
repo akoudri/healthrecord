@@ -40,6 +40,7 @@ public class CreateMedicationActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_medication);
         dataSource = HealthRecordDataSource.getInstance(this);
+        selectedDate = getIntent().getStringExtra("date");
         medicationActv = (AutoCompleteTextView) findViewById(R.id.medication_add);
         freqSpinner = (Spinner) findViewById(R.id.freq_add);
         String[] freqChoice = getResources().getStringArray(R.array.freqChoice);
@@ -55,10 +56,10 @@ public class CreateMedicationActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (selectedDate == null) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            selectedDate = getIntent().getStringExtra("date");
             beginMedicET.setText(selectedDate);
             retrieveDrugs();
         } catch (SQLException e) {
@@ -69,6 +70,7 @@ public class CreateMedicationActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        if (selectedDate == null) return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;

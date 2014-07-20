@@ -135,6 +135,14 @@ public class MeasureTable {
         return null;
     }
 
+    public Measure getPersonMeasureWithDate(int personId, long date)
+    {
+        Cursor cursor = db.query(MEASURE_TABLE, measureCols, MEASURE_PERSON_REF + "=" + personId + " and " + MEASURE_DATE + "=" + date, null, null, null, null);
+        if (cursor.moveToFirst())
+            return cursorToMeasure(cursor);
+        return null;
+    }
+
     public int getTotalMeasureCountForPerson(int personId)
     {
         String req = "select count(*) from " + MEASURE_TABLE + " where " + MEASURE_PERSON_REF + "=" + personId;
@@ -145,7 +153,7 @@ public class MeasureTable {
         return res;
     }
 
-    public int getDayMeasureCountForPerson(int personId, String date)
+    public int countMeasuresForDay(int personId, long date)
     {
         Measure m = getPersonMeasureWithDate(personId, date);
         if (m == null) return 0;

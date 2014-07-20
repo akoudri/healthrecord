@@ -190,7 +190,6 @@ public class CreateAilmentActivity extends Activity {
                     Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
                     intent.putExtra("pos", pos);
                     intent.putExtra("medicationId", 0);
-                    intent.putExtra("ailmentId", medic.getAilmentId());
                     intent.putExtra("drugId", medic.getDrugId());
                     intent.putExtra("frequency", medic.getFrequency());
                     intent.putExtra("kind", medic.getKind().ordinal());
@@ -267,6 +266,7 @@ public class CreateAilmentActivity extends Activity {
                     }
                 }
                 Medication m = new Medication();
+                m.setPersonId(personId);
                 m.setDrugId(drugId);
                 m.setFrequency(data.getIntExtra("freq", 1));
                 int kfreq = data.getIntExtra("kfreq", 1);
@@ -280,6 +280,7 @@ public class CreateAilmentActivity extends Activity {
         {
             if (resultCode == RESULT_OK)
             {
+                //FIXME: manage the cases where data are not valid
                 int pos = data.getIntExtra("pos", 0);
                 Medication m = medications.get(pos);
                 m.setDrugId(data.getIntExtra("drugId", 1));
@@ -306,15 +307,6 @@ public class CreateAilmentActivity extends Activity {
             if (illnessId < 0)
             {
                 illnessId = (int) illnessTable.insertIllness(illness);
-            }
-        }
-        else
-        {
-            if (medications.size() == 0)
-            {
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-                finish();
-                return;
             }
         }
         Therapist t;

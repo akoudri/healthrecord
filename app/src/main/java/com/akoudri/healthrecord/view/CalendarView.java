@@ -14,12 +14,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.akoudri.healthrecord.activity.EditPersonActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
-import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,8 +54,6 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int tx = 0;
     private int ty = 0;
 
-    EditPersonActivity activity;
-
     //TODO: add icons in the cells
 
 
@@ -77,6 +73,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         today.set(Calendar.MILLISECOND, 0);
         rects = new ArrayList<Rect>();
         initDaysOfWeek(); //retrieve the localized days of the week
+        dataSource = HealthRecordDataSource.getInstance(context);//already opened
         //listen touch events
         setOnTouchListener(this);
     }
@@ -84,10 +81,6 @@ public class CalendarView extends View implements View.OnTouchListener {
     public void setPersonId(int personId)
     {
         this.personId = personId;
-    }
-
-    public void setDataSource(HealthRecordDataSource dataSource){
-        this.dataSource = dataSource;
     }
 
     @Override
@@ -188,12 +181,8 @@ public class CalendarView extends View implements View.OnTouchListener {
     //display any day of the month except actual day
     private void displayDaysOfTheMonth(Canvas canvas)
     {
-        AilmentTable ailmentTable = null;
-        AppointmentTable appointmentTable = null;
-        if (dataSource != null){
-            ailmentTable = dataSource.getAilmentTable();
-            appointmentTable = dataSource.getAppointmentTable();
-        }
+        AilmentTable ailmentTable = dataSource.getAilmentTable();
+        AppointmentTable appointmentTable = dataSource.getAppointmentTable();
         rects.clear(); //clear the list of rects
         //prepare the painting for days different of actual day
         paint.setColor(getResources().getColor(R.color.regular_text_color));
@@ -243,10 +232,8 @@ public class CalendarView extends View implements View.OnTouchListener {
             rects.add(rect);
             if (isToday())
             {
-                if (dataSource != null)
-                    displayCurrentDate(canvas);
-                else
-                    displayCurrentDate(canvas);
+                //displayCurrentDate(canvas, appointmentTable, ailmentTable);
+                displayCurrentDate(canvas);
                 continue;
             }
             rectf = new RectF(rect);
@@ -315,7 +302,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         if (ailmentTable.countAilmentsForDay(personId, _cal.getTimeInMillis()) > 0) {
             int xa = (int) (rect.right - stepx / 3);
             int yi = (int) (rect.top + 5);
-            paint.setColor(getResources().getColor(R.color.rvColor));
+            paint.setColor(getResources().getColor(R.color.illnessColor));
             canvas.drawCircle(xa, yi, 3, paint);
         }
         paint.setColor(getResources().getColor(R.color.regular_text_color));

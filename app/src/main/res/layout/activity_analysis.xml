@@ -1,8 +1,10 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".AnalysisActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,7 +70,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar"
-                android:onClick="setMeasureStartDate"
+                android:onClick="setAnalysisStartDate"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
@@ -105,7 +107,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/calendar"
-                android:onClick="setMeasureEndDate"
+                android:onClick="setAnalysisEndDate"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 

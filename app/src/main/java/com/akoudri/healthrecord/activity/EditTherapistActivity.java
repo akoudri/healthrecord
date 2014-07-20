@@ -42,7 +42,7 @@ public class EditTherapistActivity extends Activity {
         phoneNumberET = (EditText) findViewById(R.id.phone_number_update);
         cellPhoneET = (EditText) findViewById(R.id.name_update_cellphone);
         emailET = (EditText) findViewById(R.id.name_update_email);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         thId = getIntent().getIntExtra("therapistId", 0);
     }
 

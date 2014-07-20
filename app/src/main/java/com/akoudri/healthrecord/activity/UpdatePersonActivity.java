@@ -1,10 +1,9 @@
-package com.akoudri.healthrecord.fragment;
+package com.akoudri.healthrecord.activity;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -15,66 +14,71 @@ import android.widget.Toast;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
-import com.akoudri.healthrecord.data.ChangeStatus;
 import com.akoudri.healthrecord.data.Gender;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 
-public class UpdatePersonFragment extends Fragment {
+public class UpdatePersonActivity extends Activity {
 
     private Spinner btSpinner;
     private EditText nameET, birthdateET, ssnET;
     private RadioGroup genderRG;
     private RadioButton maleBtn, femaleBtn;
     private HealthRecordDataSource dataSource;
-
-    private View view;
+    private boolean dataSourceLoaded = false;
 
     private int personId = 0;
     private Person person;
 
-    public static UpdatePersonFragment newInstance()
-    {
-        return new UpdatePersonFragment();
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_person, container, false);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_person);
+        dataSource = HealthRecordDataSource.getInstance(this);
+        personId = getIntent().getIntExtra("personId", 0);
         String[] btChoices = {"O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " "};
-        ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, btChoices);
-        btSpinner = (Spinner) view.findViewById(R.id.btchoice_update_frag);
+        ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, btChoices);
+        btSpinner = (Spinner) findViewById(R.id.btchoice_update_frag);
         btSpinner.setAdapter(btChoicesAdapter);
         btSpinner.setSelection(8);
-        nameET = (EditText) view.findViewById(R.id.name_update_frag);
-        genderRG = (RadioGroup) view.findViewById(R.id.gender_update_frag);
-        ssnET = (EditText) view.findViewById(R.id.ssn_update_frag);
-        maleBtn = (RadioButton) view.findViewById(R.id.male_update_frag);
-        femaleBtn = (RadioButton) view.findViewById(R.id.female_update_frag);
-        birthdateET = (EditText) view.findViewById(R.id.birthdate_update_frag);
+        nameET = (EditText) findViewById(R.id.name_update_frag);
+        genderRG = (RadioGroup) findViewById(R.id.gender_update_frag);
+        ssnET = (EditText) findViewById(R.id.ssn_update_frag);
+        maleBtn = (RadioButton) findViewById(R.id.male_update_frag);
+        femaleBtn = (RadioButton) findViewById(R.id.female_update_frag);
+        birthdateET = (EditText) findViewById(R.id.birthdate_update_frag);
         birthdateET.setKeyListener(null);
-        return view;
     }
 
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         if (personId == 0) return;
-        if (dataSource == null) return;
-        person = dataSource.getPersonTable().getPersonWithId(personId);
-        fillWidgets();
+        try {
+            dataSource.open();
+            dataSourceLoaded = true;
+            person = dataSource.getPersonTable().getPersonWithId(personId);
+            fillWidgets();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setDataSource(HealthRecordDataSource dataSource)
-    {
-        this.dataSource = dataSource;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (personId == 0) return;
+        if (!dataSourceLoaded) return;
+        dataSource.close();
+        dataSourceLoaded = false;
     }
 
     private void fillWidgets()
@@ -91,12 +95,12 @@ public class UpdatePersonFragment extends Fragment {
         btSpinner.setSelection(person.getBloodType().ordinal());
     }
 
-    public ChangeStatus updatePerson()
+    public void updatePerson(View view)
     {
-        if (personId == 0) return ChangeStatus.INVALID_PERSON;
-        if (dataSource == null) return ChangeStatus.DATABASE_CLOSED;
+        if (personId == 0) return;
+        if (dataSource == null) return;
         String name = nameET.getText().toString();
-        RadioButton checked = (RadioButton) getActivity().findViewById(genderRG.getCheckedRadioButtonId());
+        RadioButton checked = (RadioButton) this.findViewById(genderRG.getCheckedRadioButtonId());
         int genderIdx = genderRG.indexOfChild(checked);
         Gender gender;
         switch (genderIdx)
@@ -111,8 +115,8 @@ public class UpdatePersonFragment extends Fragment {
             if (ssn.equals("")) ssn = null;
             Person p = new Person(name, gender, ssn, bt, birthdate);
             if (person.equalsTo(p)){
-                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-                return ChangeStatus.UNCHANGED;
+                Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
             }
             boolean res = dataSource.getPersonTable().updatePerson(person.getId(), name,
                     gender, ssn, bt, birthdate);
@@ -123,16 +127,17 @@ public class UpdatePersonFragment extends Fragment {
                 person.setSsn(ssn);
                 person.setBloodType(bt);
                 person.setBirthdate(birthdate);
-                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
-                return ChangeStatus.CHANGED;
+                Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+                finish();
+                return;
             }
             else
             {
-                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
-                return ChangeStatus.INVALID_DATA;
+                Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
+                return;
             }
         }
-        return ChangeStatus.INVALID_DATA;
+        return;
     }
 
     private boolean checkFields(String name, String ssn) {
@@ -154,22 +159,22 @@ public class UpdatePersonFragment extends Fragment {
         else notToHighlight.add(ssnET);
         //display
         if (toHighlight.size() > 0)
-            HealthRecordUtils.highlightActivityFields(getActivity(), toHighlight, true);
+            HealthRecordUtils.highlightActivityFields(this, toHighlight, true);
         if (notToHighlight.size() > 0)
-            HealthRecordUtils.highlightActivityFields(getActivity(), notToHighlight, false);
+            HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
         if (!res) {
-            Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         return res;
     }
 
-    public void pickUpdateBirthdate()
+    public void pickUpdateBirthdate(View view)
     {
         if (personId == 0) return;
         if (dataSource == null) return;
         Calendar today = Calendar.getInstance();
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(getActivity(), birthdateET, HealthRecordUtils.stringToCalendar(person.getBirthdate()), null, today);
+        dfrag.init(this, birthdateET, HealthRecordUtils.stringToCalendar(person.getBirthdate()), null, today);
         dfrag.show(getFragmentManager(),"Update Birthdate");
     }
 

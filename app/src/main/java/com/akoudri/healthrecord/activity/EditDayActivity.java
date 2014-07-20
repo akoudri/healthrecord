@@ -47,7 +47,7 @@ public class EditDayActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_day);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         today_label = (TextView) findViewById(R.id.today_label);
         ovButton = (ImageButton) findViewById(R.id.overview_button);
         measureButton = (ImageButton) findViewById(R.id.measure_button);

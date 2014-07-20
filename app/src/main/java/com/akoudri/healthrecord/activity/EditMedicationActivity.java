@@ -45,7 +45,7 @@ public class EditMedicationActivity extends Activity {
         setContentView(R.layout.activity_edit_medication);
         medicationId = getIntent().getIntExtra("medicationId", 0);
         stored = (medicationId != 0);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         medicationActv = (AutoCompleteTextView) findViewById(R.id.medication_edit);
         freqSpinner = (Spinner) findViewById(R.id.edit_freq_add);
         String[] freqChoice = getResources().getStringArray(R.array.freqChoice);

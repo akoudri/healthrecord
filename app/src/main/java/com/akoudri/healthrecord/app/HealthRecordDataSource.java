@@ -34,7 +34,16 @@ public class HealthRecordDataSource {
     private DrugTable drugTable;
     private MeasureTable measureTable;
 
-    public HealthRecordDataSource(Context context)
+    private static HealthRecordDataSource instance;
+
+    public static HealthRecordDataSource getInstance(Context context)
+    {
+        if (instance == null)
+            instance = new HealthRecordDataSource(context);
+        return instance;
+    }
+
+    private HealthRecordDataSource(Context context)
     {
         dbHelper = new HealthRecordDatabase(context);
     }

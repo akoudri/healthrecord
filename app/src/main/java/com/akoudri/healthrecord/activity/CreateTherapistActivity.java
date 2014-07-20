@@ -48,7 +48,7 @@ public class CreateTherapistActivity extends Activity {
         phoneNumberET = (EditText) findViewById(R.id.phone_number_add);
         cellPhoneET = (EditText) findViewById(R.id.name_add_cellphone);
         emailET = (EditText) findViewById(R.id.name_add_email);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         personId = getIntent().getIntExtra("personId", 0);
     }
 

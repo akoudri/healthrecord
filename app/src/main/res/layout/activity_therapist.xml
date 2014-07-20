@@ -1,8 +1,10 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".TherapistActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,7 +20,7 @@
             android:text="@string/add_therapist"
             android:textSize="18dp"
             android:drawableRight="@drawable/add"
-            android:onClick="addTherapist"/>
+            android:onClick="addNewTherapist"/>
 
         <GridLayout
             android:id="@+id/my_therapists_grid"

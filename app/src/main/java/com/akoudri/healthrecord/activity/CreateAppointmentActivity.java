@@ -44,7 +44,7 @@ public class CreateAppointmentActivity extends Activity {
         commentET = (EditText) findViewById(R.id.add_appt_comment);
         commentET = (EditText) findViewById(R.id.add_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_select);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);

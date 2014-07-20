@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         layout = (GridLayout) findViewById(R.id.person_grid);
         Context context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -158,9 +158,8 @@ public class MainActivity extends Activity {
                 calendarButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.Calendar");
                         intent.putExtra("personId", personId);
-                        intent.putExtra("numFrag", 1);
                         startActivity(intent);
                     }
                 });
@@ -179,9 +178,8 @@ public class MainActivity extends Activity {
                 therapistButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.Therapist");
                         intent.putExtra("personId", personId);
-                        intent.putExtra("numFrag", 2);
                         startActivity(intent);
                     }
                 });
@@ -200,9 +198,8 @@ public class MainActivity extends Activity {
                 analysisButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.Analysis");
                         intent.putExtra("personId", personId);
-                        intent.putExtra("numFrag", 3);
                         startActivity(intent);
                     }
                 });
@@ -222,9 +219,8 @@ public class MainActivity extends Activity {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditPerson");
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.UpdatePerson");
                         intent.putExtra("personId", personId);
-                        intent.putExtra("numFrag", 0);
                         startActivity(intent);
                     }
                 });

@@ -60,7 +60,7 @@ public class CreateAilmentActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_ailment);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         medications = new ArrayList<Medication>();
         illnessActv = (AutoCompleteTextView) findViewById(R.id.illness_choice);
         therapistSpinner = (Spinner) findViewById(R.id.therapist_choice);

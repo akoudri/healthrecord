@@ -47,7 +47,7 @@ public class EditAppointmentActivity extends Activity {
         hourET.setKeyListener(null);
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         apptId = getIntent().getIntExtra("apptId", 0);
     }
 

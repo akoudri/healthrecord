@@ -31,16 +31,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.akoudri.healthrecord.activity.EditPersonActivity"
-            android:label="@string/edit"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.EditPerson" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.akoudri.healthrecord.activity.EditDayActivity"
             android:label="@string/edit"
             android:screenOrientation="portrait">
@@ -127,6 +117,46 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.akoudri.healthrecord.app.EditMedication" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.UpdatePersonActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.UpdatePerson" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.CalendarActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.Calendar" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.TherapistActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.Therapist" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.AnalysisActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.Analysis" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

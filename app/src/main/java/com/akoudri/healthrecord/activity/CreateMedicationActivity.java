@@ -39,7 +39,7 @@ public class CreateMedicationActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_medication);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         medicationActv = (AutoCompleteTextView) findViewById(R.id.medication_add);
         freqSpinner = (Spinner) findViewById(R.id.freq_add);
         String[] freqChoice = getResources().getStringArray(R.array.freqChoice);

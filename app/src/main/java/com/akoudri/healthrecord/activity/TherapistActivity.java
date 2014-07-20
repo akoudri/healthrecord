@@ -1,15 +1,14 @@
-package com.akoudri.healthrecord.fragment;
+package com.akoudri.healthrecord.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -19,13 +18,15 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class TherapistFragment extends Fragment {
+public class TherapistActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
+    private boolean dataSourceLoaded = false;
     private int personId;
 
     private int therapistId = 0;
@@ -34,33 +35,34 @@ public class TherapistFragment extends Fragment {
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
 
-    private View view;
-
-
-    public static TherapistFragment newInstance()
-    {
-        return new TherapistFragment();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_therapist);
+        layout = (GridLayout) findViewById(R.id.my_therapists_grid);
+        dataSource = HealthRecordDataSource.getInstance(this);
+        personId = getIntent().getIntExtra("personId", 0);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_therapist, container, false);
-        layout = (GridLayout) view.findViewById(R.id.my_therapists_grid);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
-        return view;
-    }
-
-    @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
-        if (personId == 0) return;
-        if (dataSource == null) return;
-        createWidgets();
+        try {
+            dataSource.open();
+            dataSourceLoaded = true;
+            createWidgets();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setDataSource(HealthRecordDataSource dataSource)
-    {
-        this.dataSource = dataSource;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (! dataSourceLoaded) return;
+        dataSource.close();
+        dataSourceLoaded = false;
     }
 
     private void createWidgets()
@@ -90,7 +92,7 @@ public class TherapistFragment extends Fragment {
             //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,4);
-            therapistButton = new Button(getActivity());
+            therapistButton = new Button(this);
             String tName = p.getName();
             if (tName.length() > 20) tName = tName.substring(0,20) + "...";
             therapistButton.setText(tName + "\n" + therapyBranch);
@@ -104,9 +106,9 @@ public class TherapistFragment extends Fragment {
             therapistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int thId = TherapistFragment.this.therapistId;
-                    if (thId == id) TherapistFragment.this.therapistId = 0;
-                    else TherapistFragment.this.therapistId = id;
+                    int thId = TherapistActivity.this.therapistId;
+                    if (thId == id) TherapistActivity.this.therapistId = 0;
+                    else TherapistActivity.this.therapistId = id;
                     createWidgets();
                 }
             });
@@ -121,12 +123,12 @@ public class TherapistFragment extends Fragment {
             if (this.therapistId == id) {
                 //add remove button
                 colSpec = GridLayout.spec(4);
-                removeButton = new ImageButton(getActivity());
+                removeButton = new ImageButton(this);
                 removeButton.setBackgroundResource(R.drawable.remove);
                 removeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new AlertDialog.Builder(getActivity())
+                        new AlertDialog.Builder(getApplicationContext())
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle(R.string.removing)
                                 .setMessage(getResources().getString(R.string.remove_question)
@@ -155,7 +157,7 @@ public class TherapistFragment extends Fragment {
                 //Phone Button
                 rowSpec = GridLayout.spec(r);
                 colSpec = GridLayout.spec(0);
-                phoneButton = new ImageButton(getActivity());
+                phoneButton = new ImageButton(this);
                 phoneButton.setBackgroundResource(R.drawable.phone);
                 if (p.getPhoneNumber() != null) {
                     phoneButton.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +179,7 @@ public class TherapistFragment extends Fragment {
                 layout.addView(phoneButton);
                 //Cellphone Button
                 colSpec = GridLayout.spec(1);
-                cellphoneButton = new ImageButton(getActivity());
+                cellphoneButton = new ImageButton(this);
                 cellphoneButton.setBackgroundResource(R.drawable.cellphone);
                 if (p.getCellPhoneNumber() != null) {
                     cellphoneButton.setOnClickListener(new View.OnClickListener() {
@@ -199,7 +201,7 @@ public class TherapistFragment extends Fragment {
                 layout.addView(cellphoneButton);
                 //Sms Button
                 colSpec = GridLayout.spec(2);
-                smsButton = new ImageButton(getActivity());
+                smsButton = new ImageButton(this);
                 smsButton.setBackgroundResource(R.drawable.sms);
                 if (p.getCellPhoneNumber() != null) {
                     phoneButton.setOnClickListener(new View.OnClickListener() {
@@ -222,7 +224,7 @@ public class TherapistFragment extends Fragment {
                 layout.addView(smsButton);
                 //Email Button
                 colSpec = GridLayout.spec(3);
-                emailButton = new ImageButton(getActivity());
+                emailButton = new ImageButton(this);
                 emailButton.setBackgroundResource(R.drawable.email);
                 if (p.getEmail() != null) {
                     emailButton.setOnClickListener(new View.OnClickListener() {
@@ -245,7 +247,7 @@ public class TherapistFragment extends Fragment {
                 layout.addView(emailButton);
                 //Edit Button
                 colSpec = GridLayout.spec(4);
-                editButton = new ImageButton(getActivity());
+                editButton = new ImageButton(this);
                 editButton.setBackgroundResource(R.drawable.edit);
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -269,7 +271,7 @@ public class TherapistFragment extends Fragment {
         }
     }
 
-    public void addTherapist()
+    public void addNewTherapist(View view)
     {
         therapistId = 0;
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");

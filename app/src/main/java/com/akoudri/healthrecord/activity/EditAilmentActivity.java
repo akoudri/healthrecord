@@ -64,7 +64,7 @@ public class EditAilmentActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_ailment);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
         medications = new ArrayList<Medication>();
         illnessActv = (AutoCompleteTextView) findViewById(R.id.edit_illness_choice);
         therapistSpinner = (Spinner) findViewById(R.id.edit_therapist_choice);

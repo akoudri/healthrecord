@@ -54,7 +54,7 @@ public class CreatePersonActivity extends Activity {
         birthdateET.setKeyListener(null);
         weightET = (EditText) findViewById(R.id.add_weight);
         sizeET = (EditText) findViewById(R.id.add_size);
-        dataSource = new HealthRecordDataSource(this);
+        dataSource = HealthRecordDataSource.getInstance(this);
     }
 
     @Override

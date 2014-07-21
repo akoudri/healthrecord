@@ -92,10 +92,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     public void setCalendarContentProvider(CalendarContentProvider provider)
     {
         this.calendarContentProvider = provider;
-        appointments = provider.getMonthAppointmentsForPerson(personId, _cal);
-        ailments = provider.getMonthAilmentsForPerson(personId, _cal);
-        measures = provider.getMonthMeasuresForPerson(personId, _cal);
-        medics = provider.getMonthMedicationsForPerson(personId, _cal);
+        loadInfo();
     }
 
     @Override
@@ -247,30 +244,6 @@ public class CalendarView extends View implements View.OnTouchListener {
                 canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
             }
             paint.setStyle(Paint.Style.FILL);
-
-            /*
-            if (calendarContentProvider.countAilmentsForDay(personId, _cal.getTimeInMillis()) > 0) {
-                int xa = (int) (rect.right - stepx / 4);
-                int yi = rect.top + 5;
-                paint.setColor(getResources().getColor(R.color.illnessColor));
-                canvas.drawCircle(xa, yi, 3, paint);
-            }
-
-            if (calendarContentProvider.countMedicsForDay(personId, _cal.getTimeInMillis()) > 0) {
-                int xa = (int) (rect.right - stepx / 4);
-                int yi = rect.bottom - 5;
-                paint.setColor(getResources().getColor(R.color.medicsColor));
-                canvas.drawCircle(xa, yi, 3, paint);
-            }
-
-            if (calendarContentProvider.countMeasuresForDay(personId, _cal.getTimeInMillis()) > 0) {
-                int xa = (int) (rect.right - stepx / 4);
-                int yi = rect.bottom - 5;
-                paint.setColor(getResources().getColor(R.color.measuresColor));
-                canvas.drawCircle(xa, yi, 3, paint);
-            }
-            paint.setColor(getResources().getColor(R.color.regular_text_color));
-            */
         }
     }
 
@@ -320,28 +293,32 @@ public class CalendarView extends View implements View.OnTouchListener {
                 selectedRect = getSelectedRect(tx, ty);
                 break;
             case MotionEvent.ACTION_UP:
-                if (ty < yCalendar) {
-                    xm = (int) event.getX();
-                    int xdiff = xm - tx;
-                    if (xdiff > 50)
-                        _cal.add(Calendar.MONTH, -1);
-                    else if (xdiff < -50)
-                        _cal.add(Calendar.MONTH, 1);
-                    appointments = calendarContentProvider.getMonthAppointmentsForPerson(personId, _cal);
-                    ailments = calendarContentProvider.getMonthAilmentsForPerson(personId, _cal);
-                    measures = calendarContentProvider.getMonthMeasuresForPerson(personId, _cal);
-                    medics = calendarContentProvider.getMonthMedicationsForPerson(personId, _cal);
-                    tx = 0;
-                    ty = 0;
+                xm = (int) event.getX();
+                int xdiff = xm - tx;
+                if (xdiff > 50) {
+                    _cal.add(Calendar.MONTH, -1);
+                    loadInfo();
                 }
-                else
+                else if (xdiff < -50) {
+                    _cal.add(Calendar.MONTH, 1);
+                    loadInfo();
+                }
+                else {
                     manageClick();
-                selectedRect = null;
-                break;
-            default:
+                }
+                tx = 0;
+                ty = 0;
                 selectedRect = null;
         }
         return true;
+    }
+
+    private void loadInfo()
+    {
+        appointments = calendarContentProvider.getMonthAppointmentsForPerson(personId, _cal);
+        ailments = calendarContentProvider.getMonthAilmentsForPerson(personId, _cal);
+        measures = calendarContentProvider.getMonthMeasuresForPerson(personId, _cal);
+        medics = calendarContentProvider.getMonthMedicationsForPerson(personId, _cal);
     }
 
     private Rect getSelectedRect(int x, int y)

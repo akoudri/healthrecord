@@ -52,6 +52,15 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int tx = 0;
     private int ty = 0;
 
+    //min and max days of month for current month
+    int min_day, max_day;
+
+    //Appointments
+    private int[] appointments;
+    private int[] ailments;
+    private int[] measures;
+    private int[] medics;
+
     //TODO: add icons in the cells
 
 
@@ -83,6 +92,10 @@ public class CalendarView extends View implements View.OnTouchListener {
     public void setCalendarContentProvider(CalendarContentProvider provider)
     {
         this.calendarContentProvider = provider;
+        appointments = provider.getMonthAppointmentsForPerson(personId, _cal);
+        ailments = provider.getMonthAilmentsForPerson(personId, _cal);
+        measures = provider.getMonthMeasuresForPerson(personId, _cal);
+        medics = provider.getMonthMedicationsForPerson(personId, _cal);
     }
 
     @Override
@@ -102,6 +115,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         //displayNavigation(canvas);
         displayDaysOfTheWeek(canvas);
         displayDaysOfTheMonth(canvas);
+        displayInformation(canvas);
         highlightRect(canvas);
         invalidate();
     }
@@ -181,6 +195,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     }
 
     //display any day of the month except actual day
+    //FIXME: replace intempestive requests!!!
     private void displayDaysOfTheMonth(Canvas canvas)
     {
         rects.clear(); //clear the list of rects
@@ -191,10 +206,10 @@ public class CalendarView extends View implements View.OnTouchListener {
         paint.setFakeBoldText(true);
         paint.setStrokeWidth(2.0f);
         //retrieve bounds for the current month
-        int min = _cal.getActualMinimum(Calendar.DAY_OF_MONTH);
-        int max = _cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        min_day = _cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        max_day = _cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         //set the calendar to the first day of the month and compute first x
-        _cal.set(Calendar.DAY_OF_MONTH, min);
+        _cal.set(Calendar.DAY_OF_MONTH, min_day);
         int firstDay = _cal.get(Calendar.DAY_OF_WEEK);
         int firstx = (firstDay + 5) % 7;
         //used to draw rects
@@ -206,35 +221,22 @@ public class CalendarView extends View implements View.OnTouchListener {
         int y = 0;
         rect = getRect(x, y);
         rects.add(rect);
-        if (isToday())
+        rectf = new RectF(rect);
+        paint.setStyle(Paint.Style.STROKE);
+        canvas.drawRoundRect(rectf, corner, corner, paint);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawText("" + 1, rect.left + stepx / 2, rect.top + delta, paint);
+        if (_cal.before(today))
         {
-            displayCurrentDate(canvas);
+            canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
         }
-        else
-        {
-            rectf = new RectF(rect);
-            paint.setStyle(Paint.Style.STROKE);
-            canvas.drawRoundRect(rectf, corner, corner, paint);
-            paint.setStyle(Paint.Style.FILL);
-            canvas.drawText("" + 1, rect.left + stepx / 2, rect.top + delta, paint);
-            if (_cal.before(today))
-            {
-                canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
-            }
-        }
-        //Draw other days
-        for (int i = min + 1; i <= max; i++)
+        for (int i = min_day + 1; i <= max_day; i++)
         {
             _cal.add(Calendar.DAY_OF_MONTH, 1);
             x = (x + 1) % 7;
             if (x == 0) y++;
             rect = getRect(x, y);
             rects.add(rect);
-            if (isToday())
-            {
-                displayCurrentDate(canvas);
-                continue;
-            }
             rectf = new RectF(rect);
             paint.setStyle(Paint.Style.STROKE);
             canvas.drawRoundRect(rectf, corner, corner, paint);
@@ -246,76 +248,64 @@ public class CalendarView extends View implements View.OnTouchListener {
             }
             paint.setStyle(Paint.Style.FILL);
 
-            if (calendarContentProvider.countAppointmentsForDay(personId, _cal.getTimeInMillis()) > 0)
-            {
-                int xa = (int) (rect.left + stepx / 4);
-                int yi = (int) (rect.top + 5);
-                paint.setColor(getResources().getColor(R.color.rvColor));
-                canvas.drawCircle(xa, yi, 3, paint);
-            }
-
+            /*
             if (calendarContentProvider.countAilmentsForDay(personId, _cal.getTimeInMillis()) > 0) {
                 int xa = (int) (rect.right - stepx / 4);
-                int yi = (int) (rect.top + 5);
+                int yi = rect.top + 5;
                 paint.setColor(getResources().getColor(R.color.illnessColor));
                 canvas.drawCircle(xa, yi, 3, paint);
             }
 
             if (calendarContentProvider.countMedicsForDay(personId, _cal.getTimeInMillis()) > 0) {
                 int xa = (int) (rect.right - stepx / 4);
-                int yi = (int) (rect.bottom - 5);
+                int yi = rect.bottom - 5;
                 paint.setColor(getResources().getColor(R.color.medicsColor));
                 canvas.drawCircle(xa, yi, 3, paint);
             }
 
             if (calendarContentProvider.countMeasuresForDay(personId, _cal.getTimeInMillis()) > 0) {
                 int xa = (int) (rect.right - stepx / 4);
-                int yi = (int) (rect.bottom - 5);
+                int yi = rect.bottom - 5;
                 paint.setColor(getResources().getColor(R.color.measuresColor));
                 canvas.drawCircle(xa, yi, 3, paint);
             }
-
             paint.setColor(getResources().getColor(R.color.regular_text_color));
+            */
         }
     }
 
-    private void displayCurrentDate(Canvas canvas)
+    private void displayInformation(Canvas canvas)
     {
-        int day = _cal.get(Calendar.DAY_OF_MONTH);
-        Rect rect = rects.get(day - 1);
-        RectF rectf = new RectF(rect);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawRoundRect(rectf, corner, corner, paint);
-        paint.setColor(getResources().getColor(R.color.app_bg_color));
-        canvas.drawText("" + day, rect.left + stepx / 2, rect.top + delta, paint);
-        paint.setStyle(Paint.Style.FILL);
-        if (calendarContentProvider.countAppointmentsForDay(personId, _cal.getTimeInMillis()) > 0)
+        Rect rect;
+        for (int i = min_day; i <= max_day; i++)
         {
-            int xa = (int) (rect.left + stepx / 4);
-            int yi = (int) (rect.top + 5);
-            paint.setColor(getResources().getColor(R.color.rvColor));
-            canvas.drawCircle(xa, yi, 3, paint);
+            rect = rects.get(i-1);
+            if (measures[i-1] > 0) {
+                int xa = (int) (rect.left + stepx / 4);
+                int yi = rect.top + 5;
+                paint.setColor(getResources().getColor(R.color.measuresColor));
+                canvas.drawCircle(xa, yi, 3, paint);
+            }
+            if (appointments[i-1] > 0)
+            {
+                int xa = (int) (rect.right - stepx / 4);
+                int yi = rect.top + 5;
+                paint.setColor(getResources().getColor(R.color.rvColor));
+                canvas.drawCircle(xa, yi, 3, paint);
+            }
+            if (ailments[i-1] > 0){
+                int xa = (int) (rect.left + stepx / 4);
+                int yi = rect.bottom - 5;
+                paint.setColor(getResources().getColor(R.color.illnessColor));
+                canvas.drawCircle(xa, yi, 3, paint);
+            }
+            if (medics[i-1] > 0) {
+                int xa = (int) (rect.right - stepx / 4);
+                int yi = rect.bottom - 5;
+                paint.setColor(getResources().getColor(R.color.medicsColor));
+                canvas.drawCircle(xa, yi, 3, paint);
+            }
         }
-        if (calendarContentProvider.countAilmentsForDay(personId, _cal.getTimeInMillis()) > 0) {
-            int xa = (int) (rect.right - stepx / 4);
-            int yi = (int) (rect.top + 5);
-            paint.setColor(getResources().getColor(R.color.illnessColor));
-            canvas.drawCircle(xa, yi, 3, paint);
-        }
-        if (calendarContentProvider.countMedicsForDay(personId, _cal.getTimeInMillis()) > 0) {
-            int xa = (int) (rect.right - stepx / 4);
-            int yi = (int) (rect.bottom - 5);
-            paint.setColor(getResources().getColor(R.color.medicsColor));
-            canvas.drawCircle(xa, yi, 3, paint);
-        }
-        if (calendarContentProvider.countMeasuresForDay(personId, _cal.getTimeInMillis()) > 0) {
-            int xa = (int) (rect.right - stepx / 4);
-            int yi = (int) (rect.bottom - 5);
-            paint.setColor(getResources().getColor(R.color.measuresColor));
-            canvas.drawCircle(xa, yi, 3, paint);
-        }
-        paint.setColor(getResources().getColor(R.color.regular_text_color));
-        paint.setStyle(Paint.Style.STROKE);
     }
 
     @Override
@@ -337,15 +327,19 @@ public class CalendarView extends View implements View.OnTouchListener {
                         _cal.add(Calendar.MONTH, -1);
                     else if (xdiff < -50)
                         _cal.add(Calendar.MONTH, 1);
+                    appointments = calendarContentProvider.getMonthAppointmentsForPerson(personId, _cal);
+                    ailments = calendarContentProvider.getMonthAilmentsForPerson(personId, _cal);
+                    measures = calendarContentProvider.getMonthMeasuresForPerson(personId, _cal);
+                    medics = calendarContentProvider.getMonthMedicationsForPerson(personId, _cal);
                     tx = 0;
                     ty = 0;
                 }
-                else manageClick(tx, ty);
+                else
+                    manageClick();
                 selectedRect = null;
                 break;
             default:
                 selectedRect = null;
-                break;
         }
         return true;
     }
@@ -364,12 +358,12 @@ public class CalendarView extends View implements View.OnTouchListener {
     {
         if (selectedRect == null) return;
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(getResources().getColor(R.color.regular_text_color));
+        paint.setColor(getResources().getColor(R.color.measuresColor));
         RectF rectf = new RectF(selectedRect);
         canvas.drawRoundRect(rectf, corner, corner, paint);
     }
 
-    private void manageClick(int x, int y)
+    private void manageClick()
     {
         if (selectedRect != null)
         {

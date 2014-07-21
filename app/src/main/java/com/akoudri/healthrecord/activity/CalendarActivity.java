@@ -10,6 +10,7 @@ import com.akoudri.healthrecord.view.CalendarContentProvider;
 import com.akoudri.healthrecord.view.CalendarView;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 
 /**
  * Created by Ali Koudri on 19/07/14.
@@ -42,6 +43,7 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
             dataSourceLoaded = true;
             calendarView.setPersonId(personId);
             calendarView.setCalendarContentProvider(this);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,26 +60,22 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
     }
 
     @Override
-    public int countAppointmentsForDay(int personId, long date) {
-        if (!dataSourceLoaded) return 0;
-        return dataSource.getAppointmentTable().countAppointmentsForDay(personId, date);
+    public int[] getMonthAppointmentsForPerson(int personId, Calendar cal) {
+        return dataSource.getAppointmentTable().getMonthAppointmentsForPerson(personId, cal);
     }
 
     @Override
-    public int countAilmentsForDay(int personId, long date) {
-        if (!dataSourceLoaded) return 0;
-        return dataSource.getAilmentTable().countAilmentsForDay(personId, date);
+    public int[] getMonthAilmentsForPerson(int personId, Calendar cal) {
+        return dataSource.getAilmentTable().getMonthAilmentsForPerson(personId, cal);
     }
 
     @Override
-    public int countMeasuresForDay(int personId, long date) {
-        if (!dataSourceLoaded) return 0;
-        return dataSource.getMeasureTable().countMeasuresForDay(personId, date);
+    public int[] getMonthMeasuresForPerson(int personId, Calendar cal) {
+        return dataSource.getMeasureTable().getMonthMeasuresForPerson(personId, cal);
     }
 
     @Override
-    public int countMedicsForDay(int personId, long date) {
-        if (!dataSourceLoaded) return 0;
-        return dataSource.getMedicationTable().countMedicsForDay(personId, date);
+    public int[] getMonthMedicationsForPerson(int personId, Calendar cal) {
+        return dataSource.getMedicationTable().getMonthMedicationsForPerson(personId, cal);
     }
 }

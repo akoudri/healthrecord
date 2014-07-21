@@ -92,6 +92,39 @@ public class AppointmentTable {
         return res;
     }
 
+    public int[] getMonthAppointmentsForPerson(int personId, Calendar cal)
+    {
+        int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.DAY_OF_MONTH, min);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        long ms = cal.getTimeInMillis();
+        long me = ms + 86400000L * max;
+        List<Appointment> res = new ArrayList<Appointment>();
+        Cursor cursor = db.query(APPT_TABLE, AppointmentCols,
+                APPT_PERSON_REF + "=" + personId + " and " + APPT_DATE + ">=" + ms + " and " + APPT_DATE + "<" + me,
+                null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToAppointment(cursor));
+            cursor.moveToNext();
+        }
+        int[] appts = new int[max];
+        for (int i = 0; i < max; i++)
+            appts[i] = 0;
+        for (Appointment appt : res)
+        {
+            long d = HealthRecordUtils.stringToCalendar(appt.getDate()).getTimeInMillis() - cal.getTimeInMillis();
+            int i = (int)(d/86400000L);
+            appts[i] ++;
+        }
+        return appts;
+    }
+
     public int countAppointmentsForDay(int personId, long date)
     {
         long me = date + 86400000L;//24h in ms

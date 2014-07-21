@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -58,9 +59,9 @@ public class AilmentTable {
         if (isOverlapping(personId, illnessId, sd, duration)) return -2;
         ContentValues values = new ContentValues();
         values.put(AILMENT_PERSON_REF, personId);
-        if (illnessId >= 0)
+        if (illnessId > 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
-        if (therapistId >= 0)
+        if (therapistId > 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
         values.put(AILMENT_START_DATE, sd);
         if (duration >= 0)
@@ -74,10 +75,10 @@ public class AilmentTable {
         long sd = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
         if (isOverlappingAilment(ailmentId, illnessId, sd, duration)) return -1;
         ContentValues values = new ContentValues();
-        if (illnessId >= 0)
+        if (illnessId > 0)
             values.put(AILMENT_ILLNESS_REF, illnessId);
         else values.putNull(AILMENT_ILLNESS_REF);
-        if (therapistId >= 0)
+        if (therapistId > 0)
             values.put(AILMENT_THERAPIST_REF, therapistId);
         else values.putNull(AILMENT_THERAPIST_REF);
         values.put(AILMENT_START_DATE, HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis());
@@ -190,7 +191,7 @@ public class AilmentTable {
 
     public int countAilmentsForDay(int personId, long date)
     {
-        String req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_PERSON_REF + "=" + personId +
+        String req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_ILLNESS_REF + " is not null and " + AILMENT_PERSON_REF + "=" + personId +
                 " and " + AILMENT_START_DATE + "<=" + date + " and (" + AILMENT_DURATION + " is null or " + AILMENT_START_DATE + " + " +
                 AILMENT_DURATION + " * 86400000 >= " + date + ")";
         Cursor count = db.rawQuery(req, null);
@@ -199,6 +200,52 @@ public class AilmentTable {
         int res = count.getInt(0);
         count.close();
         return res;
+    }
+
+    public int[] getMonthAilmentsForPerson(int personId, Calendar cal)
+    {
+        int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.DAY_OF_MONTH, min);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        long ms = cal.getTimeInMillis();
+        long me = ms + 86400000L * max;
+        List<Ailment> res = new ArrayList<Ailment>();
+        Cursor cursor = db.query(AILMENT_TABLE, ailmentCols, AILMENT_ILLNESS_REF + " is not null and " + AILMENT_PERSON_REF + "=" + personId +  " and " + AILMENT_START_DATE + "<" + me +
+                " and (" +AILMENT_DURATION + " is null or " + AILMENT_START_DATE + ">=" + ms + "-" + AILMENT_DURATION + "* 86400000)",
+                null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToAilment(cursor));
+            cursor.moveToNext();
+        }
+        int[] ailments = new int[max];
+        int i;
+        for (i = 0; i < max; i++)
+            ailments[i] = 0;
+        for (Ailment ailment : res)
+        {
+            long sa = HealthRecordUtils.stringToCalendar(ailment.getStartDate()).getTimeInMillis();
+            int d = ailment.getDuration();
+            for (i = 0; i < max; i++)
+            {
+                long ref = ms + i * 86400000L;
+                if (d == -1)
+                {
+                    if (sa <= ref) ailments[i]++;
+                }
+                else
+                {
+                    long se = sa + d * 86400000L;
+                    if (sa <= ref && se >= ref) ailments[i]++;
+                }
+            }
+        }
+        return ailments;
     }
 
     private Ailment cursorToAilment(Cursor cursor) {

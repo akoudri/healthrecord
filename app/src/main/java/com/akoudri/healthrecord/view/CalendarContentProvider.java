@@ -1,17 +1,19 @@
 package com.akoudri.healthrecord.view;
 
+import java.util.Calendar;
+
 /**
  * Created by Ali Koudri on 20/07/14.
  */
 public interface CalendarContentProvider {
 
-    int countAppointmentsForDay(int personId, long date);
+    int[] getMonthAppointmentsForPerson(int personId, Calendar cal);
 
-    int countAilmentsForDay(int personId, long date);
+    int[] getMonthAilmentsForPerson(int personId, Calendar cal);
 
-    int countMeasuresForDay(int personId, long date);
+    int[] getMonthMeasuresForPerson(int personId, Calendar cal);
 
-    int countMedicsForDay(int personId, long date);
+    int[] getMonthMedicationsForPerson(int personId, Calendar cal);
 
 }
 

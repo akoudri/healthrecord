@@ -8,8 +8,8 @@
     <color name="button_pressed_bg_color">#a18436</color>
     <color name="spinner_text_color">#e4e355</color>
     <color name="notValidField">#e4e355</color>
-    <color name="rvColor">#84c5fd</color>
+    <color name="rvColor">#f3c353</color>
     <color name="illnessColor">#fd4c37</color>
     <color name="medicsColor">#7ce86d</color>
-    <color name="measuresColor">#f3c353</color>
+    <color name="measuresColor">#84c5fd</color>
 </resources>

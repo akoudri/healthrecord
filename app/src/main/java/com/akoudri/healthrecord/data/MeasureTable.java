@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 /**
  * Created by Ali Koudri on 30/06/14.
  * FIXME: shall I split the table in V2 ?
@@ -151,6 +155,39 @@ public class MeasureTable {
         int res = count.getInt(0);
         count.close();
         return res;
+    }
+
+    public int[] getMonthMeasuresForPerson(int personId, Calendar cal)
+    {
+        int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.DAY_OF_MONTH, min);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        long ms = cal.getTimeInMillis();
+        long me = ms + 86400000L * max;
+        List<Measure> res = new ArrayList<Measure>();
+        Cursor cursor = db.query(MEASURE_TABLE, measureCols,
+                MEASURE_PERSON_REF + "=" + personId + " and " + MEASURE_DATE + ">=" + ms + " and " + MEASURE_DATE + "<" + me,
+                null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToMeasure(cursor));
+            cursor.moveToNext();
+        }
+        int[] measures = new int[max];
+        for (int i = 0; i < max; i++)
+            measures[i] = 0;
+        for (Measure measure : res)
+        {
+            long d = HealthRecordUtils.stringToCalendar(measure.getDate()).getTimeInMillis() - cal.getTimeInMillis();
+            int i = (int)(d/86400000L);
+            measures[i] ++;
+        }
+        return measures;
     }
 
     public int countMeasuresForDay(int personId, long date)

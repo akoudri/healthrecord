@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -146,6 +147,52 @@ public class MedicationTable {
         int res = count.getInt(0);
         count.close();
         return res;
+    }
+
+    public int[] getMonthMedicationsForPerson(int personId, Calendar cal)
+    {
+        int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.DAY_OF_MONTH, min);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        long ms = cal.getTimeInMillis();
+        long me = ms + 86400000L * max;
+        List<Medication> res = new ArrayList<Medication>();
+        Cursor cursor = db.query(MEDICATION_TABLE, medicationCols, MEDICATION_PERSON_REF + "=" + personId +  " and " + MEDICATION_START_DATE + "<" + me +
+                        " and (" +MEDICATION_DURATION + " is null or " + MEDICATION_START_DATE + ">=" + ms + "-" + MEDICATION_DURATION + "* 86400000)",
+                null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToMedication(cursor));
+            cursor.moveToNext();
+        }
+        int[] medications = new int[max];
+        int i;
+        for (i = 0; i < max; i++)
+            medications[i] = 0;
+        for (Medication medication : res)
+        {
+            long sa = HealthRecordUtils.stringToCalendar(medication.getStartDate()).getTimeInMillis();
+            int d = medication.getDuration();
+            for (i = 0; i < max; i++)
+            {
+                long ref = ms + i * 86400000L;
+                if (d == -1)
+                {
+                    if (sa <= ref) medications[i]++;
+                }
+                else
+                {
+                    long se = sa + d * 86400000L;
+                    if (sa <= ref && se >= ref) medications[i]++;
+                }
+            }
+        }
+        return medications;
     }
 
     private Medication cursorToMedication(Cursor cursor) {

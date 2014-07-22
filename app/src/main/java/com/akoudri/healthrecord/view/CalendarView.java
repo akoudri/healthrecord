@@ -1,21 +1,22 @@
 package com.akoudri.healthrecord.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.akoudri.healthrecord.app.R;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -42,8 +43,6 @@ public class CalendarView extends View implements View.OnTouchListener {
     private float delta; //internal vertical space in the cells
     private float stepx, stepy; //used to display the cells of the calendar -> 7x6 cells
     private float yCalendar; //y coordinate for the first row of the calendar
-    private Bitmap next, previous; //Images for navigation
-    //private Rect[] nav = new Rect[2]; //Locations to display navigation images
     private Rect selectedRect = null; //references the cell that has been touched by the user
 
     private CalendarContentProvider calendarContentProvider;
@@ -53,7 +52,9 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int ty = 0;
 
     //min and max days of month for current month
-    int min_day, max_day;
+    private int min_day, max_day;
+    //store whether the days of the month are before the actual date
+    private boolean[] isBeforeActualDate;
 
     //Appointments
     private int[] appointments;
@@ -61,13 +62,38 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int[] measures;
     private int[] medics;
 
-    //TODO: add icons in the cells
-
+    //Icons
+    Bitmap illnessIco, measureIco, medicsIco, rvIco;
+    private boolean imagesFound = true;
+    private int imgSize;
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        //Icons
+        AssetManager assetManager = context.getAssets();
+        InputStream inputStream;
+        try {
+            inputStream = assetManager.open("images/measure_ico.png");
+            measureIco = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+            inputStream = assetManager.open("images/rv_ico.png");
+            rvIco = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+            inputStream = assetManager.open("images/illness_ico.png");
+            illnessIco = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+            inputStream = assetManager.open("images/medics_ico.png");
+            medicsIco = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+        } catch (IOException e)
+        {
+            imagesFound = false;
+        }
+        //Paint
         paint = new Paint();//set paint object
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        paint.setStrokeWidth(4.0f * ratio);
+        //Actual and reference dates
         _cal = Calendar.getInstance();//set _cal and today to current day
         _cal.set(Calendar.HOUR_OF_DAY, 0);
         _cal.set(Calendar.MINUTE, 0);
@@ -95,11 +121,10 @@ public class CalendarView extends View implements View.OnTouchListener {
         loadInfo();
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        if (personId == 0) return; //nothing to display
-        width = getWidth();
-        height = getHeight();
+    public void setWidth(int width)
+    {
+        this.width = width;
+        this.height = (int) (width * 1.5);
         ratio = width/480.0f;
         stepx = width / 7;
         tsize = titleSize * ratio;
@@ -107,11 +132,23 @@ public class CalendarView extends View implements View.OnTouchListener {
         yCalendar = 3 * (tsize + ttsize) + 10;
         stepy = (height - yCalendar) / 6;
         delta = stepy * (nbRatio + 1) / 2;
+        imgSize = (int) (24 * ratio);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        computeRects();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (personId == 0) return; //nothing to display
         canvas.drawColor(getResources().getColor(R.color.app_bg_color)); //set bg to app bg
+        //The order of operation calls is very important!!!
         displayTitleDate(canvas);
-        //displayNavigation(canvas);
         displayDaysOfTheWeek(canvas);
-        displayDaysOfTheMonth(canvas);
+        displayDaysOfMonth(canvas);
         displayInformation(canvas);
         highlightRect(canvas);
         invalidate();
@@ -119,21 +156,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = 0;
-        int height = 0;
-        Point size = new Point();
-        WindowManager w = ((Activity)getContext()).getWindowManager();
-        w.getDefaultDisplay().getSize(size);
-        width = size.x;
-        //set the ratio between the width and the height of the view
-        height = (int) (size.x * 1.5);
         setMeasuredDimension(width, height);
-    }
-
-    //returns whether the current day (_cal) is the actual day (today)
-    private boolean isToday()
-    {
-        return _cal.equals(today);
     }
 
     //displays the date title
@@ -152,8 +175,12 @@ public class CalendarView extends View implements View.OnTouchListener {
     //display the days of the weeks
     private void displayDaysOfTheWeek(Canvas canvas)
     {
+        //prepare the painting for days different of actual day
         paint.setColor(getResources().getColor(R.color.regular_text_color));
-        paint.setStrokeWidth(1);
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setTextSize((int) (stepy * nbRatio));
+        paint.setFakeBoldText(true);
+        paint.setColor(getResources().getColor(R.color.regular_text_color));
         canvas.drawLine(0, 3 * tsize, width, 3 * tsize, paint);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize(ttsize);
@@ -184,99 +211,139 @@ public class CalendarView extends View implements View.OnTouchListener {
     //computes the coordinates of any cell of the calendar
     private Rect getRect(int x, int y)
     {
-        int left = (int) (x * stepx + 1);
-        int top = (int) (yCalendar + y * stepy + 1);
-        int right = (int) (left + stepx - 1);
-        int bottom = (int) (top + stepy - 1);
+        int left = (int) (x * stepx);
+        int top = (int) (yCalendar + y * stepy);
+        int right = (int) (left + stepx);
+        int bottom = (int) (top + stepy);
         return new Rect(left, top, right, bottom);
     }
 
-    //display any day of the month except actual day
-    //FIXME: replace intempestive requests!!!
-    private void displayDaysOfTheMonth(Canvas canvas)
+    private void computeRects()
     {
-        rects.clear(); //clear the list of rects
-        //prepare the painting for days different of actual day
-        paint.setColor(getResources().getColor(R.color.regular_text_color));
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize((int)(stepy * nbRatio));
-        paint.setFakeBoldText(true);
-        paint.setStrokeWidth(2.0f);
-        //retrieve bounds for the current month
+        rects.clear();
         min_day = _cal.getActualMinimum(Calendar.DAY_OF_MONTH);
         max_day = _cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        isBeforeActualDate = new boolean[max_day];
+        for (boolean b : isBeforeActualDate)
+            b = false;
         //set the calendar to the first day of the month and compute first x
         _cal.set(Calendar.DAY_OF_MONTH, min_day);
+        if (_cal.before(today))
+            isBeforeActualDate[0] = true;
         int firstDay = _cal.get(Calendar.DAY_OF_WEEK);
         int firstx = (firstDay + 5) % 7;
         //used to draw rects
         Rect rect;
-        RectF rectf;
-        int c = corner / 2; //for the oblique line
-        //Draw the first day
         int x = firstx;
         int y = 0;
         rect = getRect(x, y);
         rects.add(rect);
-        rectf = new RectF(rect);
-        paint.setStyle(Paint.Style.STROKE);
-        canvas.drawRoundRect(rectf, corner, corner, paint);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawText("" + 1, rect.left + stepx / 2, rect.top + delta, paint);
-        if (_cal.before(today))
-        {
-            canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
-        }
-        for (int i = min_day + 1; i <= max_day; i++)
-        {
+        for (int i = min_day + 1; i <= max_day; i++) {
             _cal.add(Calendar.DAY_OF_MONTH, 1);
+            if (_cal.before(today))
+                isBeforeActualDate[i-1] = true;
             x = (x + 1) % 7;
             if (x == 0) y++;
             rect = getRect(x, y);
             rects.add(rect);
-            rectf = new RectF(rect);
+        }
+    }
+
+    private void displayDaysOfMonth(Canvas canvas)
+    {
+        Rect rect, b_rect;
+        RectF rectf;
+        int day = 1;
+        int c = corner; //for the oblique line
+        b_rect = new Rect();
+        for (int i = 0; i < max_day; i++)
+        {
+            rect = rects.get(i);
+            b_rect.left = rect.left + 2;
+            b_rect.top = rect.top + 2;
+            b_rect.right = rect.right - 2;
+            b_rect.bottom = rect.bottom - 2;
+            rectf = new RectF(b_rect);
             paint.setStyle(Paint.Style.STROKE);
             canvas.drawRoundRect(rectf, corner, corner, paint);
             paint.setStyle(Paint.Style.FILL);
-            canvas.drawText("" + i, rect.left + stepx / 2, rect.top + delta, paint);
-            if (_cal.before(today))
-            {
+            canvas.drawText("" + day, (rect.right + rect.left) / 2, (rect.bottom + rect.top + ttsize) / 2, paint);
+            if (isBeforeActualDate[i])
                 canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
-            }
             paint.setStyle(Paint.Style.FILL);
+            day++;
         }
     }
 
     private void displayInformation(Canvas canvas)
     {
+        //TODO: evaluate whether it is relevant to display icons
         Rect rect;
-        for (int i = min_day; i <= max_day; i++)
+        int sx = 4;
+        int sy = 4;
+        int rcirc = (int) (4 * ratio);
+        Rect b_rect = new Rect();
+        if (imagesFound) {
+            for (int i = min_day; i <= max_day; i++) {
+                rect = rects.get(i - 1);
+                if (measures[i - 1] > 0) {
+                    b_rect.left = rect.left + sx;
+                    b_rect.right = rect.left + sx + imgSize;
+                    b_rect.top = rect.top + sy;
+                    b_rect.bottom = rect.top + sy + imgSize;
+                    canvas.drawBitmap(measureIco, null, b_rect, null);
+                }
+                if (appointments[i - 1] > 0) {
+                    b_rect.left = rect.right - sx - imgSize;
+                    b_rect.right = rect.right - sx;
+                    b_rect.top = rect.top + sy;
+                    b_rect.bottom = rect.top + sy + imgSize;
+                    canvas.drawBitmap(rvIco, null, b_rect, null);
+                }
+                if (ailments[i - 1] > 0) {
+                    b_rect.left = rect.left + sx;
+                    b_rect.right = rect.left + sx + imgSize;
+                    b_rect.top = rect.bottom - sy - imgSize;
+                    b_rect.bottom = rect.bottom - sy;
+                    canvas.drawBitmap(illnessIco, null, b_rect, null);
+                }
+                if (medics[i - 1] > 0) {
+                    b_rect.left = rect.right - sx - imgSize;
+                    b_rect.right = rect.right - sx;
+                    b_rect.top = rect.bottom - sy - imgSize;
+                    b_rect.bottom = rect.bottom - sy;
+                    canvas.drawBitmap(medicsIco, null, b_rect, null);
+                }
+            }
+        }
+        else
         {
-            rect = rects.get(i-1);
-            if (measures[i-1] > 0) {
-                int xa = (int) (rect.left + stepx / 4);
-                int yi = rect.top + 5;
-                paint.setColor(getResources().getColor(R.color.measuresColor));
-                canvas.drawCircle(xa, yi, 3, paint);
-            }
-            if (appointments[i-1] > 0)
-            {
-                int xa = (int) (rect.right - stepx / 4);
-                int yi = rect.top + 5;
-                paint.setColor(getResources().getColor(R.color.rvColor));
-                canvas.drawCircle(xa, yi, 3, paint);
-            }
-            if (ailments[i-1] > 0){
-                int xa = (int) (rect.left + stepx / 4);
-                int yi = rect.bottom - 5;
-                paint.setColor(getResources().getColor(R.color.illnessColor));
-                canvas.drawCircle(xa, yi, 3, paint);
-            }
-            if (medics[i-1] > 0) {
-                int xa = (int) (rect.right - stepx / 4);
-                int yi = rect.bottom - 5;
-                paint.setColor(getResources().getColor(R.color.medicsColor));
-                canvas.drawCircle(xa, yi, 3, paint);
+            for (int i = min_day; i <= max_day; i++) {
+                rect = rects.get(i - 1);
+                if (measures[i - 1] > 0) {
+                    int xa = rect.left + sx + rcirc;
+                    int yi = rect.top + sy + rcirc;
+                    paint.setColor(getResources().getColor(R.color.measuresColor));
+                    canvas.drawCircle(xa, yi, rcirc, paint);
+                }
+                if (appointments[i - 1] > 0) {
+                    int xa = rect.right - sx  - rcirc;
+                    int yi = rect.top + sy  + rcirc;
+                    paint.setColor(getResources().getColor(R.color.rvColor));
+                    canvas.drawCircle(xa, yi, rcirc, paint);
+                }
+                if (ailments[i - 1] > 0) {
+                    int xa = rect.left + sx  + rcirc;
+                    int yi = rect.bottom - sy  - rcirc;
+                    paint.setColor(getResources().getColor(R.color.illnessColor));
+                    canvas.drawCircle(xa, yi, rcirc, paint);
+                }
+                if (medics[i - 1] > 0) {
+                    int xa = rect.right - sx - rcirc;
+                    int yi = rect.bottom - sy  - rcirc;
+                    paint.setColor(getResources().getColor(R.color.medicsColor));
+                    canvas.drawCircle(xa, yi, rcirc, paint);
+                }
             }
         }
     }
@@ -297,10 +364,12 @@ public class CalendarView extends View implements View.OnTouchListener {
                 int xdiff = xm - tx;
                 if (xdiff > 50) {
                     _cal.add(Calendar.MONTH, -1);
+                    computeRects();
                     loadInfo();
                 }
                 else if (xdiff < -50) {
                     _cal.add(Calendar.MONTH, 1);
+                    computeRects();
                     loadInfo();
                 }
                 else {
@@ -335,8 +404,9 @@ public class CalendarView extends View implements View.OnTouchListener {
     {
         if (selectedRect == null) return;
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(getResources().getColor(R.color.measuresColor));
-        RectF rectf = new RectF(selectedRect);
+        paint.setColor(getResources().getColor(R.color.button_pressed_bg_color));
+        Rect b_rect = new Rect(selectedRect.left + 2, selectedRect.top + 2, selectedRect.right - 2, selectedRect.bottom - 2);
+        RectF rectf = new RectF(b_rect);
         canvas.drawRoundRect(rectf, corner, corner, paint);
     }
 

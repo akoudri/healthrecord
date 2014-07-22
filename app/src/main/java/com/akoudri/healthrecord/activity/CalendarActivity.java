@@ -1,6 +1,7 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -23,6 +24,8 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
     private boolean dataSourceLoaded = false;
     private int personId;
 
+    private int width;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,9 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
         dataSource = HealthRecordDataSource.getInstance(this);
         personId = getIntent().getIntExtra("personId", 0);
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        width = size.x;
     }
 
     @Override
@@ -43,6 +49,7 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
             dataSourceLoaded = true;
             calendarView.setPersonId(personId);
             calendarView.setCalendarContentProvider(this);
+            calendarView.setWidth(width);
 
         } catch (SQLException e) {
             e.printStackTrace();

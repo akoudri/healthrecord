@@ -389,8 +389,8 @@
     <string name="weight">Weight(kg)</string>
     <string name="temperature">Temperature(°C)</string>
     <string name="glucose">Glucose(g/l)</string>
-    <string name="heart">Heart</string>
-    <string name="cranialPerimeter">Cranial Perimeter(cm)</string>
+    <string name="heart">Heart(p/m)</string>
+    <string name="cp">Cranial Perimeter(cm)</string>
     <string name="diastolic">Diastolic(cmHg)</string>
     <string name="systolic">Systolic(cmHg)</string>
     <string name="heartbeat">Heartbeat(p/m)</string>
@@ -449,5 +449,7 @@
     <string name="current_weight">Current weight: </string>
     <string name="doctor">Doctor</string>
     <string name="overlapping_ailment">Illness already declared for this period</string>
+    <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pulse(p/m)</string>
+    <string name="add_measure">Add Measure</string>
 
 </resources>

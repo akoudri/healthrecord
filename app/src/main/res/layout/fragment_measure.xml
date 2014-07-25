@@ -73,7 +73,7 @@
                 android:layout_margin="7dp"
                 android:layout_gravity="fill_horizontal"
                 android:layout_weight="0.5"
-                android:text="@string/cranialPerimeter"
+                android:text="@string/cp"
                 android:ems="8"/>
             <EditText
                 android:id="@+id/edit_cranial_perimeter"

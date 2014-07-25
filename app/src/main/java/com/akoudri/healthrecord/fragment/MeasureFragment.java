@@ -117,6 +117,14 @@ public class MeasureFragment extends Fragment {
             }
             else {
                 dataSource.getMeasureTable().insertMeasure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
+                //Migration Test Start
+                if (weight > 0.0)
+                    dataSource.getWeightMeasureTable().insertMeasure(personId, date, "10:00", weight);
+                if (size > 0)
+                    dataSource.getSizeMeasureTable().insertMeasure(personId, date, "12:00", size);
+                if (diastolic > 0 && systolic > 0 && heartbeat > 0)
+                    dataSource.getHeartMeasureTable().insertMeasure(personId, date, "12:00", diastolic, systolic, heartbeat);
+                //Migration Test Stop
                 Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
             }
         }

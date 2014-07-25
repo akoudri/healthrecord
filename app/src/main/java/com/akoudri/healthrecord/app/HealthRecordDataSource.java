@@ -5,14 +5,22 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
+import com.akoudri.healthrecord.data.CranialPerimeterMeasureTable;
 import com.akoudri.healthrecord.data.DrugTable;
+import com.akoudri.healthrecord.data.GlucoseMeasureTable;
+import com.akoudri.healthrecord.data.HeartMeasureTable;
 import com.akoudri.healthrecord.data.IllnessTable;
+import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.data.MeasureTable;
+import com.akoudri.healthrecord.data.MeasureView;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
+import com.akoudri.healthrecord.data.SizeMeasureTable;
+import com.akoudri.healthrecord.data.TemperatureMeasureTable;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
+import com.akoudri.healthrecord.data.WeightMeasureTable;
 
 import java.sql.SQLException;
 
@@ -32,7 +40,15 @@ public class HealthRecordDataSource {
     private AilmentTable ailmentTable;
     private MedicationTable medicationTable;
     private DrugTable drugTable;
+    //TODO: suppress measureTable and replace it by those 6 following tables
     private MeasureTable measureTable;
+    private WeightMeasureTable weightMeasureTable;
+    private SizeMeasureTable sizeMeasureTable;
+    private TemperatureMeasureTable tempMeasureTable;
+    private CranialPerimeterMeasureTable cpMeasureTable;
+    private GlucoseMeasureTable glucoseMeasureTable;
+    private HeartMeasureTable heartMeasureTable;
+    private MeasureView measureView;
 
     private boolean isOpened = false;
 
@@ -70,6 +86,13 @@ public class HealthRecordDataSource {
         medicationTable = null;
         drugTable = null;
         measureTable = null;
+        weightMeasureTable = null;
+        sizeMeasureTable = null;
+        tempMeasureTable = null;
+        cpMeasureTable = null;
+        glucoseMeasureTable = null;
+        heartMeasureTable = null;
+        measureView = null;
         isOpened = false;
     }
 
@@ -145,5 +168,55 @@ public class HealthRecordDataSource {
         if (measureTable == null)
             measureTable = new MeasureTable(db);
         return measureTable;
+    }
+
+    public WeightMeasureTable getWeightMeasureTable() {
+        if (!isOpened) return null;
+        if (weightMeasureTable == null)
+            weightMeasureTable = new WeightMeasureTable(db);
+        return weightMeasureTable;
+    }
+
+    public SizeMeasureTable getSizeMeasureTable() {
+        if (!isOpened) return null;
+        if (sizeMeasureTable == null)
+            sizeMeasureTable = new SizeMeasureTable(db);
+        return sizeMeasureTable;
+    }
+
+    public TemperatureMeasureTable getTempMeasureTable() {
+        if (!isOpened) return null;
+        if (tempMeasureTable == null)
+            tempMeasureTable = new TemperatureMeasureTable(db);
+        return tempMeasureTable;
+    }
+
+    public CranialPerimeterMeasureTable getCpMeasureTable() {
+        if (!isOpened) return null;
+        if (cpMeasureTable == null)
+            cpMeasureTable = new CranialPerimeterMeasureTable(db);
+        return cpMeasureTable;
+    }
+
+    public GlucoseMeasureTable getGlucoseMeasureTable() {
+        if (!isOpened) return null;
+        if (glucoseMeasureTable == null)
+            glucoseMeasureTable = new GlucoseMeasureTable(db);
+        return glucoseMeasureTable;
+    }
+
+    public HeartMeasureTable getHeartMeasureTable() {
+        if (!isOpened) return null;
+        if (heartMeasureTable == null)
+            heartMeasureTable = new HeartMeasureTable(db);
+        return heartMeasureTable;
+    }
+
+    public MeasureView getMeasureView()
+    {
+        if (!isOpened) return null;
+        if (measureView == null)
+            measureView = new MeasureView(db);
+        return measureView;
     }
 }

@@ -3,7 +3,7 @@ Think about possible triggers and consistency management -- Triggers done, missi
 Think about quick links between views when possible
 Rework contextual menu for each view
 Set widget pointers to final
-Optimize presentation using weight attribute in xml file
+Optimize presentation using value attribute in xml file
 For every non editable EditText, use TextView instead and set background to white
 Add comment field when necessary
 Optimize the use of layout parameters for for layout set programmatically

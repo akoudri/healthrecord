@@ -6,16 +6,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
+import com.akoudri.healthrecord.data.CranialPerimeterMeasureTable;
 import com.akoudri.healthrecord.data.DrugTable;
+import com.akoudri.healthrecord.data.GlucoseMeasureTable;
+import com.akoudri.healthrecord.data.HeartMeasureTable;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.MeasureTable;
+import com.akoudri.healthrecord.data.MeasureView;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
 import com.akoudri.healthrecord.data.RemoveAilmentTrigger;
 import com.akoudri.healthrecord.data.RemovePersonTrigger;
+import com.akoudri.healthrecord.data.SizeMeasureTable;
+import com.akoudri.healthrecord.data.TemperatureMeasureTable;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
+import com.akoudri.healthrecord.data.WeightMeasureTable;
 
 /**
  * Created by Ali Koudri on 01/04/14.
@@ -35,6 +42,14 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private AppointmentTable appointmentTable;
     private DrugTable drugTable;
     private MeasureTable measureTable;
+    //TODO: suppress measureTable and replace it by those 6 following tables
+    private WeightMeasureTable weightMeasureTable;
+    private SizeMeasureTable sizeMeasureTable;
+    private TemperatureMeasureTable tempMeasureTable;
+    private CranialPerimeterMeasureTable cpMeasureTable;
+    private GlucoseMeasureTable glucoseMeasureTable;
+    private HeartMeasureTable heartMeasureTable;
+    private MeasureView measureView;
     private RemovePersonTrigger removePersonTrigger;
     private RemoveAilmentTrigger removeAilmentTrigger;
 
@@ -65,6 +80,20 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         drugTable.createDrugTable();
         measureTable = new MeasureTable(db);
         measureTable.createMeasureTable();
+        weightMeasureTable = new WeightMeasureTable(db);
+        weightMeasureTable.createMeasureTable();
+        sizeMeasureTable = new SizeMeasureTable(db);
+        sizeMeasureTable.createMeasureTable();
+        tempMeasureTable = new TemperatureMeasureTable(db);
+        tempMeasureTable.createMeasureTable();
+        cpMeasureTable = new CranialPerimeterMeasureTable(db);
+        cpMeasureTable.createMeasureTable();
+        glucoseMeasureTable = new GlucoseMeasureTable(db);
+        glucoseMeasureTable.createMeasureTable();
+        heartMeasureTable = new HeartMeasureTable(db);
+        heartMeasureTable.createMeasureTable();
+        measureView = new MeasureView(db);
+        measureView.createMeasureView();
         removePersonTrigger = new RemovePersonTrigger(db);
         removePersonTrigger.createRemovePersonTrigger();
         removeAilmentTrigger = new RemoveAilmentTrigger(db);
@@ -73,19 +102,6 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //FIXME: this first version simply removes the old tables
-        db.execSQL("drop trigger if exists " + RemoveAilmentTrigger.REMOVE_AILMENT_TRIG);
-        db.execSQL("drop trigger if exists " + RemovePersonTrigger.REMOVE_PERSON_TRIG);
-        db.execSQL("drop table if exists " + MeasureTable.MEASURE_TABLE);
-        db.execSQL("drop table if exists " + DrugTable.DRUG_TABLE);
-        db.execSQL("drop table if exists " + AppointmentTable.APPT_TABLE);
-        db.execSQL("drop table if exists " + PersonTherapistTable.PERSON_THERAPIST_TABLE);
-        db.execSQL("drop table if exists " + TherapistTable.THERAPIST_TABLE);
-        db.execSQL("drop table if exists " + IllnessTable.ILLNESS_TABLE);
-        db.execSQL("drop table if exists " + MedicationTable.MEDICATION_TABLE);
-        db.execSQL("drop table if exists " + AilmentTable.AILMENT_TABLE);
-        db.execSQL("drop table if exists " + TherapyBranchTable.THERAPYBRANCH_TABLE);
-        db.execSQL("drop table if exists " + PersonTable.PERSON_TABLE);
-        onCreate(db);
+        //TODO when necessary
     }
 }

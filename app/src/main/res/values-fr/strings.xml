@@ -198,7 +198,7 @@
     <string name="temperature">Température(°C)</string>
     <string name="glucose">Glycémie(g/l)</string>
     <string name="heart">Coeur</string>
-    <string name="cranialPerimeter">Périmètre Cranien(cm)</string>
+    <string name="cp">Périmètre Cranien(cm)</string>
     <string name="diastolic">Diastolique(cmHg)</string>
     <string name="systolic">Systolique(cmHg)</string>
     <string name="heartbeat">Rythme Cardiaque(p/m)</string>
@@ -257,5 +257,7 @@
     <string name="current_weight">Poids actuel: </string>
     <string name="doctor">Nom du médecin traitant</string>
     <string name="overlapping_ailment">Maladie déjà déclarée dans cette période</string>
+    <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pouls(p/m)</string>
+    <string name="add_measure">Ajouter Mesure</string>
 
 </resources>

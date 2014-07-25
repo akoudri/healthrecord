@@ -15,6 +15,7 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
+import com.akoudri.healthrecord.fragment.MeasureFragment2;
 import com.akoudri.healthrecord.fragment.OverviewFragment;
 
 import java.sql.SQLException;
@@ -36,7 +37,8 @@ public class EditDayActivity extends Activity {
     private TextView today_label;
     private OverviewFragment ovFrag;
     private AppointmentFragment apptFrag;
-    private MeasureFragment measureFrag;
+    //private MeasureFragment measureFrag;
+    private MeasureFragment2 measureFrag;
     private AilmentFragment ailmentFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
@@ -60,7 +62,8 @@ public class EditDayActivity extends Activity {
         ovFrag = OverviewFragment.newInstance();
         apptFrag = AppointmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
-        measureFrag = MeasureFragment.newInstance();
+        //measureFrag = MeasureFragment.newInstance();
+        measureFrag = MeasureFragment2.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.add(R.id.day_layout, ovFrag);
         fragTrans.commit();
@@ -131,6 +134,8 @@ public class EditDayActivity extends Activity {
     public void displayMeasures(View view)
     {
         if (currentFrag == measureFrag) return;
+        //TODO reset measure id in frag
+        measureFrag.resetMeasureId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, measureFrag);
         fragTrans.commit();
@@ -169,7 +174,6 @@ public class EditDayActivity extends Activity {
 
     public void createAppt(View view)
     {
-        apptFrag.resetAppointmentId();
         Intent intent = new Intent("com.akoudri.healthrecord.app.AddAppointment");
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);
@@ -189,10 +193,15 @@ public class EditDayActivity extends Activity {
         startActivity(intent);
     }
 
+    public void createMeasure(View view)
+    {
+        //TODO
+    }
+
     public void saveMeasures(View view)
     {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
-        measureFrag.saveMeasures();
+        //measureFrag.saveMeasures();
     }
 
 }

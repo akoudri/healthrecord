@@ -62,14 +62,32 @@ public class HeartMeasureTable {
     }
 
     //zero values are considered as null
-    public boolean updateMeasureWithDate(int personId, String date, String hour,int diastolic, int systolic, int heartbeat)
+    public boolean updateMeasureWithId(int measureId, String date, String hour,int diastolic, int systolic, int heartbeat)
     {
         ContentValues values = new ContentValues();
+        values.put(HEART_MEASURE_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         values.put(HEART_MEASURE_DIASTOLIC, diastolic);
         values.put(HEART_MEASURE_SYSTOLIC, systolic);
         values.put(HEART_MEASURE_HEARTBEAT, heartbeat);
-        long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
-        return db.update(HEART_MEASURE_TABLE, values, HEART_MEASURE_PERSON_REF + "=" + personId + " and " + HEART_MEASURE_DATE + "=" + d, null) > 0;
+        return db.update(HEART_MEASURE_TABLE, values, HEART_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public boolean updateMeasure(HeartMeasure measure)
+    {
+        return updateMeasureWithId(measure.getId(), measure.getDate(), measure.getHour(), measure.getDiastolic(),
+                measure.getSystolic(), measure.getHeartbeat());
+    }
+
+    public boolean removeMeasureWithId(int measureId)
+    {
+        return db.delete(HEART_MEASURE_TABLE, HEART_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public HeartMeasure getMeasureWithId(int measureId)
+    {
+        Cursor cursor = db.query(HEART_MEASURE_TABLE, measureCols, HEART_MEASURE_ID + "=" + measureId, null, null, null, null);
+        if (cursor.moveToFirst()) return cursorToMeasure(cursor);
+        return null;
     }
 
     public List<HeartMeasure> getPersonMeasuresWithDate(int personId, String date)

@@ -128,8 +128,8 @@ public class MainActivity extends Activity {
             personButton.setMinEms(13);
             personButton.setMaxEms(13);
             personButton.setBackgroundResource(R.drawable.healthrecord_button);
-            Drawable img = getResources().getDrawable(R.drawable.heart);
-            personButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+            //Drawable img = getResources().getDrawable(R.drawable.heart);
+            //personButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             personButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

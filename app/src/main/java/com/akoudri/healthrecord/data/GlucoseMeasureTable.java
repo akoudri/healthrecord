@@ -56,12 +56,29 @@ public class GlucoseMeasureTable {
     }
 
     //zero values are considered as null
-    public boolean updateMeasureWithDate(int personId, String date, String hour, double glucose)
+    public boolean updateMeasureWithId(int measureId, String date, String hour, double glucose)
     {
         ContentValues values = new ContentValues();
+        values.put(GLUCOSE_MEASURE_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         values.put(GLUCOSE_MEASURE_VALUE, glucose);
-        long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
-        return db.update(GLUCOSE_MEASURE_TABLE, values, GLUCOSE_MEASURE_PERSON_REF + "=" + personId + " and " + GLUCOSE_MEASURE_DATE + "=" + d, null) > 0;
+        return db.update(GLUCOSE_MEASURE_TABLE, values, GLUCOSE_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public boolean updateMeasure(GlucoseMeasure measure)
+    {
+        return updateMeasureWithId(measure.getId(), measure.getDate(), measure.getHour(), measure.getValue());
+    }
+
+    public boolean removeMeasureWithId(int measureId)
+    {
+        return db.delete(GLUCOSE_MEASURE_TABLE, GLUCOSE_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public GlucoseMeasure getMeasureWithId(int measureId)
+    {
+        Cursor cursor = db.query(GLUCOSE_MEASURE_TABLE, measureCols, GLUCOSE_MEASURE_ID + "=" + measureId, null, null, null, null);
+        if (cursor.moveToFirst()) return cursorToMeasure(cursor);
+        return null;
     }
 
     public List<GlucoseMeasure> getPersonMeasuresWithDate(int personId, String date)

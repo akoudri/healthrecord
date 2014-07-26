@@ -56,12 +56,29 @@ public class SizeMeasureTable {
     }
 
     //zero values are considered as null
-    public boolean updateMeasureWithDate(int personId, String date, String hour, int size)
+    public boolean updateMeasureWithId(int measureId, String date, String hour, int size)
     {
         ContentValues values = new ContentValues();
+        values.put(SIZE_MEASURE_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         values.put(SIZE_MEASURE_VALUE, size);
-        long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
-        return db.update(SIZE_MEASURE_TABLE, values, SIZE_MEASURE_PERSON_REF + "=" + personId + " and " + SIZE_MEASURE_DATE + "=" + d, null) > 0;
+        return db.update(SIZE_MEASURE_TABLE, values, SIZE_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public boolean updateMeasure(SizeMeasure measure)
+    {
+        return updateMeasureWithId(measure.getId(), measure.getDate(), measure.getHour(), measure.getValue());
+    }
+
+    public boolean removeMeasureWithId(int measureId)
+    {
+        return db.delete(SIZE_MEASURE_TABLE, SIZE_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public SizeMeasure getMeasureWithId(int measureId)
+    {
+        Cursor cursor = db.query(SIZE_MEASURE_TABLE, measureCols, SIZE_MEASURE_ID + "=" + measureId, null, null, null, null);
+        if (cursor.moveToFirst()) return cursorToMeasure(cursor);
+        return null;
     }
 
     public List<SizeMeasure> getPersonMeasuresWithDate(int personId, String date)

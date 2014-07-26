@@ -55,13 +55,23 @@ public class WeightMeasureTable {
         return db.insert(WEIGHT_MEASURE_TABLE, null, values);
     }
 
+    public boolean removeMeasureWithId(int measureId)
+    {
+        return db.delete(WEIGHT_MEASURE_TABLE, WEIGHT_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
     //zero values are considered as null
-    public boolean updateMeasureWithDate(int personId, String date, String hour, double weight)
+    public boolean updateMeasureWithId(int measureId, String date, String hour, double weight)
     {
         ContentValues values = new ContentValues();
+        values.put(WEIGHT_MEASURE_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         values.put(WEIGHT_MEASURE_VALUE, weight);
-        long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
-        return db.update(WEIGHT_MEASURE_TABLE, values, WEIGHT_MEASURE_PERSON_REF + "=" + personId + " and " + WEIGHT_MEASURE_DATE + "=" + d, null) > 0;
+        return db.update(WEIGHT_MEASURE_TABLE, values, WEIGHT_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public boolean updateMeasure(WeightMeasure measure)
+    {
+        return updateMeasureWithId(measure.getId(), measure.getDate(), measure.getHour(), measure.getValue());
     }
 
     public int getTotalMeasureCountForPerson(int personId)
@@ -121,6 +131,13 @@ public class WeightMeasureTable {
             cursor.moveToNext();
         }
         return res;
+    }
+
+    public WeightMeasure getMeasureWithId(int measureId)
+    {
+        Cursor cursor = db.query(WEIGHT_MEASURE_TABLE, measureCols, WEIGHT_MEASURE_ID + "=" + measureId, null, null, null, null);
+        if (cursor.moveToFirst()) return cursorToMeasure(cursor);
+        return null;
     }
 
     public int countMeasuresForDay(int personId, long date)

@@ -3,6 +3,7 @@ package com.akoudri.healthrecord.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -67,13 +68,12 @@ public class MeasureFragment2 extends Fragment {
         String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<AbstractMeasure> allMeasures = new ArrayList<AbstractMeasure>();
         allMeasures.addAll(dataSource.getMeasureView().getPersonMeasuresWithDate(personId, date));
-        Button apptButton, removeButton, editButton;
-        ImageButton rButton;
+        Button measureButton, removeButton, editButton;
+        Drawable img;
         layout.setColumnCount(2);
         int margin = 1;
         int childWidth = layout.getWidth()/2 - 4*margin;
         int r = 0; //row index
-        //TODO: add icons in the left!
         for (final AbstractMeasure measure : allMeasures)
         {
             final int measureId = measure.getId();
@@ -81,14 +81,35 @@ public class MeasureFragment2 extends Fragment {
             //Appt button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,2);
-            apptButton = new Button(getActivity());
-            apptButton.setText(measure.getValueString());
-            apptButton.setTextSize(16);
-            apptButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            apptButton.setMinEms(12);
-            apptButton.setMaxEms(12);
-            apptButton.setBackgroundResource(R.drawable.healthrecord_button);
-            apptButton.setOnClickListener(new View.OnClickListener() {
+            measureButton = new Button(getActivity());
+            measureButton.setText(measure.getValueString());
+            measureButton.setTextSize(16);
+            measureButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            measureButton.setMinEms(12);
+            measureButton.setMaxEms(12);
+            measureButton.setBackgroundResource(R.drawable.healthrecord_button);
+            switch (measure.getType())
+            {
+                case 1:
+                    img = getResources().getDrawable(R.drawable.weight);
+                    break;
+                case 2:
+                    img = getResources().getDrawable(R.drawable.ruler);
+                    break;
+                case 3:
+                    img = getResources().getDrawable(R.drawable.temperature);
+                    break;
+                case 4:
+                    img = getResources().getDrawable(R.drawable.skull);
+                    break;
+                case 5:
+                    img = getResources().getDrawable(R.drawable.sugar);
+                    break;
+                default:
+                    img = getResources().getDrawable(R.drawable.heart);
+            }
+            measureButton.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+            measureButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int id = MeasureFragment2.this.mID;
@@ -96,8 +117,7 @@ public class MeasureFragment2 extends Fragment {
                     if (id == measureId && tId == typeId) {
                         MeasureFragment2.this.mID = 0;
                         MeasureFragment2.this.mType = 0;
-                    }
-                    else {
+                    } else {
                         MeasureFragment2.this.mID = measureId;
                         MeasureFragment2.this.mType = typeId;
                     }
@@ -110,8 +130,8 @@ public class MeasureFragment2 extends Fragment {
             params.topMargin = margin;
             params.bottomMargin = margin;
             params.setGravity(Gravity.CENTER);
-            apptButton.setLayoutParams(params);
-            layout.addView(apptButton);
+            measureButton.setLayoutParams(params);
+            layout.addView(measureButton);
             if (this.mID == measureId && this.mType == typeId) {
                 //Next line
                 r++;
@@ -125,12 +145,15 @@ public class MeasureFragment2 extends Fragment {
                 editButton.setMinEms(4);
                 editButton.setMaxEms(4);
                 editButton.setBackgroundResource(R.drawable.healthrecord_button);
-                Drawable img = getResources().getDrawable(R.drawable.update);
+                img = getResources().getDrawable(R.drawable.update);
                 editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //TODO
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasure");
+                        intent.putExtra("measureId", measureId);
+                        intent.putExtra("measureIdType", typeId);
+                        startActivity(intent);
                     }
                 });
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
@@ -159,13 +182,32 @@ public class MeasureFragment2 extends Fragment {
                         new AlertDialog.Builder((MeasureFragment2.this).getActivity())
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle(R.string.removing)
-                                .setMessage(getResources().getString(R.string.remove_appt_question))
+                                .setMessage(getResources().getString(R.string.remove_measure_question))
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //if (measure instanceof WeightMeasure)
-                                            //TODO: remove measure from DB
-                                        //createWidgets();
+                                        switch (mType)
+                                        {
+                                            case 1:
+                                                dataSource.getWeightMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 2:
+                                                dataSource.getSizeMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 3:
+                                                dataSource.getTempMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 4:
+                                                dataSource.getCpMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 5:
+                                                dataSource.getGlucoseMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 6:
+                                                dataSource.getHeartMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                        }
+                                        createWidgets();
                                     }
                                 })
                                 .setNegativeButton(R.string.no, null)

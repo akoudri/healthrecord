@@ -49,6 +49,7 @@ public class CreateAppointmentActivity extends Activity {
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
+        selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
     }
 
     @Override
@@ -75,6 +76,7 @@ public class CreateAppointmentActivity extends Activity {
         dataSource.close();
         dataSourceLoaded = false;
     }
+
     private void retrieveTherapists()
     {
         therapists = new ArrayList<Therapist>();
@@ -92,7 +94,6 @@ public class CreateAppointmentActivity extends Activity {
     private void fillWidgets()
     {
         String[] therapistsStr;
-        selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
         therapistsStr = new String[therapists.size()];
         int i = 0;
         TherapyBranch branch;

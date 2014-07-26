@@ -161,6 +161,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.akoudri.healthrecord.activity.EditMeasureActivity"
+            android:label="@string/add_rv"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.akoudri.healthrecord.app.EditMeasure" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -21,8 +21,8 @@ public class AnalysisActivity extends Activity {
     private boolean dataSourceLoaded = false;
     private int personId;
 
-    Spinner measureSpinner;
-    EditText startET, endET;
+    private Spinner measureSpinner;
+    private EditText startET, endET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

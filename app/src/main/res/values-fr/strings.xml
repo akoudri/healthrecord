@@ -185,13 +185,13 @@
         <item>Xalatan</item>
     </string-array>
     <string-array name="measures">
+        <item> </item>
         <item>Poids</item>
         <item>Taille</item>
-        <item>Périmétre Cranien</item>
         <item>Température</item>
+        <item>Périmétre Cranien</item>
         <item>Glycémie</item>
-        <item>Tension Artérielle</item>
-        <item>Pouls</item>
+        <item>Coeur</item>
     </string-array>
     <string name="size">Taille(cm)</string>
     <string name="weight">Poids(kg)</string>
@@ -207,6 +207,7 @@
     <string name="add_treatment">Ajouter Traitement</string>
     <string name="hour">Heure: </string>
     <string name="remove_appt_question">Voulez-vous vraiment supprimer ce rendez-vous ?</string>
+    <string name="remove_measure_question">Voulez-vous vraiment supprimer cette mesure ?</string>
     <string name="illness">Maladie</string>
     <string name="chronic">Chronique</string>
     <string name="prescribedBy">Soigné par: </string>

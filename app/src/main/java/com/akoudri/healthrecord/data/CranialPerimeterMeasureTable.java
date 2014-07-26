@@ -55,13 +55,30 @@ public class CranialPerimeterMeasureTable {
         return db.insert(CP_MEASURE_TABLE, null, values);
     }
 
+    public boolean removeMeasureWithId(int measureId)
+    {
+        return db.delete(CP_MEASURE_TABLE, CP_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public CranialPerimeterMeasure getMeasureWithId(int measureId)
+    {
+        Cursor cursor = db.query(CP_MEASURE_TABLE, measureCols, CP_MEASURE_ID + "=" + measureId, null, null, null, null);
+        if (cursor.moveToFirst()) return cursorToMeasure(cursor);
+        return null;
+    }
+
     //zero values are considered as null
-    public boolean updateMeasureWithDate(int personId, String date, String hour, int cranialPerimeter)
+    public boolean updateMeasureWithId(int measureId, String date, String hour, int cranialPerimeter)
     {
         ContentValues values = new ContentValues();
+        values.put(CP_MEASURE_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         values.put(CP_MEASURE_VALUE, cranialPerimeter);
-        long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
-        return db.update(CP_MEASURE_TABLE, values, CP_MEASURE_PERSON_REF + "=" + personId + " and " + CP_MEASURE_DATE + "=" + d, null) > 0;
+        return db.update(CP_MEASURE_TABLE, values, CP_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public boolean updateMeasure(CranialPerimeterMeasure measure)
+    {
+        return updateMeasureWithId(measure.getId(), measure.getDate(), measure.getHour(), measure.getValue());
     }
 
     public List<CranialPerimeterMeasure> getPersonMeasuresWithDate(int personId, String date)

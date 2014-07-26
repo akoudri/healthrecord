@@ -377,13 +377,13 @@
         <item>Indocin</item>
     </string-array>
     <string-array name="measures">
+        <item> </item>
         <item>Weight</item>
         <item>Size</item>
-        <item>Cranial Perimeter</item>
         <item>Temperature</item>
+        <item>Cranial Perimeter</item>
         <item>Glucose</item>
-        <item>Blood Pressure</item>
-        <item>Heart Beat</item>
+        <item>Heart</item>
     </string-array>
     <string name="size">Size(cm)</string>
     <string name="weight">Weight(kg)</string>
@@ -399,6 +399,7 @@
     <string name="add_treatment">Add Treatment</string>
     <string name="hour">Hour: </string>
     <string name="remove_appt_question">Are you sure you want to remove this appointment ?</string>
+    <string name="remove_measure_question">Are you sure you want to remove this measure ?</string>
     <string name="illness">Illness</string>
     <string name="chronic">Chronic</string>
     <string name="prescribedBy">Treated by: </string>

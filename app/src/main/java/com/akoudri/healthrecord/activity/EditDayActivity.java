@@ -14,7 +14,6 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
-import com.akoudri.healthrecord.fragment.MeasureFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment2;
 import com.akoudri.healthrecord.fragment.OverviewFragment;
 
@@ -195,12 +194,19 @@ public class EditDayActivity extends Activity {
 
     public void createMeasure(View view)
     {
-        //TODO
+        measureFrag.resetMeasureId();
+        Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasure");
+        intent.putExtra("personId", personId);
+        intent.putExtra("day", day);
+        intent.putExtra("month", month);
+        intent.putExtra("year", year);
+        startActivity(intent);
     }
 
     public void saveMeasures(View view)
     {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (!dataSourceLoaded) return;
         //measureFrag.saveMeasures();
     }
 

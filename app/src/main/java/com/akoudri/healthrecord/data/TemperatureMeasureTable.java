@@ -56,12 +56,29 @@ public class TemperatureMeasureTable {
     }
 
     //zero values are considered as null
-    public boolean updateMeasureWithDate(int personId, String date, String hour, double temperature)
+    public boolean updateMeasureWithId(int measureId, String date, String hour, double temperature)
     {
         ContentValues values = new ContentValues();
+        values.put(TEMPERATURE_MEASURE_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         values.put(TEMPERATURE_MEASURE_VALUE, temperature);
-        long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
-        return db.update(TEMPERATURE_MEASURE_TABLE, values, TEMPERATURE_MEASURE_PERSON_REF + "=" + personId + " and " + TEMPERATURE_MEASURE_DATE + "=" + d, null) > 0;
+        return db.update(TEMPERATURE_MEASURE_TABLE, values, TEMPERATURE_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public boolean updateMeasure(TemperatureMeasure measure)
+    {
+        return updateMeasureWithId(measure.getId(), measure.getDate(), measure.getHour(), measure.getValue());
+    }
+
+    public boolean removeMeasureWithId(int measureId)
+    {
+        return db.delete(TEMPERATURE_MEASURE_TABLE, TEMPERATURE_MEASURE_ID + "=" + measureId, null) > 0;
+    }
+
+    public TemperatureMeasure getMeasureWithId(int measureId)
+    {
+        Cursor cursor = db.query(TEMPERATURE_MEASURE_TABLE, measureCols, TEMPERATURE_MEASURE_ID + "=" + measureId, null, null, null, null);
+        if (cursor.moveToFirst()) return cursorToMeasure(cursor);
+        return null;
     }
 
     public List<TemperatureMeasure> getPersonMeasuresWithDate(int personId, String date)

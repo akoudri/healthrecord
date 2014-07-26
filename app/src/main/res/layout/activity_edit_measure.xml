@@ -1,0 +1,97 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditMeasureActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:alignmentMode="alignBounds">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/hour"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:minEms="3"
+                android:maxEms="3"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/select_measure_hour"
+                android:background="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:inputType="time"
+                android:minEms="4"
+                android:maxEms="4"
+                android:layout_gravity="center_vertical"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/rv"
+                android:onClick="selectMeasureHour"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/type"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:minEms="5"
+                android:maxEms="5"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/measure_add_choice"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/add_measure_grid"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"/>
+
+        <Button
+            android:text="@string/add_measure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TitleButton"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"
+            android:ems="8"
+            android:drawableRight="@drawable/add"
+            android:onClick="saveMeasure"/>
+    </LinearLayout>
+
+</ScrollView>

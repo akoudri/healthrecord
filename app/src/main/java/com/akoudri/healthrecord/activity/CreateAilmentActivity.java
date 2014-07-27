@@ -76,6 +76,7 @@ public class CreateAilmentActivity extends Activity {
             }
         });
         endDateET = (EditText) findViewById(R.id.end_ailment);
+        //FIXME: limit the number of lines to 4
         commentET = (EditText) findViewById(R.id.add_ailment_comment);
         medicsLayout = (LinearLayout) findViewById(R.id.medics_layout);
         personId = getIntent().getIntExtra("personId", 0);

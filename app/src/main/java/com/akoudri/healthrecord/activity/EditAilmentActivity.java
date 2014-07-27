@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -83,6 +84,7 @@ public class EditAilmentActivity extends Activity {
         startDateET = (EditText) findViewById(R.id.edit_start_ailment);
         startDateET.setKeyListener(null);
         endDateET = (EditText) findViewById(R.id.edit_end_ailment);
+        //FIXME: limit the number of lines to 4
         commentET = (EditText) findViewById(R.id.update_ailment_comment);
         medicsLayout = (LinearLayout) findViewById(R.id.edit_medics_layout);
         ailmentId = getIntent().getIntExtra("ailmentId", 0);

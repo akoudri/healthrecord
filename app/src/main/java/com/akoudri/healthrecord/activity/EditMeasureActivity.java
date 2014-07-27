@@ -19,10 +19,10 @@ import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.data.CranialPerimeterMeasure;
 import com.akoudri.healthrecord.data.GlucoseMeasure;
 import com.akoudri.healthrecord.data.HeartMeasure;
+import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.data.SizeMeasure;
 import com.akoudri.healthrecord.data.TemperatureMeasure;
 import com.akoudri.healthrecord.data.WeightMeasure;

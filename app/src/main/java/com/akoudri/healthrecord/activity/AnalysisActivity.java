@@ -1,6 +1,7 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -13,8 +14,6 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AnalysisActivity extends Activity {
@@ -66,12 +65,6 @@ public class AnalysisActivity extends Activity {
         }
     }
 
-    private void initSpinner()
-    {
-
-
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -93,6 +86,13 @@ public class AnalysisActivity extends Activity {
         DatePickerFragment dfrag = new DatePickerFragment();
         dfrag.init(this, endET);
         dfrag.show(getFragmentManager(),"Pick Analysis End Date");
+    }
+
+    public void showChart(View view)
+    {
+        Intent intent = new Intent("com.akoudri.healthrecord.app.DisplayCharts");
+        //TODO: pass data
+        startActivity(intent);
     }
 
 }

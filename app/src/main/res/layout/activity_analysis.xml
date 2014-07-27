@@ -148,7 +148,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
-            android:drawableRight="@drawable/eye"/>
+            android:drawableRight="@drawable/eye"
+            android:onClick="showChart"/>
 
     </LinearLayout>
 </ScrollView>

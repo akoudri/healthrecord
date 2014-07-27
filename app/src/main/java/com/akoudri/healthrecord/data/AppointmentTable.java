@@ -162,7 +162,7 @@ public class AppointmentTable {
         String hour = String.format("%s:%s", d[3], d[4]);
         appt.setDate(date);
         appt.setHour(hour);
-        appt.setComment((cursor.isNull(4))?null:cursor.getString(5));
+        appt.setComment((cursor.isNull(4))?null:cursor.getString(4));
         return appt;
     }
 

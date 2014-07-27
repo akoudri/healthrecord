@@ -1,51 +1,46 @@
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:alignmentMode="alignBounds"
     tools:context=".EditMeasureActivity">
+
     <LinearLayout
+        android:id="@+id/measure_date_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:alignmentMode="alignBounds">
+        android:orientation="horizontal"/>
 
-        <LinearLayout
-            android:id="@+id/measure_date_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+    <LinearLayout
+        android:id="@+id/measure_hour_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
 
-        <LinearLayout
-            android:id="@+id/measure_hour_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+    <LinearLayout
+        android:id="@+id/type_choice_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
 
-        <LinearLayout
-            android:id="@+id/type_choice_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+    <GridLayout
+        android:id="@+id/add_measure_grid"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"/>
 
-        <GridLayout
-            android:id="@+id/add_measure_grid"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical"/>
-
-        <Button
-            android:text="@string/save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TitleButton"
-            android:layout_margin="5dp"
-            android:layout_gravity="center_horizontal"
-            android:ems="8"
-            android:drawableRight="@drawable/save"
-            android:onClick="saveMeasure"/>
-    </LinearLayout>
-
-</ScrollView>
+    <Button
+        android:text="@string/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TitleButton"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:ems="8"
+        android:drawableRight="@drawable/save"
+        android:onClick="saveMeasure"/>
+</LinearLayout>

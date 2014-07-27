@@ -1,99 +1,102 @@
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".UpdateAppointmentActivity">
+
+    <LinearLayout
+        android:id="@+id/appt_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
+    <!--
+                <TextView
+                    android:text="@string/date"
+                    android:textColor="@color/regular_text_color"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:minEms="4"
+                    android:maxEms="4"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/day_appt_update"
+                    android:background="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:inputType="date"
+                    android:minEms="5"
+                    android:maxEms="5"
+                    android:layout_gravity="center_vertical"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/calendar"
+                    android:onClick="updateAppointmentDay"
+                    style="?android:attr/borderlessButtonStyle"/>
+            </LinearLayout>
+    -->
+
+    <LinearLayout
+        android:id="@+id/appt_hour_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
+    <!--
+                <TextView
+                    android:text="@string/hour"
+                    android:textColor="@color/regular_text_color"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:minEms="4"
+                    android:maxEms="4"
+                    android:layout_gravity="center_vertical"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/update_appt_hour"
+                    android:background="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:inputType="time"
+                    android:minEms="5"
+                    android:maxEms="5"
+                    android:layout_gravity="center_vertical"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/rv"
+                    android:onClick="updateAppointmentHour"
+                    style="?android:attr/borderlessButtonStyle"/>
+
+            </LinearLayout>
+    -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:alignmentMode="alignBounds">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:text="@string/date"
-                android:textColor="@color/regular_text_color"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="5dp"
-                android:minEms="4"
-                android:maxEms="4"
-                android:layout_gravity="center_vertical"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/day_appt_update"
-                android:background="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:inputType="date"
-                android:minEms="5"
-                android:maxEms="5"
-                android:layout_gravity="center_vertical"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/calendar"
-                android:onClick="updateAppointmentDay"
-                style="?android:attr/borderlessButtonStyle"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:text="@string/hour"
-                android:textColor="@color/regular_text_color"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_margin="5dp"
-                android:minEms="4"
-                android:maxEms="4"
-                android:layout_gravity="center_vertical"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/update_appt_hour"
-                android:background="@android:color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:inputType="time"
-                android:minEms="5"
-                android:maxEms="5"
-                android:layout_gravity="center_vertical"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/rv"
-                android:onClick="updateAppointmentHour"
-                style="?android:attr/borderlessButtonStyle"/>
-
-        </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
             android:text="@string/with"
             android:textColor="@color/regular_text_color"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_margin="5dp"
-            android:minEms="4"
-            android:maxEms="4"
+            android:minEms="3"
+            android:maxEms="3"
             android:layout_gravity="center_vertical"
             android:textStyle="bold" />
 
@@ -102,17 +105,20 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"/>
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
 
-        <TextView
-            android:text="@string/comment"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
+    <TextView
+        android:text="@string/comment"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="fill_horizontal"
+        android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <EditText
             android:id="@+id/update_appt_comment"
             android:background="@android:color/white"
@@ -120,20 +126,20 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:inputType="textMultiLine"
-            android:minLines="5"
+            android:minLines="4"
+            android:maxLines="4"
             android:layout_gravity="fill_horizontal"
             android:gravity="top|left"/>
+    </ScrollView>
+    <Button
+        android:text="@string/save"
+        style="@style/TitleButton"
+        android:ems="8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:drawableRight="@drawable/save"
+        android:onClick="saveAppointment"/>
 
-        <Button
-            android:text="@string/save"
-            style="@style/TitleButton"
-            android:ems="8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_gravity="center_horizontal"
-            android:drawableRight="@drawable/save"
-            android:onClick="updateAppointment"/>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

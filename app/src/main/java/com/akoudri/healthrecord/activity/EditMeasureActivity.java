@@ -114,7 +114,7 @@ public class EditMeasureActivity extends Activity {
         choiceTV.setLayoutParams(llparams);
         hlayout.addView(choiceTV);
         //Date Edit Text
-        hourET = new EditText(this);//TODO: disable direct edition
+        hourET = new EditText(this);
         hourET.setMinEms(5);
         hourET.setMaxEms(5);
         hourET.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
@@ -139,7 +139,7 @@ public class EditMeasureActivity extends Activity {
                     hfrag.init(EditMeasureActivity.this, hourET);
                 }
                 else {
-                    String[] h = hourET.getText().toString().split(":");
+                    String[] h = measure.getHour().split(":");
                     int hour = Integer.parseInt(h[0]);
                     int min = Integer.parseInt(h[1]);
                     hfrag.init(EditMeasureActivity.this, hourET, hour, min);
@@ -179,7 +179,7 @@ public class EditMeasureActivity extends Activity {
             choiceTV.setLayoutParams(llparams);
             llayout.addView(choiceTV);
             //Date Edit Text
-            dateET = new EditText(this);//TODO: disable direct edition
+            dateET = new EditText(this);
             dateET.setMinEms(5);
             dateET.setMaxEms(5);
             dateET.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);

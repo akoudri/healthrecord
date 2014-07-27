@@ -140,7 +140,7 @@ public class AppointmentFragment extends Fragment {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.UpdateAppointment");
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditAppointment");
                         intent.putExtra("apptId", apptId);
                         startActivity(intent);
                     }

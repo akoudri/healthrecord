@@ -1,24 +1,23 @@
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="2dp"
+    android:alignmentMode="alignBounds">
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="2dp"
-        android:alignmentMode="alignBounds">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/TitleButton"
-            android:layout_gravity="center"
-            android:text="@string/add_rv"
-            android:textSize="18dp"
-            android:drawableRight="@drawable/add"
-            android:onClick="createAppt"/>
-
+        android:layout_height="wrap_content"
+        style="@style/TitleButton"
+        android:layout_gravity="center"
+        android:text="@string/add_rv"
+        android:textSize="18dp"
+        android:drawableRight="@drawable/add"
+        android:onClick="createAppt"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <GridLayout
             android:id="@+id/my_appointments_grid"
             android:layout_height="wrap_content"
@@ -26,6 +25,5 @@
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"/>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

@@ -1,12 +1,18 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
@@ -20,47 +26,71 @@ import com.akoudri.healthrecord.utils.HourPickerFragment;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 
 public class EditAppointmentActivity extends Activity {
 
-    private EditText dayET, hourET, commentET;
+    private LinearLayout dLayout, hLayout;
+    private TextView dateTV, hourTV;
+    private ImageButton dateButton, hourButton;
+
+    private EditText dateET, hourET, commentET;
     private Spinner thSpinner;
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
     private List<Therapist> therapists;
     private List<Integer> thIds;
+
+    private int personId;
+    private int day, month, year;
+    private String selectedDate;
+
     private int apptId;
     private Appointment appt;
+
+    private final int margin = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_appointment);
-        dayET = (EditText) findViewById(R.id.day_appt_update);
-        dayET.setKeyListener(null);
-        hourET = (EditText) findViewById(R.id.update_appt_hour);
-        hourET.setKeyListener(null);
+        dLayout = (LinearLayout) findViewById(R.id.appt_date_layout);
+        hLayout = (LinearLayout) findViewById(R.id.appt_hour_layout);
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
         dataSource = HealthRecordDataSource.getInstance(this);
+        //Existing appointment
         apptId = getIntent().getIntExtra("apptId", 0);
+        //New appointment
+        personId = getIntent().getIntExtra("personId", 0);
+        day = getIntent().getIntExtra("day", 0);
+        month = getIntent().getIntExtra("month", 0);
+        year = getIntent().getIntExtra("year", 0);
+        selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (apptId == 0) return;
+        if (apptId == 0 && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            appt = dataSource.getAppointmentTable().getAppointmentWithId(apptId);
-            retrieveTherapists();
-            fillWidgets();
+            initHourLayout();
+            if (apptId != 0) {
+                initDateLayout();
+                appt = dataSource.getAppointmentTable().getAppointmentWithId(apptId);
+                retrieveTherapists();
+                preFillWidgets();
+                fillWidgets();
+            } else {
+                selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+                retrieveTherapists();
+                preFillWidgets();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,16 +107,40 @@ public class EditAppointmentActivity extends Activity {
 
     private void retrieveTherapists()
     {
-        List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(appt.getPersonId());
         therapists = new ArrayList<Therapist>();
         thIds = new ArrayList<Integer>();
         Therapist t;
-        for (Integer i : myTherapistIds)
-        {
+        List<Integer> myTherapistIds;
+        if (apptId != 0)
+            myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(appt.getPersonId());
+        else
+            myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
+
+        for (Integer i : myTherapistIds) {
             t = dataSource.getTherapistTable().getTherapistWithId(i);
             therapists.add(t);
             thIds.add(t.getId());
         }
+    }
+
+    private void preFillWidgets()
+    {
+        String[] therapistsStr;
+        therapistsStr = new String[therapists.size()];
+        int i = 0;
+        TherapyBranch branch;
+        String tName;
+        String therapyBranchStr;
+        for (Therapist t : therapists) {
+            tName = t.getName();
+            if (tName.length() > 20) tName = tName.substring(0,20) + "...";
+            branch = dataSource.getTherapyBranchTable().getBranchWithId(t.getBranchId());
+            therapyBranchStr = branch.getName();
+            if (therapyBranchStr.length() > 10) therapyBranchStr = therapyBranchStr.substring(0,10) + "...";
+            therapistsStr[i++] = tName + "-" + therapyBranchStr;
+        }
+        ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistsStr);
+        thSpinner.setAdapter(thChoicesAdapter);
     }
 
     private void fillWidgets()
@@ -111,57 +165,181 @@ public class EditAppointmentActivity extends Activity {
         ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, therapistsStr);
         thSpinner.setAdapter(thChoicesAdapter);
         thSpinner.setSelection(thIdx);
-        dayET.setText(appt.getDate());
+        dateET.setText(appt.getDate());
         hourET.setText(appt.getHour());
         commentET.setText(appt.getComment());
     }
 
-    public void updateAppointmentDay(View view)
+    public void saveAppointment(View view)
     {
-        Calendar today = Calendar.getInstance();
-        Calendar apptDay = HealthRecordUtils.stringToCalendar(appt.getDate());
-        DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, dayET, apptDay, today, null);
-        dfrag.show(getFragmentManager(), "Appointment Date Picker");
-    }
-
-    public void updateAppointmentHour(View view)
-    {
-        if (apptId == 0) return;
-        if (!dataSourceLoaded) return;
-        String[] h = appt.getHour().split(":");
-        int hour = Integer.parseInt(h[0]);
-        int min = Integer.parseInt(h[1]);
-        HourPickerFragment hfrag = new HourPickerFragment();
-        hfrag.init(this, hourET, hour, min);
-        hfrag.show(getFragmentManager(), "Appointment Hour Picker");
-    }
-
-    public void updateAppointment(View view)
-    {
-        if (apptId == 0) return;
+        if (apptId == 0 && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
         if (!dataSourceLoaded) return;
         int thPos = thSpinner.getSelectedItemPosition();
         int therapistId = thIds.get(thPos);
-        String dayStr = dayET.getText().toString();
         String hourStr = hourET.getText().toString();
         String comment = commentET.getText().toString();
-        if (comment.equals("")) comment = null;
-        Appointment a = new Appointment(appt.getPersonId(), therapistId, dayStr, hourStr, comment);
-        if (appt.equalsTo(a))
-        {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-            finish();
-            return;
+        if (apptId != 0) {
+            String dayStr = dateET.getText().toString();
+            if (comment.equals("")) comment = null;
+            Appointment a = new Appointment(appt.getPersonId(), therapistId, dayStr, hourStr, comment);
+            if (appt.equalsTo(a)) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            a.setId(apptId);
+            boolean res = dataSource.getAppointmentTable().updateAppointment(apptId, therapistId, dayStr, hourStr, comment);
+            if (res) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+                finish();
+            } else
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
-        a.setId(apptId);
-        boolean res = dataSource.getAppointmentTable().updateAppointment(apptId, therapistId, dayStr, hourStr, comment);
-        if (res)
-        {
-            Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
-            finish();
+        else {
+            if (checkFields(hourStr)) {
+                if (comment.equals("")) comment = null;
+                dataSource.getAppointmentTable().insertAppointment(personId, therapistId, selectedDate,
+                        hourStr, comment);
+                finish();
+            }
+            else
+            {
+                Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+                toast.show();
+            }
         }
-        else Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean checkFields(String hour)
+    {
+        if (hour.equals("")){
+            HealthRecordUtils.highlightActivityFields(this, hourET);
+            return false;
+        }
+        return true;
+    }
+
+    private void initDateLayout()
+    {
+        LinearLayout.LayoutParams llparams;
+        //Date Text View
+        dateTV = new TextView(this);
+        dateTV.setText(getResources().getString(R.string.hour));
+        dateTV.setTextColor(getResources().getColor(R.color.regular_text_color));
+        dateTV.setMinEms(3);
+        dateTV.setMaxEms(3);
+        dateTV.setTypeface(null, Typeface.BOLD);
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        dateTV.setLayoutParams(llparams);
+        dLayout.addView(dateTV);
+        //Date Edit Text
+        dateET = new EditText(this);
+        dateET.setMinEms(5);
+        dateET.setMaxEms(5);
+        dateET.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+        dateET.setBackgroundColor(getResources().getColor(android.R.color.white));
+        dateET.setKeyListener(null);
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        dateET.setLayoutParams(llparams);
+        dLayout.addView(dateET);
+        //Date Image Button
+        dateButton = new ImageButton(this);
+        dateButton.setBackgroundResource(R.drawable.calendar);
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerFragment dfrag = new DatePickerFragment();
+                if (apptId == 0) {
+                    //TODO
+                    dfrag.init(EditAppointmentActivity.this, dateET);
+                }
+                else {
+                    dfrag.init(EditAppointmentActivity.this, dateET, HealthRecordUtils.stringToCalendar(appt.getDate()), null, null);
+                }
+                dfrag.show(getFragmentManager(), "Appointment Date Picker");
+            }
+        });
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        dateButton.setLayoutParams(llparams);
+        dLayout.addView(dateButton);
+    }
+
+    private void initHourLayout()
+    {
+        LinearLayout.LayoutParams llparams;
+        //Hour Text View
+        hourTV = new TextView(this);
+        hourTV.setText(getResources().getString(R.string.hour));
+        hourTV.setTextColor(getResources().getColor(R.color.regular_text_color));
+        hourTV.setMinEms(3);
+        hourTV.setMaxEms(3);
+        hourTV.setTypeface(null, Typeface.BOLD);
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        hourTV.setLayoutParams(llparams);
+        hLayout.addView(hourTV);
+        //Date Edit Text
+        hourET = new EditText(this);
+        hourET.setMinEms(5);
+        hourET.setMaxEms(5);
+        hourET.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+        hourET.setBackgroundColor(getResources().getColor(android.R.color.white));
+        hourET.setKeyListener(null);
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        hourET.setLayoutParams(llparams);
+        hLayout.addView(hourET);
+        //Date Image Button
+        hourButton = new ImageButton(this);
+        hourButton.setBackgroundResource(R.drawable.rv);
+        hourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HourPickerFragment hfrag = new HourPickerFragment();
+                if (apptId == 0) {
+                    //TODO
+                    hfrag.init(EditAppointmentActivity.this, hourET);
+                }
+                else {
+                    String[] h = appt.getHour().split(":");
+                    int hour = Integer.parseInt(h[0]);
+                    int min = Integer.parseInt(h[1]);
+                    hfrag.init(EditAppointmentActivity.this, hourET, hour, min);
+                }
+                hfrag.show(getFragmentManager(), "Appointment Hour Picker");
+            }
+        });
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        hourButton.setLayoutParams(llparams);
+        hLayout.addView(hourButton);
     }
 
 }

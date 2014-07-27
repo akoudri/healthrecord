@@ -13,6 +13,8 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AnalysisActivity extends Activity {
@@ -23,6 +25,10 @@ public class AnalysisActivity extends Activity {
 
     private Spinner measureSpinner;
     private EditText startET, endET;
+    private EditText nbPointsET;
+
+    //TODO: Use to activate / deactivate display of charts
+    int nbWeightMeasures, nbSizeMeasures, nbTemperatureMeasures, nbCpMeasures, nbGlucoseMeasures, nbHeartMeasures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,7 @@ public class AnalysisActivity extends Activity {
         startET.setKeyListener(null);
         endET = (EditText) findViewById(R.id.end_measure);
         endET.setKeyListener(null);
-        //TODO: add number of points ?
+        nbPointsET = (EditText) findViewById(R.id.nb_points);
     }
 
     @Override
@@ -49,9 +55,21 @@ public class AnalysisActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
+            nbWeightMeasures = dataSource.getWeightMeasureTable().getTotalMeasureCountForPerson(personId);
+            nbSizeMeasures = dataSource.getSizeMeasureTable().getTotalMeasureCountForPerson(personId);
+            nbTemperatureMeasures = dataSource.getTempMeasureTable().getTotalMeasureCountForPerson(personId);
+            nbCpMeasures = dataSource.getCpMeasureTable().getTotalMeasureCountForPerson(personId);
+            nbGlucoseMeasures = dataSource.getGlucoseMeasureTable().getTotalMeasureCountForPerson(personId);
+            nbHeartMeasures = dataSource.getHeartMeasureTable().getTotalMeasureCountForPerson(personId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void initSpinner()
+    {
+
+
     }
 
     @Override
@@ -67,14 +85,14 @@ public class AnalysisActivity extends Activity {
     {
         DatePickerFragment dfrag = new DatePickerFragment();
         dfrag.init(this, startET);
-        dfrag.show(getFragmentManager(),"Pick Medication Start Date");
+        dfrag.show(getFragmentManager(),"Pick Analysis Start Date");
     }
 
     public void setAnalysisEndDate(View view)
     {
         DatePickerFragment dfrag = new DatePickerFragment();
         dfrag.init(this, endET);
-        dfrag.show(getFragmentManager(),"Pick Medication Start Date");
+        dfrag.show(getFragmentManager(),"Pick Analysis End Date");
     }
 
 }

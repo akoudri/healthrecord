@@ -1,6 +1,9 @@
 package com.akoudri.healthrecord.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.widget.EditText;
 
 import com.akoudri.healthrecord.app.R;
@@ -273,6 +276,13 @@ public final class HealthRecordUtils {
         if (specialty == null) return false;
         String pattern = "(\\w+(-|\\x20)?\\w+)+";
         return specialty.matches(pattern);
+    }
+
+    public static float convertPixelsToDp(float px, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / (metrics.densityDpi / 160f);
+        return dp;
     }
 
 }

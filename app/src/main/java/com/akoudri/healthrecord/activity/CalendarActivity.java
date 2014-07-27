@@ -78,7 +78,7 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
 
     @Override
     public int[] getMonthMeasuresForPerson(int personId, Calendar cal) {
-        return dataSource.getMeasureTable().getMonthMeasuresForPerson(personId, cal);
+        return dataSource.getMeasureView().getMonthMeasuresForPerson(personId, cal);
     }
 
     @Override

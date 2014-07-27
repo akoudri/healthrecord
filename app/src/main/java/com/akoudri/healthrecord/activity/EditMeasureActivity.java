@@ -1,6 +1,7 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -10,19 +11,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
-import com.akoudri.healthrecord.data.AbstractMeasure;
+import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.data.CranialPerimeterMeasure;
 import com.akoudri.healthrecord.data.GlucoseMeasure;
 import com.akoudri.healthrecord.data.HeartMeasure;
 import com.akoudri.healthrecord.data.SizeMeasure;
 import com.akoudri.healthrecord.data.TemperatureMeasure;
 import com.akoudri.healthrecord.data.WeightMeasure;
+import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.HourPickerFragment;
 
@@ -39,26 +43,35 @@ public class EditMeasureActivity extends Activity {
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
 
+    private static final int CREATION_MODE = 0;
+    private static final int EDITION_MODE = 1;
+
     private int measureType = 0;
 
-    private GridLayout layout;
+    private GridLayout glayout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
 
+    private LinearLayout hlayout;
+    private LinearLayout llayout;
+
+    private TextView choiceTV; //Date or Type Text View
     private Spinner measureSpinner;
+    private EditText dateET;
     private EditText hourET;
+    private ImageButton dateButton, hourButton;
 
     private int personId;
     private int day, month, year;
     private String selectedDate;
 
-    private AbstractMeasure measure;
+    private Measure measure;
     private int measureId;
     private int measureIdType;
 
     private EditText wET, sET, tET, cpET, gEt, sysET, diaET, hbET;
 
-    private final int margin = 2;
+    private final int margin = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,24 +79,9 @@ public class EditMeasureActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_measure);
         dataSource = HealthRecordDataSource.getInstance(this);
-        layout = (GridLayout) findViewById(R.id.add_measure_grid);
-        measureSpinner = (Spinner) findViewById(R.id.measure_add_choice);
-        String[] measureChoices = getResources().getStringArray(R.array.measures);
-        ArrayAdapter<String> measureChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, measureChoices);
-        measureSpinner.setAdapter(measureChoicesAdapter);
-        measureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                measureType = i;
-                createWidgets();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                //Nothing to do
-            }
-        });
-        hourET = (EditText) findViewById(R.id.select_measure_hour);
+        glayout = (GridLayout) findViewById(R.id.add_measure_grid);
+        hlayout = (LinearLayout) findViewById(R.id.measure_hour_layout);
+        initHourLayout();
         personId = getIntent().getIntExtra("personId", 0);
         measureId = getIntent().getIntExtra("measureId", 0);
         measureIdType = getIntent().getIntExtra("measureIdType", 0);
@@ -91,6 +89,172 @@ public class EditMeasureActivity extends Activity {
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
         selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+        if (measureId == 0)
+            setEditionMode(CREATION_MODE);
+        else
+            setEditionMode(EDITION_MODE);
+    }
+
+    private void initHourLayout()
+    {
+        LinearLayout.LayoutParams llparams;
+        //Date Text View
+        choiceTV = new TextView(this);
+        choiceTV.setText(getResources().getString(R.string.hour));
+        choiceTV.setTextColor(getResources().getColor(R.color.regular_text_color));
+        choiceTV.setMinEms(3);
+        choiceTV.setMaxEms(3);
+        choiceTV.setTypeface(null, Typeface.BOLD);
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        choiceTV.setLayoutParams(llparams);
+        hlayout.addView(choiceTV);
+        //Date Edit Text
+        hourET = new EditText(this);//TODO: disable direct edition
+        hourET.setMinEms(5);
+        hourET.setMaxEms(5);
+        hourET.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+        hourET.setBackgroundColor(getResources().getColor(android.R.color.white));
+        hourET.setKeyListener(null);
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        hourET.setLayoutParams(llparams);
+        hlayout.addView(hourET);
+        //Date Image Button
+        hourButton = new ImageButton(this);
+        hourButton.setBackgroundResource(R.drawable.rv);
+        hourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HourPickerFragment hfrag = new HourPickerFragment();
+                if (measureId == 0) {
+                    hfrag.init(EditMeasureActivity.this, hourET);
+                }
+                else {
+                    String[] h = hourET.getText().toString().split(":");
+                    int hour = Integer.parseInt(h[0]);
+                    int min = Integer.parseInt(h[1]);
+                    hfrag.init(EditMeasureActivity.this, hourET, hour, min);
+                }
+                hfrag.show(getFragmentManager(), "Measure Hour Picker");
+            }
+        });
+        llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        llparams.gravity = Gravity.CENTER_VERTICAL;
+        llparams.bottomMargin = margin;
+        llparams.leftMargin = margin;
+        llparams.topMargin = margin;
+        llparams.rightMargin = margin;
+        hourButton.setLayoutParams(llparams);
+        hlayout.addView(hourButton);
+    }
+
+    private void setEditionMode(int editionMode)
+    {
+        LinearLayout.LayoutParams llparams;
+        if (editionMode == EDITION_MODE)
+        {
+            llayout = (LinearLayout) findViewById(R.id.measure_date_layout);
+            //Date Text View
+            choiceTV = new TextView(this);
+            choiceTV.setText(getResources().getString(R.string.date));
+            choiceTV.setTextColor(getResources().getColor(R.color.regular_text_color));
+            choiceTV.setMinEms(3);
+            choiceTV.setMaxEms(3);
+            choiceTV.setTypeface(null, Typeface.BOLD);
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams.gravity = Gravity.CENTER_VERTICAL;
+            llparams.bottomMargin = margin;
+            llparams.leftMargin = margin;
+            llparams.topMargin = margin;
+            llparams.rightMargin = margin;
+            choiceTV.setLayoutParams(llparams);
+            llayout.addView(choiceTV);
+            //Date Edit Text
+            dateET = new EditText(this);//TODO: disable direct edition
+            dateET.setMinEms(5);
+            dateET.setMaxEms(5);
+            dateET.setInputType(InputType.TYPE_DATETIME_VARIATION_DATE);
+            dateET.setBackgroundColor(getResources().getColor(android.R.color.white));
+            dateET.setKeyListener(null);
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams.gravity = Gravity.CENTER_VERTICAL;
+            llparams.bottomMargin = margin;
+            llparams.leftMargin = margin;
+            llparams.topMargin = margin;
+            llparams.rightMargin = margin;
+            dateET.setLayoutParams(llparams);
+            llayout.addView(dateET);
+            //Date Image Button
+            dateButton = new ImageButton(this);
+            dateButton.setBackgroundResource(R.drawable.calendar);
+            dateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DatePickerFragment dpf = new DatePickerFragment();
+                    dpf.init(EditMeasureActivity.this, dateET, HealthRecordUtils.stringToCalendar(measure.getDate()), null, null);
+                    dpf.show(EditMeasureActivity.this.getFragmentManager(), "measure date picker");
+                }
+            });
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams.gravity = Gravity.CENTER_VERTICAL;
+            llparams.bottomMargin = margin;
+            llparams.leftMargin = margin;
+            llparams.topMargin = margin;
+            llparams.rightMargin = margin;
+            dateButton.setLayoutParams(llparams);
+            llayout.addView(dateButton);
+        } else {
+            llayout = (LinearLayout) findViewById(R.id.type_choice_layout);
+            //Type Text View
+            choiceTV = new TextView(this);
+            choiceTV.setText(getResources().getString(R.string.type));
+            choiceTV.setTextColor(getResources().getColor(R.color.regular_text_color));
+            choiceTV.setMinEms(3);
+            choiceTV.setMaxEms(3);
+            choiceTV.setTypeface(null, Typeface.BOLD);
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams.gravity = Gravity.CENTER_VERTICAL;
+            llparams.bottomMargin = margin;
+            llparams.leftMargin = margin;
+            llparams.topMargin = margin;
+            llparams.rightMargin = margin;
+            choiceTV.setLayoutParams(llparams);
+            llayout.addView(choiceTV);
+            //Measure Spinner
+            measureSpinner = new Spinner(this);
+            String[] measureChoices = getResources().getStringArray(R.array.measures);
+            ArrayAdapter<String> measureChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, measureChoices);
+            measureSpinner.setAdapter(measureChoicesAdapter);
+            measureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    measureType = i;
+                    createWidgets();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    //Nothing to do
+                }
+            });
+            llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            llparams.gravity = Gravity.CENTER_VERTICAL;
+            llparams.bottomMargin = margin;
+            llparams.leftMargin = margin;
+            llparams.topMargin = margin;
+            llparams.rightMargin = margin;
+            measureSpinner.setLayoutParams(llparams);
+            llayout.addView(measureSpinner);
+        }
     }
 
     public void setDataSource(HealthRecordDataSource dataSource)
@@ -157,7 +321,7 @@ public class EditMeasureActivity extends Activity {
         switch (measureType)
         {
             case 0:
-                layout.removeAllViews();
+                glayout.removeAllViews();
                 break;
             case 1:
                 createWeightWidgets();
@@ -182,6 +346,8 @@ public class EditMeasureActivity extends Activity {
     //Called only when editing existing measure
     private void fillWidgets()
     {
+        dateET.setText(measure.getDate());
+        hourET.setText(measure.getHour());
         switch (measureType)
         {
             case 1:
@@ -206,25 +372,25 @@ public class EditMeasureActivity extends Activity {
 
     private void createWeightWidgets()
     {
-        layout.removeAllViews();
-        layout.setColumnCount(2);
-        layout.setRowCount(1);
+        glayout.removeAllViews();
+        glayout.setColumnCount(2);
+        glayout.setRowCount(1);
         rowSpec = GridLayout.spec(0);
         colSpec = GridLayout.spec(0);
         TextView label = new TextView(this);
         label.setText(getResources().getString(R.string.weight));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         wET = new EditText(this);
         wET.setMinEms(3);
@@ -237,7 +403,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         wET.setLayoutParams(params);
-        layout.addView(wET);
+        glayout.addView(wET);
     }
 
     private void fillWeightWidgets()
@@ -248,25 +414,25 @@ public class EditMeasureActivity extends Activity {
 
     private void createSizeWidgets()
     {
-        layout.removeAllViews();
-        layout.setColumnCount(2);
-        layout.setRowCount(1);
+        glayout.removeAllViews();
+        glayout.setColumnCount(2);
+        glayout.setRowCount(1);
         rowSpec = GridLayout.spec(0);
         colSpec = GridLayout.spec(0);
         TextView label = new TextView(this);
         label.setText(getResources().getString(R.string.size));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         sET = new EditText(this);
         sET.setMinEms(3);
@@ -279,7 +445,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         sET.setLayoutParams(params);
-        layout.addView(sET);
+        glayout.addView(sET);
     }
     private void fillSizeWidgets()
     {
@@ -290,25 +456,25 @@ public class EditMeasureActivity extends Activity {
 
     private void createTemperatureWidgets()
     {
-        layout.removeAllViews();
-        layout.setColumnCount(2);
-        layout.setRowCount(1);
+        glayout.removeAllViews();
+        glayout.setColumnCount(2);
+        glayout.setRowCount(1);
         rowSpec = GridLayout.spec(0);
         colSpec = GridLayout.spec(0);
         TextView label = new TextView(this);
         label.setText(getResources().getString(R.string.temperature));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         tET = new EditText(this);
         tET.setMinEms(3);
@@ -321,7 +487,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         tET.setLayoutParams(params);
-        layout.addView(tET);
+        glayout.addView(tET);
     }
 
     private void fillTemperatureWidgets()
@@ -332,25 +498,25 @@ public class EditMeasureActivity extends Activity {
 
     private void createCpWidgets()
     {
-        layout.removeAllViews();
-        layout.setColumnCount(2);
-        layout.setRowCount(1);
+        glayout.removeAllViews();
+        glayout.setColumnCount(2);
+        glayout.setRowCount(1);
         rowSpec = GridLayout.spec(0);
         colSpec = GridLayout.spec(0);
         TextView label = new TextView(this);
         label.setText(getResources().getString(R.string.cp));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         cpET = new EditText(this);
         cpET.setMinEms(3);
@@ -363,7 +529,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         cpET.setLayoutParams(params);
-        layout.addView(cpET);
+        glayout.addView(cpET);
     }
 
     private void fillCpWidgets()
@@ -374,25 +540,25 @@ public class EditMeasureActivity extends Activity {
 
     private void createGlucoseWidgets()
     {
-        layout.removeAllViews();
-        layout.setColumnCount(2);
-        layout.setRowCount(1);
+        glayout.removeAllViews();
+        glayout.setColumnCount(2);
+        glayout.setRowCount(1);
         rowSpec = GridLayout.spec(0);
         colSpec = GridLayout.spec(0);
         TextView label = new TextView(this);
         label.setText(getResources().getString(R.string.glucose));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         gEt = new EditText(this);
         gEt.setMinEms(3);
@@ -405,7 +571,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         gEt.setLayoutParams(params);
-        layout.addView(gEt);
+        glayout.addView(gEt);
     }
 
     private void fillGlucoseWidgets()
@@ -416,9 +582,9 @@ public class EditMeasureActivity extends Activity {
 
     private void createHeartWidgets()
     {
-        layout.removeAllViews();
-        layout.setColumnCount(2);
-        layout.setRowCount(3);
+        glayout.removeAllViews();
+        glayout.setColumnCount(2);
+        glayout.setRowCount(3);
         //diastolic
         rowSpec = GridLayout.spec(0);
         colSpec = GridLayout.spec(0);
@@ -426,16 +592,16 @@ public class EditMeasureActivity extends Activity {
         label.setText(getResources().getString(R.string.diastolic));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         diaET = new EditText(this);
         diaET.setMinEms(3);
@@ -448,7 +614,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         diaET.setLayoutParams(params);
-        layout.addView(diaET);
+        glayout.addView(diaET);
         //systolic
         rowSpec = GridLayout.spec(1);
         colSpec = GridLayout.spec(0);
@@ -456,16 +622,16 @@ public class EditMeasureActivity extends Activity {
         label.setText(getResources().getString(R.string.systolic));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         sysET = new EditText(this);
         sysET.setMinEms(3);
@@ -478,7 +644,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         sysET.setLayoutParams(params);
-        layout.addView(sysET);
+        glayout.addView(sysET);
         //heartbeat
         rowSpec = GridLayout.spec(2);
         colSpec = GridLayout.spec(0);
@@ -486,16 +652,16 @@ public class EditMeasureActivity extends Activity {
         label.setText(getResources().getString(R.string.heartbeat));
         label.setTextColor(getResources().getColor(R.color.regular_text_color));
         label.setTextSize(16);
-        label.setMinEms(10);
-        label.setMaxEms(10);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
         params = new GridLayout.LayoutParams(rowSpec, colSpec);
         params.rightMargin = margin;
         params.leftMargin = margin;
         params.topMargin = margin;
         params.bottomMargin = margin;
-        params.setGravity(Gravity.RIGHT);
+        params.setGravity(Gravity.LEFT);
         label.setLayoutParams(params);
-        layout.addView(label);
+        glayout.addView(label);
         colSpec = GridLayout.spec(1);
         hbET = new EditText(this);
         hbET.setMinEms(3);
@@ -508,7 +674,7 @@ public class EditMeasureActivity extends Activity {
         params.bottomMargin = margin;
         params.setGravity(Gravity.LEFT);
         hbET.setLayoutParams(params);
-        layout.addView(hbET);
+        glayout.addView(hbET);
     }
 
     private void fillHeartWidgets()
@@ -517,13 +683,6 @@ public class EditMeasureActivity extends Activity {
         diaET.setText(m.getDiastolic() + "");
         sysET.setText(m.getSystolic() + "");
         hbET.setText(m.getHeartbeat() + "");
-    }
-
-    public void selectMeasureHour(View view)
-    {
-        HourPickerFragment hfrag = new HourPickerFragment();
-        hfrag.init(this, hourET);
-        hfrag.show(getFragmentManager(), "measureHourPicker");
     }
 
     public void saveMeasure(View view)
@@ -569,7 +728,7 @@ public class EditMeasureActivity extends Activity {
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         }
         else {
-            //TODO: update also date - for other measures also
+            //TODO: ensure change occurred
             WeightMeasure m = (WeightMeasure) measure;
             m.setHour(hour);
             m.setValue(Double.parseDouble(weight));
@@ -660,7 +819,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
-            dataSource.getWeightMeasureTable().insertMeasure(personId, selectedDate, hour, Double.parseDouble(glucose));
+            dataSource.getGlucoseMeasureTable().insertMeasure(personId, selectedDate, hour, Double.parseDouble(glucose));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
             GlucoseMeasure m = (GlucoseMeasure) measure;
@@ -712,6 +871,7 @@ public class EditMeasureActivity extends Activity {
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
             HeartMeasure m = (HeartMeasure) measure;
+            m.setDate(dateET.getText().toString());
             m.setHour(hour);
             m.setDiastolic(Integer.parseInt(dia));
             m.setSystolic(Integer.parseInt(sys));

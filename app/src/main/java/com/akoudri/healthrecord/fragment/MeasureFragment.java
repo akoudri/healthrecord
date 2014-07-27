@@ -1,17 +1,21 @@
 package com.akoudri.healthrecord.fragment;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Measure;
-import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +25,16 @@ public class MeasureFragment extends Fragment {
 
     private View view;
 
-    private EditText weightET, sizeET, cpET, tempET;
-    private EditText glucoseET, diaET, sysET, hbET;
+    private GridLayout layout;
+    private GridLayout.LayoutParams params;
+    private GridLayout.Spec rowSpec, colSpec;
 
     private HealthRecordDataSource dataSource;
     private int personId;
     private int day, month, year;
-    private Measure measure;
+
+    private int mID = 0;
+    private int mType = 0;
 
     public static MeasureFragment newInstance()
     {
@@ -37,14 +44,7 @@ public class MeasureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_measure, container, false);
-        weightET = (EditText) view.findViewById(R.id.edit_weight);
-        sizeET = (EditText) view.findViewById(R.id.edit_size);
-        cpET = (EditText) view.findViewById(R.id.edit_cranial_perimeter);
-        tempET = (EditText) view.findViewById(R.id.edit_temperature);
-        glucoseET = (EditText) view.findViewById(R.id.edit_glucose);
-        diaET = (EditText) view.findViewById(R.id.edit_diastolic);
-        sysET = (EditText) view.findViewById(R.id.edit_systolic);
-        hbET = (EditText) view.findViewById(R.id.edit_heartbeat);
+        layout = (GridLayout) view.findViewById(R.id.my_measures_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         day = getActivity().getIntent().getIntExtra("day", 0);
         month = getActivity().getIntent().getIntExtra("month", 0);
@@ -58,9 +58,175 @@ public class MeasureFragment extends Fragment {
         if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
         if (dataSource == null) return;
         String date = String.format("%02d/%02d/%04d", day, month + 1, year);
-        measure = dataSource.getMeasureTable().getPersonMeasureWithDate(personId, date);
-        if (measure != null)
-            fillWidgets();
+        createWidgets();
+    }
+
+    private void createWidgets()
+    {
+        layout.removeAllViews();
+        String date = String.format("%02d/%02d/%4d", day, month + 1, year);
+        List<Measure> allMeasures = new ArrayList<Measure>();
+        allMeasures.addAll(dataSource.getMeasureView().getPersonMeasuresWithDate(personId, date));
+        Button measureButton, removeButton, editButton;
+        Drawable img;
+        layout.setColumnCount(2);
+        int margin = 1;
+        int childWidth = layout.getWidth()/2 - 4*margin;
+        int r = 0; //row index
+        for (final Measure measure : allMeasures)
+        {
+            final int measureId = measure.getId();
+            final int typeId = measure.getType();
+            //Appt button
+            rowSpec = GridLayout.spec(r);
+            colSpec = GridLayout.spec(0,2);
+            measureButton = new Button(getActivity());
+            measureButton.setText(measure.getValueString());
+            measureButton.setTextSize(16);
+            measureButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            measureButton.setMinEms(12);
+            measureButton.setMaxEms(12);
+            measureButton.setBackgroundResource(R.drawable.healthrecord_button);
+            switch (measure.getType())
+            {
+                case 1:
+                    img = getResources().getDrawable(R.drawable.weight);
+                    break;
+                case 2:
+                    img = getResources().getDrawable(R.drawable.ruler);
+                    break;
+                case 3:
+                    img = getResources().getDrawable(R.drawable.temperature);
+                    break;
+                case 4:
+                    img = getResources().getDrawable(R.drawable.skull);
+                    break;
+                case 5:
+                    img = getResources().getDrawable(R.drawable.sugar);
+                    break;
+                default:
+                    img = getResources().getDrawable(R.drawable.heart);
+            }
+            measureButton.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+            measureButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int id = MeasureFragment.this.mID;
+                    int tId = MeasureFragment.this.mType;
+                    if (id == measureId && tId == typeId) {
+                        MeasureFragment.this.mID = 0;
+                        MeasureFragment.this.mType = 0;
+                    } else {
+                        MeasureFragment.this.mID = measureId;
+                        MeasureFragment.this.mType = typeId;
+                    }
+                    createWidgets();
+                }
+            });
+            params = new GridLayout.LayoutParams(rowSpec, colSpec);
+            params.rightMargin = margin;
+            params.leftMargin = margin;
+            params.topMargin = margin;
+            params.bottomMargin = margin;
+            params.setGravity(Gravity.CENTER);
+            measureButton.setLayoutParams(params);
+            layout.addView(measureButton);
+            if (this.mID == measureId && this.mType == typeId) {
+                //Next line
+                r++;
+                //Edit Button
+                rowSpec = GridLayout.spec(r);
+                colSpec = GridLayout.spec(0);
+                editButton = new Button(getActivity());
+                editButton.setText(getResources().getString(R.string.edit));
+                editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+                editButton.setTextSize(12);
+                editButton.setMinEms(4);
+                editButton.setMaxEms(4);
+                editButton.setBackgroundResource(R.drawable.healthrecord_button);
+                img = getResources().getDrawable(R.drawable.update);
+                editButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+                editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasure");
+                        intent.putExtra("measureId", measureId);
+                        intent.putExtra("measureIdType", typeId);
+                        startActivity(intent);
+                    }
+                });
+                params = new GridLayout.LayoutParams(rowSpec, colSpec);
+                params.rightMargin = margin;
+                params.leftMargin = margin;
+                params.topMargin = margin;
+                params.bottomMargin = margin;
+                params.width = childWidth;
+                params.setGravity(Gravity.CENTER);
+                editButton.setLayoutParams(params);
+                layout.addView(editButton);
+                //Remove Button
+                colSpec = GridLayout.spec(1);
+                removeButton = new Button(getActivity());
+                removeButton.setText(getResources().getString(R.string.remove));
+                removeButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+                removeButton.setTextSize(12);
+                removeButton.setMinEms(4);
+                removeButton.setMaxEms(4);
+                removeButton.setBackgroundResource(R.drawable.healthrecord_button);
+                img = getResources().getDrawable(R.drawable.delete);
+                removeButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
+                removeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        new AlertDialog.Builder((MeasureFragment.this).getActivity())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle(R.string.removing)
+                                .setMessage(getResources().getString(R.string.remove_measure_question))
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (mType)
+                                        {
+                                            case 1:
+                                                dataSource.getWeightMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 2:
+                                                dataSource.getSizeMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 3:
+                                                dataSource.getTempMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 4:
+                                                dataSource.getCpMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 5:
+                                                dataSource.getGlucoseMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                            case 6:
+                                                dataSource.getHeartMeasureTable().removeMeasureWithId(measureId);
+                                                break;
+                                        }
+                                        createWidgets();
+                                    }
+                                })
+                                .setNegativeButton(R.string.no, null)
+                                .show();
+                    }
+                });
+                params = new GridLayout.LayoutParams(rowSpec, colSpec);
+                params.rightMargin = margin;
+                params.leftMargin = margin;
+                params.topMargin = margin;
+                params.bottomMargin = margin;
+                params.width = childWidth;
+                params.setGravity(Gravity.CENTER);
+                removeButton.setLayoutParams(params);
+                layout.addView(removeButton);
+            }
+            //next line
+            r++;
+
+        }
     }
 
     public void setDataSource(HealthRecordDataSource dataSource)
@@ -68,144 +234,10 @@ public class MeasureFragment extends Fragment {
         this.dataSource = dataSource;
     }
 
-    private void fillWidgets()
+    public void resetMeasureId()
     {
-        if (measure.getWeight() > 0.0)
-            weightET.setText(measure.getWeight() + "");
-        if (measure.getSize() > 0)
-            sizeET.setText(measure.getSize() + "");
-        if (measure.getCranialPerimeter() > 0)
-            cpET.setText(measure.getCranialPerimeter() + "");
-        if (measure.getTemperature() > 0.0)
-            tempET.setText(measure.getTemperature() + "");
-        if (measure.getGlucose() > 0.0)
-            glucoseET.setText(measure.getGlucose() + "");
-        if (measure.getDiastolic() > 0)
-            diaET.setText(measure.getDiastolic() + "");
-        if (measure.getSystolic() > 0)
-            sysET.setText(measure.getSystolic() + "");
-        if (measure.getHeartbeat() > 0)
-            hbET.setText(measure.getHeartbeat() + "");
-    }
-
-    public void saveMeasures()
-    {
-        String weightStr = weightET.getText().toString();
-        String sizeStr = sizeET.getText().toString();
-        String cpStr = cpET.getText().toString();
-        String tempStr = tempET.getText().toString();
-        String glucoseStr = glucoseET.getText().toString();
-        String diaStr = diaET.getText().toString();
-        String sysStr = sysET.getText().toString();
-        String hbStr = hbET.getText().toString();
-        if (!checkFields(weightStr, sizeStr, cpStr, tempStr, glucoseStr, diaStr, sysStr, hbStr)) return;
-        double weight = (weightStr.equalsIgnoreCase(""))?0.0:Double.parseDouble(weightStr);
-        int size = (sizeStr.equalsIgnoreCase(""))?0:Integer.parseInt(sizeStr);
-        int cranialPerimeter = (cpStr.equalsIgnoreCase(""))?0:Integer.parseInt(cpStr);
-        double temperature = (tempStr.equalsIgnoreCase(""))?0.0:Double.parseDouble(tempStr);
-        double glucose = (glucoseStr.equalsIgnoreCase(""))?0.0:Double.parseDouble(glucoseStr);
-        int diastolic = (diaStr.equalsIgnoreCase(""))?0:Integer.parseInt(diaStr);
-        int systolic = (sysStr.equalsIgnoreCase(""))?0:Integer.parseInt(sysStr);
-        int heartbeat = (hbStr.equalsIgnoreCase(""))?0:Integer.parseInt(hbStr);
-        String date = String.format("%02d/%02d/%04d", day, month + 1, year);
-        if (measure == null)
-        {
-            Measure m = new Measure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
-            if (m.isNull())
-            {
-                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-            }
-            else {
-                dataSource.getMeasureTable().insertMeasure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
-                //Migration Test Start
-                if (weight > 0.0)
-                    dataSource.getWeightMeasureTable().insertMeasure(personId, date, "10:00", weight);
-                if (size > 0)
-                    dataSource.getSizeMeasureTable().insertMeasure(personId, date, "12:00", size);
-                if (diastolic > 0 && systolic > 0 && heartbeat > 0)
-                    dataSource.getHeartMeasureTable().insertMeasure(personId, date, "12:00", diastolic, systolic, heartbeat);
-                //Migration Test Stop
-                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
-            }
-        }
-        else
-        {
-            Measure m = new Measure(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
-            if (!measure.equalsTo(m))
-            {
-                dataSource.getMeasureTable().updateMeasureWithDate(personId, date, weight, size, cranialPerimeter, temperature, glucose, diastolic, systolic, heartbeat);
-                measure.setWeight(weight);
-                measure.setSize(size);
-                measure.setCranialPerimeter(cranialPerimeter);
-                measure.setTemperature(temperature);
-                measure.setGlucose(glucose);
-                measure.setDiastolic(diastolic);
-                measure.setSystolic(systolic);
-                measure.setHeartbeat(heartbeat);
-                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private boolean checkFields(String weight, String size, String cp, String temp, String glucose, String dia, String sys, String hb)
-    {
-        boolean res = true;
-        List<EditText> toHighlight = new ArrayList<EditText>();
-        List<EditText> notToHighlight = new ArrayList<EditText>();
-        //Check weight
-        boolean checkWeight = (weight.equals("") || weight.matches("1?\\d{1,2}(\\.\\d{1,2})?"));
-        res = res && checkWeight;
-        if (!checkWeight) toHighlight.add(weightET);
-        else notToHighlight.add(weightET);
-        //check size
-        boolean checkSize = (size.equals("") || size.matches("(1|2)?\\d{2}"));
-        res = res && checkSize;
-        if (!checkSize) toHighlight.add(sizeET);
-        else notToHighlight.add(sizeET);
-        //check cp
-        boolean checkCP = (cp.equals("") || cp.matches("[3-5]\\d"));
-        res = res && checkCP;
-        if (!checkCP) toHighlight.add(cpET);
-        else notToHighlight.add(cpET);
-        //check temp
-        boolean checkTemp = (temp.equals("") || temp.matches("(3[5-9]|4[0-1])(\\.\\d{1})?"));
-        res = res && checkTemp;
-        if (!checkTemp) toHighlight.add(tempET);
-        else notToHighlight.add(tempET);
-        //check glucose
-        boolean checkGlucose = (glucose.equals("") || glucose.matches("\\d{1}(\\.\\d{1,2})?"));
-        res = res && checkGlucose;
-        if (!checkGlucose) toHighlight.add(glucoseET);
-        else notToHighlight.add(glucoseET);
-        //check dia
-        boolean checkDia = (dia.equals("") || dia.matches("1?\\d"));
-        res = res && checkDia;
-        if (!checkDia) toHighlight.add(diaET);
-        else notToHighlight.add(diaET);
-        //check sys
-        boolean checkSys = (sys.equals("") || sys.matches("1?\\d"));
-        res = res && checkSys;
-        if (!checkSys) toHighlight.add(sysET);
-        else notToHighlight.add(sysET);
-        //check hb
-        boolean checkHB = (hb.equals("") || hb.matches("1?\\d{2}"));
-        res = res && checkHB;
-        if (!checkHB) toHighlight.add(hbET);
-        else notToHighlight.add(hbET);
-        //display
-        if (toHighlight.size() > 0)
-            HealthRecordUtils.highlightActivityFields(getActivity(), toHighlight, true);
-        if (notToHighlight.size() > 0)
-            HealthRecordUtils.highlightActivityFields(getActivity(), notToHighlight, false);
-        if (!res) {
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        return res;
+        mID = 0;
+        mType = 0;
     }
 
 }

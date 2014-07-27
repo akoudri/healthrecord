@@ -260,5 +260,6 @@
     <string name="overlapping_ailment">Maladie déjà déclarée dans cette période</string>
     <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pouls(p/m)</string>
     <string name="add_measure">Ajouter Mesure</string>
+    <string name="nb_points">Nombre de points</string>
 
 </resources>

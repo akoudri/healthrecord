@@ -129,8 +129,13 @@ public class CreatePersonActivity extends Activity {
                 int month = today.get(Calendar.MONTH) + 1;
                 int year = today.get(Calendar.YEAR);
                 String date = String.format("%02d/%02d/%04d", day, month, year);
-                if (weight > 0.0 || size > 0)
-                    dataSource.getMeasureTable().insertMeasure((int)id, date, weight, size, 0, 0.0, 0.0, 0, 0, 0);
+                int hour = today.get(Calendar.HOUR_OF_DAY);
+                int min = today.get(Calendar.MINUTE);
+                String h = String.format("%02d:%02d", hour, min);
+                if (weight > 0.0)
+                    dataSource.getWeightMeasureTable().insertMeasure((int)id, date, h, weight);
+                if (size > 0)
+                    dataSource.getSizeMeasureTable().insertMeasure((int)id, date, h, size);
                 //insert doctor
                 String dName = doctorActv.getText().toString();
                 if (!dName.equals(""))

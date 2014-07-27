@@ -11,7 +11,6 @@ import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.GlucoseMeasureTable;
 import com.akoudri.healthrecord.data.HeartMeasureTable;
 import com.akoudri.healthrecord.data.IllnessTable;
-import com.akoudri.healthrecord.data.MeasureTable;
 import com.akoudri.healthrecord.data.MeasureView;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
@@ -41,8 +40,6 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private PersonTherapistTable personTherapistTable;
     private AppointmentTable appointmentTable;
     private DrugTable drugTable;
-    private MeasureTable measureTable;
-    //TODO: suppress measureTable and replace it by those 6 following tables
     private WeightMeasureTable weightMeasureTable;
     private SizeMeasureTable sizeMeasureTable;
     private TemperatureMeasureTable tempMeasureTable;
@@ -78,8 +75,6 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         medicationTable.createMedicationTable();
         drugTable = new DrugTable(db);
         drugTable.createDrugTable();
-        measureTable = new MeasureTable(db);
-        measureTable.createMeasureTable();
         weightMeasureTable = new WeightMeasureTable(db);
         weightMeasureTable.createMeasureTable();
         sizeMeasureTable = new SizeMeasureTable(db);

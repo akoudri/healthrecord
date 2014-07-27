@@ -1,11 +1,9 @@
 package com.akoudri.healthrecord.data;
 
-import com.akoudri.healthrecord.app.R;
-
 /**
  * Created by Ali Koudri on 23/07/14.
  */
-public class SizeMeasure extends AbstractMeasure {
+public class SizeMeasure extends Measure {
 
     private int value;
 

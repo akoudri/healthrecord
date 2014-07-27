@@ -92,7 +92,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         //Paint
         paint = new Paint();//set paint object
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint.setStrokeWidth(4.0f * ratio);
+        paint.setStrokeWidth(8.0f * ratio);
         //Actual and reference dates
         _cal = Calendar.getInstance();//set _cal and today to current day
         _cal.set(Calendar.HOUR_OF_DAY, 0);

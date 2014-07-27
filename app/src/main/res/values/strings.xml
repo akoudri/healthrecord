@@ -452,5 +452,6 @@
     <string name="overlapping_ailment">Illness already declared for this period</string>
     <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pulse(p/m)</string>
     <string name="add_measure">Add Measure</string>
+    <string name="nb_points">Number of points</string>
 
 </resources>

@@ -111,6 +111,35 @@
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/nb_points"
+                android:textColor="@color/regular_text_color"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="5dp"
+                android:minEms="5"
+                android:maxEms="5"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/nb_points"
+                android:background="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:inputType="number"
+                android:minEms="5"
+                android:maxEms="5"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
         <Button
             android:text="@string/display"
             style="@style/TitleButton"

@@ -57,7 +57,7 @@ public class OverviewFragment extends Fragment {
     private void fillWidgets(String date)
     {
         long d = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
-        int count = dataSource.getMeasureTable().countMeasuresForDay(personId, d);
+        int count = dataSource.getMeasureView().countPersonMeasureWithDate(personId, date);
         nbMeasures.setText(count + "");
         count = dataSource.getAppointmentTable().countAppointmentsForDay(personId, d);
         nbAppts.setText(count + "");

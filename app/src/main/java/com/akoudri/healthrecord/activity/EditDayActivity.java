@@ -14,14 +14,13 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
-import com.akoudri.healthrecord.fragment.MeasureFragment2;
+import com.akoudri.healthrecord.fragment.MeasureFragment;
 import com.akoudri.healthrecord.fragment.OverviewFragment;
 
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Locale;
 
-//FIXME: replace the ailment fragment by a "summary day" fragment and set it to default
 public class EditDayActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
@@ -36,8 +35,7 @@ public class EditDayActivity extends Activity {
     private TextView today_label;
     private OverviewFragment ovFrag;
     private AppointmentFragment apptFrag;
-    //private MeasureFragment measureFrag;
-    private MeasureFragment2 measureFrag;
+    private MeasureFragment measureFrag;
     private AilmentFragment ailmentFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
@@ -61,8 +59,7 @@ public class EditDayActivity extends Activity {
         ovFrag = OverviewFragment.newInstance();
         apptFrag = AppointmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
-        //measureFrag = MeasureFragment.newInstance();
-        measureFrag = MeasureFragment2.newInstance();
+        measureFrag = MeasureFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.add(R.id.day_layout, ovFrag);
         fragTrans.commit();
@@ -201,13 +198,6 @@ public class EditDayActivity extends Activity {
         intent.putExtra("month", month);
         intent.putExtra("year", year);
         startActivity(intent);
-    }
-
-    public void saveMeasures(View view)
-    {
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
-        if (!dataSourceLoaded) return;
-        //measureFrag.saveMeasures();
     }
 
 }

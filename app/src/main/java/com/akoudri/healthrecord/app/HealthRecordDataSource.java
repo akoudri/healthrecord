@@ -10,8 +10,6 @@ import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.GlucoseMeasureTable;
 import com.akoudri.healthrecord.data.HeartMeasureTable;
 import com.akoudri.healthrecord.data.IllnessTable;
-import com.akoudri.healthrecord.data.Measure;
-import com.akoudri.healthrecord.data.MeasureTable;
 import com.akoudri.healthrecord.data.MeasureView;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
@@ -40,8 +38,6 @@ public class HealthRecordDataSource {
     private AilmentTable ailmentTable;
     private MedicationTable medicationTable;
     private DrugTable drugTable;
-    //TODO: suppress measureTable and replace it by those 6 following tables
-    private MeasureTable measureTable;
     private WeightMeasureTable weightMeasureTable;
     private SizeMeasureTable sizeMeasureTable;
     private TemperatureMeasureTable tempMeasureTable;
@@ -85,7 +81,6 @@ public class HealthRecordDataSource {
         ailmentTable = null;
         medicationTable = null;
         drugTable = null;
-        measureTable = null;
         weightMeasureTable = null;
         sizeMeasureTable = null;
         tempMeasureTable = null;
@@ -160,14 +155,6 @@ public class HealthRecordDataSource {
         if (drugTable == null)
             drugTable = new DrugTable(db);
         return drugTable;
-    }
-
-    public MeasureTable getMeasureTable()
-    {
-        if (!isOpened) return null;
-        if (measureTable == null)
-            measureTable = new MeasureTable(db);
-        return measureTable;
     }
 
     public WeightMeasureTable getWeightMeasureTable() {

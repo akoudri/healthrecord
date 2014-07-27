@@ -1,35 +1,30 @@
 package com.akoudri.healthrecord.data;
 
 /**
- * Created by Ali Koudri on 30/06/14.
+ * Created by Ali Koudri on 23/07/14.
  */
 public class Measure {
+
+    public static final int WEIGHT_MEASURE_TYPE = 1;
+    public static final int SIZE_MEASURE_TYPE = 2;
+    public static final int TEMPERATURE_MEASURE_TYPE = 3;
+    public static final int CP_MEASURE_TYPE = 4;
+    public static final int GLUCOSE_MEASURE_TYPE = 5;
+    public static final int HEART_MEASURE_TYPE = 6;
 
     private int id;
     private int personId;
     private String date;
-    private double weight;
-    private int size;
-    private int cranialPerimeter;
-    private double temperature;
-    private double glucose;
-    private int diastolic;
-    private int systolic;
-    private int heartbeat;
+    private String hour;
+    private String valueString;
+    private int type;
 
     public Measure() {}
 
-    public Measure(int personId, String date, double weight, int size, int cranialPerimeter, double temperature, double glucose, int diastolic, int systolic, int heartbeat) {
+    public Measure(int personId, String date, String hour) {
         this.personId = personId;
         this.date = date;
-        this.weight = weight;
-        this.size = size;
-        this.cranialPerimeter = cranialPerimeter;
-        this.temperature = temperature;
-        this.glucose = glucose;
-        this.diastolic = diastolic;
-        this.systolic = systolic;
-        this.heartbeat = heartbeat;
+        this.hour = hour;
     }
 
     public int getId() {
@@ -56,80 +51,34 @@ public class Measure {
         this.date = date;
     }
 
-    public double getWeight() {
-        return weight;
+    public String getHour() {
+        return hour;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getCranialPerimeter() {
-        return cranialPerimeter;
-    }
-
-    public void setCranialPerimeter(int cranialPerimeter) {
-        this.cranialPerimeter = cranialPerimeter;
-    }
-
-    public double getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
-
-    public double getGlucose() {
-        return glucose;
-    }
-
-    public void setGlucose(double glucose) {
-        this.glucose = glucose;
-    }
-
-    public int getDiastolic() {
-        return diastolic;
-    }
-
-    public void setDiastolic(int diastolic) {
-        this.diastolic = diastolic;
-    }
-
-    public int getSystolic() {
-        return systolic;
-    }
-
-    public void setSystolic(int systolic) {
-        this.systolic = systolic;
-    }
-
-    public int getHeartbeat() {
-        return heartbeat;
-    }
-
-    public void setHeartbeat(int heartbeat) {
-        this.heartbeat = heartbeat;
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 
     public boolean equalsTo(Measure other)
     {
-        return personId == other.getPersonId() && date.equals(other.getDate()) &&
-                weight == other.getWeight() && size == other.getSize() && cranialPerimeter == other.getCranialPerimeter() &&
-                temperature == other.getTemperature() && glucose == other.getGlucose() && diastolic == other.getDiastolic() &&
-                systolic == other.getSystolic() && heartbeat == other.getHeartbeat();
+        return personId == other.getPersonId() && date.equals(other.getDate()) && hour.equals(other.getHour());
     }
 
-    public boolean isNull(){
-        return weight == 0.0 && size == 0 && cranialPerimeter == 0 && temperature == 0.0 &&
-                glucose == 0.0 && diastolic == 0 && systolic == 0 && heartbeat == 0;
+    public String getValueString()
+    {
+        return valueString;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setValueString(String valueString)
+    {
+        this.valueString = valueString;
     }
 }

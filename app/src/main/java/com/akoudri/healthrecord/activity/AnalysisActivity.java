@@ -2,6 +2,7 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -11,9 +12,22 @@ import android.widget.Spinner;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.model.XYValueSeries;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 
 public class AnalysisActivity extends Activity {
@@ -90,9 +104,105 @@ public class AnalysisActivity extends Activity {
 
     public void showChart(View view)
     {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.DisplayCharts");
-        //TODO: pass data
+        if (personId == 0) return;
+        if (!dataSourceLoaded) return;
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        Calendar start = HealthRecordUtils.stringToCalendar(startET.getText().toString());
+        Calendar end = HealthRecordUtils.stringToCalendar(endET.getText().toString());
+        //TODO: retrieve data according to the chosen type
+        List<XYSeries> series = getSeries(start, end, Measure.WEIGHT_MEASURE_TYPE); //Arbitrary code
+        if (series == null) return;
+        dataset.addAllSeries(series);
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        initRenderer(renderer);
+        Intent intent = ChartFactory.getLineChartIntent(this, dataset, renderer);
         startActivity(intent);
+    }
+
+    //FIXME: renderer shall be set for each type of measure, and not once only
+    private void initRenderer(XYMultipleSeriesRenderer renderer) {
+        renderer.setAxisTitleTextSize(12);
+        renderer.setChartTitleTextSize(16);
+        renderer.setLabelsTextSize(8);
+        renderer.setLegendTextSize(8);
+        renderer.setPointSize(3f);
+        renderer.setMargins(new int[] {20, 20, 20, 20});
+        XYSeriesRenderer r = new XYSeriesRenderer();
+        r.setColor(Color.YELLOW);
+        r.setPointStyle(PointStyle.CIRCLE);
+        //XYSeriesRenderer.FillOutsideLine outsideLine = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BELOW);
+        //outsideLine.setColor(Color.LTGRAY);
+        //r.addFillOutsideLine(outsideLine);
+        r.setFillPoints(true);
+        renderer.addSeriesRenderer(r);
+        renderer.setChartTitle("Weight Chart");
+        renderer.setXTitle("x values");
+        renderer.setYTitle("y values");
+        renderer.setXAxisMin(0);
+        renderer.setXAxisMax(5);
+        renderer.setYAxisMin(0);
+        renderer.setYAxisMax(5);
+    }
+
+    //FIXME: add time series instead for all types
+    private List<XYSeries> getSeries(Calendar start, Calendar end, int type)
+    {
+        switch (type)
+        {
+            case Measure.WEIGHT_MEASURE_TYPE:
+                return getWeightDataSet(start, end);
+            case Measure.SIZE_MEASURE_TYPE:
+                return getWeightDataSet(start, end);
+            case Measure.TEMPERATURE_MEASURE_TYPE:
+                return getWeightDataSet(start, end);
+            case Measure.CP_MEASURE_TYPE:
+                return getWeightDataSet(start, end);
+            case Measure.GLUCOSE_MEASURE_TYPE:
+                return getWeightDataSet(start, end);
+            case Measure.HEART_MEASURE_TYPE:
+                return getWeightDataSet(start, end);
+            default:
+                return null;
+        }
+    }
+
+    private List<XYSeries> getWeightDataSet(Calendar start, Calendar end)
+    {
+        List<XYSeries> series = new ArrayList<XYSeries>();
+        XYValueSeries w_series = new XYValueSeries("");
+        //Arbitrary code
+        w_series.add(0, 1);
+        w_series.add(1, 3);
+        w_series.add(2, 2);
+        w_series.add(3, 4);
+        series.add(w_series);
+        return series;
+    }
+
+    private List<XYSeries>  getSizeDataSet(Calendar start, Calendar end)
+    {
+        return null;
+    }
+
+    private List<XYSeries>  getTempDataSet(Calendar start, Calendar end)
+    {
+        return null;
+    }
+
+    private List<XYSeries>  getCpDataSet(Calendar start, Calendar end)
+    {
+        return null;
+    }
+
+    private List<XYSeries>  getGlucoseDataSet(Calendar start, Calendar end)
+    {
+        return null;
+    }
+
+    private List<XYSeries>  getHeartDataSet(Calendar start, Calendar end)
+    {
+        //TODO 3 series to return
+        return null;
     }
 
 }

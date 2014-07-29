@@ -161,16 +161,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.DisplayChartsActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.DisplayCharts" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name="org.achartengine.GraphicalActivity" android:screenOrientation="landscape"/>
     </application>
 
 </manifest>

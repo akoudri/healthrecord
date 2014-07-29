@@ -8,6 +8,12 @@
         revision="19.1.0"
         sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
     <item
+        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-9a5e03fe76f0647e613b78459bb3b74bab9ffda6.jar"
+        jar="/home/koudri/AndroidStudioProjects/HealthRecord/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
+    <item
         dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/classes-57d6f25846a5ecf48480eae21ccd7ced55ae5a87.jar"
         jar="/home/koudri/AndroidStudioProjects/HealthRecord/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/19.0.1/classes.jar"
         jumboMode="false"

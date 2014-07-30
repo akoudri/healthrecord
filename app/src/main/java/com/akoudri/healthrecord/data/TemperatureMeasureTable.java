@@ -81,75 +81,19 @@ public class TemperatureMeasureTable {
         return null;
     }
 
-    public List<TemperatureMeasure> getPersonMeasuresWithDate(int personId, String date)
+    public List<TemperatureMeasure> getMeasuresInInterval(Calendar start, Calendar end)
     {
         List<TemperatureMeasure> res = new ArrayList<TemperatureMeasure>();
-        long d = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
-        long de = d + 86400000L;
-        Cursor cursor = db.query(TEMPERATURE_MEASURE_TABLE, measureCols, TEMPERATURE_MEASURE_PERSON_REF + "=" + personId + " and " + TEMPERATURE_MEASURE_DATE + ">=" + d + " and "
-                + TEMPERATURE_MEASURE_DATE + "<" + de, null, null, null, null);
+        long s = start.getTimeInMillis();
+        long e = end.getTimeInMillis() + 86400000; //add 24h to be inclusive
+        Cursor cursor = db.query(TEMPERATURE_MEASURE_TABLE, measureCols, TEMPERATURE_MEASURE_DATE + ">=" + s + " and " + TEMPERATURE_MEASURE_DATE + "<" + e,
+                null, null, null, TEMPERATURE_MEASURE_DATE + " ASC");
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {
             res.add(cursorToMeasure(cursor));
             cursor.moveToNext();
         }
-        return res;
-    }
-
-    public int getTotalMeasureCountForPerson(int personId)
-    {
-        String req = "select count(*) from " + TEMPERATURE_MEASURE_TABLE + " where " + TEMPERATURE_MEASURE_PERSON_REF + "=" + personId;
-        Cursor count  = db.rawQuery(req, null);
-        if (! count.moveToFirst()) return 0;
-        int res = count.getInt(0);
-        count.close();
-        return res;
-    }
-
-    public int[] getMonthMeasuresForPerson(int personId, Calendar cal)
-    {
-        int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
-        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        cal.set(Calendar.DAY_OF_MONTH, min);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        long ms = cal.getTimeInMillis();
-        long me = ms + 86400000L * max;
-        List<TemperatureMeasure> res = new ArrayList<TemperatureMeasure>();
-        Cursor cursor = db.query(TEMPERATURE_MEASURE_TABLE, measureCols,
-                TEMPERATURE_MEASURE_PERSON_REF + "=" + personId + " and " + TEMPERATURE_MEASURE_DATE + ">=" + ms + " and " + TEMPERATURE_MEASURE_DATE + "<" + me,
-                null, null, null, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast())
-        {
-            res.add(cursorToMeasure(cursor));
-            cursor.moveToNext();
-        }
-        int[] measures = new int[max];
-        for (int i = 0; i < max; i++)
-            measures[i] = 0;
-        for (TemperatureMeasure measure : res)
-        {
-            long d = HealthRecordUtils.stringToCalendar(measure.getDate()).getTimeInMillis() - cal.getTimeInMillis();
-            int i = (int)(d/86400000L);
-            measures[i] ++;
-        }
-        return measures;
-    }
-
-    public int countMeasuresForDay(int personId, long date)
-    {
-        //We assume that date is set to 00h00
-        long de = 86400000L;
-        String req = "select count(*) from " + TEMPERATURE_MEASURE_TABLE + " where " + TEMPERATURE_MEASURE_PERSON_REF + "=" + personId +
-                " and " + TEMPERATURE_MEASURE_DATE + ">=" + date + " and " + TEMPERATURE_MEASURE_DATE + "<" + de;
-        Cursor count  = db.rawQuery(req, null);
-        if (! count.moveToFirst()) return 0;
-        int res = count.getInt(0);
-        count.close();
         return res;
     }
 

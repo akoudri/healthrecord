@@ -144,13 +144,13 @@ public class AilmentTable {
         }
         else
         {
-            int d = duration * 86400000 - 1000;
+            int d = duration * 86400000;
             long endDate = startDate + d;
             sreq1 = "(" + AILMENT_DURATION + " is not null and ((" + AILMENT_START_DATE + "<=" + startDate + " and " +
                     AILMENT_START_DATE +">=" + startDate + "-" + AILMENT_DURATION + "* 86400000) or (" + AILMENT_START_DATE +
-                    "<=" + endDate + " and " + AILMENT_START_DATE + ">=" + endDate + "-" + AILMENT_DURATION + "* 86400000) or (" +
-                    AILMENT_START_DATE + ">=" + startDate + " and " + AILMENT_START_DATE + "<=" + endDate + "-" + AILMENT_DURATION + "* 86400000)))";
-            sreq2 = "(" + AILMENT_DURATION + " is null and (" + AILMENT_START_DATE + "<=" + startDate + " or " + AILMENT_START_DATE + "<=" + endDate +"))";
+                    "<" + endDate + " and " + AILMENT_START_DATE + ">=" + endDate + "-" + AILMENT_DURATION + "* 86400000) or (" +
+                    AILMENT_START_DATE + ">=" + startDate + " and " + AILMENT_START_DATE + "<" + endDate + "-" + AILMENT_DURATION + "* 86400000)))";
+            sreq2 = "(" + AILMENT_DURATION + " is null and (" + AILMENT_START_DATE + "<=" + startDate + " or " + AILMENT_START_DATE + "<" + endDate +"))";
         }
         req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_PERSON_REF + "=" + personId + " and " +
                 AILMENT_ILLNESS_REF + "=" + illnessId + " and (" + sreq1 + " or " + sreq2 + ")";
@@ -172,13 +172,13 @@ public class AilmentTable {
         }
         else
         {
-            int d = duration * 86400000 - 1000;
+            int d = duration * 86400000;
             long endDate = startDate + d;
             sreq1 = "(" + AILMENT_DURATION + " is not null and ((" + AILMENT_START_DATE + "<=" + startDate + " and " +
                     AILMENT_START_DATE +">=" + startDate + "-" + AILMENT_DURATION + "* 86400000) or (" + AILMENT_START_DATE +
-                    "<=" + endDate + " and " + AILMENT_START_DATE + ">=" + endDate + "-" + AILMENT_DURATION + "* 86400000) or (" +
-                    AILMENT_START_DATE + ">=" + startDate + " and " + AILMENT_START_DATE + "<=" + endDate + "-" + AILMENT_DURATION + "* 86400000)))";
-            sreq2 = "(" + AILMENT_DURATION + " is null and (" + AILMENT_START_DATE + "<=" + startDate + " or " + AILMENT_START_DATE + "<=" + endDate +"))";
+                    "<" + endDate + " and " + AILMENT_START_DATE + ">=" + endDate + "-" + AILMENT_DURATION + "* 86400000) or (" +
+                    AILMENT_START_DATE + ">=" + startDate + " and " + AILMENT_START_DATE + "<" + endDate + "-" + AILMENT_DURATION + "* 86400000)))";
+            sreq2 = "(" + AILMENT_DURATION + " is null and (" + AILMENT_START_DATE + "<=" + startDate + " or " + AILMENT_START_DATE + "<" + endDate +"))";
         }
         req = "select count(*) from " + AILMENT_TABLE + " where " + AILMENT_ID + "<>" + ailmentId + " and " +
                 AILMENT_ILLNESS_REF + "=" + illnessId + " and (" + sreq1 + " or " + sreq2 + ")";

@@ -12,15 +12,21 @@ import android.widget.Spinner;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.CranialPerimeterMeasure;
+import com.akoudri.healthrecord.data.GlucoseMeasure;
+import com.akoudri.healthrecord.data.HeartMeasure;
 import com.akoudri.healthrecord.data.Measure;
+import com.akoudri.healthrecord.data.SizeMeasure;
+import com.akoudri.healthrecord.data.TemperatureMeasure;
+import com.akoudri.healthrecord.data.WeightMeasure;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.PointStyle;
+import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
-import org.achartengine.model.XYValueSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
@@ -38,10 +44,13 @@ public class AnalysisActivity extends Activity {
 
     private Spinner measureSpinner;
     private EditText startET, endET;
-    private EditText nbPointsET;
 
-    //TODO: Use to activate / deactivate display of charts
-    int nbWeightMeasures, nbSizeMeasures, nbTemperatureMeasures, nbCpMeasures, nbGlucoseMeasures, nbHeartMeasures;
+    //TODO: set as general property and compute ratio like for calendar
+    private final static int tsize = 24;
+    private final static int ttsize = 8;
+    private final static float psize = 5f;
+    private final static int[] margins = new int[] {5, 20, 20, 5};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +67,6 @@ public class AnalysisActivity extends Activity {
         startET.setKeyListener(null);
         endET = (EditText) findViewById(R.id.end_measure);
         endET.setKeyListener(null);
-        nbPointsET = (EditText) findViewById(R.id.nb_points);
     }
 
     @Override
@@ -68,12 +76,6 @@ public class AnalysisActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            nbWeightMeasures = dataSource.getWeightMeasureTable().getTotalMeasureCountForPerson(personId);
-            nbSizeMeasures = dataSource.getSizeMeasureTable().getTotalMeasureCountForPerson(personId);
-            nbTemperatureMeasures = dataSource.getTempMeasureTable().getTotalMeasureCountForPerson(personId);
-            nbCpMeasures = dataSource.getCpMeasureTable().getTotalMeasureCountForPerson(personId);
-            nbGlucoseMeasures = dataSource.getGlucoseMeasureTable().getTotalMeasureCountForPerson(personId);
-            nbHeartMeasures = dataSource.getHeartMeasureTable().getTotalMeasureCountForPerson(personId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -92,14 +94,14 @@ public class AnalysisActivity extends Activity {
     {
         DatePickerFragment dfrag = new DatePickerFragment();
         dfrag.init(this, startET);
-        dfrag.show(getFragmentManager(),"Pick Analysis Start Date");
+        dfrag.show(getFragmentManager(), "Pick Analysis Start Date");
     }
 
     public void setAnalysisEndDate(View view)
     {
         DatePickerFragment dfrag = new DatePickerFragment();
         dfrag.init(this, endET);
-        dfrag.show(getFragmentManager(),"Pick Analysis End Date");
+        dfrag.show(getFragmentManager(), "Pick Analysis End Date");
     }
 
     public void showChart(View view)
@@ -109,42 +111,41 @@ public class AnalysisActivity extends Activity {
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         Calendar start = HealthRecordUtils.stringToCalendar(startET.getText().toString());
         Calendar end = HealthRecordUtils.stringToCalendar(endET.getText().toString());
-        //TODO: retrieve data according to the chosen type
-        List<XYSeries> series = getSeries(start, end, Measure.WEIGHT_MEASURE_TYPE); //Arbitrary code
+        List<XYSeries> series = null;
+        XYMultipleSeriesRenderer renderer = null;
+        switch (measureSpinner.getSelectedItemPosition())
+        {
+            case 1:
+                series = getSeries(start, end, Measure.WEIGHT_MEASURE_TYPE);
+                renderer = getSimpleRenderer();
+                break;
+            case 2:
+                series = getSeries(start, end, Measure.SIZE_MEASURE_TYPE);
+                renderer = getSimpleRenderer();
+                break;
+            case 3:
+                series = getSeries(start, end, Measure.TEMPERATURE_MEASURE_TYPE);
+                renderer = getSimpleRenderer();
+                break;
+            case 4:
+                series = getSeries(start, end, Measure.CP_MEASURE_TYPE);
+                renderer = getSimpleRenderer();
+                break;
+            case 5:
+                series = getSeries(start, end, Measure.GLUCOSE_MEASURE_TYPE);
+                renderer = getSimpleRenderer();
+                break;
+            case 6:
+                series = getSeries(start, end, Measure.HEART_MEASURE_TYPE);
+                renderer = getComplexRenderer();
+                break;
+        }
         if (series == null) return;
         dataset.addAllSeries(series);
-        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
-        initRenderer(renderer);
-        Intent intent = ChartFactory.getLineChartIntent(this, dataset, renderer);
+        Intent intent = ChartFactory.getTimeChartIntent(this, dataset, renderer, null);
         startActivity(intent);
     }
 
-    //FIXME: renderer shall be set for each type of measure, and not once only
-    private void initRenderer(XYMultipleSeriesRenderer renderer) {
-        renderer.setAxisTitleTextSize(12);
-        renderer.setChartTitleTextSize(16);
-        renderer.setLabelsTextSize(8);
-        renderer.setLegendTextSize(8);
-        renderer.setPointSize(3f);
-        renderer.setMargins(new int[] {20, 20, 20, 20});
-        XYSeriesRenderer r = new XYSeriesRenderer();
-        r.setColor(Color.YELLOW);
-        r.setPointStyle(PointStyle.CIRCLE);
-        //XYSeriesRenderer.FillOutsideLine outsideLine = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BELOW);
-        //outsideLine.setColor(Color.LTGRAY);
-        //r.addFillOutsideLine(outsideLine);
-        r.setFillPoints(true);
-        renderer.addSeriesRenderer(r);
-        renderer.setChartTitle("Weight Chart");
-        renderer.setXTitle("x values");
-        renderer.setYTitle("y values");
-        renderer.setXAxisMin(0);
-        renderer.setXAxisMax(5);
-        renderer.setYAxisMin(0);
-        renderer.setYAxisMax(5);
-    }
-
-    //FIXME: add time series instead for all types
     private List<XYSeries> getSeries(Calendar start, Calendar end, int type)
     {
         switch (type)
@@ -152,15 +153,15 @@ public class AnalysisActivity extends Activity {
             case Measure.WEIGHT_MEASURE_TYPE:
                 return getWeightDataSet(start, end);
             case Measure.SIZE_MEASURE_TYPE:
-                return getWeightDataSet(start, end);
+                return getSizeDataSet(start, end);
             case Measure.TEMPERATURE_MEASURE_TYPE:
-                return getWeightDataSet(start, end);
+                return getTempDataSet(start, end);
             case Measure.CP_MEASURE_TYPE:
-                return getWeightDataSet(start, end);
+                return getCpDataSet(start, end);
             case Measure.GLUCOSE_MEASURE_TYPE:
-                return getWeightDataSet(start, end);
+                return getGlucoseDataSet(start, end);
             case Measure.HEART_MEASURE_TYPE:
-                return getWeightDataSet(start, end);
+                return getHeartDataSet(start, end);
             default:
                 return null;
         }
@@ -168,41 +169,136 @@ public class AnalysisActivity extends Activity {
 
     private List<XYSeries> getWeightDataSet(Calendar start, Calendar end)
     {
+        List<WeightMeasure> measures = dataSource.getWeightMeasureTable().getMeasuresInInterval(start, end);
+        if (measures.isEmpty()) return null;
         List<XYSeries> series = new ArrayList<XYSeries>();
-        XYValueSeries w_series = new XYValueSeries("");
-        //Arbitrary code
-        w_series.add(0, 1);
-        w_series.add(1, 3);
-        w_series.add(2, 2);
-        w_series.add(3, 4);
+        TimeSeries w_series = new TimeSeries(getResources().getString(R.string.weight));
+       for (WeightMeasure measure : measures)
+       {
+           w_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getValue());
+       }
         series.add(w_series);
         return series;
     }
 
-    private List<XYSeries>  getSizeDataSet(Calendar start, Calendar end)
+    private List<XYSeries> getSizeDataSet(Calendar start, Calendar end)
     {
-        return null;
+        List<SizeMeasure> measures = dataSource.getSizeMeasureTable().getMeasuresInInterval(start, end);
+        if (measures.isEmpty()) return null;
+        List<XYSeries> series = new ArrayList<XYSeries>();
+        TimeSeries s_series = new TimeSeries(getResources().getString(R.string.weight));
+        for (SizeMeasure measure : measures)
+        {
+            s_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getValue());
+        }
+        series.add(s_series);
+        return series;
     }
 
-    private List<XYSeries>  getTempDataSet(Calendar start, Calendar end)
+    private List<XYSeries> getTempDataSet(Calendar start, Calendar end)
     {
-        return null;
+        List<TemperatureMeasure> measures = dataSource.getTempMeasureTable().getMeasuresInInterval(start, end);
+        if (measures.isEmpty()) return null;
+        List<XYSeries> series = new ArrayList<XYSeries>();
+        TimeSeries t_series = new TimeSeries(getResources().getString(R.string.weight));
+        for (TemperatureMeasure measure : measures)
+        {
+            t_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getValue());
+        }
+        series.add(t_series);
+        return series;
     }
 
-    private List<XYSeries>  getCpDataSet(Calendar start, Calendar end)
+    private List<XYSeries> getCpDataSet(Calendar start, Calendar end)
     {
-        return null;
+        List<CranialPerimeterMeasure> measures = dataSource.getCpMeasureTable().getMeasuresInInterval(start, end);
+        if (measures.isEmpty()) return null;
+        List<XYSeries> series = new ArrayList<XYSeries>();
+        TimeSeries cp_series = new TimeSeries(getResources().getString(R.string.weight));
+        for (CranialPerimeterMeasure measure : measures)
+        {
+            cp_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getValue());
+        }
+        series.add(cp_series);
+        return series;
     }
 
-    private List<XYSeries>  getGlucoseDataSet(Calendar start, Calendar end)
+    private List<XYSeries> getGlucoseDataSet(Calendar start, Calendar end)
     {
-        return null;
+        List<GlucoseMeasure> measures = dataSource.getGlucoseMeasureTable().getMeasuresInInterval(start, end);
+        if (measures.isEmpty()) return null;
+        List<XYSeries> series = new ArrayList<XYSeries>();
+        TimeSeries g_series = new TimeSeries(getResources().getString(R.string.weight));
+        for (GlucoseMeasure measure : measures)
+        {
+            g_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getValue());
+        }
+        series.add(g_series);
+        return series;
     }
 
     private List<XYSeries>  getHeartDataSet(Calendar start, Calendar end)
     {
-        //TODO 3 series to return
-        return null;
+        List<HeartMeasure> measures = dataSource.getHeartMeasureTable().getMeasuresInInterval(start, end);
+        if (measures.isEmpty()) return null;
+        List<XYSeries> series = new ArrayList<XYSeries>();
+        TimeSeries d_series = new TimeSeries(getResources().getString(R.string.diastolic));
+        TimeSeries s_series = new TimeSeries(getResources().getString(R.string.systolic));
+        TimeSeries p_series = new TimeSeries(getResources().getString(R.string.heartbeat));
+        for (HeartMeasure measure : measures)
+        {
+            d_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getDiastolic());
+            s_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getSystolic());
+            p_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getHeartbeat());
+        }
+        series.add(d_series);
+        series.add(s_series);
+        series.add(p_series);
+        return series;
+    }
+
+    private XYMultipleSeriesRenderer getSimpleRenderer()
+    {
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer.setAxisTitleTextSize(tsize);
+        renderer.setChartTitleTextSize(tsize);
+        renderer.setLabelsTextSize(ttsize);
+        renderer.setLegendTextSize(ttsize);
+        renderer.setPointSize(psize);
+        renderer.setMargins(margins);
+        XYSeriesRenderer r = new XYSeriesRenderer();
+        r.setColor(Color.YELLOW);
+        r.setPointStyle(PointStyle.CIRCLE);
+        r.setFillPoints(true);
+        renderer.addSeriesRenderer(r);
+        return renderer;
+    }
+
+    private XYMultipleSeriesRenderer getComplexRenderer()
+    {
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer.setAxisTitleTextSize(tsize);
+        renderer.setChartTitleTextSize(tsize);
+        renderer.setLabelsTextSize(ttsize);
+        renderer.setLegendTextSize(ttsize);
+        renderer.setPointSize(psize);
+        renderer.setMargins(margins);
+        XYSeriesRenderer r1 = new XYSeriesRenderer();
+        r1.setColor(Color.YELLOW);
+        r1.setPointStyle(PointStyle.CIRCLE);
+        r1.setFillPoints(true);
+        renderer.addSeriesRenderer(r1);
+        XYSeriesRenderer r2 = new XYSeriesRenderer();
+        r2.setColor(Color.RED);
+        r2.setPointStyle(PointStyle.TRIANGLE);
+        r2.setFillPoints(true);
+        renderer.addSeriesRenderer(r2);
+        XYSeriesRenderer r3 = new XYSeriesRenderer();
+        r3.setColor(Color.BLUE);
+        r3.setPointStyle(PointStyle.SQUARE);
+        r3.setFillPoints(true);
+        renderer.addSeriesRenderer(r3);
+        return renderer;
     }
 
 }

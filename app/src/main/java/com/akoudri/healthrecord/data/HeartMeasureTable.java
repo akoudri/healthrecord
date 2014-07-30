@@ -90,75 +90,19 @@ public class HeartMeasureTable {
         return null;
     }
 
-    public List<HeartMeasure> getPersonMeasuresWithDate(int personId, String date)
+    public List<HeartMeasure> getMeasuresInInterval(Calendar start, Calendar end)
     {
         List<HeartMeasure> res = new ArrayList<HeartMeasure>();
-        long d = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
-        long de = d + 86400000L;
-        Cursor cursor = db.query(HEART_MEASURE_TABLE, measureCols, HEART_MEASURE_PERSON_REF + "=" + personId + " and " + HEART_MEASURE_DATE + ">=" + d + " and "
-                + HEART_MEASURE_DATE + "<" + de, null, null, null, null);
+        long s = start.getTimeInMillis();
+        long e = end.getTimeInMillis() + 86400000; //add 24h to be inclusive
+        Cursor cursor = db.query(HEART_MEASURE_TABLE, measureCols, HEART_MEASURE_DATE + ">=" + s + " and " + HEART_MEASURE_DATE + "<" + e,
+                null, null, null, HEART_MEASURE_DATE + " ASC");
         cursor.moveToFirst();
         while (!cursor.isAfterLast())
         {
             res.add(cursorToMeasure(cursor));
             cursor.moveToNext();
         }
-        return res;
-    }
-
-    public int getTotalMeasureCountForPerson(int personId)
-    {
-        String req = "select count(*) from " + HEART_MEASURE_TABLE + " where " + HEART_MEASURE_PERSON_REF + "=" + personId;
-        Cursor count  = db.rawQuery(req, null);
-        if (! count.moveToFirst()) return 0;
-        int res = count.getInt(0);
-        count.close();
-        return res;
-    }
-
-    public int[] getMonthMeasuresForPerson(int personId, Calendar cal)
-    {
-        int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
-        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        cal.set(Calendar.DAY_OF_MONTH, min);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        long ms = cal.getTimeInMillis();
-        long me = ms + 86400000L * max;
-        List<HeartMeasure> res = new ArrayList<HeartMeasure>();
-        Cursor cursor = db.query(HEART_MEASURE_TABLE, measureCols,
-                HEART_MEASURE_PERSON_REF + "=" + personId + " and " + HEART_MEASURE_DATE + ">=" + ms + " and " + HEART_MEASURE_DATE + "<" + me,
-                null, null, null, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast())
-        {
-            res.add(cursorToMeasure(cursor));
-            cursor.moveToNext();
-        }
-        int[] measures = new int[max];
-        for (int i = 0; i < max; i++)
-            measures[i] = 0;
-        for (HeartMeasure measure : res)
-        {
-            long d = HealthRecordUtils.stringToCalendar(measure.getDate()).getTimeInMillis() - cal.getTimeInMillis();
-            int i = (int)(d/86400000L);
-            measures[i] ++;
-        }
-        return measures;
-    }
-
-    public int countMeasuresForDay(int personId, long date)
-    {
-        //We assume that date is set to 00h00
-        long de = 86400000L;
-        String req = "select count(*) from " + HEART_MEASURE_TABLE + " where " + HEART_MEASURE_PERSON_REF + "=" + personId +
-                " and " + HEART_MEASURE_DATE + ">=" + date + " and " + HEART_MEASURE_DATE + "<" + de;
-        Cursor count  = db.rawQuery(req, null);
-        if (! count.moveToFirst()) return 0;
-        int res = count.getInt(0);
-        count.close();
         return res;
     }
 

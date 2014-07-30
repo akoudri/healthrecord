@@ -112,12 +112,6 @@ public class MainActivity extends Activity {
         for (final Person p : allPersons)
         {
             final int personId = p.getId();
-            int nbWeightMeasures = dataSource.getWeightMeasureTable().getTotalMeasureCountForPerson(personId);
-            int nbSizeMeasures = dataSource.getSizeMeasureTable().getTotalMeasureCountForPerson(personId);
-            int nbTemperatureMeasures = dataSource.getTempMeasureTable().getTotalMeasureCountForPerson(personId);
-            int nbCpMeasures = dataSource.getCpMeasureTable().getTotalMeasureCountForPerson(personId);
-            int nbGlucoseMeasures = dataSource.getGlucoseMeasureTable().getTotalMeasureCountForPerson(personId);
-            int nbHeartMeasures = dataSource.getHeartMeasureTable().getTotalMeasureCountForPerson(personId);
             //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,5);
@@ -207,9 +201,6 @@ public class MainActivity extends Activity {
                         startActivity(intent);
                     }
                 });
-                if (nbWeightMeasures < 2 && nbSizeMeasures < 2 && nbTemperatureMeasures < 2 &&
-                        nbCpMeasures < 2 && nbGlucoseMeasures < 2 && nbHeartMeasures < 2)
-                    analysisButton.setEnabled(false);
                 params = new GridLayout.LayoutParams(rowSpec, colSpec);
                 params.rightMargin = margin;
                 params.leftMargin = margin;

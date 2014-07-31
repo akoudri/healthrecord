@@ -104,6 +104,7 @@ public class AnalysisActivity extends Activity {
         dfrag.show(getFragmentManager(), "Pick Analysis End Date");
     }
 
+    //FIXME: check values before showing
     public void showChart(View view)
     {
         if (personId == 0) return;

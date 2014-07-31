@@ -170,7 +170,7 @@ public class EditDayActivity extends Activity {
 
     public void createAppt(View view)
     {
-        Intent intent = new Intent("com.akoudri.healthrecord.app.EditAppointment");
+        Intent intent = new Intent(this, EditAilmentActivity.class);
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);
@@ -181,7 +181,7 @@ public class EditDayActivity extends Activity {
     public void createAilment(View view)
     {
         ailmentFrag.resetAilmentId();
-        Intent intent = new Intent("com.akoudri.healthrecord.app.CreateAilment");
+        Intent intent = new Intent(this, CreateAilmentActivity.class);
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);
@@ -192,7 +192,7 @@ public class EditDayActivity extends Activity {
     public void createMeasure(View view)
     {
         measureFrag.resetMeasureId();
-        Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasure");
+        Intent intent = new Intent(this, EditMeasureActivity.class);
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);

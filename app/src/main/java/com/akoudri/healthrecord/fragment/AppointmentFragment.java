@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import com.akoudri.healthrecord.activity.EditAppointmentActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
@@ -140,7 +141,7 @@ public class AppointmentFragment extends Fragment {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditAppointment");
+                        Intent intent = new Intent(getActivity(), EditAppointmentActivity.class);
                         intent.putExtra("apptId", apptId);
                         startActivity(intent);
                     }

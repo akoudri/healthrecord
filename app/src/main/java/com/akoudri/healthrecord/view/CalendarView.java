@@ -13,6 +13,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.akoudri.healthrecord.activity.CalendarActivity;
+import com.akoudri.healthrecord.activity.EditDayActivity;
 import com.akoudri.healthrecord.app.R;
 
 import java.io.IOException;
@@ -414,7 +416,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     {
         if (selectedRect != null)
         {
-            Intent intent = new Intent("com.akoudri.healthrecord.app.EditDay");
+            Intent intent = new Intent((CalendarActivity)calendarContentProvider, EditDayActivity.class);
             int day_idx = rects.indexOf(selectedRect);
             intent.putExtra("personId", personId);
             int day = day_idx + 1;

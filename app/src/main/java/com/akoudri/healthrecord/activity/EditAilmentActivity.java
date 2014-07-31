@@ -223,7 +223,7 @@ public class EditAilmentActivity extends Activity {
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
+                    Intent intent = new Intent(EditAilmentActivity.this, EditMedicationActivity.class);
                     intent.putExtra("medicationId", medic.getId());
                     startActivity(intent);
                 }
@@ -292,7 +292,7 @@ public class EditAilmentActivity extends Activity {
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent("com.akoudri.healthrecord.app.EditMedication");
+                    Intent intent = new Intent(EditAilmentActivity.this, EditMedicationActivity.class);
                     intent.putExtra("pos", pos);
                     intent.putExtra("medicationId", 0);
                     intent.putExtra("drugId", medic.getDrugId());
@@ -388,7 +388,7 @@ public class EditAilmentActivity extends Activity {
         if (ailmentId == 0 || day <= 0 || month <= 0 || year <= 0)
             return;
         if (!dataSourceLoaded) return;
-        Intent intent = new Intent("com.akoudri.healthrecord.app.CreateMedication");
+        Intent intent = new Intent(this, CreateMedicationActivity.class);
         intent.putExtra("date", selectedDate);
         startActivityForResult(intent, 1);
     }

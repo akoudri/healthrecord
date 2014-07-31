@@ -252,7 +252,7 @@ public class TherapistActivity extends Activity {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.UpdateTherapist");
+                        Intent intent = new Intent(TherapistActivity.this, EditTherapistActivity.class);
                         intent.putExtra("therapistId", id);
                         startActivity(intent);
                     }
@@ -274,7 +274,7 @@ public class TherapistActivity extends Activity {
     public void addNewTherapist(View view)
     {
         therapistId = 0;
-        Intent intent = new Intent("com.akoudri.healthrecord.app.AddTherapist");
+        Intent intent = new Intent(this, CreateTherapistActivity.class);
         intent.putExtra("personId", personId);
         startActivity(intent);
     }

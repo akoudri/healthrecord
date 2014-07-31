@@ -20,148 +20,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.CreatePersonActivity"
-            android:label="@string/add"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.AddPerson" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.EditDayActivity"
-            android:label="@string/edit"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.EditDay" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.CreateTherapistActivity"
-            android:label="@string/add_therapist"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.AddTherapist" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.EditTherapistActivity"
-            android:label="@string/update_therapist"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.UpdateTherapist" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <!-- FIXME: set correct label -->
-        <activity
-            android:name="com.akoudri.healthrecord.activity.EditAppointmentActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.EditAppointment" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.CreateAilmentActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.CreateAilment" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.EditAilmentActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.EditAilment" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.CreateMedicationActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.CreateMedication" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.EditMedicationActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.EditMedication" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.UpdatePersonActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.UpdatePerson" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.CalendarActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.Calendar" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.TherapistActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.Therapist" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.AnalysisActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.Analysis" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.akoudri.healthrecord.activity.EditMeasureActivity"
-            android:label="@string/add_rv"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="com.akoudri.healthrecord.app.EditMeasure" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name="org.achartengine.GraphicalActivity" android:screenOrientation="landscape"/>
+        <activity android:name="com.akoudri.healthrecord.activity.CreatePersonActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditDayActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.CreateTherapistActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditTherapistActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditAppointmentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.CreateAilmentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditAilmentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.CreateMedicationActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditMedicationActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.UpdatePersonActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.CalendarActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.TherapistActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.AnalysisActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditMeasureActivity" android:screenOrientation="portrait"/>
+        <activity android:name="org.achartengine.GraphicalActivity" android:screenOrientation="landscape" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
     </application>
 
 </manifest>

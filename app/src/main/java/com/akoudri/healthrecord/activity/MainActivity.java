@@ -156,7 +156,7 @@ public class MainActivity extends Activity {
                 calendarButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.Calendar");
+                        Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
                         intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
@@ -176,7 +176,7 @@ public class MainActivity extends Activity {
                 therapistButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.Therapist");
+                        Intent intent = new Intent(MainActivity.this, TherapistActivity.class);
                         intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
@@ -196,7 +196,7 @@ public class MainActivity extends Activity {
                 analysisButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.Analysis");
+                        Intent intent = new Intent(MainActivity.this, AnalysisActivity.class);
                         intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
@@ -216,7 +216,7 @@ public class MainActivity extends Activity {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.UpdatePerson");
+                        Intent intent = new Intent(MainActivity.this, UpdatePersonActivity.class);
                         intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
@@ -271,7 +271,7 @@ public class MainActivity extends Activity {
     public void addPerson(View view)
     {
         personId = 0;
-        startActivity(new Intent("com.akoudri.healthrecord.app.AddPerson"));
+        startActivity(new Intent(this, CreatePersonActivity.class));
     }
 
 }

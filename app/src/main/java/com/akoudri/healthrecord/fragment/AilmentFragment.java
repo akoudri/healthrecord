@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 
+import com.akoudri.healthrecord.activity.EditAilmentActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Ailment;
@@ -127,7 +128,7 @@ public class AilmentFragment extends Fragment {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditAilment");
+                        Intent intent = new Intent(getActivity(), EditAilmentActivity.class);
                         intent.putExtra("ailmentId", ailmentId);
                         intent.putExtra("day", day);
                         intent.putExtra("month", month);

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 
+import com.akoudri.healthrecord.activity.EditMeasureActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Measure;
@@ -149,7 +150,7 @@ public class MeasureFragment extends Fragment {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent("com.akoudri.healthrecord.app.EditMeasure");
+                        Intent intent = new Intent(getActivity(), EditMeasureActivity.class);
                         intent.putExtra("measureId", measureId);
                         intent.putExtra("measureIdType", typeId);
                         startActivity(intent);

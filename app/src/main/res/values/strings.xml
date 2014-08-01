@@ -40,6 +40,35 @@
         <item>Generalist</item>
         <item>Pediatrician</item>
         <item>Physiotherapist</item>
+        <item>Allergist</item>
+        <item>Immunologist</item>
+        <item>Anesthesiologist</item>
+        <item>Cardiologist</item>
+        <item>Dermatologist</item>
+        <item>Gastroenterologist</item>
+        <item>Hematologist</item>
+        <item>Oncologist</item>
+        <item>Internal Medicine Physician</item>
+        <item>Nephrologist</item>
+        <item>Neurologist</item>
+        <item>Neurosurgeon</item>
+        <item>Obstetrician</item>
+        <item>Gynecologist</item>
+        <item>Nurse-Midwifery</item>
+        <item>Occupational Medicine Physician</item>
+        <item>Ophthalmologist</item>
+        <item>Oral and Maxillofacial Surgeon</item>
+        <item>Orthopaedic Surgeon</item>
+        <item>Otolaryngologist</item>
+        <item>Pathologist</item>
+        <item>Plastic Surgeon</item>
+        <item>Podiatrist</item>
+        <item>Psychiatrist</item>
+        <item>Pulmonary Medicine Physician</item>
+        <item>Radiation Onconlogist</item>
+        <item>Diagnostic Radiologist</item>
+        <item>Rheumatologist</item>
+        <item>Urologist</item>
     </string-array>
     <string-array name="illnesses">
         <item>Cholesterol</item>
@@ -72,7 +101,6 @@
         <item>Flu</item>
         <item>Angina</item>
         <item>Cold</item>
-        <!-- TODO: complete -->
     </string-array>
     <string-array name="drugs">
         <item>Paxil</item>
@@ -225,8 +253,8 @@
         <item>Concerta</item>
         <item>Cozaar</item>
         <item>Hctz</item>
-        <item>150. Premarin</item>
-        <item>151. Levothyroxine</item>
+        <item>Premarin</item>
+        <item>Levothyroxine</item>
         <item>Methotrexate</item>
         <item>Buspar</item>
         <item>Glucophage</item>

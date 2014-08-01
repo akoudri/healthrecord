@@ -37,9 +37,85 @@
     <string name="no_other_therapist">Pas d\'autres spécialistes</string>
     <string name="update_therapist">Mise à jour Spécialiste</string>
     <string-array name="branches">
-        <item>Généraliste</item>
-        <item>Pédiatre</item>
+        <item>Médecine généraliste</item>
+        <item>Anesthésiologie</item>
+        <item>Biochimie médicale</item>
+        <item>Cardiologie</item>
+        <item>Chirurgie cardiaque</item>
+        <item>Chirurgie colorectale</item>
+        <item>Chirurgie générale</item>
+        <item>Chirurgie oncologique</item>
+        <item>Chirurgie pédiatrique</item>
+        <item>Chirurgie orthopédique</item>
+        <item>Chirurgie plastique</item>
+        <item>Chirurgie thoracique</item>
+        <item>Chirurgie vasculaire</item>
+        <item>Dermatologie</item>
+        <item>Endocrinologie</item>
+        <item>Métabolisme</item>
+        <item>Gastro-entérologie</item>
+        <item>Génétique médicale</item>
+        <item>Gériatrie</item>
+        <item>Hématologie</item>
+        <item>Oncologie</item>
+        <item>Immunologie clinique et allergie</item>
+        <item>Maladies infectieuses</item>
+        <item>Médecine communautaire</item>
+        <item>Médecine d\'urgence</item>
+        <item>Médecine d\'urgence pédiatrique</item>
+        <item>Médecine de l\'adolescence</item>
+        <item>Médecine de soins intensifs</item>
+        <item>Médecine du travail</item>
+        <item>Médecine interne</item>
+        <item>Médecine maternelle</item>
+        <item>Médecine foetale</item>
+        <item>Médecine néonatale</item>
+        <item>Médecine périnatale</item>
+        <item>Médecine nucléaire</item>
+        <item>Médecine physique</item>
+        <item>Microbiologie médicale</item>
+        <item>Néphrologie</item>
+        <item>Neurochirurgie</item>
+        <item>Neurologie</item>
+        <item>Neuropathologie</item>
+        <item>Obstétrique</item>
+        <item>Gynécologie</item>
+        <item>Oncologie gynécologique</item>
+        <item>Ophtalmologie</item>
+        <item>Oto-rhino-laryngologie </item>
+        <item>Chirurgie cervico-faciale</item>
+        <item>Pathologie générale</item>
+        <item>Pathologie hématologique</item>
+        <item>Pathologie judiciaire</item>
+        <item>Pédiatrie</item>
+        <item>Pneumologie</item>
+        <item>Psychiatrie</item>
+        <item>Radio-oncologie</item>
+        <item>Radiologie diagnostique</item>
+        <item>Rhumatologie</item>
+        <item>Urologie</item>
+        <item>Aide-soignant</item>
+        <item>Ambulancier</item>
+        <item>Assistant dentaire</item>
+        <item>Audioprothésiste</item>
+        <item>Auxiliaire de puériculture</item>
+        <item>Diététicien</item>
+        <item>Ergothérapeute</item>
+        <item>Infirmier</item>
+        <item>Infirmière</item>
+        <item>Puéricultrice</item>
+        <item>Masseur</item>
         <item>Kinésithérapeute</item>
+        <item>Opticien</item>
+        <item>Orthophoniste</item>
+        <item>Orthoptiste</item>
+        <item>Ostéopathe</item>
+        <item>Chiropracteur</item>
+        <item>Pédicure</item>
+        <item>Podologue</item>
+        <item>Podo-orthésiste</item>
+        <item>Prothésiste dentaire</item>
+        <item>Psychomotricien</item>
     </string-array>
     <string-array name="illnesses">
         <item>Cholestérol</item>
@@ -72,7 +148,6 @@
         <item>Grippe</item>
         <item>Angine</item>
         <item>Rhume</item>
-        <!-- TODO: check and update english version-->
         <item>Colique</item>
         <item>Gastro-entérite</item>
         <item>Varicelle</item>

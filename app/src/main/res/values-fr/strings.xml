@@ -261,5 +261,8 @@
     <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pouls(p/m)</string>
     <string name="add_measure">Ajouter Mesure</string>
     <string name="nb_points">Nombre de points</string>
+    <string name="choose_type">Veuillez choisir un type</string>
+    <string name="message">Message</string>
+    <string name="send">Envoyer</string>
 
 </resources>

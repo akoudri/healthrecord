@@ -2,6 +2,8 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,8 +17,10 @@ import android.widget.ImageButton;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
+import com.akoudri.healthrecord.dialog.SmsMessageDialog;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,6 +32,7 @@ public class TherapistActivity extends Activity {
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
     private int personId;
+    private Person person;
 
     private int therapistId = 0;
 
@@ -51,6 +56,7 @@ public class TherapistActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
+            person = dataSource.getPersonTable().getPersonWithId(personId);
             createWidgets();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -204,12 +210,17 @@ public class TherapistActivity extends Activity {
                 smsButton = new ImageButton(this);
                 smsButton.setBackgroundResource(R.drawable.sms);
                 if (p.getCellPhoneNumber() != null) {
-                    phoneButton.setOnClickListener(new View.OnClickListener() {
+                    smsButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //FIXME: send sms
-                            Intent intent = new Intent(Intent.ACTION_CALL);
-                            intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
+                            //Send message without launching sms client
+                            //Use <uses-permission android:name="android.permission.SEND_SMS" /> in manifest
+                            /*
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            DialogFragment fragment = SmsMessageDialog.newInstance(p.getCellPhoneNumber());
+                            fragment.show(ft, "Sms dialog");
+                            */
+                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+p.getCellPhoneNumber()));
                             startActivity(intent);
                         }
                     });
@@ -230,10 +241,9 @@ public class TherapistActivity extends Activity {
                     emailButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //FIXME: send an email
-                            Intent intent = new Intent(Intent.ACTION_CALL);
-                            intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
-                            startActivity(intent);
+                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", p.getEmail(), null));
+                            intent.putExtra(Intent.EXTRA_SUBJECT, person.getName());
+                            startActivity(Intent.createChooser(intent, "email"));
                         }
                     });
                 } else emailButton.setEnabled(false);

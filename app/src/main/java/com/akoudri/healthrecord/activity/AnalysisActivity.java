@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
@@ -104,14 +105,23 @@ public class AnalysisActivity extends Activity {
         dfrag.show(getFragmentManager(), "Pick Analysis End Date");
     }
 
-    //FIXME: check values before showing
     public void showChart(View view)
     {
         if (personId == 0) return;
         if (!dataSourceLoaded) return;
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        Calendar start = HealthRecordUtils.stringToCalendar(startET.getText().toString());
-        Calendar end = HealthRecordUtils.stringToCalendar(endET.getText().toString());
+        String sDate = startET.getText().toString();
+        String eDate = endET.getText().toString();
+        Calendar start, end;
+        if (sDate.equals("")) {
+            start = Calendar.getInstance();
+            start.setTimeInMillis(0L);
+        } else {
+            start = HealthRecordUtils.stringToCalendar(startET.getText().toString());
+        }
+        if (eDate.equals(""))
+            end = Calendar.getInstance();
+        else end = HealthRecordUtils.stringToCalendar(endET.getText().toString());
         List<XYSeries> series = null;
         XYMultipleSeriesRenderer renderer = null;
         switch (measureSpinner.getSelectedItemPosition())
@@ -141,7 +151,11 @@ public class AnalysisActivity extends Activity {
                 renderer = getComplexRenderer();
                 break;
         }
-        if (series == null) return;
+        if (series == null)
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.choose_type), Toast.LENGTH_SHORT).show();
+            return;
+        }
         dataset.addAllSeries(series);
         Intent intent = ChartFactory.getTimeChartIntent(this, dataset, renderer, null);
         startActivity(intent);

@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/app_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="@string/message"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="fill_horizontal"
+        android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/sms_message"
+            android:background="@android:color/white"
+            android:textColor="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textMultiLine"
+            android:minLines="4"
+            android:maxLines="4"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="top|left"/>
+    </ScrollView>
+    <Button
+        android:id="@+id/send_button"
+        android:text="@string/send"
+        style="@style/TitleButton"
+        android:ems="5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

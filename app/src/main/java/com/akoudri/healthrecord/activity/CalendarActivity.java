@@ -85,4 +85,9 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
     public int[] getMonthMedicationsForPerson(int personId, Calendar cal) {
         return dataSource.getMedicationTable().getMonthMedicationsForPerson(personId, cal);
     }
+
+    @Override
+    public int[] getMonthObservationsForPerson(int personId, Calendar cal) {
+        return dataSource.getMedicalObservationTable().getMonthObservationsForPerson(personId, cal);
+    }
 }

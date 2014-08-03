@@ -260,7 +260,7 @@ public class EditDayActivity extends Activity {
 
     public void createAppt(View view)
     {
-        Intent intent = new Intent(this, EditAilmentActivity.class);
+        Intent intent = new Intent(this, EditAppointmentActivity.class);
         intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);

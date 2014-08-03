@@ -58,14 +58,15 @@ public class CalendarView extends View implements View.OnTouchListener {
     //store whether the days of the month are before the actual date
     private boolean[] isBeforeActualDate;
 
-    //Appointments
+    //Information
     private int[] appointments;
     private int[] ailments;
     private int[] measures;
     private int[] medics;
+    private int[] observations;
 
     //Icons
-    Bitmap illnessIco, measureIco, medicsIco, rvIco;
+    Bitmap illnessIco, measureIco, medicsIco, rvIco, obsIco;
     private boolean imagesFound = true;
     private int imgSize;
 
@@ -86,6 +87,9 @@ public class CalendarView extends View implements View.OnTouchListener {
             inputStream.close();
             inputStream = assetManager.open("images/medics_ico.png");
             medicsIco = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+            inputStream = assetManager.open("images/eye_ico.png");
+            obsIco = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
         } catch (IOException e)
         {
@@ -316,6 +320,13 @@ public class CalendarView extends View implements View.OnTouchListener {
                     b_rect.bottom = rect.bottom - sy;
                     canvas.drawBitmap(medicsIco, null, b_rect, null);
                 }
+                if (observations[i - 1] > 0) {
+                    b_rect.left = (rect.right + rect.left - imgSize) / 2;
+                    b_rect.right = (rect.right + rect.left + imgSize) / 2;
+                    b_rect.top = (rect.bottom + rect.top - imgSize) / 2;
+                    b_rect.bottom = (rect.bottom + rect.top + imgSize) / 2;
+                    canvas.drawBitmap(obsIco, null, b_rect, null);
+                }
             }
         }
         else
@@ -344,6 +355,12 @@ public class CalendarView extends View implements View.OnTouchListener {
                     int xa = rect.right - sx - rcirc;
                     int yi = rect.bottom - sy  - rcirc;
                     paint.setColor(getResources().getColor(R.color.medicsColor));
+                    canvas.drawCircle(xa, yi, rcirc, paint);
+                }
+                if (observations[i - 1] > 0) {
+                    int xa = (rect.right + rect.left) / 2;
+                    int yi = (rect.bottom + rect.top) / 2;
+                    paint.setColor(getResources().getColor(R.color.obsColor));
                     canvas.drawCircle(xa, yi, rcirc, paint);
                 }
             }
@@ -390,6 +407,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         ailments = calendarContentProvider.getMonthAilmentsForPerson(personId, _cal);
         measures = calendarContentProvider.getMonthMeasuresForPerson(personId, _cal);
         medics = calendarContentProvider.getMonthMedicationsForPerson(personId, _cal);
+        observations = calendarContentProvider.getMonthObservationsForPerson(personId, _cal);
     }
 
     private Rect getSelectedRect(int x, int y)

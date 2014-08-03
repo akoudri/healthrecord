@@ -12,4 +12,5 @@
     <color name="illnessColor">#fd4c37</color>
     <color name="medicsColor">#7ce86d</color>
     <color name="measuresColor">#84c5fd</color>
+    <color name="obsColor">#e4e355</color>
 </resources>

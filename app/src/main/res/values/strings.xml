@@ -467,6 +467,7 @@
     <string name="number_of_appt">Number of appointments</string>
     <string name="number_of_ailments">Number of ailments</string>
     <string name="number_of_medics">Number of medics</string>
+    <string name="number_of_observations">Number of observations</string>
     <string name="no_change">No change to save</string>
     <string name="data_saved">Data saved</string>
     <string name="preventive_treatment">Preventive Treatment</string>

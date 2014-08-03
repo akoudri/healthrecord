@@ -15,7 +15,7 @@ import com.akoudri.healthrecord.utils.HealthRecordUtils;
 public class OverviewFragment extends Fragment {
 
     private View view;
-    private TextView nbMeasures, nbAppts, nbAilments, nbMedics;
+    private TextView nbMeasures, nbAppts, nbAilments, nbMedics, nbObs;
 
     private HealthRecordDataSource dataSource;
     private int personId;
@@ -33,6 +33,7 @@ public class OverviewFragment extends Fragment {
         nbAppts = (TextView) view.findViewById(R.id.number_of_appts);
         nbAilments = (TextView) view.findViewById(R.id.number_of_ailments);
         nbMedics = (TextView) view.findViewById(R.id.number_of_medics);
+        nbObs = (TextView) view.findViewById(R.id.number_of_observations);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         day = getActivity().getIntent().getIntExtra("day", 0);
         month = getActivity().getIntent().getIntExtra("month", 0);
@@ -65,6 +66,8 @@ public class OverviewFragment extends Fragment {
         nbAilments.setText(count + "");
         count = dataSource.getMedicationTable().countMedicsForDay(personId, d);
         nbMedics.setText(count + "");
+        count = dataSource.getMedicalObservationTable().countObservationsForDay(personId, d);
+        nbObs.setText(count + "");
     }
 
 }

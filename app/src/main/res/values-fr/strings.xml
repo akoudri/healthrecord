@@ -322,6 +322,7 @@
     <string name="number_of_appt">Nombre de RV</string>
     <string name="number_of_ailments">Nombre de maladies</string>
     <string name="number_of_medics">Nombre de médicaments</string>
+    <string name="number_of_observations">Nombre d\'observations</string>
     <string name="no_change">Pas de changement à enregistrer</string>
     <string name="data_saved">Données enregistrées</string>
     <string name="preventive_treatment">Traitement Préventif</string>

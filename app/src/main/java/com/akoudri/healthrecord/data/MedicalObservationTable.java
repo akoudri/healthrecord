@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -88,12 +89,57 @@ public class MedicalObservationTable {
         return null;
     }
 
+    public int[] getMonthObservationsForPerson(int personId, Calendar cal)
+    {
+        int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);
+        int max = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.DAY_OF_MONTH, min);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        long ms = cal.getTimeInMillis();
+        long me = ms + 86400000L * max;
+        List<MedicalObservation> res = new ArrayList<MedicalObservation>();
+        Cursor cursor = db.query(MEDICAL_OBSERVATION_TABLE, medicalObservationCols,
+                MEDICAL_OBSERVATION_PERSON_REF + "=" + personId + " and " + MEDICAL_OBSERVATION_DATE + ">=" + ms + " and " + MEDICAL_OBSERVATION_DATE + "<" + me,
+                null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToMedicalObservation(cursor));
+            cursor.moveToNext();
+        }
+        int[] observations = new int[max];
+        for (int i = 0; i < max; i++)
+            observations[i] = 0;
+        for (MedicalObservation obs : res)
+        {
+            long d = HealthRecordUtils.stringToCalendar(obs.getDate()).getTimeInMillis() - cal.getTimeInMillis();
+            int i = (int)(d/86400000L);
+            observations[i] ++;
+        }
+        return observations;
+    }
+
     public MedicalObservation getMedicalObservationWithDate(String date, String hour)
     {
         long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
         Cursor cursor = db.query(MEDICAL_OBSERVATION_TABLE, medicalObservationCols, MEDICAL_OBSERVATION_DATE + "=" + d, null, null, null, null);
         if (cursor.moveToFirst()) return cursorToMedicalObservation(cursor);
         return null;
+    }
+
+    public int countObservationsForDay(int personId, long date)
+    {
+        long me = date + 86400000L;//24h in ms
+        String req = "select count(*) from " + MEDICAL_OBSERVATION_TABLE + " where " + MEDICAL_OBSERVATION_PERSON_REF + "=" + personId + " and " + MEDICAL_OBSERVATION_DATE + ">=" + date + " and " + MEDICAL_OBSERVATION_DATE + "<" + me;
+        Cursor count = db.rawQuery(req, null);
+        if (!count.moveToFirst())
+            return 0;
+        int res = count.getInt(0);
+        count.close();
+        return res;
     }
 
     public List<MedicalObservation> getDayObservationsForPerson(int personId, String date)

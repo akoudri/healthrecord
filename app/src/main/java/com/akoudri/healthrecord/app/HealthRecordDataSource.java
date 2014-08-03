@@ -11,6 +11,7 @@ import com.akoudri.healthrecord.data.GlucoseMeasureTable;
 import com.akoudri.healthrecord.data.HeartMeasureTable;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.MeasureView;
+import com.akoudri.healthrecord.data.MedicalObservationTable;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
@@ -44,6 +45,7 @@ public class HealthRecordDataSource {
     private CranialPerimeterMeasureTable cpMeasureTable;
     private GlucoseMeasureTable glucoseMeasureTable;
     private HeartMeasureTable heartMeasureTable;
+    private MedicalObservationTable medicalObservationTable;
     private MeasureView measureView;
 
     private boolean isOpened = false;
@@ -87,6 +89,7 @@ public class HealthRecordDataSource {
         cpMeasureTable = null;
         glucoseMeasureTable = null;
         heartMeasureTable = null;
+        medicalObservationTable = null;
         measureView = null;
         isOpened = false;
     }
@@ -197,6 +200,14 @@ public class HealthRecordDataSource {
         if (heartMeasureTable == null)
             heartMeasureTable = new HeartMeasureTable(db);
         return heartMeasureTable;
+    }
+
+    public MedicalObservationTable getMedicalObservationTable()
+    {
+        if (!isOpened) return null;
+        if (medicalObservationTable == null)
+            medicalObservationTable = new MedicalObservationTable(db);
+        return medicalObservationTable;
     }
 
     public MeasureView getMeasureView()

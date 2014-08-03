@@ -25,6 +25,7 @@
         <activity android:name="com.akoudri.healthrecord.activity.CreateTherapistActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditTherapistActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditAppointmentActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditObservationActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.CreateAilmentActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditAilmentActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.CreateMedicationActivity" android:screenOrientation="portrait"/>

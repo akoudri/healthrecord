@@ -2,8 +2,6 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +18,6 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
-import com.akoudri.healthrecord.dialog.SmsMessageDialog;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Ali Koudri on 23/07/14.
  * TODO: store image in V2
@@ -91,6 +94,24 @@ public class MedicalObservationTable {
         Cursor cursor = db.query(MEDICAL_OBSERVATION_TABLE, medicalObservationCols, MEDICAL_OBSERVATION_DATE + "=" + d, null, null, null, null);
         if (cursor.moveToFirst()) return cursorToMedicalObservation(cursor);
         return null;
+    }
+
+    public List<MedicalObservation> getDayObservationsForPerson(int personId, String date)
+    {
+        long ms = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+        long me = ms + 86400000L;//24h in ms
+        List<MedicalObservation> res = new ArrayList<MedicalObservation>();
+        Cursor cursor = db.query(MEDICAL_OBSERVATION_TABLE, medicalObservationCols,
+                MEDICAL_OBSERVATION_PERSON_REF + "=" + personId + " and " + MEDICAL_OBSERVATION_DATE + ">=" + ms + " and " +
+                        MEDICAL_OBSERVATION_DATE + "<" + me,
+                null, null, null, MEDICAL_OBSERVATION_DATE + " ASC");
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToMedicalObservation(cursor));
+            cursor.moveToNext();
+        }
+        return res;
     }
 
     private MedicalObservation cursorToMedicalObservation(Cursor cursor)

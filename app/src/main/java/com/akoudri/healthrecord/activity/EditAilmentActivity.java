@@ -393,6 +393,7 @@ public class EditAilmentActivity extends Activity {
         startActivityForResult(intent, 1);
     }
 
+    //FIXME: manage the case where updates occurred in the list of medics
     public void updateAilment(View view)
     {
         if (ailmentId == 0 || day <= 0 || month <= 0 || year <= 0)

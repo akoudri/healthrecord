@@ -283,6 +283,7 @@
     <string name="hour">Heure: </string>
     <string name="remove_appt_question">Voulez-vous vraiment supprimer ce rendez-vous ?</string>
     <string name="remove_measure_question">Voulez-vous vraiment supprimer cette mesure ?</string>
+    <string name="remove_observation_question">Voulez-vous vraiment supprimer cette observation ?</string>
     <string name="illness">Maladie</string>
     <string name="chronic">Chronique</string>
     <string name="prescribedBy">Soigné par: </string>
@@ -339,5 +340,7 @@
     <string name="choose_type">Veuillez choisir un type</string>
     <string name="message">Message</string>
     <string name="send">Envoyer</string>
+    <string name="add_observation">Ajouter observation</string>
+    <string name="description">Description</string>
 
 </resources>

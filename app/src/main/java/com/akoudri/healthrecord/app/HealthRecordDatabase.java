@@ -12,6 +12,7 @@ import com.akoudri.healthrecord.data.GlucoseMeasureTable;
 import com.akoudri.healthrecord.data.HeartMeasureTable;
 import com.akoudri.healthrecord.data.IllnessTable;
 import com.akoudri.healthrecord.data.MeasureView;
+import com.akoudri.healthrecord.data.MedicalObservationTable;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
@@ -46,6 +47,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private CranialPerimeterMeasureTable cpMeasureTable;
     private GlucoseMeasureTable glucoseMeasureTable;
     private HeartMeasureTable heartMeasureTable;
+    private MedicalObservationTable medicalObservationTable;
     private MeasureView measureView;
     private RemovePersonTrigger removePersonTrigger;
     private RemoveAilmentTrigger removeAilmentTrigger;
@@ -87,6 +89,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         glucoseMeasureTable.createMeasureTable();
         heartMeasureTable = new HeartMeasureTable(db);
         heartMeasureTable.createMeasureTable();
+        medicalObservationTable = new MedicalObservationTable(db);
+        medicalObservationTable.createMedicalObservationTable();
         measureView = new MeasureView(db);
         measureView.createMeasureView();
         removePersonTrigger = new RemovePersonTrigger(db);

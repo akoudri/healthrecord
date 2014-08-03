@@ -24,16 +24,19 @@
             android:layout_height="1dp"
             android:background="@color/regular_text_color"/>
         <LinearLayout
+            android:id="@+id/day_menu_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_margin="1dp"
+            android:layout_gravity="center_horizontal"/>
+        <!--
             <ImageButton
                 android:id="@+id/overview_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_margin="1dp"
                 android:src="@drawable/overview"
                 android:onClick="displayOverview"
                 style="?android:attr/borderlessButtonStyle"/>
@@ -42,16 +45,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_margin="1dp"
                 android:src="@drawable/measure"
                 android:onClick="displayMeasures"
+                style="?android:attr/borderlessButtonStyle"/>
+            <ImageButton
+                android:id="@+id/observation_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="1dp"
+                android:src="@drawable/observation"
+                android:onClick="displayObservations"
                 style="?android:attr/borderlessButtonStyle"/>
             <ImageButton
                 android:id="@+id/rv_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_margin="1dp"
                 android:src="@drawable/rv"
                 android:onClick="displayRV"
                 style="?android:attr/borderlessButtonStyle"/>
@@ -60,11 +72,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_margin="1dp"
                 android:src="@drawable/illness"
                 android:onClick="displayAilments"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
+        -->
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"

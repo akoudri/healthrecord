@@ -14,10 +14,11 @@ public class MedicalObservation {
 
     public MedicalObservation() {}
 
-    public MedicalObservation(int personId, String date, String hour) {
+    public MedicalObservation(int personId, String date, String hour, String description) {
         this.personId = personId;
         this.date = date;
         this.hour = hour;
+        this.description = description;
     }
 
     public int getId() {
@@ -58,6 +59,12 @@ public class MedicalObservation {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean equalsTo(MedicalObservation other)
+    {
+        return (personId == other.getPersonId()) && (date.equals(other.getDate())) && (date.equals(other.getHour())) &&
+                (description.equalsIgnoreCase(other.getDescription()));
     }
 
 }

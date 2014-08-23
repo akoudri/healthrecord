@@ -33,7 +33,7 @@ public class MeasureFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
     private int personId;
-    private int day, month, year;
+    private String date;
 
     private int mID = 0;
     private int mType = 0;
@@ -48,25 +48,30 @@ public class MeasureFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_measure, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_measures_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        day = getActivity().getIntent().getIntExtra("day", 0);
-        month = getActivity().getIntent().getIntExtra("month", 0);
-        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (personId == 0) return;
         if (dataSource == null) return;
-        String date = String.format("%02d/%02d/%04d", day, month + 1, year);
+        createWidgets();
+    }
+
+    public void setCurrentDate(int day, int month, int year)
+    {
+        date = String.format("%02d/%02d/%4d", day, month + 1, year);
+    }
+
+    public void refresh()
+    {
         createWidgets();
     }
 
     private void createWidgets()
     {
         layout.removeAllViews();
-        String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<Measure> allMeasures = new ArrayList<Measure>();
         allMeasures.addAll(dataSource.getMeasureView().getPersonMeasuresWithDate(personId, date));
         Button measureButton, removeButton, editButton;

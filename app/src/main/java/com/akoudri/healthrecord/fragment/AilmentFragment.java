@@ -28,7 +28,7 @@ import java.util.List;
 public class AilmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
-    private int personId, day, month, year;
+    private int personId;
 
     private View view;
     private GridLayout layout;
@@ -36,6 +36,9 @@ public class AilmentFragment extends Fragment {
     private GridLayout.Spec rowSpec, colSpec;
 
     private int aId = 0;
+
+    private int day, month, year;
+    private String date;
 
     public static AilmentFragment newInstance()
     {
@@ -47,17 +50,27 @@ public class AilmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_ailment, container, false);
         layout = (GridLayout) view.findViewById(R.id.ailments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        day = getActivity().getIntent().getIntExtra("day", 0);
-        month = getActivity().getIntent().getIntExtra("month", 0);
-        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (personId == 0) return;
         if (dataSource == null) return;
+        createWidgets();
+    }
+
+    public void setCurrentDate(int day, int month, int year)
+    {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        date = String.format("%02d/%02d/%4d", day, month + 1, year);
+    }
+
+    public void refresh()
+    {
         createWidgets();
     }
 
@@ -69,7 +82,6 @@ public class AilmentFragment extends Fragment {
     private void createWidgets()
     {
         layout.removeAllViews();
-        final String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<Ailment> dayAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, date);
         if (dayAilments == null || dayAilments.size() == 0) return;
         int margin = 1;

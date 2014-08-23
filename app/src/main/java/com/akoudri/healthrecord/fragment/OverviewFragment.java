@@ -19,7 +19,8 @@ public class OverviewFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
     private int personId;
-    private int day, month, year;
+
+    private String date;
 
     public static OverviewFragment newInstance()
     {
@@ -35,19 +36,25 @@ public class OverviewFragment extends Fragment {
         nbMedics = (TextView) view.findViewById(R.id.number_of_medics);
         nbObs = (TextView) view.findViewById(R.id.number_of_observations);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        day = getActivity().getIntent().getIntExtra("day", 0);
-        month = getActivity().getIntent().getIntExtra("month", 0);
-        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (personId == 0) return;
         if (dataSource == null) return;
-        String date = String.format("%02d/%02d/%04d", day, month + 1, year);
-        fillWidgets(date);
+        fillWidgets();
+    }
+
+    public void setCurrentDate(int day, int month, int year)
+    {
+        date = String.format("%02d/%02d/%4d", day, month + 1, year);
+    }
+
+    public void refresh()
+    {
+        fillWidgets();
     }
 
     public void setDataSource(HealthRecordDataSource dataSource)
@@ -55,7 +62,7 @@ public class OverviewFragment extends Fragment {
         this.dataSource = dataSource;
     }
 
-    private void fillWidgets(String date)
+    private void fillWidgets()
     {
         long d = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
         int count = dataSource.getMeasureView().countPersonMeasureWithDate(personId, date);

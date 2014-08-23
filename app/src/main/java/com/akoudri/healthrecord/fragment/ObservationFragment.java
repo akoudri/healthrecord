@@ -25,7 +25,7 @@ import java.util.List;
 public class ObservationFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
-    private int personId, day, month, year;
+    private int personId;
 
     private View view;
 
@@ -34,6 +34,8 @@ public class ObservationFragment extends Fragment {
     private GridLayout.Spec rowSpec, colSpec;
 
     private int observationId = 0;
+
+    private String date;
 
     public static ObservationFragment newInstance()
     {
@@ -45,24 +47,30 @@ public class ObservationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_observation, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_observations_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        day = getActivity().getIntent().getIntExtra("day", 0);
-        month = getActivity().getIntent().getIntExtra("month", 0);
-        year = getActivity().getIntent().getIntExtra("year", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (personId == 0) return;
         if (dataSource == null) return;
+        createWidgets();
+    }
+
+    public void setCurrentDate(int day, int month, int year)
+    {
+        date = String.format("%02d/%02d/%4d", day, month + 1, year);
+    }
+
+    public void refresh()
+    {
         createWidgets();
     }
 
     private void createWidgets()
     {
         layout.removeAllViews();
-        String date = String.format("%02d/%02d/%4d", day, month + 1, year);
         List<MedicalObservation> allObservations = dataSource.getMedicalObservationTable().getDayObservationsForPerson(personId, date);
         if (allObservations == null || allObservations.size() == 0) return;
         int margin = 1;

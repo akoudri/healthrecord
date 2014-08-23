@@ -87,7 +87,8 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         //today
         today =  Calendar.getInstance();
         //Touch management
-        //TODO
+        View view = (View) findViewById(R.id.edit_day_layout);
+        view.setOnTouchListener(this);
     }
 
     private void initDayMenuLayout()
@@ -165,10 +166,15 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         try {
             dataSource.open();
             dataSourceLoaded = true;
+            ovFrag.setCurrentDate(day, month, year);
             ovFrag.setDataSource(dataSource);
+            measureFrag.setCurrentDate(day, month, year);
             measureFrag.setDataSource(dataSource);
+            apptFrag.setCurrentDate(day, month, year);
             apptFrag.setDataSource(dataSource);
+            ailmentFrag.setCurrentDate(day, month, year);
             ailmentFrag.setDataSource(dataSource);
+            obsFrag.setCurrentDate(day, month, year);
             obsFrag.setDataSource(dataSource);
             int count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
             if (count == 0)
@@ -217,6 +223,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private void displayOverview()
     {
         if (currentFrag == ovFrag) return;
+        ovFrag.setCurrentDate(day, month, year);
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, ovFrag);
         fragTrans.commit();
@@ -229,6 +236,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private void displayMeasures()
     {
         if (currentFrag == measureFrag) return;
+        measureFrag.setCurrentDate(day, month, year);
         measureFrag.resetMeasureId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, measureFrag);
@@ -242,6 +250,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private void displayRV()
     {
         if (!dataSourceLoaded) return;
+        apptFrag.setCurrentDate(day, month, year);
         if (currentFrag == apptFrag) return;
         apptFrag.resetAppointmentId();
         fragTrans = getFragmentManager().beginTransaction();
@@ -256,6 +265,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private void displayAilments()
     {
         if (currentFrag == ailmentFrag) return;
+        ailmentFrag.setCurrentDate(day, month, year);
         ailmentFrag.resetAilmentId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, ailmentFrag);
@@ -269,6 +279,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private void displayObservations()
     {
         if (currentFrag == obsFrag) return;
+        obsFrag.setCurrentDate(day, month, year);
         obsFrag.resetObservationId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, obsFrag);
@@ -341,6 +352,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
                     month = currentDay.get(Calendar.MONTH);
                     year = currentDay.get(Calendar.YEAR);
                     displayCurrentDay();
+                    refreshFrag();
                 }
                 else if (xdiff < -50) {
                     currentDay.add(Calendar.DAY_OF_MONTH, 1);
@@ -348,10 +360,44 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
                     month = currentDay.get(Calendar.MONTH);
                     year = currentDay.get(Calendar.YEAR);
                     displayCurrentDay();
+                    refreshFrag();
                 }
                 tx = 0;
                 ty = 0;
         }
         return true;
+    }
+
+    private void refreshFrag()
+    {
+        if (currentFrag instanceof OverviewFragment){
+            ovFrag.setCurrentDate(day, month, year);
+            ovFrag.refresh();
+            return;
+        }
+        if (currentFrag instanceof MeasureFragment)
+        {
+            measureFrag.setCurrentDate(day, month, year);
+            measureFrag.refresh();
+            return;
+        }
+        if (currentFrag instanceof ObservationFragment)
+        {
+            obsFrag.setCurrentDate(day, month, year);
+            obsFrag.refresh();
+            return;
+        }
+        if (currentFrag instanceof AppointmentFragment)
+        {
+            apptFrag.setCurrentDate(day, month, year);
+            apptFrag.refresh();
+            return;
+        }
+        if (currentFrag instanceof AilmentFragment)
+        {
+            ailmentFrag.setCurrentDate(day, month, year);
+            ailmentFrag.refresh();
+            return;
+        }
     }
 }

@@ -32,7 +32,7 @@ import java.util.List;
 public class AppointmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
-    private int personId, day, month, year;
+    private int personId;
 
     private View view;
     private Button addApptButton;
@@ -56,10 +56,6 @@ public class AppointmentFragment extends Fragment {
         addApptButton = (Button) view.findViewById(R.id.add_appt_button);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        day = getActivity().getIntent().getIntExtra("day", 0);
-        month = getActivity().getIntent().getIntExtra("month", 0);
-        year = getActivity().getIntent().getIntExtra("year", 0);
-        selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
         Calendar currentDate = HealthRecordUtils.stringToCalendar(selectedDate);
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
@@ -76,8 +72,18 @@ public class AppointmentFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0) return;
+        if (personId == 0) return;
         if (dataSource == null) return;
+        createWidgets();
+    }
+
+    public void setCurrentDate(int day, int month, int year)
+    {
+        selectedDate = String.format("%02d/%02d/%4d", day, month + 1, year);
+    }
+
+    public void refresh()
+    {
         createWidgets();
     }
 

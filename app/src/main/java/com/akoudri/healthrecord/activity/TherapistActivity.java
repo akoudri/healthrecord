@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,18 +13,20 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//STATUS: checked
 public class TherapistActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
@@ -56,7 +59,7 @@ public class TherapistActivity extends Activity {
             person = dataSource.getPersonTable().getPersonWithId(personId);
             createWidgets();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -72,7 +75,7 @@ public class TherapistActivity extends Activity {
     {
         layout.removeAllViews();
         List<Therapist> allTherapists = new ArrayList<Therapist>();
-        int margin = 1;
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, this);
         List<Integer> therapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         for (Integer i : therapistIds)
         {
@@ -86,6 +89,7 @@ public class TherapistActivity extends Activity {
         String therapyBranch;
         layout.setColumnCount(5);
         int r = 0; //row index
+        int tsize = 16;
         for (final Therapist p : allTherapists)
         {
             final int id = p.getId();
@@ -99,8 +103,9 @@ public class TherapistActivity extends Activity {
             String tName = p.getName();
             if (tName.length() > 20) tName = tName.substring(0,20) + "...";
             therapistButton.setText(tName + "\n" + therapyBranch);
-            therapistButton.setTextSize(16);
+            therapistButton.setTextSize(tsize);
             therapistButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            therapistButton.setTypeface(null, Typeface.BOLD);
             therapistButton.setMinEms(10);
             therapistButton.setMaxEms(10);
             therapistButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -131,7 +136,7 @@ public class TherapistActivity extends Activity {
                 removeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        new AlertDialog.Builder(getApplicationContext())
+                        new AlertDialog.Builder(TherapistActivity.this)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle(R.string.removing)
                                 .setMessage(getResources().getString(R.string.remove_question)
@@ -140,6 +145,7 @@ public class TherapistActivity extends Activity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         dataSource.getPersonTherapistTable().removeRelation(personId, p.getId());
+                                        //Toast.makeText(TherapistActivity.this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
                                         createWidgets();
                                     }
                                 })

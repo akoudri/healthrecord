@@ -26,6 +26,7 @@ import com.akoudri.healthrecord.utils.HourPickerFragment;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -92,7 +93,7 @@ public class EditAppointmentActivity extends Activity {
                 preFillWidgets();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -260,7 +261,6 @@ public class EditAppointmentActivity extends Activity {
             public void onClick(View view) {
                 DatePickerFragment dfrag = new DatePickerFragment();
                 if (apptId == 0) {
-                    //TODO
                     dfrag.init(EditAppointmentActivity.this, dateET);
                 }
                 else {

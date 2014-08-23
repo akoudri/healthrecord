@@ -11,7 +11,7 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
-
+//STATUS: checked
 public class OverviewFragment extends Fragment {
 
     private View view;

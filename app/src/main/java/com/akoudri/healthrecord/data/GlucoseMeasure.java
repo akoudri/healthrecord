@@ -18,6 +18,12 @@ public class GlucoseMeasure extends Measure {
         this.value = value;
     }
 
+    public GlucoseMeasure(GlucoseMeasure measure)
+    {
+        super(measure);
+        this.value = measure.getValue();
+    }
+
     public double getValue() {
         return value;
     }

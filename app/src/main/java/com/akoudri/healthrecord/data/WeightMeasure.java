@@ -19,6 +19,12 @@ public class WeightMeasure extends Measure {
         this.value = value;
     }
 
+    public WeightMeasure(WeightMeasure measure)
+    {
+        super(measure);
+        this.value = measure.getValue();
+    }
+
     public double getValue() {
         return value;
     }

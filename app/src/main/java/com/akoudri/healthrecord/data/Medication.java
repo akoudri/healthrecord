@@ -14,6 +14,27 @@ public class Medication {
     private String startDate;
     private int duration;
 
+    public Medication() {}
+
+    public Medication(Medication medic)
+    {
+        this.personId = medic.getPersonId();
+        this.ailmentId = medic.getAilmentId();
+        this.drugId = medic.getDrugId();
+        this.frequency = medic.getFrequency();
+        this.kind = medic.getKind();
+        this.startDate = medic.getStartDate();
+        this.duration = medic.getDuration();
+    }
+
+    public boolean equalsTo(Medication medic)
+    {
+        return this.personId == medic.getPersonId() && this.ailmentId == medic.getAilmentId() &&
+                this.drugId == medic.getDrugId() && this.frequency == medic.getFrequency() &&
+                this.kind == medic.getKind() && this.startDate.equals(medic.getStartDate()) &&
+                this.duration == medic.getDuration();
+    }
+
     public int getId() {
         return id;
     }

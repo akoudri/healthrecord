@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
+//STATUS: checked
 public class EditObservationActivity extends Activity {
 
     private LinearLayout dLayout, hLayout;
@@ -84,7 +84,7 @@ public class EditObservationActivity extends Activity {
                 hourET.setText(hour);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -113,10 +113,9 @@ public class EditObservationActivity extends Activity {
         if (obsId != 0) {
             String dayStr = dateET.getText().toString();
             if (desc.equals("")) desc = null;
-            MedicalObservation obs = new MedicalObservation(personId, dayStr, hourStr, desc);
+            MedicalObservation obs = new MedicalObservation(observation.getPersonId(), dayStr, hourStr, desc);
             if (observation.equalsTo(obs)) {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-                finish();
                 return;
             }
             obs.setId(obsId);
@@ -205,11 +204,11 @@ public class EditObservationActivity extends Activity {
             public void onClick(View view) {
                 DatePickerFragment dfrag = new DatePickerFragment();
                 if (obsId == 0) {
-                    //TODO
                     dfrag.init(EditObservationActivity.this, dateET);
                 }
                 else {
-                    dfrag.init(EditObservationActivity.this, dateET, HealthRecordUtils.stringToCalendar(observation.getDate()), null, null);
+                    Calendar c = Calendar.getInstance();
+                    dfrag.init(EditObservationActivity.this, dateET, HealthRecordUtils.stringToCalendar(observation.getDate()), null, c);
                 }
                 dfrag.show(getFragmentManager(), "Appointment Date Picker");
             }
@@ -265,7 +264,6 @@ public class EditObservationActivity extends Activity {
             public void onClick(View view) {
                 HourPickerFragment hfrag = new HourPickerFragment();
                 if (obsId == 0) {
-                    //TODO
                     hfrag.init(EditObservationActivity.this, hourET);
                 }
                 else {

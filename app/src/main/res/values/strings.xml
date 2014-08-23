@@ -476,8 +476,8 @@
     <string name="add_new_therapist">Add new therapist</string>
     <string name="add_drug">Add drug </string>
     <string name="stop">Stop</string>
-    <string name="current_size">Current size: </string>
-    <string name="current_weight">Current weight: </string>
+    <string name="current_size">Current size (cm): </string>
+    <string name="current_weight">Current weight (kg): </string>
     <string name="doctor">Doctor</string>
     <string name="overlapping_ailment">Illness already declared for this period</string>
     <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pulse(p/m)</string>
@@ -488,5 +488,6 @@
     <string name="send">Send</string>
     <string name="add_observation">Add observation</string>
     <string name="description">Description</string>
+    <string name="database_access_impossible">Database access impossible</string>
 
 </resources>

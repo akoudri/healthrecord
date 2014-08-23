@@ -6,11 +6,13 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
@@ -19,18 +21,20 @@ import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
 import com.akoudri.healthrecord.fragment.ObservationFragment;
 import com.akoudri.healthrecord.fragment.OverviewFragment;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class EditDayActivity extends Activity {
+//STATUS: checked
+public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
     private int personId = 0;
     private int day, month, year;
-    private Calendar currentDay;
+    private Calendar today, currentDay;
 
     private LinearLayout dayMenuLayout;
 
@@ -46,6 +50,10 @@ public class EditDayActivity extends Activity {
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
 
+    //used to manage navigation between days
+    private int tx = 0;
+    private int ty = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +64,6 @@ public class EditDayActivity extends Activity {
         dayMenuLayout = (LinearLayout) findViewById(R.id.day_menu_layout);
         initDayMenuLayout();
         today_label = (TextView) findViewById(R.id.today_label);
-        //ovButton = (ImageButton) findViewById(R.id.overview_button);
-        //measureButton = (ImageButton) findViewById(R.id.measure_button);
-        //obsButton = (ImageButton) findViewById(R.id.observation_button);
-        //rvButton = (ImageButton) findViewById(R.id.rv_button);
-        //illnessButton = (ImageButton) findViewById(R.id.illness_button);
         personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
@@ -76,11 +79,20 @@ public class EditDayActivity extends Activity {
         currentFrag = ovFrag;
         currentButton = ovButton;
         currentButton.setEnabled(false);
+        //init day
+        currentDay = Calendar.getInstance();
+        currentDay.set(Calendar.DAY_OF_MONTH, day);
+        currentDay.set(Calendar.MONTH, month);
+        currentDay.set(Calendar.YEAR, year);
+        //today
+        today =  Calendar.getInstance();
+        //Touch management
+        //TODO
     }
 
     private void initDayMenuLayout()
     {
-        int margin = 2;
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llparams.gravity = Gravity.CENTER_VERTICAL;
         llparams.bottomMargin = margin;
@@ -161,8 +173,22 @@ public class EditDayActivity extends Activity {
             int count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
             if (count == 0)
                 rvButton.setEnabled(false);
+            if (currentDay.after(today))
+            {
+                measureButton.setEnabled(false);
+                obsButton.setEnabled(false);
+                illnessButton.setEnabled(false);
+            }
+            /*
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+            if (currentDay.before(today))
+                rvButton.setEnabled(false);
+            */
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -177,10 +203,6 @@ public class EditDayActivity extends Activity {
 
     private void displayCurrentDay()
     {
-        currentDay = Calendar.getInstance();
-        currentDay.set(Calendar.DAY_OF_MONTH, day);
-        currentDay.set(Calendar.MONTH, month);
-        currentDay.set(Calendar.YEAR, year);
         StringBuilder sb = new StringBuilder();
         sb.append(currentDay.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault()).toUpperCase());
         sb.append(" ");
@@ -207,7 +229,6 @@ public class EditDayActivity extends Activity {
     private void displayMeasures()
     {
         if (currentFrag == measureFrag) return;
-        //TODO reset measure id in frag
         measureFrag.resetMeasureId();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.replace(R.id.day_layout, measureFrag);
@@ -301,4 +322,36 @@ public class EditDayActivity extends Activity {
         startActivity(intent);
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        int xm;
+        switch (event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN:
+                tx = (int) event.getX();
+                ty = (int) event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                xm = (int) event.getX();
+                int xdiff = xm - tx;
+                if (xdiff > 50) {
+                    currentDay.add(Calendar.DAY_OF_MONTH, -1);
+                    day = currentDay.get(Calendar.DAY_OF_MONTH);
+                    month = currentDay.get(Calendar.MONTH);
+                    year = currentDay.get(Calendar.YEAR);
+                    displayCurrentDay();
+                }
+                else if (xdiff < -50) {
+                    currentDay.add(Calendar.DAY_OF_MONTH, 1);
+                    day = currentDay.get(Calendar.DAY_OF_MONTH);
+                    month = currentDay.get(Calendar.MONTH);
+                    year = currentDay.get(Calendar.YEAR);
+                    displayCurrentDay();
+                }
+                tx = 0;
+                ty = 0;
+        }
+        return true;
+    }
 }

@@ -19,6 +19,12 @@ public class TemperatureMeasure extends Measure {
         this.value = value;
     }
 
+    public TemperatureMeasure(TemperatureMeasure measure)
+    {
+        super(measure);
+        this.value = measure.getValue();
+    }
+
     public void setValue(double value) {
         this.value = value;
     }

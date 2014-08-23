@@ -63,51 +63,6 @@ public final class HealthRecordUtils {
         return res;
     }
 
-    public static Calendar longstringToCalendar(String date)
-    {
-        if (date == null) return null;
-        String pattern = "\\d{2}/\\d{2}/\\d{4}/\\d{2}/\\d{2}";
-        if (!date.matches(pattern)) return null;
-        String[] dateArray = date.split("/");
-        int dd = Integer.parseInt(dateArray[0]);
-        int mm = Integer.parseInt(dateArray[1]) - 1;
-        int yyyy = Integer.parseInt(dateArray[2]);
-        int h = Integer.parseInt(dateArray[3]);
-        int m = Integer.parseInt(dateArray[4]);
-        Calendar c = Calendar.getInstance();
-        int fmm;
-        switch (mm)
-        {
-            case 0:
-                fmm = Calendar.JANUARY; break;
-            case 1:
-                fmm = Calendar.FEBRUARY; break;
-            case 2:
-                fmm = Calendar.MARCH; break;
-            case 3:
-                fmm = Calendar.APRIL; break;
-            case 4:
-                fmm = Calendar.MAY; break;
-            case 5:
-                fmm = Calendar.JUNE; break;
-            case 6:
-                fmm = Calendar.JULY; break;
-            case 7:
-                fmm = Calendar.AUGUST; break;
-            case 8:
-                fmm = Calendar.SEPTEMBER; break;
-            case 9:
-                fmm = Calendar.OCTOBER; break;
-            case 10:
-                fmm = Calendar.NOVEMBER; break;
-            default:
-                fmm = Calendar.DECEMBER; break;
-        }
-        c.set(yyyy, fmm, dd, h, m, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        return c;
-    }
-
     public static Calendar datehourToCalendar(String date, String hour)
     {
         String[] d = date.split("/");
@@ -234,27 +189,6 @@ public final class HealthRecordUtils {
                 field.invalidate();
             }
         }
-    }
-
-    //duration: number of days
-   /* public static String computeEndDate(String startDate, String duration)
-    {
-        if (duration == null || duration.equals("")) return null;
-        int d = Integer.parseInt(duration); //Assuming that duration is well formatted
-        Calendar eCal = HealthRecordUtils.stringToCalendar(startDate);
-        eCal.add(Calendar.DAY_OF_MONTH, d);
-        return String.format("%02d/%02d/%04d", eCal.get(Calendar.DAY_OF_MONTH), eCal.get(Calendar.MONTH)+1, eCal.get(Calendar.YEAR));
-    }*/
-
-    //duration: number of days
-    public static String computeEndDate(String startDate, int duration)
-    {
-        if (duration == -1) return null;
-        String eDate;
-        Calendar eCal = HealthRecordUtils.stringToCalendar(startDate);
-        eCal.add(Calendar.DAY_OF_MONTH, duration);
-        eDate = String.format("%02d/%02d/%04d", eCal.get(Calendar.DAY_OF_MONTH), eCal.get(Calendar.MONTH)+1, eCal.get(Calendar.YEAR));
-        return eDate;
     }
 
     public static boolean isValidName(String name)

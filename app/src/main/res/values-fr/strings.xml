@@ -331,8 +331,8 @@
     <string name="add_new_therapist">Ajout d\'un nouveau spécialiste</string>
     <string name="add_drug">Ajouter médicament </string>
     <string name="stop">Stop</string>
-    <string name="current_size">Taille actuelle: </string>
-    <string name="current_weight">Poids actuel: </string>
+    <string name="current_size">Taille actuelle (cm): </string>
+    <string name="current_weight">Poids actuel (kg): </string>
     <string name="doctor">Nom du médecin traitant</string>
     <string name="overlapping_ailment">Maladie déjà déclarée dans cette période</string>
     <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pouls(p/m)</string>
@@ -343,5 +343,6 @@
     <string name="send">Envoyer</string>
     <string name="add_observation">Ajouter observation</string>
     <string name="description">Description</string>
+    <string name="database_access_impossible">Accès à la base de données impossible</string>
 
 </resources>

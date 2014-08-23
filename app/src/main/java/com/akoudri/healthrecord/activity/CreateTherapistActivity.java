@@ -62,7 +62,7 @@ public class CreateTherapistActivity extends Activity {
             retrieveBranches();
             retrieveOtherTherapists();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -148,6 +148,7 @@ public class CreateTherapistActivity extends Activity {
             int thId = (int) dataSource.getTherapistTable().insertTherapist(name, phoneNumber, cellPhoneNumber, email, branchId);
             if (thId >= 0) {
                 dataSource.getPersonTherapistTable().insertRelation(personId, thId);
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
                 finish();
             }
             else
@@ -218,6 +219,7 @@ public class CreateTherapistActivity extends Activity {
         int thIdx = thSpinner.getSelectedItemPosition();
         Therapist th = otherTherapists.get(thIdx);
         dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
+        Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         finish();
     }
 

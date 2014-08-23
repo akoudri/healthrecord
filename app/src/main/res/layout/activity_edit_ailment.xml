@@ -159,26 +159,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:text="@string/comment"
-            android:textColor="@color/regular_text_color"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/update_ailment_comment"
-            android:background="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:inputType="textMultiLine"
-            android:minLines="5"
-            android:layout_gravity="fill_horizontal"
-            android:gravity="top|left"/>
-
         <Button
             android:text="@string/save"
             style="@style/TitleButton"

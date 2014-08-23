@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,21 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 
-import com.akoudri.healthrecord.activity.EditAppointmentActivity;
 import com.akoudri.healthrecord.activity.EditObservationActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.MedicalObservation;
-import com.akoudri.healthrecord.data.Therapist;
-import com.akoudri.healthrecord.data.TherapistTable;
-import com.akoudri.healthrecord.data.TherapyBranch;
-import com.akoudri.healthrecord.data.TherapyBranchTable;
 
 import java.util.List;
 
-
+//STATUS: checked
 public class ObservationFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
@@ -87,6 +82,7 @@ public class ObservationFragment extends Fragment {
             obsButton.setText(obs.getDate() + " - " + obs.getHour());
             obsButton.setTextSize(16);
             obsButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            obsButton.setTypeface(null, Typeface.BOLD);
             obsButton.setMinEms(12);
             obsButton.setMaxEms(12);
             obsButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -117,6 +113,7 @@ public class ObservationFragment extends Fragment {
                 editButton.setText(getResources().getString(R.string.edit));
                 editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 editButton.setTextSize(12);
+                editButton.setTypeface(null, Typeface.BOLD);
                 editButton.setMinEms(4);
                 editButton.setMaxEms(4);
                 editButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -145,6 +142,7 @@ public class ObservationFragment extends Fragment {
                 removeButton.setText(getResources().getString(R.string.remove));
                 removeButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 removeButton.setTextSize(12);
+                removeButton.setTypeface(null, Typeface.BOLD);
                 removeButton.setMinEms(4);
                 removeButton.setMaxEms(4);
                 removeButton.setBackgroundResource(R.drawable.healthrecord_button);

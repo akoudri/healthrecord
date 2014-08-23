@@ -27,6 +27,13 @@ public class Measure {
         this.hour = hour;
     }
 
+    public Measure(Measure measure)
+    {
+        this.personId = measure.getPersonId();
+        this.date = measure.getDate();
+        this.hour = measure.getHour();
+    }
+
     public int getId() {
         return id;
     }

@@ -63,8 +63,8 @@ public class MedicalObservation {
 
     public boolean equalsTo(MedicalObservation other)
     {
-        return (personId == other.getPersonId()) && (date.equals(other.getDate())) && (date.equals(other.getHour())) &&
-                (description.equalsIgnoreCase(other.getDescription()));
+        return (personId == other.getPersonId()) && (date.equals(other.getDate())) && (hour.equals(other.getHour())) &&
+                (description.equals(other.getDescription()));
     }
 
 }

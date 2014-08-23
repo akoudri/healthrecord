@@ -37,6 +37,7 @@ import java.util.List;
 
 /**
  * Created by Ali Koudri on 25/04/14.
+ * STATUS: checked
  */
 public class EditMeasureActivity extends Activity {
 
@@ -71,7 +72,7 @@ public class EditMeasureActivity extends Activity {
 
     private EditText wET, sET, tET, cpET, gEt, sysET, diaET, hbET;
 
-    private final int margin = 5;
+    private int margin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class EditMeasureActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_measure);
         dataSource = HealthRecordDataSource.getInstance(this);
+        margin = (int) HealthRecordUtils.convertPixelsToDp(5, this);
         glayout = (GridLayout) findViewById(R.id.add_measure_grid);
         hlayout = (LinearLayout) findViewById(R.id.measure_hour_layout);
         initHourLayout();
@@ -199,8 +201,10 @@ public class EditMeasureActivity extends Activity {
             dateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //FIXME: set upper bound also for hour
+                    Calendar c = Calendar.getInstance();
                     DatePickerFragment dpf = new DatePickerFragment();
-                    dpf.init(EditMeasureActivity.this, dateET, HealthRecordUtils.stringToCalendar(measure.getDate()), null, null);
+                    dpf.init(EditMeasureActivity.this, dateET, HealthRecordUtils.stringToCalendar(measure.getDate()), null, c);
                     dpf.show(EditMeasureActivity.this.getFragmentManager(), "measure date picker");
                 }
             });
@@ -303,7 +307,7 @@ public class EditMeasureActivity extends Activity {
                 createWidgets();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -728,12 +732,19 @@ public class EditMeasureActivity extends Activity {
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         }
         else {
-            //TODO: ensure change occurred
             WeightMeasure m = (WeightMeasure) measure;
+            WeightMeasure mo = new WeightMeasure(m);
+            m.setDate(dateET.getText().toString());
             m.setHour(hour);
             m.setValue(Double.parseDouble(weight));
-            dataSource.getWeightMeasureTable().updateMeasure(m);
-            Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            if (m.equalsTo(mo)) {
+                Toast.makeText(this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else {
+                dataSource.getWeightMeasureTable().updateMeasure(m);
+                Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }
@@ -754,10 +765,19 @@ public class EditMeasureActivity extends Activity {
         }
         else {
             SizeMeasure m = (SizeMeasure) measure;
+            SizeMeasure mo = new SizeMeasure(m);
+            m.setDate(dateET.getText().toString());
             m.setHour(hour);
             m.setValue(Integer.parseInt(size));
-            dataSource.getSizeMeasureTable().updateMeasure(m);
-            Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            if (m.equalsTo(mo))
+            {
+                Toast.makeText(this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else {
+                dataSource.getSizeMeasureTable().updateMeasure(m);
+                Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }
@@ -777,10 +797,19 @@ public class EditMeasureActivity extends Activity {
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
             TemperatureMeasure m = (TemperatureMeasure) measure;
+            TemperatureMeasure mo = new TemperatureMeasure(m);
+            m.setDate(dateET.getText().toString());
             m.setHour(hour);
             m.setValue(Double.parseDouble(temperature));
-            dataSource.getTempMeasureTable().updateMeasure(m);
-            Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            if (m.equalsTo(mo))
+            {
+                Toast.makeText(this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else {
+                dataSource.getTempMeasureTable().updateMeasure(m);
+                Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }
@@ -800,10 +829,17 @@ public class EditMeasureActivity extends Activity {
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
             CranialPerimeterMeasure m = (CranialPerimeterMeasure) measure;
+            CranialPerimeterMeasure mo = new CranialPerimeterMeasure(m);
+            m.setDate(dateET.getText().toString());
             m.setHour(hour);
             m.setValue(Integer.parseInt(cp));
-            dataSource.getCpMeasureTable().updateMeasure(m);
-            Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            if (m.equalsTo(mo)) {
+                Toast.makeText(this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                dataSource.getCpMeasureTable().updateMeasure(m);
+                Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }
@@ -823,10 +859,18 @@ public class EditMeasureActivity extends Activity {
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
             GlucoseMeasure m = (GlucoseMeasure) measure;
+            GlucoseMeasure mo = new GlucoseMeasure(m);
+            m.setDate(dateET.getText().toString());
             m.setHour(hour);
             m.setValue(Double.parseDouble(glucose));
-            dataSource.getGlucoseMeasureTable().updateMeasure(m);
-            Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            if (m.equalsTo(mo))
+            {
+                Toast.makeText(this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                dataSource.getGlucoseMeasureTable().updateMeasure(m);
+                Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }
@@ -871,13 +915,19 @@ public class EditMeasureActivity extends Activity {
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
             HeartMeasure m = (HeartMeasure) measure;
+            HeartMeasure mo = new HeartMeasure(m);
             m.setDate(dateET.getText().toString());
             m.setHour(hour);
             m.setDiastolic(Integer.parseInt(dia));
             m.setSystolic(Integer.parseInt(sys));
             m.setHeartbeat(Integer.parseInt(hb));
-            dataSource.getHeartMeasureTable().updateMeasure(m);
-            Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            if (m.equalsTo(mo)) {
+                Toast.makeText(this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                dataSource.getHeartMeasureTable().updateMeasure(m);
+                Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
         }
         finish();
     }

@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 
 //TODO: voir si il est possible d'utiliser le code bar du médicament
+//STATUS: checked
 public class CreateMedicationActivity extends Activity {
 
     private AutoCompleteTextView medicationActv;
@@ -63,7 +64,7 @@ public class CreateMedicationActivity extends Activity {
             beginMedicET.setText(selectedDate);
             retrieveDrugs();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 

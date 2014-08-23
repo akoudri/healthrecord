@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-//FIXME: voir si il est possible d'utiliser le code bar du médicament
+//STATUS: checked
 public class EditMedicationActivity extends Activity {
 
     private AutoCompleteTextView medicationActv;
@@ -68,7 +68,7 @@ public class EditMedicationActivity extends Activity {
             retrieveMedic();
             fillWidgets();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -145,13 +145,23 @@ public class EditMedicationActivity extends Activity {
         int duration = (d.equals(""))?-1:Integer.parseInt(d) - 1;
         if (stored)
         {
+            Medication m = new Medication(medic);
             medic.setDrugId(drugId);
             medic.setFrequency(freq);
             int kind = freqSpinner.getSelectedItemPosition();
             medic.setKind(HealthRecordUtils.int2kind(kind));
             medic.setStartDate(sDate);
             medic.setDuration(duration);
+            if (medic.equalsTo(m))
+            {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            }
             dataSource.getMedicationTable().updateMedication(medic);
+            //Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            Intent data = new Intent();
+            data.putExtra("medic_updated", true);
+            setResult(RESULT_OK, data);
         }
         else
         {

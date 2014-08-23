@@ -25,10 +25,9 @@ public class AilmentTable {
     public static final String AILMENT_THERAPIST_REF = "therapistId";
     public static final String AILMENT_START_DATE = "startDate";
     public static final String AILMENT_DURATION = "duration";
-    public static final String AILMENT_COMMENT = "comment";
 
     private String[] ailmentCols = {AILMENT_ID, AILMENT_PERSON_REF, AILMENT_ILLNESS_REF, AILMENT_THERAPIST_REF, AILMENT_START_DATE,
-            AILMENT_DURATION, AILMENT_COMMENT};
+            AILMENT_DURATION};
 
     public AilmentTable(SQLiteDatabase db) {
         this.db = db;
@@ -42,8 +41,7 @@ public class AilmentTable {
         sb.append(AILMENT_ILLNESS_REF + " integer,"); //not null for the case of preventive ailment
         sb.append(AILMENT_THERAPIST_REF + " integer,"); //not null for the case of auto-medication
         sb.append(AILMENT_START_DATE + " integer not null,");
-        sb.append(AILMENT_DURATION + " integer,"); //ailment with no end date can be considered permanent
-        sb.append(AILMENT_COMMENT + " text,");
+        sb.append(AILMENT_DURATION + " integer check (" + AILMENT_DURATION + " >= 0),"); //ailment with no end date can be considered permanent
         sb.append(" foreign key(" + AILMENT_PERSON_REF + ") references " + PersonTable.PERSON_TABLE +
                 "(" + PersonTable.PERSON_ID + "),");
         sb.append(" foreign key(" + AILMENT_ILLNESS_REF + ") references " + IllnessTable.ILLNESS_TABLE +
@@ -54,7 +52,7 @@ public class AilmentTable {
         db.execSQL(sb.toString());
     }
 
-    public long insertAilment(int personId, int illnessId, int therapistId, String startDate, int duration, String comment) {
+    public long insertAilment(int personId, int illnessId, int therapistId, String startDate, int duration) {
         long sd = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
         if (isOverlapping(personId, illnessId, sd, duration)) return -2;
         ContentValues values = new ContentValues();
@@ -66,12 +64,10 @@ public class AilmentTable {
         values.put(AILMENT_START_DATE, sd);
         if (duration >= 0)
             values.put(AILMENT_DURATION, duration);
-        if (comment != null)
-            values.put(AILMENT_COMMENT, comment);
         return db.insert(AILMENT_TABLE, null, values);
     }
 
-    public int updateAilment(int ailmentId, int illnessId, int therapistId, String startDate, int duration, String comment) {
+    public int updateAilment(int ailmentId, int illnessId, int therapistId, String startDate, int duration) {
         long sd = HealthRecordUtils.stringToCalendar(startDate).getTimeInMillis();
         if (isOverlappingAilment(ailmentId, illnessId, sd, duration)) return -1;
         ContentValues values = new ContentValues();
@@ -86,9 +82,6 @@ public class AilmentTable {
             values.put(AILMENT_DURATION, duration);
         else
             values.putNull(AILMENT_DURATION);
-        if (comment != null)
-            values.put(AILMENT_COMMENT, comment);
-        else values.putNull(AILMENT_COMMENT);
         return db.update(AILMENT_TABLE, values, AILMENT_ID + "=" + ailmentId, null);
     }
 
@@ -99,8 +92,7 @@ public class AilmentTable {
         int therapistId = ailment.getTherapistId();
         String startDate = ailment.getStartDate();
         int duration = ailment.getDuration();
-        String comment = ailment.getComment();
-        return updateAilment(ailmentId, illnessId, therapistId, startDate, duration, comment);
+        return updateAilment(ailmentId, illnessId, therapistId, startDate, duration);
     }
 
     public Ailment getAilmentWithId(int id) {
@@ -256,7 +248,6 @@ public class AilmentTable {
         ailment.setTherapistId((cursor.isNull(3))?0:cursor.getInt(3));
         ailment.setStartDate(HealthRecordUtils.millisToDatestring(cursor.getLong(4)));
         ailment.setDuration((cursor.isNull(5))?-1:cursor.getInt(5));
-        ailment.setComment((cursor.isNull(6))?null:cursor.getString(6));
         return ailment;
     }
 

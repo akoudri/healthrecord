@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+//STATUS: checked
 public class CreatePersonActivity extends Activity {
 
     private Spinner btSpinner;
@@ -65,12 +66,12 @@ public class CreatePersonActivity extends Activity {
             dataSourceLoaded = true;
             retrieveTherapists();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void retrieveTherapists() {
-        //I assume that doctor has id = 1
+        //I assume that generalist doctor has id = 1
         therapists = dataSource.getTherapistTable().getTherapistsWithBranchId(1);
         String[] doctors = new String[therapists.size()];
         int i = 0;
@@ -149,6 +150,7 @@ public class CreatePersonActivity extends Activity {
                         dataSource.getPersonTherapistTable().insertRelation((int) id, t.getId());
                     }
                 }
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

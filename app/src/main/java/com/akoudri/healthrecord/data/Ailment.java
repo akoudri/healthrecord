@@ -11,17 +11,15 @@ public class Ailment {
     private int therapistId;
     private String startDate;
     private int duration;
-    private String comment;
 
     public Ailment() {}
 
-    public Ailment(int personId, int illnessId, int therapistId, String startDate, int duration, String comment) {
+    public Ailment(int personId, int illnessId, int therapistId, String startDate, int duration) {
         this.personId = personId;
         this.illnessId = illnessId;
         this.therapistId = therapistId;
         this.startDate = startDate;
         this.duration = duration;
-        this.comment = comment;
     }
 
     public int getId() {
@@ -72,19 +70,10 @@ public class Ailment {
         this.duration = duration;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public boolean equalsTo(Ailment other)
     {
-        boolean checkComment = (comment == null)?other.comment == null:comment.equals(other.getComment());
         return personId == other.getPersonId() && illnessId == other.getIllnessId() &&
                 therapistId == other.getTherapistId() && startDate.equals(other.getStartDate()) &&
-                duration == other.getDuration() && checkComment;
+                duration == other.getDuration();
     }
 }

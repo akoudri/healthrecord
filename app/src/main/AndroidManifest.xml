@@ -30,7 +30,7 @@
         <activity android:name="com.akoudri.healthrecord.activity.EditAilmentActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.CreateMedicationActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditMedicationActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.akoudri.healthrecord.activity.UpdatePersonActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.EditPersonActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.CalendarActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.TherapistActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.AnalysisActivity" android:screenOrientation="portrait"/>

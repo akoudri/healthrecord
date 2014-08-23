@@ -19,6 +19,12 @@ public class CranialPerimeterMeasure extends Measure {
         this.value = value;
     }
 
+    public CranialPerimeterMeasure(CranialPerimeterMeasure measure)
+    {
+        super(measure);
+        this.value = measure.getValue();
+    }
+
     public int getValue() {
         return value;
     }

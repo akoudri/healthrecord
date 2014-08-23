@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -33,14 +34,15 @@ import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-//FIXME: check the consistency of the code
+//STATUS: checked
 public class EditAilmentActivity extends Activity {
 
     private AutoCompleteTextView illnessActv;
     private Spinner therapistSpinner;
-    private EditText startDateET, endDateET, commentET;
+    private EditText startDateET, endDateET;
     private LinearLayout medicsLayout;
 
     private HealthRecordDataSource dataSource;
@@ -56,9 +58,11 @@ public class EditAilmentActivity extends Activity {
     private Ailment ailment;
     private int thPos = 0;
     private boolean removeOccurred = false;
+    private boolean medicUpdated = false;
 
     private int reqCreateCode = 1;
     private int reqEditCode = 2;
+    private int reqUpdateCode = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +87,6 @@ public class EditAilmentActivity extends Activity {
         startDateET = (EditText) findViewById(R.id.edit_start_ailment);
         startDateET.setKeyListener(null);
         endDateET = (EditText) findViewById(R.id.edit_end_ailment);
-        //FIXME: limit the number of lines to 4
-        commentET = (EditText) findViewById(R.id.update_ailment_comment);
         medicsLayout = (LinearLayout) findViewById(R.id.edit_medics_layout);
         ailmentId = getIntent().getIntExtra("ailmentId", 0);
         day = getIntent().getIntExtra("day", 0);
@@ -106,7 +108,7 @@ public class EditAilmentActivity extends Activity {
             fillWidgets();
             createWidgets();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -126,7 +128,6 @@ public class EditAilmentActivity extends Activity {
         int d = ailment.getDuration() + 1;
         if (d > 0)
             endDateET.setText(d + "");
-        commentET.setText(ailment.getComment());
         retrieveIllnesses();
         retrieveTherapists();
     }
@@ -219,13 +220,14 @@ public class EditAilmentActivity extends Activity {
             editButton.setMinEms(10);
             editButton.setMaxEms(10);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            editButton.setTypeface(null, Typeface.BOLD);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(EditAilmentActivity.this, EditMedicationActivity.class);
                     intent.putExtra("medicationId", medic.getId());
-                    startActivity(intent);
+                    startActivityForResult(intent, reqUpdateCode);
                 }
             });
             llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -240,8 +242,6 @@ public class EditAilmentActivity extends Activity {
             removeButton = new ImageButton(this);
             removeButton.setBackgroundResource(R.drawable.remove);
             removeButton.setOnClickListener(new View.OnClickListener() {
-                //FIXME: R.string.yes/no -> getResources().getString(...)
-                //also in other files
                 @Override
                 public void onClick(View view) {
                     new AlertDialog.Builder(EditAilmentActivity.this)
@@ -288,6 +288,7 @@ public class EditAilmentActivity extends Activity {
             editButton.setMinEms(10);
             editButton.setMaxEms(10);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            editButton.setTypeface(null, Typeface.BOLD);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -315,8 +316,6 @@ public class EditAilmentActivity extends Activity {
             removeButton = new ImageButton(this);
             removeButton.setBackgroundResource(R.drawable.remove);
             removeButton.setOnClickListener(new View.OnClickListener() {
-                //FIXME: R.string.yes/no -> getResources().getString(...)
-                //also in other files
                 @Override
                 public void onClick(View view) {
                     new AlertDialog.Builder(EditAilmentActivity.this)
@@ -381,6 +380,13 @@ public class EditAilmentActivity extends Activity {
                 m.setDuration(data.getIntExtra("duration", -1));
             }
         }
+        if (requestCode == reqUpdateCode)
+        {
+            if (resultCode == RESULT_OK)
+            {
+                medicUpdated = data.getBooleanExtra("medic_updated", false);
+            }
+        }
     }
 
     public void editAddMedic(View view)
@@ -393,7 +399,6 @@ public class EditAilmentActivity extends Activity {
         startActivityForResult(intent, 1);
     }
 
-    //FIXME: manage the case where updates occurred in the list of medics
     public void updateAilment(View view)
     {
         if (ailmentId == 0 || day <= 0 || month <= 0 || year <= 0)
@@ -418,14 +423,17 @@ public class EditAilmentActivity extends Activity {
         String d = endDateET.getText().toString();
         if (!d.equals("")) duration = Integer.parseInt(d) - 1;
         int thId = (t == null)?0:t.getId();
-        String comment = commentET.getText().toString();
-        if (comment.equals("")) comment = null;
-        Ailment a = new Ailment(ailment.getPersonId(), illnessId, thId, sDate, duration, comment);
+        Ailment a = new Ailment(ailment.getPersonId(), illnessId, thId, sDate, duration);
+        if (ailment.equalsTo(a) && medicUpdated)
+        {
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         if (ailment.equalsTo(a) && medications.size() == 0 && !removeOccurred)
         {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
             removeOccurred = false;
-            finish();
             return;
         }
         a.setId(ailmentId);
@@ -450,7 +458,8 @@ public class EditAilmentActivity extends Activity {
     public void editStartAilmentPickerDialog(View view)
     {
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, startDateET);
+        Calendar today = Calendar.getInstance();
+        dfrag.init(this, startDateET, HealthRecordUtils.stringToCalendar(ailment.getStartDate()), null, today);
         dfrag.show(getFragmentManager(), "Select Start Ailment Date");
     }
 

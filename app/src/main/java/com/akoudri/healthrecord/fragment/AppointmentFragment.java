@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,22 +23,27 @@ import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranch;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.util.Calendar;
 import java.util.List;
 
-
+//STATUS: checked
 public class AppointmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
     private int personId, day, month, year;
 
     private View view;
+    private Button addApptButton;
 
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
 
     private int appointmentId = 0;
+
+    private String selectedDate;
 
     public static AppointmentFragment newInstance()
     {
@@ -47,11 +53,23 @@ public class AppointmentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
+        addApptButton = (Button) view.findViewById(R.id.add_appt_button);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         day = getActivity().getIntent().getIntExtra("day", 0);
         month = getActivity().getIntent().getIntExtra("month", 0);
         year = getActivity().getIntent().getIntExtra("year", 0);
+        selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+        Calendar currentDate = HealthRecordUtils.stringToCalendar(selectedDate);
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+        if (currentDate.before(today))
+        {
+            addApptButton.setEnabled(false);
+        }
         return view;
     }
 
@@ -66,8 +84,7 @@ public class AppointmentFragment extends Fragment {
     private void createWidgets()
     {
         layout.removeAllViews();
-        String date = String.format("%02d/%02d/%4d", day, month + 1, year);
-        List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
+        List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, selectedDate);
         if (allAppointments == null || allAppointments.size() == 0) return;
         int margin = 1;
         Button apptButton, removeButton, editButton;
@@ -78,7 +95,6 @@ public class AppointmentFragment extends Fragment {
         TherapyBranchTable branchTable = dataSource.getTherapyBranchTable();
         Therapist therapist;
         TherapyBranch branch;
-        //FIXME: optimization -> clear StringBuilder instead on instanciating it for all classes
         StringBuilder sb;
         int r = 0; //row index
         for (Appointment appt : allAppointments)
@@ -102,6 +118,7 @@ public class AppointmentFragment extends Fragment {
             apptButton = new Button(getActivity());
             apptButton.setText(sb.toString());
             apptButton.setTextSize(16);
+            apptButton.setTypeface(null, Typeface.BOLD);
             apptButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             apptButton.setMinEms(12);
             apptButton.setMaxEms(12);
@@ -133,6 +150,7 @@ public class AppointmentFragment extends Fragment {
                 editButton.setText(getResources().getString(R.string.edit));
                 editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 editButton.setTextSize(12);
+                editButton.setTypeface(null, Typeface.BOLD);
                 editButton.setMinEms(4);
                 editButton.setMaxEms(4);
                 editButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -161,6 +179,7 @@ public class AppointmentFragment extends Fragment {
                 removeButton.setText(getResources().getString(R.string.remove));
                 removeButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 removeButton.setTextSize(12);
+                removeButton.setTypeface(null, Typeface.BOLD);
                 removeButton.setMinEms(4);
                 removeButton.setMaxEms(4);
                 removeButton.setBackgroundResource(R.drawable.healthrecord_button);

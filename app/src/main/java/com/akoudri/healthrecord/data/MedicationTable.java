@@ -46,7 +46,7 @@ public class MedicationTable {
         sb.append(MEDICATION_FREQUENCY + " integer not null,");
         sb.append(MEDICATION_KIND + " integer not null,");
         sb.append(MEDICATION_START_DATE + " integer not null,");
-        sb.append(MEDICATION_DURATION + " integer,"); //medication with no end date are for chronic ailments
+        sb.append(MEDICATION_DURATION + " integer check (" + MEDICATION_DURATION + " >= 0),"); //medication with no end date are for chronic ailments
         sb.append(" foreign key(" + MEDICATION_AILMENT_REF + ") references " + AilmentTable.AILMENT_TABLE +
                 "(" + AilmentTable.AILMENT_ID + "),");
         sb.append(" foreign key(" + MEDICATION_DRUG_REF + ") references " + DrugTable.DRUG_TABLE +
@@ -55,7 +55,6 @@ public class MedicationTable {
         db.execSQL(sb.toString());
     }
 
-    //TODO: check conformity of dates with owning ailment
     public long insertMedication(int personId, int ailmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
         ContentValues values = new ContentValues();
         values.put(MEDICATION_PERSON_REF, personId);

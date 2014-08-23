@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -23,7 +24,7 @@ import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.List;
 
-
+//STATUS: checked
 public class AilmentFragment extends Fragment {
 
     private HealthRecordDataSource dataSource;
@@ -90,6 +91,7 @@ public class AilmentFragment extends Fragment {
             if (illnessName.length() > 20) illnessName = illnessName.substring(0,20) + "...";
             ailmentButton.setText(illnessName);
             ailmentButton.setTextSize(16);
+            ailmentButton.setTypeface(null, Typeface.BOLD);
             ailmentButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
             ailmentButton.setMinEms(14);
             ailmentButton.setMaxEms(14);
@@ -121,6 +123,7 @@ public class AilmentFragment extends Fragment {
                 editButton.setText(getResources().getString(R.string.edit));
                 editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 editButton.setTextSize(12);
+                editButton.setTypeface(null, Typeface.BOLD);
                 editButton.setMinEms(5);
                 editButton.setBackgroundResource(R.drawable.healthrecord_button);
                 Drawable img = getResources().getDrawable(R.drawable.update);
@@ -152,6 +155,7 @@ public class AilmentFragment extends Fragment {
                 stopButton.setText(getResources().getString(R.string.stop));
                 stopButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 stopButton.setTextSize(12);
+                stopButton.setTypeface(null, Typeface.BOLD);
                 stopButton.setMinEms(5);
                 stopButton.setBackgroundResource(R.drawable.healthrecord_button);
                 if (!has_duration)
@@ -188,6 +192,7 @@ public class AilmentFragment extends Fragment {
                 removeButton.setText(getResources().getString(R.string.remove));
                 removeButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 removeButton.setTextSize(12);
+                removeButton.setTypeface(null, Typeface.BOLD);
                 removeButton.setMinEms(5);
                 removeButton.setBackgroundResource(R.drawable.healthrecord_button);
                 img = getResources().getDrawable(R.drawable.delete);

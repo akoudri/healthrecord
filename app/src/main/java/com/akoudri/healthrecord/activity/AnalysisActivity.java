@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
+//STATUS: checked
 public class AnalysisActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
@@ -46,12 +46,8 @@ public class AnalysisActivity extends Activity {
     private Spinner measureSpinner;
     private EditText startET, endET;
 
-    //TODO: set as general property and compute ratio like for calendar
-    private final static int tsize = 24;
-    private final static int ttsize = 8;
-    private final static float psize = 5f;
-    private final static int[] margins = new int[] {5, 20, 20, 5};
-
+    private int tsize, ttsize, psize, margin_left_right, margin_bottom_top;
+    private int[] margins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +64,12 @@ public class AnalysisActivity extends Activity {
         startET.setKeyListener(null);
         endET = (EditText) findViewById(R.id.end_measure);
         endET.setKeyListener(null);
+        tsize = 16;
+        ttsize = 12;
+        psize = 5;
+        margin_left_right = (int) HealthRecordUtils.convertPixelsToDp(5, this);
+        margin_bottom_top = (int) HealthRecordUtils.convertPixelsToDp(20, this);
+        margins = new int[] {margin_left_right, margin_bottom_top, margin_bottom_top, margin_left_right};
     }
 
     @Override
@@ -78,7 +80,7 @@ public class AnalysisActivity extends Activity {
             dataSource.open();
             dataSourceLoaded = true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -94,14 +96,16 @@ public class AnalysisActivity extends Activity {
     public void setAnalysisStartDate(View view)
     {
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, startET);
+        Calendar c = Calendar.getInstance();
+        dfrag.init(this, startET, c, null, c);
         dfrag.show(getFragmentManager(), "Pick Analysis Start Date");
     }
 
     public void setAnalysisEndDate(View view)
     {
         DatePickerFragment dfrag = new DatePickerFragment();
-        dfrag.init(this, endET);
+        Calendar c = Calendar.getInstance();
+        dfrag.init(this, endET, c, null, c);
         dfrag.show(getFragmentManager(), "Pick Analysis End Date");
     }
 

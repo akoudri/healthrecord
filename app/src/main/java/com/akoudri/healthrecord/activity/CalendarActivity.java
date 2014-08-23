@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
@@ -15,6 +16,7 @@ import java.util.Calendar;
 
 /**
  * Created by Ali Koudri on 19/07/14.
+ * STATUS: checked
  */
 public class CalendarActivity extends Activity implements CalendarContentProvider {
 
@@ -52,7 +54,7 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
             calendarView.setWidth(width);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 

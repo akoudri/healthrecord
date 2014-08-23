@@ -19,6 +19,12 @@ public class SizeMeasure extends Measure {
         this.value = value;
     }
 
+    public SizeMeasure(SizeMeasure measure)
+    {
+        super(measure);
+        this.value = measure.getValue();
+    }
+
     public int getValue() {
         return value;
     }

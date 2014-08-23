@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -33,13 +34,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//I trust the user to not create two same ailments on overlapping periods
-//TODO: Add constraint on corresponding table
+//STATUS: checked
 public class CreateAilmentActivity extends Activity {
 
     private AutoCompleteTextView illnessActv;
     private Spinner therapistSpinner;
-    private EditText endDateET, commentET;
+    private EditText endDateET;
     private LinearLayout medicsLayout;
     
     private HealthRecordDataSource dataSource;
@@ -76,8 +76,6 @@ public class CreateAilmentActivity extends Activity {
             }
         });
         endDateET = (EditText) findViewById(R.id.end_ailment);
-        //FIXME: limit the number of lines to 4
-        commentET = (EditText) findViewById(R.id.add_ailment_comment);
         medicsLayout = (LinearLayout) findViewById(R.id.medics_layout);
         personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
@@ -98,7 +96,7 @@ public class CreateAilmentActivity extends Activity {
             retrieveTherapists();
             createWidgets();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -184,6 +182,7 @@ public class CreateAilmentActivity extends Activity {
             editButton.setMinEms(10);
             editButton.setMaxEms(10);
             editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            editButton.setTypeface(null, Typeface.BOLD);
             editButton.setBackgroundResource(R.drawable.healthrecord_button);
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -211,8 +210,6 @@ public class CreateAilmentActivity extends Activity {
             removeButton = new ImageButton(this);
             removeButton.setBackgroundResource(R.drawable.remove);
             removeButton.setOnClickListener(new View.OnClickListener() {
-                //FIXME: R.string.yes/no -> getResources().getString(...)
-                //also in other files
                 @Override
                 public void onClick(View view) {
                     new AlertDialog.Builder(CreateAilmentActivity.this)
@@ -319,10 +316,8 @@ public class CreateAilmentActivity extends Activity {
         int duration = -1;
         String d = endDateET.getText().toString();
         if (!d.equals("")) duration = Integer.parseInt(d) - 1;
-        String comment = commentET.getText().toString();
-        if (comment.equals("")) comment = null;
         int therapistId = (t==null)?0:t.getId();
-        int ailmentId = (int) dataSource.getAilmentTable().insertAilment(personId, illnessId, therapistId, sDate, duration, comment);
+        int ailmentId = (int) dataSource.getAilmentTable().insertAilment(personId, illnessId, therapistId, sDate, duration);
         if (ailmentId == -2)
         {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.overlapping_ailment), Toast.LENGTH_SHORT).show();
@@ -341,6 +336,7 @@ public class CreateAilmentActivity extends Activity {
             m.setAilmentId(ailmentId);
             table.insertMedication(m);
         }
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         finish();
     }
 

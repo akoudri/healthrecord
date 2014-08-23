@@ -23,6 +23,14 @@ public class HeartMeasure extends Measure {
         this.heartbeat = heartbeat;
     }
 
+    public HeartMeasure(HeartMeasure measure)
+    {
+        super(measure);
+        this.diastolic = measure.getDiastolic();
+        this.systolic = measure.getSystolic();
+        this.heartbeat = measure.getHeartbeat();
+    }
+
     public int getDiastolic() {
         return diastolic;
     }

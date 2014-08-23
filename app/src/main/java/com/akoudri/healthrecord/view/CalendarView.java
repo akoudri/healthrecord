@@ -16,6 +16,7 @@ import android.view.View;
 import com.akoudri.healthrecord.activity.CalendarActivity;
 import com.akoudri.healthrecord.activity.EditDayActivity;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ import java.util.Locale;
 /**
  * Created by Ali Koudri on 27/04/14.
  * Implements a calendar view for health record
+ * STATUS: to check more accurately with schema
  */
 public class CalendarView extends View implements View.OnTouchListener {
 
@@ -37,12 +39,12 @@ public class CalendarView extends View implements View.OnTouchListener {
     private String[] daysOfWeek; //to display on the screen
     private List<Rect> rects; //list of coordinates representing the days
     private float ratio; //used to adapt sizes between various screen configurations
-    private static final int titleSize = 42; //absolute size of the month.year
-    private static final int tableTitleSize = 20; //absolute size of the days
+    private int titleSize; //absolute size of the month.year
+    private int tableTitleSize; //absolute size of the days
     private float tsize, ttsize; //relative size of the month.year and days
-    private static final int corner = 5; //radius of the rectangles
-    private static final float nbRatio = 0.3f; //used to calculate delta
-    private float delta; //internal vertical space in the cells
+    private int corner; //radius of the rectangles
+    private float nbRatio; //used to calculate delta
+    //private float delta; //internal vertical space in the cells
     private float stepx, stepy; //used to display the cells of the calendar -> 7x6 cells
     private float yCalendar; //y coordinate for the first row of the calendar
     private Rect selectedRect = null; //references the cell that has been touched by the user
@@ -66,7 +68,8 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int[] observations;
 
     //Icons
-    Bitmap illnessIco, measureIco, medicsIco, rvIco, obsIco;
+    private Bitmap illnessIco, measureIco, medicsIco, rvIco;
+    //private Bitmap obsIco;
     private boolean imagesFound = true;
     private int imgSize;
 
@@ -88,17 +91,22 @@ public class CalendarView extends View implements View.OnTouchListener {
             inputStream = assetManager.open("images/medics_ico.png");
             medicsIco = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
-            inputStream = assetManager.open("images/eye_ico.png");
-            obsIco = BitmapFactory.decodeStream(inputStream);
-            inputStream.close();
+            //inputStream = assetManager.open("images/eye_ico.png");
+            //obsIco = BitmapFactory.decodeStream(inputStream);
+            //inputStream.close();
         } catch (IOException e)
         {
             imagesFound = false;
         }
+        //Metrics
+        titleSize = 32;
+        tableTitleSize = 20;
+        corner = (int) HealthRecordUtils.convertPixelsToDp(5, context);
+        nbRatio = HealthRecordUtils.convertPixelsToDp(0.3f, context);
         //Paint
         paint = new Paint();//set paint object
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint.setStrokeWidth(8.0f * ratio);
+        paint.setStrokeWidth(16.0f * ratio);
         //Actual and reference dates
         _cal = Calendar.getInstance();//set _cal and today to current day
         _cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -130,14 +138,14 @@ public class CalendarView extends View implements View.OnTouchListener {
     public void setWidth(int width)
     {
         this.width = width;
-        this.height = (int) (width * 1.5);
+        this.height = (int) (width * 1.618033989);
         ratio = width/480.0f;
         stepx = width / 7;
         tsize = titleSize * ratio;
         ttsize = tableTitleSize * ratio;
         yCalendar = 3 * (tsize + ttsize) + 10;
         stepy = (height - yCalendar) / 6;
-        delta = stepy * (nbRatio + 1) / 2;
+        //delta = stepy * (nbRatio + 1) / 2;
         imgSize = (int) (24 * ratio);
     }
 
@@ -273,7 +281,7 @@ public class CalendarView extends View implements View.OnTouchListener {
             paint.setStyle(Paint.Style.STROKE);
             canvas.drawRoundRect(rectf, corner, corner, paint);
             paint.setStyle(Paint.Style.FILL);
-            canvas.drawText("" + day, (rect.right + rect.left) / 2, (rect.bottom + rect.top + ttsize) / 2, paint);
+            canvas.drawText("" + day, (rect.right + rect.left) / 2, (rect.bottom + rect.top) / 2 + ttsize / 3, paint);
             if (isBeforeActualDate[i])
                 canvas.drawLine(rect.left + c, rect.bottom - c, rect.right - c, rect.top + c, paint);
             paint.setStyle(Paint.Style.FILL);
@@ -283,11 +291,10 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     private void displayInformation(Canvas canvas)
     {
-        //TODO: evaluate whether it is relevant to display icons
         Rect rect;
-        int sx = 4;
-        int sy = 4;
-        int rcirc = (int) (4 * ratio);
+        int sx = 3;
+        int sy = 3;
+        int rcirc = (int) (16 * ratio);
         Rect b_rect = new Rect();
         if (imagesFound) {
             for (int i = min_day; i <= max_day; i++) {
@@ -321,11 +328,12 @@ public class CalendarView extends View implements View.OnTouchListener {
                     canvas.drawBitmap(medicsIco, null, b_rect, null);
                 }
                 if (observations[i - 1] > 0) {
-                    b_rect.left = (rect.right + rect.left - imgSize) / 2;
-                    b_rect.right = (rect.right + rect.left + imgSize) / 2;
-                    b_rect.top = (rect.bottom + rect.top - imgSize) / 2;
-                    b_rect.bottom = (rect.bottom + rect.top + imgSize) / 2;
-                    canvas.drawBitmap(obsIco, null, b_rect, null);
+                    int xa = (rect.right + rect.left) / 2;
+                    int yi = (rect.bottom + rect.top) / 2;
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setColor(getResources().getColor(R.color.measuresColor));
+                    canvas.drawCircle(xa, yi, rcirc, paint);
+                    paint.setStyle(Paint.Style.FILL);
                 }
             }
         }

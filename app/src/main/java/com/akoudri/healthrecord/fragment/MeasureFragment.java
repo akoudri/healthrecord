@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,7 +22,7 @@ import com.akoudri.healthrecord.data.Measure;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//STATUS: checked
 public class MeasureFragment extends Fragment {
 
     private View view;
@@ -85,6 +86,7 @@ public class MeasureFragment extends Fragment {
             measureButton.setText(measure.getValueString());
             measureButton.setTextSize(16);
             measureButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
+            measureButton.setTypeface(null, Typeface.BOLD);
             measureButton.setMinEms(12);
             measureButton.setMaxEms(12);
             measureButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -142,6 +144,7 @@ public class MeasureFragment extends Fragment {
                 editButton.setText(getResources().getString(R.string.edit));
                 editButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 editButton.setTextSize(12);
+                editButton.setTypeface(null, Typeface.BOLD);
                 editButton.setMinEms(4);
                 editButton.setMaxEms(4);
                 editButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -171,6 +174,7 @@ public class MeasureFragment extends Fragment {
                 removeButton.setText(getResources().getString(R.string.remove));
                 removeButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
                 removeButton.setTextSize(12);
+                removeButton.setTypeface(null, Typeface.BOLD);
                 removeButton.setMinEms(4);
                 removeButton.setMaxEms(4);
                 removeButton.setBackgroundResource(R.drawable.healthrecord_button);

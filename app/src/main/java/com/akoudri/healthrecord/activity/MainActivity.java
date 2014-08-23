@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -14,14 +15,17 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Person;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
 import java.util.List;
 
+//STATUS: checked
 public class MainActivity extends Activity {
 
     private static final String dbLoaded = "DB_LOADED";
@@ -66,7 +70,7 @@ public class MainActivity extends Activity {
             }
             createWidgets();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -102,13 +106,14 @@ public class MainActivity extends Activity {
     {
         layout.removeAllViews();
         List<Person> allPersons = dataSource.getPersonTable().getAllPersons();
-        int margin = 1;
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, this);
         if (allPersons == null || allPersons.size() == 0)
             return;
         Button personButton;
         ImageButton editButton, removeButton, calendarButton, therapistButton, analysisButton;
         layout.setColumnCount(5);
         int r = 0; //row index
+        int tsize = 16;
         for (final Person p : allPersons)
         {
             final int personId = p.getId();
@@ -122,7 +127,8 @@ public class MainActivity extends Activity {
             else pName = name;
             personButton.setText(pName);
             personButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            personButton.setTextSize(16);
+            personButton.setTextSize(tsize);
+            personButton.setTypeface(null, Typeface.BOLD);
             personButton.setMinEms(13);
             personButton.setMaxEms(13);
             personButton.setBackgroundResource(R.drawable.healthrecord_button);
@@ -216,7 +222,7 @@ public class MainActivity extends Activity {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(MainActivity.this, UpdatePersonActivity.class);
+                        Intent intent = new Intent(MainActivity.this, EditPersonActivity.class);
                         intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
@@ -247,6 +253,7 @@ public class MainActivity extends Activity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         dataSource.getPersonTherapistTable().removePersonRelations(personId);
                                         dataSource.getPersonTable().removePersonWithId(personId);
+                                        //Toast.makeText(MainActivity.this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
                                         createWidgets();
                                     }
                                 })
@@ -270,7 +277,6 @@ public class MainActivity extends Activity {
 
     public void addPerson(View view)
     {
-        personId = 0;
         startActivity(new Intent(this, CreatePersonActivity.class));
     }
 

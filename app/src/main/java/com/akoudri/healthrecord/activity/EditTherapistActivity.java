@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//STATUS: checked
 public class EditTherapistActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
@@ -61,7 +61,7 @@ public class EditTherapistActivity extends Activity {
             specialityET.setAdapter(adapter);
             fillWidgets();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -116,7 +116,6 @@ public class EditTherapistActivity extends Activity {
             Therapist t = new Therapist(name, phoneNumber, cellPhoneNumber, email, branchId);
             if (therapist.equalsTo(t)) {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
-                finish();
                 return;
             }
             boolean hasUpdated = dataSource.getTherapistTable().updateTherapist(thId, name, phoneNumber, cellPhoneNumber, email, branchId);

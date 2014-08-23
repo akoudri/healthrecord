@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class UpdatePersonActivity extends Activity {
+public class EditPersonActivity extends Activity {
 
     private Spinner btSpinner;
     private EditText nameET, birthdateET, ssnET;
@@ -68,7 +68,7 @@ public class UpdatePersonActivity extends Activity {
             person = dataSource.getPersonTable().getPersonWithId(personId);
             fillWidgets();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
     }
 

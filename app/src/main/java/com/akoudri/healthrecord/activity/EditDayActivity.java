@@ -87,7 +87,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         //today
         today =  Calendar.getInstance();
         //Touch management
-        View view = (View) findViewById(R.id.edit_day_layout);
+        View view = findViewById(R.id.today_layout);
         view.setOnTouchListener(this);
     }
 
@@ -370,32 +370,32 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     private void refreshFrag()
     {
+        ovFrag.setCurrentDate(day, month, year);
+        measureFrag.setCurrentDate(day, month, year);
+        obsFrag.setCurrentDate(day, month, year);
+        apptFrag.setCurrentDate(day, month, year);
+        ailmentFrag.setCurrentDate(day, month, year);
         if (currentFrag instanceof OverviewFragment){
-            ovFrag.setCurrentDate(day, month, year);
             ovFrag.refresh();
             return;
         }
         if (currentFrag instanceof MeasureFragment)
         {
-            measureFrag.setCurrentDate(day, month, year);
             measureFrag.refresh();
             return;
         }
         if (currentFrag instanceof ObservationFragment)
         {
-            obsFrag.setCurrentDate(day, month, year);
             obsFrag.refresh();
             return;
         }
         if (currentFrag instanceof AppointmentFragment)
         {
-            apptFrag.setCurrentDate(day, month, year);
             apptFrag.refresh();
             return;
         }
         if (currentFrag instanceof AilmentFragment)
         {
-            ailmentFrag.setCurrentDate(day, month, year);
             ailmentFrag.refresh();
             return;
         }

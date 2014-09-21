@@ -18,6 +18,7 @@ import com.akoudri.healthrecord.activity.EditMeasureActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Measure;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +78,8 @@ public class MeasureFragment extends Fragment {
         Button measureButton, removeButton, editButton;
         Drawable img;
         layout.setColumnCount(2);
-        int margin = 1;
-        int childWidth = layout.getWidth()/2 - 4*margin;
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, getActivity());
+        int childWidth = layout.getWidth()/2 - 2*margin;
         int r = 0; //row index
         for (final Measure measure : allMeasures)
         {

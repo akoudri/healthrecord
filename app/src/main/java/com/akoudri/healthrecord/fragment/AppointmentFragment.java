@@ -92,11 +92,11 @@ public class AppointmentFragment extends Fragment {
         layout.removeAllViews();
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, selectedDate);
         if (allAppointments == null || allAppointments.size() == 0) return;
-        int margin = 1;
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, getActivity());
         Button apptButton, removeButton, editButton;
         ImageButton rButton;
         layout.setColumnCount(2);
-        int childWidth = layout.getWidth()/2 - 4*margin;
+        int childWidth = layout.getWidth()/2 - 2*margin;
         TherapistTable therapistTable = dataSource.getTherapistTable();
         TherapyBranchTable branchTable = dataSource.getTherapyBranchTable();
         Therapist therapist;

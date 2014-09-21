@@ -18,6 +18,7 @@ import com.akoudri.healthrecord.activity.EditObservationActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.MedicalObservation;
+import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.List;
 
@@ -73,10 +74,10 @@ public class ObservationFragment extends Fragment {
         layout.removeAllViews();
         List<MedicalObservation> allObservations = dataSource.getMedicalObservationTable().getDayObservationsForPerson(personId, date);
         if (allObservations == null || allObservations.size() == 0) return;
-        int margin = 1;
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, getActivity());
         Button obsButton, removeButton, editButton;
         layout.setColumnCount(2);
-        int childWidth = layout.getWidth()/2 - 4*margin;
+        int childWidth = layout.getWidth()/2 - 2*margin;
         MedicalObservation observation;
         int r = 0; //row index
         for (MedicalObservation obs : allObservations)

@@ -51,7 +51,7 @@ public class EditAppointmentActivity extends Activity {
     private int apptId;
     private Appointment appt;
 
-    private final int margin = 5;
+    private int margin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class EditAppointmentActivity extends Activity {
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
         dataSource = HealthRecordDataSource.getInstance(this);
+        margin = (int) HealthRecordUtils.convertPixelsToDp(3, this);
         //Existing appointment
         apptId = getIntent().getIntExtra("apptId", 0);
         //New appointment

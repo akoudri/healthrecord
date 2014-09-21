@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
     {
         layout.removeAllViews();
         List<Person> allPersons = dataSource.getPersonTable().getAllPersons();
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, this);
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, this);
         if (allPersons == null || allPersons.size() == 0)
             return;
         Button personButton;

@@ -52,7 +52,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     //used to manage navigation between days
     private int tx = 0;
-    private int ty = 0;
 
 
     @Override
@@ -93,7 +92,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     private void initDayMenuLayout()
     {
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, this);
         LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llparams.gravity = Gravity.CENTER_VERTICAL;
         llparams.bottomMargin = margin;
@@ -185,14 +184,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
                 obsButton.setEnabled(false);
                 illnessButton.setEnabled(false);
             }
-            /*
-            today.set(Calendar.HOUR_OF_DAY, 0);
-            today.set(Calendar.MINUTE, 0);
-            today.set(Calendar.SECOND, 0);
-            today.set(Calendar.MILLISECOND, 0);
-            if (currentDay.before(today))
-                rvButton.setEnabled(false);
-            */
         } catch (SQLException e) {
             Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
@@ -341,7 +332,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
                 tx = (int) event.getX();
-                ty = (int) event.getY();
                 break;
             case MotionEvent.ACTION_UP:
                 xm = (int) event.getX();
@@ -363,7 +353,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
                     refreshFrag();
                 }
                 tx = 0;
-                ty = 0;
         }
         return true;
     }

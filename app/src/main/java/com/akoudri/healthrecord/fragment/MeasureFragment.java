@@ -21,6 +21,7 @@ import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 //STATUS: checked
@@ -31,10 +32,13 @@ public class MeasureFragment extends Fragment {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+    private Button add_btn;
 
     private HealthRecordDataSource dataSource;
     private int personId;
     private String date;
+
+    private Calendar currentDay, today;
 
     private int mID = 0;
     private int mType = 0;
@@ -48,6 +52,12 @@ public class MeasureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_measure, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_measures_grid);
+        add_btn = (Button) view.findViewById(R.id.add_measure_btn);
+        today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
@@ -57,6 +67,9 @@ public class MeasureFragment extends Fragment {
         super.onResume();
         if (personId == 0) return;
         if (dataSource == null) return;
+        currentDay = HealthRecordUtils.stringToCalendar(date);
+        if (currentDay.after(today))
+            add_btn.setEnabled(false);
         createWidgets();
     }
 
@@ -67,6 +80,11 @@ public class MeasureFragment extends Fragment {
 
     public void refresh()
     {
+        currentDay = HealthRecordUtils.stringToCalendar(date);
+        if (currentDay.after(today))
+            add_btn.setEnabled(false);
+        else
+            add_btn.setEnabled(true);
         createWidgets();
     }
 

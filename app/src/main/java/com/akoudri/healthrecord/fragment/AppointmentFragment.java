@@ -41,7 +41,10 @@ public class AppointmentFragment extends Fragment {
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
 
+    private Calendar currentDay, today;
+
     private int appointmentId = 0;
+    private int count = 0;
 
     private String selectedDate;
 
@@ -56,13 +59,14 @@ public class AppointmentFragment extends Fragment {
         addApptButton = (Button) view.findViewById(R.id.add_appt_button);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        Calendar currentDate = HealthRecordUtils.stringToCalendar(selectedDate);
-        Calendar today = Calendar.getInstance();
+        currentDay = HealthRecordUtils.stringToCalendar(selectedDate);
+        today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
-        if (currentDate.before(today))
+        count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
+        if (count == 0 || currentDay.before(today))
         {
             addApptButton.setEnabled(false);
         }
@@ -84,6 +88,11 @@ public class AppointmentFragment extends Fragment {
 
     public void refresh()
     {
+        currentDay = HealthRecordUtils.stringToCalendar(selectedDate);
+        if ((currentDay.equals(today) || currentDay.after(today)) && count > 0)
+            addApptButton.setEnabled(true);
+        else
+            addApptButton.setEnabled(false);
         createWidgets();
     }
 

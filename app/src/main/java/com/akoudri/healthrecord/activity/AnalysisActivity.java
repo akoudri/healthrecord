@@ -64,9 +64,9 @@ public class AnalysisActivity extends Activity {
         startET.setKeyListener(null);
         endET = (EditText) findViewById(R.id.end_measure);
         endET.setKeyListener(null);
-        tsize = 16;
-        ttsize = 12;
-        psize = 5;
+        tsize = (int) HealthRecordUtils.convertPixelsToDp(16, this);
+        ttsize = (int) HealthRecordUtils.convertPixelsToDp(12, this);
+        psize = (int) HealthRecordUtils.convertPixelsToDp(5, this);
         margin_left_right = (int) HealthRecordUtils.convertPixelsToDp(5, this);
         margin_bottom_top = (int) HealthRecordUtils.convertPixelsToDp(20, this);
         margins = new int[] {margin_left_right, margin_bottom_top, margin_bottom_top, margin_left_right};

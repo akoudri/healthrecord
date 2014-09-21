@@ -84,7 +84,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         currentDay.set(Calendar.MONTH, month);
         currentDay.set(Calendar.YEAR, year);
         //today
-        today =  Calendar.getInstance();
+        //today =  Calendar.getInstance();
         //Touch management
         View view = findViewById(R.id.today_layout);
         view.setOnTouchListener(this);
@@ -175,6 +175,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
             ailmentFrag.setDataSource(dataSource);
             obsFrag.setCurrentDate(day, month, year);
             obsFrag.setDataSource(dataSource);
+            /*
             int count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
             if (count == 0)
                 rvButton.setEnabled(false);
@@ -184,6 +185,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
                 obsButton.setEnabled(false);
                 illnessButton.setEnabled(false);
             }
+            */
         } catch (SQLException e) {
             Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }

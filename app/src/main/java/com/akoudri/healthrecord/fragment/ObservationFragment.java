@@ -20,6 +20,7 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.MedicalObservation;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.util.Calendar;
 import java.util.List;
 
 //STATUS: checked
@@ -33,6 +34,9 @@ public class ObservationFragment extends Fragment {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
+    private Button add_btn;
+
+    private Calendar currentDay, today;
 
     private int observationId = 0;
 
@@ -47,6 +51,12 @@ public class ObservationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_observation, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_observations_grid);
+        add_btn = (Button) view.findViewById(R.id.add_observation_btn);
+        today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
@@ -56,6 +66,9 @@ public class ObservationFragment extends Fragment {
         super.onResume();
         if (personId == 0) return;
         if (dataSource == null) return;
+        currentDay = HealthRecordUtils.stringToCalendar(date);
+        if (currentDay.after(today))
+            add_btn.setEnabled(false);
         createWidgets();
     }
 
@@ -66,6 +79,11 @@ public class ObservationFragment extends Fragment {
 
     public void refresh()
     {
+        currentDay = HealthRecordUtils.stringToCalendar(date);
+        if (currentDay.after(today))
+            add_btn.setEnabled(false);
+        else
+            add_btn.setEnabled(true);
         createWidgets();
     }
 

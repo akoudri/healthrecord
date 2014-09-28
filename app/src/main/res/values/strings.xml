@@ -488,5 +488,7 @@
     <string name="add_observation">Add observation</string>
     <string name="description">Description</string>
     <string name="database_access_impossible">Database access impossible</string>
+    <string name="about">About</string>
+    <string name="made_by">Made by AYA (akoudri@free.fr)\nUse of AChartEngine (http://www.achartengine.org/) for charts\nUse of icons from openclipart (https://openclipart.org/)</string>
 
 </resources>

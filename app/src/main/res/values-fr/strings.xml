@@ -344,5 +344,7 @@
     <string name="add_observation">Ajouter observation</string>
     <string name="description">Description</string>
     <string name="database_access_impossible">Accès à la base de données impossible</string>
+    <string name="about">A propos</string>
+    <string name="made_by">Créé par AYA (akoudri@free.fr)\nUtilisation de AChartEngine (http://www.achartengine.org/) pour les graphes\nUtilisation d\'icons d\'Openclipart (https://openclipart.org/)</string>
 
 </resources>

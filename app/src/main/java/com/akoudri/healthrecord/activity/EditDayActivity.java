@@ -92,7 +92,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     private void initDayMenuLayout()
     {
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, this);
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         LinearLayout.LayoutParams llparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         llparams.gravity = Gravity.CENTER_VERTICAL;
         llparams.bottomMargin = margin;

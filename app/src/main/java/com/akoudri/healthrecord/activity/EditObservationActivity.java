@@ -55,7 +55,7 @@ public class EditObservationActivity extends Activity {
         hLayout = (LinearLayout) findViewById(R.id.obs_hour_layout);
         descET = (EditText) findViewById(R.id.edit_obs_desc);
         dataSource = HealthRecordDataSource.getInstance(this);
-        margin = (int) HealthRecordUtils.convertPixelsToDp(3, this);
+        margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         //Existing appointment
         obsId = getIntent().getIntExtra("obsId", 0);
         //New appointment

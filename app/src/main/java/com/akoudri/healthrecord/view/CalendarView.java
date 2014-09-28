@@ -39,8 +39,8 @@ public class CalendarView extends View implements View.OnTouchListener {
     private String[] daysOfWeek; //to display on the screen
     private List<Rect> rects; //list of coordinates representing the days
     private float ratio; //used to adapt sizes between various screen configurations
-    private int titleSize; //absolute size of the month.year
-    private int tableTitleSize; //absolute size of the days
+    //private int titleSize; //absolute size of the month.year
+    //private int tableTitleSize; //absolute size of the days
     private float tsize, ttsize; //relative size of the month.year and days
     private int corner; //radius of the rectangles
     private float nbRatio; //used to calculate delta
@@ -99,8 +99,8 @@ public class CalendarView extends View implements View.OnTouchListener {
             imagesFound = false;
         }
         //Metrics
-        titleSize = 32;
-        tableTitleSize = 20;
+        //titleSize = 24;
+        //tableTitleSize = 12;
         corner = (int) HealthRecordUtils.convertPixelsToDp(5, context);
         nbRatio = HealthRecordUtils.convertPixelsToDp(0.3f, context);
         //Paint
@@ -139,14 +139,15 @@ public class CalendarView extends View implements View.OnTouchListener {
     {
         this.width = width;
         this.height = (int) (width * 1.618033989);
-        ratio = width/480.0f;
+        //ratio = width/480.0f;
+        ratio = HealthRecordUtils.getDisplayRatio((CalendarActivity)calendarContentProvider);
         stepx = width / 7;
-        tsize = titleSize * ratio;
-        ttsize = tableTitleSize * ratio;
+        tsize = 24 * ratio;
+        ttsize = 16 * ratio;
         yCalendar = 3 * (tsize + ttsize) + 10;
         stepy = (height - yCalendar) / 6;
         //delta = stepy * (nbRatio + 1) / 2;
-        imgSize = (int) (24 * ratio);
+        imgSize = (int) (16 * ratio);
     }
 
     @Override

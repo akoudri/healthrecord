@@ -62,7 +62,7 @@ public class EditAppointmentActivity extends Activity {
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
         dataSource = HealthRecordDataSource.getInstance(this);
-        margin = (int) HealthRecordUtils.convertPixelsToDp(3, this);
+        margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         //Existing appointment
         apptId = getIntent().getIntExtra("apptId", 0);
         //New appointment

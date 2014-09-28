@@ -13,7 +13,7 @@
 - Triggers: When removing a treatment, remove corresponding medications -- DONE
 - inner XXXDatePicker classes: rename XXX consequently -- DONE DIFFERENTLY -> outer classes
 - getIntent().getIntExtra("personId", 0); -> Careful default values for database accesses -- DONE
-* Implement day to day navigation from edit day activity
+- Implement day to day navigation from edit day activity -- DONE
 - Improve warning messages -- DONE
 - Use of Sets for uniqueness lists -- NOT NEEDED
 - Check the validity of data passed between activities (in particular when database access follows) -- DONE
@@ -29,13 +29,13 @@
 * Refactor Styles
 - Consider the use of navigation bar -- NOT NEEDED ANYMORE
 - Resize correctly the buttons -- DONE
-* Add notification for medics
+* Add notification for medics; Use JSON format to store appointment / medication notifications
 - Replace printStackTrace by Toasts -- DONE
+* Add the possibility to add therapist from lists in appointments and treatments
 
 verification:
 - check sizes in dp -- DONE
 - check calendar bounds -- DONE
 - check information messages -- DONE
 
-* Problem vith old versions not supporting grid layout
-* Use JSON format to store appointment / medication notifications
+- Problem vith old versions not supporting grid layout -- FIXED: set min API level to 14)

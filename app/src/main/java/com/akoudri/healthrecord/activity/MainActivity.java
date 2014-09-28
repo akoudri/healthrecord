@@ -10,6 +10,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -106,7 +108,7 @@ public class MainActivity extends Activity {
     {
         layout.removeAllViews();
         List<Person> allPersons = dataSource.getPersonTable().getAllPersons();
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, this);
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, this);
         if (allPersons == null || allPersons.size() == 0)
             return;
         Button personButton;
@@ -280,4 +282,30 @@ public class MainActivity extends Activity {
         startActivity(new Intent(this, CreatePersonActivity.class));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.main_menu_about)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.about);
+            builder.setMessage(R.string.made_by);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+            return true;
+        }
+        return false;
+    }
 }

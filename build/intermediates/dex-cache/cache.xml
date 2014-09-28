@@ -8,22 +8,10 @@
         revision="19.1.0"
         sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
     <item
-        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/classes-5afd78bc7dfa306af2b62db14ef22c563e11181b.jar"
-        jar="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/19.0.1/classes.jar"
+        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-9a5e03fe76f0647e613b78459bb3b74bab9ffda6.jar"
+        jar="/home/koudri/AndroidStudioProjects/HealthRecord/app/libs/achartengine-1.1.0.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="b1701c49371231e0423b7588539f24bdab485019"/>
-    <item
-        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-80e85aee6c33e4fc4cc206fd9669bbbb2f31b598.jar"
-        jar="/media/Donnees/Tools_Linux/android-studio/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
-    <item
-        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/classes-ad7158ed7266e09da3513e7eab21dd18afb6103c.jar"
-        jar="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
 
 </pre-dex-items>

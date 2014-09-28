@@ -215,8 +215,14 @@ public final class HealthRecordUtils {
     public static float convertPixelsToDp(float px, Context context){
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / (metrics.densityDpi / 160f);
-        return dp;
+        return px * metrics.density;
+    }
+
+    public static float getDisplayRatio(Context context)
+    {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return metrics.density;
     }
 
 }

@@ -102,7 +102,7 @@ public class AilmentFragment extends Fragment {
         layout.removeAllViews();
         List<Ailment> dayAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, date);
         if (dayAilments == null || dayAilments.size() == 0) return;
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, getActivity());;
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, getActivity());;
         Button ailmentButton, editButton, stopButton, removeButton;
         layout.setColumnCount(3);
         int childWidth = layout.getWidth()/3 - 2*margin;

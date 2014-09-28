@@ -101,7 +101,7 @@ public class AppointmentFragment extends Fragment {
         layout.removeAllViews();
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, selectedDate);
         if (allAppointments == null || allAppointments.size() == 0) return;
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(3, getActivity());
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, getActivity());
         Button apptButton, removeButton, editButton;
         ImageButton rButton;
         layout.setColumnCount(2);

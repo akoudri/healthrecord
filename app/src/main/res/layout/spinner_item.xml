@@ -3,6 +3,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/app_bg_color"
     android:textColor="@color/regular_text_color"
     android:layout_gravity="left"
     android:textSize="14dp"

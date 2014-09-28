@@ -49,7 +49,7 @@ public class AnalysisActivity extends Activity {
 
     private int tsize, ttsize, psize, margin_left_right, margin_bottom_top;
     private int[] margins;
-    private int ratio;
+    //private int ratio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class AnalysisActivity extends Activity {
         endET.setKeyListener(null);
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
-        ratio = size.x / 480;
+        //ratio = size.x / 480;
         tsize = (int) HealthRecordUtils.convertPixelsToDp(16, this);
         ttsize = (int) HealthRecordUtils.convertPixelsToDp(12, this);
         psize = (int) HealthRecordUtils.convertPixelsToDp(5, this);

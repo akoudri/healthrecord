@@ -75,7 +75,7 @@ public class TherapistActivity extends Activity {
     {
         layout.removeAllViews();
         List<Therapist> allTherapists = new ArrayList<Therapist>();
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, this);
         List<Integer> therapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         for (Integer i : therapistIds)
         {

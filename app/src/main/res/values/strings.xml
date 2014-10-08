@@ -101,6 +101,15 @@
         <item>Flu</item>
         <item>Angina</item>
         <item>Cold</item>
+        <item>Colic</item>
+        <item>Gastroenteritis</item>
+        <item>Chicken pox</item>
+        <item>Diarrhea</item>
+        <item>Measles</item>
+        <item>Hemorrhoids</item>
+        <item>Constipation</item>
+        <item>Jaundice</item>
+        <item>Rubella</item>
     </string-array>
     <string-array name="drugs">
         <item>Paxil</item>
@@ -461,7 +470,7 @@
     <string name="number_of_days">day(s)</string>
     <string name="med_req">Provide at least one medic!</string>
     <string name="self">Self</string>
-    <string name="duplicate_medic">Duplicate Medic</string>
+    <string name="duplicate_medic">Duplicated Medic</string>
     <string name="number_of_measures">Number of measures</string>
     <string name="number_of_appt">Number of appointments</string>
     <string name="number_of_ailments">Number of ailments</string>
@@ -489,6 +498,7 @@
     <string name="description">Description</string>
     <string name="database_access_impossible">Database access impossible</string>
     <string name="about">About</string>
-    <string name="made_by">Made by AYA (akoudri@free.fr)\nUse of AChartEngine (http://www.achartengine.org/) for charts\nUse of icons from openclipart (https://openclipart.org/)</string>
+    <string name="made_by">Made by Pueblo\nUse of AChartEngine (http://www.achartengine.org/) for charts\nUse of icons from openclipart (https://openclipart.org/)</string>
+    <string name="send_email_to_author">Send email to author</string>
 
 </resources>

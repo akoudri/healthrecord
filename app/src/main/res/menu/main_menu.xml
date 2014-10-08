@@ -7,5 +7,8 @@
     <item android:id="@+id/main_menu_about"
         android:title="@string/about"
         android:showAsAction="never"/>
+    <item android:id="@+id/main_menu_send_mail"
+        android:title="@string/send_email_to_author"
+        android:showAsAction="never"/>
 
 </menu>

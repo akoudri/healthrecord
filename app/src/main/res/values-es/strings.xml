@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Registro de Salud</string>
+    <string name="add_person">Agregar persona</string>
+    <string name="add">Añadir</string>
+    <string name="name">Nombre</string>
+    <string name="birthdate">Fecha de nacimiento</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="gender">Género</string>
+    <string name="pick_date">Calendario</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
+    <string name="blood_type">Tipo de sangre</string>
+    <string name="edit">Editar</string>
+    <string name="remove">Sup.</string>
+    <string name="update">Actualizar</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="manage_ailments">Dolencias</string>
+    <string name="manage_treatments">Tratamientos</string>
+    <string name="manage_appointments">Nombramientos</string>
+    <string name="manage_measures">Medidas</string>
+    <string name="personal_analysis">Estadísticas</string>
+    <string name="personal_data">Datos de Carácter Personal</string>
+    <string name="doctors">Terapeutas</string>
+    <string name="yes">sí</string>
+    <string name="no">No</string>
+    <string name="remove_question">¿Realmente desea eliminar</string>
+    <string name="removing">Supresión</string>
+    <string name="ssn">Número de seguro social</string>
+    <string name="speciality">Especialidad</string>
+    <string name="phoneNumber">Número de teléfono</string>
+    <string name="add_therapist">Añadir Terapeuta</string>
+    <string name="my_therapists">Terapeutas</string>
+    <string name="calendar">Calendario</string>
+    <string name="no_other_therapist">Ningún otro terapeuta</string>
+    <string name="update_therapist">Actualizar Terapeuta</string>
+    <string-array name="branches">
+        <item>Médico general</item>
+        <item>Pediatra</item>
+        <item>Fisioterapeuta</item>
+        <item>Alergista</item>
+        <item>Inmunólogo</item>
+        <item>Anestesiólogo</item>
+        <item>Cardiólogo</item>
+        <item>Dermatólogo</item>
+        <item>Gastroenterólogo</item>
+        <item>Hematólogo</item>
+        <item>Oncólogo</item>
+        <item>Médico de medicina interna</item>
+        <item>Nefrólogo</item>
+        <item>Neurólogo</item>
+        <item>Neurocirujano</item>
+        <item>Obstetra</item>
+        <item>Ginecólogo</item>
+        <item>Enfermera-Parteras</item>
+        <item>Medicina del Trabajo Médico</item>
+        <item>oftalmólogo</item>
+        <item>Cirujano Oral y Maxilofacial</item>
+        <item>Cirujano ortopédico</item>
+        <item>Otorrinolaringólogo</item>
+        <item>Patólogo</item>
+        <item>Cirujano Plástico</item>
+        <item>Podólogo</item>
+        <item>Psiquiatra</item>
+        <item>Pulmonar Médico Medicina</item>
+        <item>Radiación Onconlogist</item>
+        <item>Radiólogo de diagnóstico</item>
+        <item>Reumatólogo</item>
+        <item>Urólogo</item>
+    </string-array>
+    <string-array name="illnesses">
+        <item>Colesterol</item>
+        <item>Hipertensión</item>
+        <item>Migraña</item>
+        <item>Depresión</item>
+        <item>Asma</item>
+        <item>La bronquiolitis</item>
+        <item>Bronquitis</item>
+        <item>Acné</item>
+        <item>Eczema</item>
+        <item>Herpes</item>
+        <item>Psoriasis</item>
+        <item>Úlcera</item>
+        <item>La osteoartritis</item>
+        <item>Dolor lumbar</item>
+        <item>Osteoporosis</item>
+        <item>Reumatismo</item>
+        <item>La ciática</item>
+        <item>Catarata</item>
+        <item>Diabetes</item>
+        <item>Meningitis</item>
+        <item>Flebitis</item>
+        <item>Alcoholismo</item>
+        <item>Fumar</item>
+        <item>Anorexia</item>
+        <item>Bulimia</item>
+        <item>Nasofaringitis</item>
+        <item>Alergia</item>
+        <item>Gripe</item>
+        <item>Angina</item>
+        <item>Fría</item>
+        <item>Cólico</item>
+        <item>Gastroenteritis</item>
+        <item>Varicela</item>
+        <item>Diarrea</item>
+        <item>Sarampión</item>
+        <item>Hemorroides</item>
+        <item>Estreñimiento</item>
+        <item>Ictericia</item>
+        <item>Rubéola</item>
+    </string-array>
+    <string-array name="drugs">
+        <item>Aceite de Ricino</item>
+        <item>Acetaminofén</item>
+        <item>Acetazolamida</item>
+        <item>Acetilcisteina</item>
+        <item>Acetíl salicílico ácido</item>
+        <item>Acetil salicílico ácido + (Codeína u Oxicodona)</item>
+        <item>Aciclovir</item>
+        <item>Agua estéril para inyección</item>
+        <item>Albendazol</item>
+        <item>Albúmina humana normal</item>
+        <item>Alcohol etílico</item>
+        <item>Alfametildopa</item>
+        <item>Alfaquimotripsina</item>
+        <item>Alopurinol</item>
+        <item>Alprazolam</item>
+        <item>Alquitrán de hulla + alantoína</item>
+        <item>Aluminio Acetato</item>
+        <item>Aluminio hidróxido</item>
+        <item>Aluminio hidróxido + Magnesio hidróxido con o sin simeticona</item>
+        <item>Amantadina sulfato o clorhidrato</item>
+        <item>Amikacina (sulfato)</item>
+        <item>Aminoácidos esenciales con o sin electrolitos</item>
+        <item>Aminofilina</item>
+        <item>Amiodarona clorhidrato</item>
+        <item>Amiodarona Clorhidrato</item>
+        <item>Amitriptilina clorhidrato</item>
+        <item>Amoxicilina</item>
+        <item>Ampicilina anhidra o trihidrato</item>
+        <item>Ampicilina (sal sódica)</item>
+        <item>Anfotericina B</item>
+        <item>Antitoxina tetánica y diftérica</item>
+        <item>Ascórbico ácido</item>
+        <item>Atropina sulfato</item>
+        <item>Aztreonam</item>
+        <item>Azul de metileno</item>
+        <item>Bario sulfato</item>
+        <item>Beclometasona dipropionato</item>
+        <item>Bencilo benzoato</item>
+        <item>Betametasona</item>
+        <item>Betametasona fosfato + betametasona acetato</item>
+        <item>Betametasona (fosfato disódico)</item>
+        <item>Betametil digoxina</item>
+        <item>Biperideno clorhidrato</item>
+        <item>Biperideno lactato</item>
+        <item>Bisacodilo</item>
+        <item>Bromocriptina</item>
+        <item>Bupivacaína clorhidrato con o sin epinefrina</item>
+        <item>Bupivacaína clorhidrato sin preservativos</item>
+        <item>Calcio carbonato</item>
+        <item>Calcio gluconato</item>
+        <item>Captopril</item>
+        <item>Carbamazepina</item>
+        <item>Carbón activado</item>
+        <item>Cefalexina</item>
+        <item>Cefalotina</item>
+        <item>Cefazolina</item>
+        <item>Cefradina</item>
+        <item>Ceftriaxona (sal sódica)</item>
+        <item>Cianocobalamina</item>
+        <item>Ciprofloxacina (clorhidrato)</item>
+        <item>Clindamicina (fosfato)</item>
+        <item>Clofazimina</item>
+        <item>Clonazepam</item>
+        <item>Cloranfenicol</item>
+        <item>Cloranfenicol (estearato o palmitato)</item>
+        <item>Cloranfenicol (succinato sódico)</item>
+        <item>Cloranfenicol succinato sódico</item>
+        <item>Clorfeniramina</item>
+        <item>Clorfeniramina maleato</item>
+        <item>Cloroquina (difosfato o sulfato)</item>
+        <item>Clorpromazina</item>
+        <item>Clorpromazina clorhidrato</item>
+        <item>Clotrimazol</item>
+        <item>Clozapina</item>
+        <item>Codeína fosfato</item>
+        <item>Colchicina</item>
+        <item>Colestiramina</item>
+        <item>Colistina + Corticoide + Neomicina</item>
+        <item>Corticoide</item>
+        <item>Corticoide con o sin anestésico</item>
+        <item>Corticoide + Neomicina + Polimixina</item>
+        <item>Corticoide + Quinoleína halogenada</item>
+        <item>Cromoglicato de sodio</item>
+        <item>Crotamiton</item>
+        <item>Danazol</item>
+        <item>Dapsona</item>
+        <item>Deferoxamina mesilato</item>
+        <item>Dexametasona (acetato)</item>
+        <item>Dexametasona (fosfato)</item>
+        <item>Dextrano de bajo peso molecular</item>
+        <item>Dextrosa en agua destilada</item>
+        <item>Dextrosa + Sodio cloruro</item>
+        <item>Diazepam</item>
+        <item>Diazóxido</item>
+        <item>Diclofenaco sódico</item>
+        <item>Dicloxacilina</item>
+        <item>Difenhidramina</item>
+        <item>Digoxina</item>
+        <item>Digoxina (NOTA: Puede sustituirse por beta metil digoxina)</item>
+        <item>Dihidrocodeína bitartrato</item>
+        <item>Dihidroergotoxina mesilato</item>
+        <item>Dihidromorfona clorhidrato</item>
+        <item>Dimenhidrinato</item>
+        <item>Dimercaprol (BAL)</item>
+        <item>Dinoprostona</item>
+        <item>Dipirona</item>
+        <item>Diyodohidroxiquinoleína</item>
+        <item>Dopamina clorhidrato</item>
+        <item>Doxapramo clorhidrato</item>
+        <item>Doxiciclina</item>
+        <item>Droperidol + Fentanilo</item>
+        <item>Edetato de sodio y calcio</item>
+        <item>Enalapril maleato</item>
+        <item>Enflurano</item>
+        <item>Epinefrina (tartrato ó clorhidrato)</item>
+        <item>Ergometrina (Ergonovina) maleato</item>
+        <item>Ergotamina + Cafeína</item>
+        <item>Eritromicina (etilsuccinato o estearato)</item>
+        <item>Espiramicina "Uso exclusivo para toxoplasmosis"</item>
+        <item>Espironolactona</item>
+        <item>Estradiol</item>
+        <item>Estradiol valerato</item>
+        <item>Estreptomicina (sulfato)</item>
+        <item>Estreptoquinasa</item>
+        <item>Estrógenos conjugados</item>
+        <item>Estrógenos conjugados o asociados</item>
+        <item>Etambutol clorhidrato</item>
+        <item>Etionamida</item>
+        <item>Etosuximida</item>
+        <item>Factor antihemofílico</item>
+        <item>Fenitoína sódica</item>
+        <item>Fenobarbital</item>
+        <item>Fenobarbital sódico</item>
+        <item>Fentanilo citrato</item>
+        <item>Fentolamina</item>
+        <item>Fisostigmina salicilato</item>
+        <item>Fitomenadiona (vitamina K1)</item>
+        <item>Fluconazol</item>
+        <item>Fluoresceína sódica</item>
+        <item>Fluorometolona</item>
+        <item>Fluorouracilo</item>
+        <item>Fluoxetina</item>
+        <item>Fólico ácido</item>
+        <item>Fracción protéica del plasma humano</item>
+        <item>Furazolidona</item>
+        <item>Furosemida</item>
+        <item>Gelatina absorbible estéril</item>
+        <item>Gemfibrozil</item>
+        <item>Gentamicina (sulfato)</item>
+        <item>Glibenclamida</item>
+        <item>Glicerina</item>
+        <item>Gluconato de potasio</item>
+        <item>Gonadotropina Coriónica</item>
+        <item>Haloperidol</item>
+        <item>Halotano</item>
+        <item>Heparina sódica</item>
+        <item>Hidralazina clorhidrato</item>
+        <item>Hidroclorotiazida</item>
+        <item>Hidrocortisona (acetato)</item>
+        <item>Hidrocortisona (succinato sódico)</item>
+        <item>Hidroxicobalamina</item>
+        <item>Hidroxiprogesterona caproato</item>
+        <item>Hierro (ferroso) sulfato anhidro</item>
+        <item>Hierro parenteral</item>
+        <item>Hioscina N-butil bromuro</item>
+        <item>Hioscina N-butil bromuro + Dipirona</item>
+        <item>Ibopamina clorhidrato</item>
+        <item>Ibuprofeno</item>
+        <item>Idoxuridina</item>
+        <item>Imipramina clorhidrato</item>
+        <item>Inmunoglobulina anti Rh</item>
+        <item>Insulina Zinc cristalina</item>
+        <item>Insulina Zinc N:P:H:</item>
+        <item>Iodamida meglumina</item>
+        <item>Iodopovidona</item>
+        <item>Iodotalamato de meglumina</item>
+        <item>Iohexol o Iopamidol</item>
+        <item>Ioversol</item>
+        <item>Ipecacuana</item>
+        <item>Ipratropio bromuro</item>
+        <item>Isoflurano</item>
+        <item>Isoniazida</item>
+        <item>Isosorbide dinitrato</item>
+        <item>Ketamina (clorhidrato)</item>
+        <item>Ketoconazol</item>
+        <item>Ketotifeno</item>
+        <item>Lactato Ringer (Solución Hartman)</item>
+        <item>Levodopa + Carbidopa</item>
+        <item>Levomepromazina</item>
+        <item>Levonorgestrel + Etinilestradiol</item>
+        <item>Levotiroxina sódica</item>
+        <item>Levotiroxina sódica + Liotironina</item>
+        <item>Lidocaína clorhidrato</item>
+        <item>Liotironina</item>
+        <item>Litio carbonato</item>
+        <item>Loperamida clorhidrato</item>
+        <item>Loratadina</item>
+        <item>Lorazepam</item>
+        <item>Lovastatina</item>
+        <item>Magnesio sulfato</item>
+        <item>Manitol</item>
+        <item>Mebendazol</item>
+        <item>Medroxiprogesterona acetato</item>
+        <item>Mefloquina</item>
+        <item>Meglumina antimoniato</item>
+        <item>Meglumina Diatrizoato</item>
+        <item>Meperidina clorhidrato</item>
+        <item>Mesalazina</item>
+        <item>Metadona clorhidrato</item>
+        <item>Metformina</item>
+        <item>Metilfenidato</item>
+        <item>Metimazol</item>
+        <item>Metocarbamol</item>
+        <item>Metoclopramida (clorhidrato)</item>
+        <item>Metoprolol tartrato</item>
+        <item>Metoxaleno</item>
+        <item>Metronidazol</item>
+        <item>Metronidazol (benzoílo)</item>
+        <item>Midazolam</item>
+        <item>Morfina</item>
+        <item>Morfina sulfato</item>
+        <item>Naloxona clorhidrato</item>
+        <item>Naproxeno</item>
+        <item>Neomicina (sulfato) + Polimixina B</item>
+        <item>Neostigmina metilsulfato</item>
+        <item>Niclosamida</item>
+        <item>Nifedipina</item>
+        <item>Nifurtimox</item>
+        <item>Nimodipina</item>
+        <item>Nistatina</item>
+        <item>Nitrofurantoína</item>
+        <item>Norfloxacina</item>
+        <item>Obidoxima cloruro</item>
+        <item>Omeprazol</item>
+        <item>Orotioglucosa u</item>
+        <item>Oxacilina (sal sódica)</item>
+        <item>Oxicodona</item>
+        <item>OxÍgeno</item>
+        <item>Oximetazolina</item>
+        <item>Oxitocina</item>
+        <item>Pancuronio bromuro</item>
+        <item>Pasta de Unna</item>
+        <item>Penicilamina</item>
+        <item>Penicilina Fenoximetílica (y sales)</item>
+        <item>Penicilina G Benzatínica</item>
+        <item>Penicilina G Procaínica</item>
+        <item>Penicilina G sódica o potásica cristalina</item>
+        <item>Pilocarpina clorhidrato o nitrato</item>
+        <item>Piperazina</item>
+        <item>Pipotiazina palmitato</item>
+        <item>Pirantel (embonato o pamoato)</item>
+        <item>Pirazinamida</item>
+        <item>Piridostigmina bromuro</item>
+        <item>Piridoxina clorhidrato</item>
+        <item>Pirimetamina</item>
+        <item>Pirimetamina + Sulfadoxina</item>
+        <item>Plasma humano</item>
+        <item>Plata sulfadiazina</item>
+        <item>Podofilina</item>
+        <item>Potasio cloruro</item>
+        <item>Pralidoxima</item>
+        <item>Praziquantel</item>
+        <item>Prazosina</item>
+        <item>Prednisolona + Fenilefrina</item>
+        <item>Prednisona o prednisolona</item>
+        <item>Primaquina (fosfato)</item>
+        <item>Primidona</item>
+        <item>Procainamida clorhidrato</item>
+        <item>Proparacaína clorhidrato</item>
+        <item>Propranolol</item>
+        <item>Propranolol clorhidrato</item>
+        <item>Protamina sulfato</item>
+        <item>Quinidina sulfato</item>
+        <item>Quinina diclorhidrato</item>
+        <item>Quinina sulfato</item>
+        <item>Ranitidina (clorhidrato)</item>
+        <item>Retinoico ácido</item>
+        <item>Rifampicina</item>
+        <item>Rifampicina + Isoniazida</item>
+        <item>Ringer</item>
+        <item>Salbutamol (sulfato)</item>
+        <item>Sales de rehidratación oral, fórmula OMS</item>
+        <item>Sodio bicarbonato</item>
+        <item>Sodio cloruro</item>
+        <item>Sodio diatrizoato + Meglumina diatrizoato</item>
+        <item>Sodio fluoruro</item>
+        <item>Sodio fluoruro acidulado</item>
+        <item>Sodio hiposulfito</item>
+        <item>Sodio Iopodato</item>
+        <item>Sodio lactato</item>
+        <item>Sodio nitrito</item>
+        <item>Sodio nitroprusiato</item>
+        <item>Succinilcolina</item>
+        <item>Sucralfato</item>
+        <item>Suero antiofídico monovalente (Bothrops)</item>
+        <item>Suero antiofídico polivalente</item>
+        <item>Suero antirrábico</item>
+        <item>Sulfacetamida sódica</item>
+        <item>Sulfasalazina</item>
+        <item>Talidomida</item>
+        <item>Teclozán</item>
+        <item>Teofilina</item>
+        <item>Terbutalina sulfato</item>
+        <item>Testosterona éster</item>
+        <item>Tetracaína clorhidrato</item>
+        <item>Tetraciclina clorhidrato</item>
+        <item>Tiamina</item>
+        <item>Ticarcilina (sal sódica)</item>
+        <item>Timolol maleato</item>
+        <item>Tinidazol</item>
+        <item>Tioacetazona + Isoniazida</item>
+        <item>Tiopental sódico</item>
+        <item>Tioridazina clorhidrato</item>
+        <item>Tolbutamida</item>
+        <item>Toxoide diftérico-tetánico</item>
+        <item>Toxoide tetánico</item>
+        <item>Tramadol clorhidrato</item>
+        <item>Tranexámico ácido</item>
+        <item>Tranilcipromina</item>
+        <item>Trazodona clorhidrato</item>
+        <item>Trihexifenidilo clorhidrato</item>
+        <item>Trimetoprim + Sulfametoxazol</item>
+        <item>Tropicamida</item>
+        <item>Tubocurarina</item>
+        <item>Vacuna antiamarílica</item>
+        <item>Vacuna antihepatitis B</item>
+        <item>Vacuna antipaperas (ANTIPAROTIDITIS)</item>
+        <item>Vacuna antipoliomielítica</item>
+        <item>Vacuna antirrábica</item>
+        <item>Vacuna antirrubeólica (ANTIRRUBEOLA)</item>
+        <item>Vacuna antisarampionosa</item>
+        <item>Vacuna contra Haemophilus Influenzae</item>
+        <item>Vacuna contra la difteria, tétano y tos ferina (D.P.T.)</item>
+        <item>Vacuna contra la tuberculosis (B.C.G.)</item>
+        <item>Valproico ácido</item>
+        <item>Valproico sódico</item>
+        <item>Vasopresina tanato</item>
+        <item>Vecuronio bromuro</item>
+        <item>Verapamilo clorhidrato</item>
+        <item>Vitamina A (acetato o palmitato)</item>
+        <item>Warfarina sódica</item>
+    </string-array>
+    <string-array name="measures">
+        <item> </item>
+        <item>Peso</item>
+        <item>Tamaño</item>
+        <item>Temperatura</item>
+        <item>Perímetro craneal</item>
+        <item>Glucosa</item>
+        <item>Corazón</item>
+    </string-array>
+    <string name="size">Tamaño(cm)</string>
+    <string name="weight">Peso(kg)</string>
+    <string name="temperature">Temperatura(°C)</string>
+    <string name="glucose">Glucosa(g/l)</string>
+    <string name="heart">Corazón(p/m)</string>
+    <string name="cp">Perímetro craneal(cm)</string>
+    <string name="diastolic">Diastólica(cmHg)</string>
+    <string name="systolic">Sistólica (cmHg)</string>
+    <string name="heartbeat">Pulso(p/m)</string>
+    <string name="add_rv">Añadir Nombramiento</string>
+    <string name="add_ailment">Añadir Dolencia</string>
+    <string name="add_treatment">Añadir Tratamiento</string>
+    <string name="hour">Hora: </string>
+    <string name="remove_appt_question">¿Seguro que quieres eliminar esta cita?</string>
+    <string name="remove_measure_question">¿Seguro que quieres eliminar esta medida?</string>
+    <string name="remove_observation_question">¿Seguro que quieres eliminar esta observación?</string>
+    <string name="illness">Enfermedad</string>
+    <string name="chronic">Crónica</string>
+    <string name="prescribedBy">Tratada por: </string>
+    <string name="permanent">Permanente</string>
+    <string name="start">Inicio: </string>
+    <string name="end">Fin: </string>
+    <string name="drugs">Drogas</string>
+    <string name="times">Veces / </string>
+    <string name="frequency">Frecuencia</string>
+    <string-array name="freqChoice">
+        <item>Hora</item>
+        <item>Día</item>
+        <item>Semana</item>
+        <item>Mes</item>
+        <item>Año</item>
+        <item>Vida</item>
+    </string-array>
+    <!-- ICI -->
+    <string name="date">Fecha: </string>
+    <string name="with">Con: </string>
+    <string name="type">Tipo: </string>
+    <string name="display">Fijar</string>
+    <string name="db_warning">Violación de integridad de datos</string>
+    <string name="ok">OK</string>
+    <string name="warning">Advertencia</string>
+    <string name="notValidData">Datos incompletos o no válidos</string>
+    <string name="update_saved">Actualización salvó</string>
+    <string name="cell_phone_number">Número de teléfono celular</string>
+    <string name="email_address">Correo electrónico</string>
+    <string name="comment">Comentario</string>
+    <string name="duration">Duración: </string>
+    <string name="number_of_days">día(s)</string>
+    <string name="med_req">Proporcione por lo menos un médico!</string>
+    <string name="self">Auto</string>
+    <string name="duplicate_medic">Médico duplicado</string>
+    <string name="number_of_measures">Número de medidas</string>
+    <string name="number_of_appt">Número de citas</string>
+    <string name="number_of_ailments">Número de dolencias</string>
+    <string name="number_of_medics">Número de médicos</string>
+    <string name="number_of_observations">Número de observaciones</string>
+    <string name="no_change">No hay cambios para guardar</string>
+    <string name="data_saved">datos grabados</string>
+    <string name="preventive_treatment">Tratamiento preventivo</string>
+    <string name="no_therapist_found">Ningún terapeuta</string>
+    <string name="add_existing_therapist">Añadir terapeuta existente</string>
+    <string name="add_new_therapist">Añadir nuevo terapeuta</string>
+    <string name="add_drug">Añadir drogas </string>
+    <string name="stop">Deténgase</string>
+    <string name="current_size">tamaño actual (cm): </string>
+    <string name="current_weight">Peso actual (kg): </string>
+    <string name="doctor">Médico</string>
+    <string name="overlapping_ailment">La enfermedad ya declarada para este período</string>
+    <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-Pulse(p/m)</string>
+    <string name="add_measure">Añadir Medida</string>
+    <string name="nb_points">Número de puntos</string>
+    <string name="choose_type">Por favor, elegir el tipo</string>
+    <string name="message">Mensaje</string>
+    <string name="send">Enviar</string>
+    <string name="add_observation">Añadir observación</string>
+    <string name="description">Descripción</string>
+    <string name="database_access_impossible">Imposible el acceso de base de datos</string>
+    <string name="about">Acerca de</string>
+    <string name="made_by">Realizado por Pueblo\nUso de AChartEngine (http://www.achartengine.org/) para gráficos\nUso de iconos de openclipart (https://openclipart.org/)</string>
+    <string name="send_email_to_author">Enviar correo electrónico al autor</string>
+
+</resources>

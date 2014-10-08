@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
@@ -305,6 +306,12 @@ public class MainActivity extends Activity {
             });
             builder.show();
             return true;
+        }
+        if (id == R.id.main_menu_send_mail)
+        {
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", "akoudri@free.fr", null));
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Healthrecord App");
+            startActivity(Intent.createChooser(intent, "email"));
         }
         return false;
     }

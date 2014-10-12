@@ -67,8 +67,9 @@
                 android:id="@+id/freq_add"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/selector"/>
         </LinearLayout>
 
         <LinearLayout

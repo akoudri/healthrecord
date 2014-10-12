@@ -32,7 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="0.8"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/selector"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

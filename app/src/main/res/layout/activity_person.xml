@@ -128,8 +128,9 @@
             android:id="@+id/btchoice_update_frag"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="fill_horizontal"/>
+            android:layout_margin="5dp"
+            android:layout_gravity="fill_horizontal"
+            android:background="@drawable/selector"/>
 
         <Button
             android:text="@string/save"

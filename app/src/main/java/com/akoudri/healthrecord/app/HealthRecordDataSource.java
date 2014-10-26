@@ -20,6 +20,7 @@ import com.akoudri.healthrecord.data.TemperatureMeasureTable;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.data.WeightMeasureTable;
+import com.akoudri.healthrecord.utils.Crypto;
 
 import java.sql.SQLException;
 
@@ -52,6 +53,8 @@ public class HealthRecordDataSource {
 
     private static HealthRecordDataSource instance;
 
+    private Crypto crypto;
+
     public static HealthRecordDataSource getInstance(Context context)
     {
         if (instance == null)
@@ -61,7 +64,8 @@ public class HealthRecordDataSource {
 
     private HealthRecordDataSource(Context context)
     {
-        dbHelper = new HealthRecordDatabase(context);
+        crypto = new Crypto(context);
+        dbHelper = new HealthRecordDatabase(context, crypto);
     }
 
     public void open() throws SQLException
@@ -98,7 +102,7 @@ public class HealthRecordDataSource {
     {
         if (!isOpened) return null;
         if (personTable == null)
-            personTable = new PersonTable(db);
+            personTable = new PersonTable(db, crypto);
         return personTable;
     }
 

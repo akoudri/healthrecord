@@ -4,10 +4,18 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.Crypto;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * Created by Ali Koudri on 03/04/14.
@@ -15,6 +23,7 @@ import java.util.List;
 public class PersonTable {
 
     private SQLiteDatabase db;
+    private Crypto crypto;
 
     //person table
     public static final String PERSON_TABLE = "person";
@@ -29,9 +38,10 @@ public class PersonTable {
             PERSON_GENDER, PERSON_SSN,
             PERSON_BLOODTYPE, PERSON_BIRTHDATE};
 
-    public PersonTable(SQLiteDatabase db)
+    public PersonTable(SQLiteDatabase db, Crypto crypto)
     {
         this.db = db;
+        this.crypto = crypto;
     }
 
     public void createPersonTable()
@@ -51,13 +61,27 @@ public class PersonTable {
     public long insertPerson(String name, Gender gender,
                              String ssn, BloodType bloodType, String birthdate) {
         ContentValues values = new ContentValues();
-        values.put(PERSON_NAME, name);
-        values.put(PERSON_GENDER, gender.ordinal());
-        if (ssn != null)
-            values.put(PERSON_SSN, ssn);
-        values.put(PERSON_BLOODTYPE, bloodType.ordinal());
-        long bd = HealthRecordUtils.stringToCalendar(birthdate).getTimeInMillis();
-        values.put(PERSON_BIRTHDATE, bd);
+        try {
+            values.put(PERSON_NAME, crypto.armorEncrypt(name.getBytes()));
+            values.put(PERSON_GENDER, gender.ordinal());
+            if (ssn != null)
+                values.put(PERSON_SSN, ssn);
+            values.put(PERSON_BLOODTYPE, bloodType.ordinal());
+            long bd = HealthRecordUtils.stringToCalendar(birthdate).getTimeInMillis();
+            values.put(PERSON_BIRTHDATE, bd);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         return db.insert(PERSON_TABLE, null, values);
     }
 
@@ -65,15 +89,29 @@ public class PersonTable {
                                 String ssn, BloodType bloodType, String birthdate)
     {
         ContentValues values = new ContentValues();
-        values.put(PERSON_NAME, name);
-        values.put(PERSON_GENDER, gender.ordinal());
-        if (ssn != null)
-            values.put(PERSON_SSN, ssn);
-        else
-            values.putNull(PERSON_SSN);
-        values.put(PERSON_BLOODTYPE, bloodType.ordinal());
-        long bd = HealthRecordUtils.stringToCalendar(birthdate).getTimeInMillis();
-        values.put(PERSON_BIRTHDATE, bd);
+        try {
+            values.put(PERSON_NAME, crypto.armorEncrypt(name.getBytes()));
+            values.put(PERSON_GENDER, gender.ordinal());
+            if (ssn != null)
+                values.put(PERSON_SSN, ssn);
+            else
+                values.putNull(PERSON_SSN);
+            values.put(PERSON_BLOODTYPE, bloodType.ordinal());
+            long bd = HealthRecordUtils.stringToCalendar(birthdate).getTimeInMillis();
+            values.put(PERSON_BIRTHDATE, bd);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         return db.update(PERSON_TABLE, values, PERSON_ID + "=" + personId, null) > 0;
     }
 
@@ -109,7 +147,22 @@ public class PersonTable {
     {
         Person person  = new Person();
         person.setId(cursor.getInt(0));
-        person.setName(cursor.getString(1));
+        //cursor.getString(1)
+        try {
+            person.setName(crypto.armorDecrypt(cursor.getString(1)));
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         int gender = cursor.getInt(2);
         switch (gender)
         {

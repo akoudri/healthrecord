@@ -23,6 +23,7 @@ import com.akoudri.healthrecord.data.TemperatureMeasureTable;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.data.WeightMeasureTable;
+import com.akoudri.healthrecord.utils.Crypto;
 
 /**
  * Created by Ali Koudri on 01/04/14.
@@ -31,6 +32,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "health_record_db";
     public static final int DB_VERSION = 1;
+
+    private Crypto crypto;
 
     private PersonTable personTable;
     private TherapyBranchTable therapyBranchTable;
@@ -52,14 +55,15 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private RemovePersonTrigger removePersonTrigger;
     private RemoveAilmentTrigger removeAilmentTrigger;
 
-    public HealthRecordDatabase(Context context)
+    public HealthRecordDatabase(Context context, Crypto crypto)
     {
         super(context, DB_NAME, null, 1);
+        this.crypto = crypto;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        personTable = new PersonTable(db);
+        personTable = new PersonTable(db, crypto);
         personTable.createPersonTable();
         therapyBranchTable = new TherapyBranchTable(db);
         therapyBranchTable.createTherapyBranchTable();

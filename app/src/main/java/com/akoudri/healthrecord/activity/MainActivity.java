@@ -24,6 +24,7 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
+import com.akoudri.healthrecord.utils.KeyManager;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.List;
 //STATUS: checked
 public class MainActivity extends Activity {
 
-    private static final String dbLoaded = "DB_LOADED";
+    private static final String firstLoad = "FIRST_LOAD";
 
     private GridLayout layout;
     private GridLayout.LayoutParams params;
@@ -40,7 +41,7 @@ public class MainActivity extends Activity {
     private SharedPreferences prefs;
     private HealthRecordDataSource dataSource;
 
-    private boolean isDbLoaded = false;
+    private boolean isFirstLoad = false;
     private boolean dataSourceLoaded = false;
 
     private int personId = 0;
@@ -54,7 +55,7 @@ public class MainActivity extends Activity {
         layout = (GridLayout) findViewById(R.id.person_grid);
         Context context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        isDbLoaded = prefs.getBoolean(dbLoaded, false);
+        isFirstLoad = prefs.getBoolean(firstLoad, false);
     }
 
     @Override
@@ -63,13 +64,14 @@ public class MainActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            if (!isDbLoaded)
+            if (!isFirstLoad)
             {
+                createSecurityFiles();
                 preloadDb();
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean(dbLoaded, true);
+                editor.putBoolean(firstLoad, true);
                 editor.commit();
-                isDbLoaded = true;
+                isFirstLoad = true;
             }
             createWidgets();
         } catch (SQLException e) {
@@ -83,6 +85,16 @@ public class MainActivity extends Activity {
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
+    }
+
+    private void createSecurityFiles()
+    {
+        //FIXME: change key/iv
+        String key = "12345678909876543212345678909876";
+        String iv = "1234567890987654";
+        KeyManager km = new KeyManager(getApplicationContext());
+        km.setIv(iv.getBytes());
+        km.setId(key.getBytes());
     }
 
     //Called at first use to preload default data

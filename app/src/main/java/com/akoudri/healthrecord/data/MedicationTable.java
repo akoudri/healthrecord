@@ -18,7 +18,7 @@ public class MedicationTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String MEDICATION_TABLE = "medication";
+    public static final String MEDICATION_TABLE = "treatment";
     public static final String MEDICATION_ID = "_id";
     public static final String MEDICATION_PERSON_REF = "personId";
     public static final String MEDICATION_AILMENT_REF = "ailmentId";

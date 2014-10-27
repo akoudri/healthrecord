@@ -4,11 +4,19 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.Crypto;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * Created by Ali Koudri on 23/07/14.
@@ -17,6 +25,7 @@ import java.util.List;
 public class MedicalObservationTable {
 
     private SQLiteDatabase db;
+    private Crypto crypto;
 
     //Table
     public static final String MEDICAL_OBSERVATION_TABLE = "medical_observation";
@@ -28,9 +37,10 @@ public class MedicalObservationTable {
     private String[] medicalObservationCols = {MEDICAL_OBSERVATION_ID, MEDICAL_OBSERVATION_PERSON_REF, MEDICAL_OBSERVATION_DATE,
             MEDICAL_OBSERVATION_DESCRIPTION};
 
-    public MedicalObservationTable(SQLiteDatabase db)
+    public MedicalObservationTable(SQLiteDatabase db, Crypto crypto)
     {
         this.db = db;
+        this.crypto = crypto;
     }
 
     public void createMedicalObservationTable()
@@ -53,8 +63,23 @@ public class MedicalObservationTable {
         ContentValues values = new ContentValues();
         values.put(MEDICAL_OBSERVATION_PERSON_REF, personId);
         values.put(MEDICAL_OBSERVATION_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
-        if (description != null)
-            values.put(MEDICAL_OBSERVATION_DESCRIPTION, description);
+        if (description != null) {
+            try {
+                values.put(MEDICAL_OBSERVATION_DESCRIPTION, crypto.armorEncrypt(description.getBytes()));
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (InvalidAlgorithmParameterException e) {
+                e.printStackTrace();
+            }
+        }
         return db.insert(MEDICAL_OBSERVATION_TABLE, null, values);
     }
 
@@ -70,8 +95,23 @@ public class MedicalObservationTable {
         values.put(MEDICAL_OBSERVATION_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         if (description == null)
             values.putNull(MEDICAL_OBSERVATION_DESCRIPTION);
-        else
-            values.put(MEDICAL_OBSERVATION_DESCRIPTION, description);
+        else {
+            try {
+                values.put(MEDICAL_OBSERVATION_DESCRIPTION, crypto.armorEncrypt(description.getBytes()));
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (InvalidAlgorithmParameterException e) {
+                e.printStackTrace();
+            }
+        }
         return db.update(MEDICAL_OBSERVATION_TABLE, values, MEDICAL_OBSERVATION_ID + "=" + medicalObservationId, null) > 0;
     }
 
@@ -170,7 +210,21 @@ public class MedicalObservationTable {
         String hour = String.format("%s:%s", d[3], d[4]);
         medicalObservation.setDate(date);
         medicalObservation.setHour(hour);
-        medicalObservation.setDescription(cursor.getString(3));
+        try {
+            medicalObservation.setDescription(crypto.armorDecrypt(cursor.getString(3)));
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         return medicalObservation;
     }
 }

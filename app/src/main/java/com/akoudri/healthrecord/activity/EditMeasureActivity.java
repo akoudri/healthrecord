@@ -235,6 +235,7 @@ public class EditMeasureActivity extends Activity {
             llayout.addView(choiceTV);
             //Measure Spinner
             measureSpinner = new Spinner(this);
+            measureSpinner.setBackgroundResource(R.drawable.selector);
             String[] measureChoices = getResources().getStringArray(R.array.measures);
             ArrayAdapter<String> measureChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, measureChoices);
             measureSpinner.setAdapter(measureChoicesAdapter);

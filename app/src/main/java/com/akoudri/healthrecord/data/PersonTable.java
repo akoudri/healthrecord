@@ -65,7 +65,7 @@ public class PersonTable {
             values.put(PERSON_NAME, crypto.armorEncrypt(name.getBytes()));
             values.put(PERSON_GENDER, gender.ordinal());
             if (ssn != null)
-                values.put(PERSON_SSN, ssn);
+                values.put(PERSON_SSN, crypto.armorEncrypt(ssn.getBytes()));
             values.put(PERSON_BLOODTYPE, bloodType.ordinal());
             long bd = HealthRecordUtils.stringToCalendar(birthdate).getTimeInMillis();
             values.put(PERSON_BIRTHDATE, bd);
@@ -93,7 +93,7 @@ public class PersonTable {
             values.put(PERSON_NAME, crypto.armorEncrypt(name.getBytes()));
             values.put(PERSON_GENDER, gender.ordinal());
             if (ssn != null)
-                values.put(PERSON_SSN, ssn);
+                values.put(PERSON_SSN, crypto.armorEncrypt(ssn.getBytes()));
             else
                 values.putNull(PERSON_SSN);
             values.put(PERSON_BLOODTYPE, bloodType.ordinal());
@@ -147,9 +147,19 @@ public class PersonTable {
     {
         Person person  = new Person();
         person.setId(cursor.getInt(0));
-        //cursor.getString(1)
         try {
             person.setName(crypto.armorDecrypt(cursor.getString(1)));
+            int gender = cursor.getInt(2);
+            switch (gender)
+            {
+                case 0: person.setGender(Gender.MALE); break;
+                default: person.setGender(Gender.FEMALE);
+            }
+            person.setSsn((cursor.isNull(3))?null:crypto.armorDecrypt(cursor.getString(3)));
+            int bloodType = cursor.getInt(4);
+            person.setBloodType(HealthRecordUtils.int2bloodType(bloodType));
+            long bd = cursor.getLong(5);
+            person.setBirthdate(HealthRecordUtils.millisToDatestring(bd));
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -163,17 +173,6 @@ public class PersonTable {
         } catch (InvalidAlgorithmParameterException e) {
             e.printStackTrace();
         }
-        int gender = cursor.getInt(2);
-        switch (gender)
-        {
-            case 0: person.setGender(Gender.MALE); break;
-            default: person.setGender(Gender.FEMALE);
-        }
-        person.setSsn(cursor.getString(3));
-        int bloodType = cursor.getInt(4);
-        person.setBloodType(HealthRecordUtils.int2bloodType(bloodType));
-        long bd = cursor.getLong(5);
-        person.setBirthdate(HealthRecordUtils.millisToDatestring(bd));
         return person;
     }
 

@@ -18,7 +18,7 @@ public class WeightMeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String WEIGHT_MEASURE_TABLE = "weight_measure";
+    public static final String WEIGHT_MEASURE_TABLE = "weight_m";
     public static final String WEIGHT_MEASURE_ID = "_id";
     public static final String WEIGHT_MEASURE_PERSON_REF = "personId";
     public static final String WEIGHT_MEASURE_DATE = "date";

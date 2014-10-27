@@ -18,7 +18,7 @@ public class CranialPerimeterMeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String CP_MEASURE_TABLE = "cp_measure";
+    public static final String CP_MEASURE_TABLE = "cp_m";
     public static final String CP_MEASURE_ID = "_id";
     public static final String CP_MEASURE_PERSON_REF = "personId";
     public static final String CP_MEASURE_DATE = "date";

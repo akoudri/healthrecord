@@ -18,7 +18,7 @@ public class TemperatureMeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String TEMPERATURE_MEASURE_TABLE = "temperature_measure";
+    public static final String TEMPERATURE_MEASURE_TABLE = "temp_m";
     public static final String TEMPERATURE_MEASURE_ID = "_id";
     public static final String TEMPERATURE_MEASURE_PERSON_REF = "personId";
     public static final String TEMPERATURE_MEASURE_DATE = "date";

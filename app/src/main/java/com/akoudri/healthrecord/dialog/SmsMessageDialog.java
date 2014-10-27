@@ -1,12 +1,8 @@
 package com.akoudri.healthrecord.dialog;
 
-import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -18,13 +18,13 @@ public class HeartMeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String HEART_MEASURE_TABLE = "heart_measure";
+    public static final String HEART_MEASURE_TABLE = "dsh_m";
     public static final String HEART_MEASURE_ID = "_id";
     public static final String HEART_MEASURE_PERSON_REF = "personId";
     public static final String HEART_MEASURE_DATE = "date";
-    public static final String HEART_MEASURE_DIASTOLIC = "diastolic";
-    public static final String HEART_MEASURE_SYSTOLIC = "systolic";
-    public static final String HEART_MEASURE_HEARTBEAT = "heartbeat";
+    public static final String HEART_MEASURE_DIASTOLIC = "dia";
+    public static final String HEART_MEASURE_SYSTOLIC = "sys";
+    public static final String HEART_MEASURE_HEARTBEAT = "heart";
 
     private String[] measureCols = {HEART_MEASURE_ID, HEART_MEASURE_PERSON_REF, HEART_MEASURE_DATE, HEART_MEASURE_DIASTOLIC, HEART_MEASURE_SYSTOLIC, HEART_MEASURE_HEARTBEAT};
 

@@ -65,21 +65,21 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         personTable = new PersonTable(db, crypto);
         personTable.createPersonTable();
-        therapyBranchTable = new TherapyBranchTable(db);
+        therapyBranchTable = new TherapyBranchTable(db, crypto);
         therapyBranchTable.createTherapyBranchTable();
-        illnessTable = new IllnessTable(db);
+        illnessTable = new IllnessTable(db, crypto);
         illnessTable.createIllnessTable();
-        therapistTable = new TherapistTable(db);
+        therapistTable = new TherapistTable(db, crypto);
         therapistTable.createTherapistTable();
         personTherapistTable = new PersonTherapistTable(db);
         personTherapistTable.createPersonTherapistTable();
-        appointmentTable = new AppointmentTable(db);
+        appointmentTable = new AppointmentTable(db, crypto);
         appointmentTable.createAppointmentTable();
         ailmentTable = new AilmentTable(db);
         ailmentTable.createTreatmentTable();
         medicationTable = new MedicationTable(db);
         medicationTable.createMedicationTable();
-        drugTable = new DrugTable(db);
+        drugTable = new DrugTable(db, crypto);
         drugTable.createDrugTable();
         weightMeasureTable = new WeightMeasureTable(db);
         weightMeasureTable.createMeasureTable();
@@ -93,7 +93,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         glucoseMeasureTable.createMeasureTable();
         heartMeasureTable = new HeartMeasureTable(db);
         heartMeasureTable.createMeasureTable();
-        medicalObservationTable = new MedicalObservationTable(db);
+        medicalObservationTable = new MedicalObservationTable(db, crypto);
         medicalObservationTable.createMedicalObservationTable();
         measureView = new MeasureView(db);
         measureView.createMeasureView();

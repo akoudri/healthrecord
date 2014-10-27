@@ -18,7 +18,7 @@ public class GlucoseMeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String GLUCOSE_MEASURE_TABLE = "glucose_measure";
+    public static final String GLUCOSE_MEASURE_TABLE = "gl_m";
     public static final String GLUCOSE_MEASURE_ID = "_id";
     public static final String GLUCOSE_MEASURE_PERSON_REF = "personId";
     public static final String GLUCOSE_MEASURE_DATE = "date";

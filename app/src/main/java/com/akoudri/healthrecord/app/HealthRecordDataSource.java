@@ -109,7 +109,7 @@ public class HealthRecordDataSource {
     public TherapyBranchTable getTherapyBranchTable() {
         if (!isOpened) return null;
         if (therapyBranchTable == null)
-            therapyBranchTable = new TherapyBranchTable(db);
+            therapyBranchTable = new TherapyBranchTable(db, crypto);
         return therapyBranchTable;
     }
 
@@ -117,14 +117,14 @@ public class HealthRecordDataSource {
     {
         if (!isOpened) return null;
         if (illnessTable == null)
-            illnessTable = new IllnessTable(db);
+            illnessTable = new IllnessTable(db, crypto);
         return illnessTable;
     }
 
     public TherapistTable getTherapistTable() {
         if (!isOpened) return null;
         if (therapistTable == null)
-            therapistTable = new TherapistTable(db);
+            therapistTable = new TherapistTable(db, crypto);
         return therapistTable;
     }
 
@@ -138,7 +138,7 @@ public class HealthRecordDataSource {
     {
         if (!isOpened) return null;
         if (appointmentTable == null)
-            appointmentTable = new AppointmentTable(db);
+            appointmentTable = new AppointmentTable(db, crypto);
         return appointmentTable;
     }
 
@@ -160,7 +160,7 @@ public class HealthRecordDataSource {
     {
         if (!isOpened) return null;
         if (drugTable == null)
-            drugTable = new DrugTable(db);
+            drugTable = new DrugTable(db, crypto);
         return drugTable;
     }
 
@@ -210,7 +210,7 @@ public class HealthRecordDataSource {
     {
         if (!isOpened) return null;
         if (medicalObservationTable == null)
-            medicalObservationTable = new MedicalObservationTable(db);
+            medicalObservationTable = new MedicalObservationTable(db, crypto);
         return medicalObservationTable;
     }
 

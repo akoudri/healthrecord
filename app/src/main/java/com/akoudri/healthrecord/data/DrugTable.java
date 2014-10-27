@@ -4,8 +4,17 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.Crypto;
+
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * Created by Ali Koudri on 15/06/14.
@@ -13,6 +22,7 @@ import java.util.List;
 public class DrugTable {
 
     private SQLiteDatabase db;
+    private Crypto crypto;
 
     //Table
     public static final String DRUG_TABLE = "drug";
@@ -21,9 +31,10 @@ public class DrugTable {
 
     private String[] drugCols = {DRUG_ID, DRUG_NAME};
 
-    public DrugTable(SQLiteDatabase db)
+    public DrugTable(SQLiteDatabase db, Crypto crypto)
     {
         this.db = db;
+        this.crypto = crypto;
     }
 
     public void createDrugTable()
@@ -39,7 +50,21 @@ public class DrugTable {
     public long insertDrug(String name)
     {
         ContentValues values = new ContentValues();
-        values.put(DRUG_NAME, name);
+        try {
+            values.put(DRUG_NAME, crypto.armorEncrypt(name.getBytes()));
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         return db.insert(DRUG_TABLE, null, values);
     }
 
@@ -68,9 +93,25 @@ public class DrugTable {
 
     public int getDrugId(String name)
     {
-        Cursor cursor = db.query(DRUG_TABLE, drugCols, DRUG_NAME + "='" + name + "'", null, null, null, null);
-        if (cursor.moveToFirst())
-            return  cursor.getInt(0);
+
+        Cursor cursor = null;
+        try {
+            cursor = db.query(DRUG_TABLE, drugCols, DRUG_NAME + "='" + crypto.armorEncrypt(name.getBytes()) + "'", null, null, null, null);
+            if (cursor.moveToFirst())
+                return  cursor.getInt(0);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         return -1;
     }
 
@@ -78,7 +119,21 @@ public class DrugTable {
     {
         Drug d = new Drug();
         d.setId(cursor.getInt(0));
-        d.setName(cursor.getString(1));
+        try {
+            d.setName(crypto.armorDecrypt(cursor.getString(1)));
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         return d;
     }
 

@@ -18,7 +18,7 @@ public class SizeMeasureTable {
     private SQLiteDatabase db;
 
     //Table
-    public static final String SIZE_MEASURE_TABLE = "size_measure";
+    public static final String SIZE_MEASURE_TABLE = "size_m";
     public static final String SIZE_MEASURE_ID = "_id";
     public static final String SIZE_MEASURE_PERSON_REF = "personId";
     public static final String SIZE_MEASURE_DATE = "date";

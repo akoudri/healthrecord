@@ -4,11 +4,19 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.akoudri.healthrecord.utils.Crypto;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 /**
  * Created by Ali Koudri on 18/05/14.
@@ -16,6 +24,7 @@ import java.util.List;
 public class AppointmentTable {
 
     private SQLiteDatabase db;
+    private Crypto crypto;
 
     //Table
     public static final String APPT_TABLE = "appointment";
@@ -28,9 +37,10 @@ public class AppointmentTable {
     private String[] AppointmentCols = {APPT_ID, APPT_PERSON_REF, APPT_THERAPIST_REF,
             APPT_DATE, APPT_COMMENT};
 
-    public AppointmentTable(SQLiteDatabase db)
+    public AppointmentTable(SQLiteDatabase db, Crypto crypto)
     {
         this.db = db;
+        this.crypto = crypto;
     }
 
     public void createAppointmentTable()
@@ -58,7 +68,21 @@ public class AppointmentTable {
         values.put(APPT_THERAPIST_REF, therapistId);
         values.put(APPT_DATE, c.getTimeInMillis());
         if (comment != null)
-            values.put(APPT_COMMENT, comment);
+            try {
+                values.put(APPT_COMMENT, crypto.armorEncrypt(comment.getBytes()));
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (InvalidAlgorithmParameterException e) {
+                e.printStackTrace();
+            }
         return db.insert(APPT_TABLE, null, values);
     }
 
@@ -68,8 +92,23 @@ public class AppointmentTable {
         ContentValues values = new ContentValues();
         values.put(APPT_THERAPIST_REF, therapistId);
         values.put(APPT_DATE, c.getTimeInMillis());
-        if (comment != null)
-            values.put(APPT_COMMENT, comment);
+        if (comment != null) {
+            try {
+                values.put(APPT_COMMENT, crypto.armorEncrypt(comment.getBytes()));
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (NoSuchPaddingException e) {
+                e.printStackTrace();
+            } catch (IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (BadPaddingException e) {
+                e.printStackTrace();
+            } catch (InvalidAlgorithmParameterException e) {
+                e.printStackTrace();
+            }
+        }
         else
             values.putNull(APPT_COMMENT);
         return db.update(APPT_TABLE, values, APPT_ID + "=" + apptId, null) > 0;
@@ -162,7 +201,21 @@ public class AppointmentTable {
         String hour = String.format("%s:%s", d[3], d[4]);
         appt.setDate(date);
         appt.setHour(hour);
-        appt.setComment((cursor.isNull(4))?null:cursor.getString(4));
+        try {
+            appt.setComment((cursor.isNull(4))?null:crypto.armorDecrypt(cursor.getString(4)));
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
         return appt;
     }
 

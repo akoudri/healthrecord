@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">﻿Gesundheitsbuch</string>
+    <string name="add_person">Fügen sie ein</string>
+    <string name="add">hinzufügen auf</string>
+    <string name="name">Name</string>
+    <string name="birthdate">Geburtsdatum</string>
+    <string name="action_settings">Konfiguration</string>
+    <string name="gender">Sex</string>
+    <string name="pick_date">Kalendar</string>
+    <string name="male">männlich</string>
+    <string name="female">weiblich</string>
+    <string name="blood_type">Blutgruppe</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="remove">entfernen</string>
+    <string name="update">Update</string>
+    <string name="save">Speichern</string>
+    <string name="cancel">stornieren</string>
+    <string name="manage_ailments">Krankheiten</string>
+    <string name="manage_treatments">Behandlungen</string>
+    <string name="manage_appointments">Arzttermine</string>
+    <string name="manage_measures">Messungen</string>
+    <string name="personal_analysis">Statistiken</string>
+    <string name="personal_data">Daten</string>
+    <string name="doctors">Spezialisten</string>
+    <string name="yes">ja</string>
+    <string name="no">nein</string>
+    <string name="remove_question">Wollen Sie wirklich löschen</string>
+    <string name="removing">Löschung</string>
+    <string name="ssn">Sozialversicherungsnummer</string>
+    <string name="speciality">Spezialität</string>
+    <string name="phoneNumber">Telefonnummer</string>
+    <string name="add_therapist">Spezialität hinzufügen</string>
+    <string name="my_therapists">Spezialisten</string>
+    <string name="calendar">Kalendar</string>
+    <string name="no_other_therapist">Keine andere spezialisten</string>
+    <string name="update_therapist">Update spezialist</string>
+    <string-array name="branches">
+        <item>Allgemeine Medizin</item>
+        <item>Anästhesiologie</item>
+        <item>Medizinische Biochemie</item>
+        <item>Kardiologie</item>
+        <item>Herzchirurgie</item>
+        <item>kolorektalen Chirurgie</item>
+        <item>Allgemeine Chirurgie</item>
+        <item>Krebschirurgie</item>
+        <item>Kinderchirurgie</item>
+        <item>Orthopädische Chirurgie</item>
+        <item>plastische Chirurgie</item>
+        <item>Thoraxchirurgie</item>
+        <item>Gefäßchirurgie</item>
+        <item>Dermatologie</item>
+        <item>Endokrinologie</item>
+        <item>Stoffwechsel</item>
+        <item>Gastroenterologie</item>
+        <item>Medizinische Genetik</item>
+        <item>Geriatrie</item>
+        <item>Hämatologie</item>
+        <item>Onkologie</item>
+        <item>Klinische Immunologie und Allergie</item>
+        <item>Infektionskrankheiten</item>
+        <item>Community Medicine</item>
+        <item>Notfallmedizin</item>
+        <item>Pädiatrische Notfallmedizin</item>
+        <item>Jugendmedizin</item>
+        <item>Medizin für die Intensivstation</item>
+        <item>Arbeitsmedizin</item>
+        <item>innere Medizin</item>
+        <item>mütterliche Medizin</item>
+        <item>Fetal Medicine</item>
+        <item>Neugeborenen-Medizin</item>
+        <item>perinatale Medizin</item>
+        <item>Nuklearmedizin</item>
+        <item>physikalische Medizin</item>
+        <item>Medizinische Mikrobiologie</item>
+        <item>Nephrologie</item>
+        <item>Neurochirurgie</item>
+        <item>Neurologie</item>
+        <item>Neuropathologie</item>
+        <item>Geburtshilfe</item>
+        <item>Gynäkologie</item>
+        <item>gynäkologische Onkologie</item>
+        <item>Ophtalmologie</item>
+        <item>Hals-Nasen-Ohren</item>
+        <item>Kopf und Hals-Chirurgie</item>
+        <item>Allgemeine Pathologie</item>
+        <item>hämatologische Pathologie</item>
+        <item>gerichtliche Pathologie</item>
+        <item>Pädiatrie</item>
+        <item>Pneumologie</item>
+        <item>Psychiatrie</item>
+        <item>Radioonkologie</item>
+        <item>diagnostische Radiologie</item>
+        <item>Rheumatologie</item>
+        <item>Urologie</item>
+        <item>Pflege</item>
+        <item>Ambulanz</item>
+        <item>Zahnarzthelfer</item>
+        <item>Audiologen</item>
+        <item>Kinderbetreuung Assistent</item>
+        <item>Ernährungsberater</item>
+        <item>OT</item>
+        <item>Krankenpfleger</item>
+        <item>Krankenschwester</item>
+        <item>Kinderzimmer</item>
+        <item>Masseur</item>
+        <item>Physiotherapeut</item>
+        <item>Optiker</item>
+        <item>Logopäde</item>
+        <item>Orthoptiste</item>
+        <item>Osteopath</item>
+        <item>Chiropraktiker</item>
+        <item>Pediküre</item>
+        <item>Fuß-Spezialist</item>
+        <item>Pedorthist</item>
+        <item>Zahntechniker</item>
+        <item>Psychomotorische</item>
+    </string-array>
+    <string-array name="illnesses">
+        <item>Cholesterin</item>
+        <item>Hypertonie</item>
+        <item>Migräne</item>
+        <item>Depression</item>
+        <item>Asthma</item>
+        <item>Bronchiolitis</item>
+        <item>Bronchitis</item>
+        <item>Akne</item>
+        <item>Ekzem</item>
+        <item>Herpes</item>
+        <item>Psoriasis</item>
+        <item>Geschwür</item>
+        <item>Osteoarthritis</item>
+        <item>Schmerzen im unteren Rücken</item>
+        <item>Osteoporose</item>
+        <item>Rheuma</item>
+        <item>ischias</item>
+        <item>Katarakt</item>
+        <item>Diabetes</item>
+        <item>Meningitis</item>
+        <item>Phlebitis</item>
+        <item>Alkoholismus</item>
+        <item>Rauchen</item>
+        <item>Magersucht</item>
+        <item>Bulimie</item>
+        <item>Nasopharyngitis</item>
+        <item>Allergie</item>
+        <item>Grippe</item>
+        <item>Angina</item>
+        <item>Kälte</item>
+        <item>Kolik</item>
+        <item>Gastroenteritis</item>
+        <item>Windpocken</item>
+        <item>Durchfall</item>
+        <item>Masern</item>
+        <item>Hämorrhoiden</item>
+        <item>Verstopfung</item>
+        <item>Gelbsucht</item>
+        <item>Röteln</item>
+    </string-array>
+    <string-array name="measures">
+        <item>Gewicht</item>
+        <item>Größe</item>
+        <item>Temperatur</item>
+        <item>Kopfumfang</item>
+        <item>Blutzucker</item>
+        <item>Herz</item>
+    </string-array>
+    <string name="size">Größe (cm)</string>
+    <string name="weight">Gewicht (kg)</string>
+    <string name="temperature">Temperatur (° C)</string>
+    <string name="glucose">Glucose (g / l)</string>
+    <string name="heart">Herz</string>
+    <string name="cp">Kopfumfang (cm)</string>
+    <string name="diastolic">Diastolischen (mm Hg)</string>
+    <string name="systolic">Systolischen (mm Hg)</string>
+    <string name="heartbeat">Puls (w / m)</string>
+    <string name="add_rv">Neuer termin</string>
+    <string name="add_ailment">Fügen krankheit</string>
+    <string name="add_treatment">Fügen behandlung</string>
+    <string name="hour">Zeit</string>
+    <string name="remove_appt_question">Wollen sie wirklich diesen termin löschen?</string>
+    <string name="remove_measure_question">Wollen sie wirklich dies löschen?</string>
+    <string name="remove_observation_question">Wollen Sie wirklich diesen kommentar löschen?</string>
+    <string name="illness">Krankheit</string>
+    <string name="chronic">Chronisch</string>
+    <string name="prescribedBy">Behandelt durch</string>
+    <string name="permanent">Permanent</string>
+    <string name="start">Beginn</string>
+    <string name="end">Ende</string>
+    <string name="drugs">Arzneimittel</string>
+    <string name="times">mal /	</string>
+    <string name="frequency">Frequenz</string>
+    <string-array name="freqChoice">
+        <item>Zeit</item>
+        <item>Tag</item>
+        <item>Woche</item>
+        <item>Monat</item>
+        <item>Jahr</item>
+        <item>Leben</item>
+    </string-array>
+    <string name="date">Datum</string>
+    <string name="with">mit</string>
+    <string name="type">Art</string>
+    <string name="display">anzeigen</string>
+    <string name="db_warning">Verletzung der datenintegrität</string>
+    <string name="ok">Ok</string>
+    <string name="warning">Benachrichtigung</string>
+    <string name="notValidData">Unvollständige oder ungültige felder</string>
+    <string name="update_saved">Aktualisiert</string>
+    <string name="cell_phone_number">Handynummer</string>
+    <string name="email_address">E-Mail</string>
+    <string name="comment">Kommentar</string>
+    <string name="duration">Dauer</string>
+    <string name="number_of_days">Tag (e)</string>
+    <string name="med_req">Bitte fügen Sie mindestens ein Medikament ein</string>
+    <string name="self">Mich</string>
+    <string name="duplicate_medic">Arzneimittel doppelt</string>
+    <string name="number_of_measures">Anzahl der messungen</string>
+    <string name="number_of_appt">Anzahl der termine</string>
+    <string name="number_of_ailments">Anzahl krankheiten</string>
+    <string name="number_of_medics">Anzahl der drogen</string>
+    <string name="number_of_observations">Anzahl der beobachtungen</string>
+    <string name="no_change">Keine Änderung zu speichern</string>
+    <string name="data_saved">Gespeicherte daten</string>
+    <string name="preventive_treatment">Präventive behandlung</string>
+    <string name="no_therapist_found">Keinen spezialisten gefunden</string>
+    <string name="add_existing_therapist">Hinzufügen eines vorhandenen spezialisten</string>
+    <string name="add_new_therapist">Hinzufügen eines neuen spezialisten</string>
+    <string name="add_drug">Arzneimittel hinzufügen</string>
+    <string name="stop">Stopp</string>
+    <string name="current_size">Aktuelle größe (cm)</string>
+    <string name="current_weight">Aktuelles gewicht (kg)</string>
+    <string name="doctor">Name des behandelnden arztes</string>
+    <string name="overlapping_ailment">Krankheit bereits in diesem Zeitraum gemeldet</string>
+    <string name="heart_measure">Durchmesser (mm Hg) / sys (mm Hg) - Impuls (w / m)</string>
+    <string name="add_measure">Messung hinzufügen</string>
+    <string name="nb_points">Anzahl der punkte</string>
+    <string name="choose_type">Bitte wählen sie einen Typ</string>
+    <string name="message">Nachricht</string>
+    <string name="send">Senden</string>
+    <string name="add_observation">Beobachtung hinzufügen</string>
+    <string name="description">Beschreibung</string>
+    <string name="database_access_impossible">Zugriff auf die datenbank unmöglich</string>
+    <string name="about">über</string>
+    <string name="made_by">Erstellt von Pueblo (akoudri@free.fr)</string>
+
+</resources>

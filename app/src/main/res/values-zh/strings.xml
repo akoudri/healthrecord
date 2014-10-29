@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">﻿养生书</string>
+    <string name="add_person">加一 [添加人员]</string>
+    <string name="add">添加在 [添加]</string>
+    <string name="name">产品名称  [姓名]</string>
+    <string name="birthdate">出生日期</string>
+    <string name="action_settings">配置</string>
+    <string name="gender">性别</string>
+    <string name="pick_date">日历</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="blood_type">血型</string>
+    <string name="edit">编辑</string>
+    <string name="remove">删除</string>
+    <string name="update">更新</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="manage_ailments">疾病 [病史]</string>
+    <string name="manage_treatments">治疗方法</string>
+    <string name="manage_appointments">预约就诊</string>
+    <string name="manage_measures">步骤 [尺寸]</string>
+    <string name="personal_analysis">统计</string>
+    <string name="personal_data">数据</string>
+    <string name="doctors">专家</string>
+    <string name="yes">是的 [有]</string>
+    <string name="no">无</string>
+    <string name="remove_question">你真的要删除</string>
+    <string name="removing">抑制 [确定删除]</string>
+    <string name="ssn">病例号码</string>
+    <string name="speciality">专业</string>
+    <string name="phoneNumber">电话号码</string>
+    <string name="add_therapist">添加专家</string>
+    <string name="my_therapists">专家</string>
+    <string name="calendar">日历</string>
+    <string name="no_other_therapist">无其他专家</string>
+    <string name="update_therapist">最后一天专家 [更新专家信息]</string>
+    <string-array name="branches">
+        <item>家庭医学 [全科医生]</item>
+        <item>麻醉</item>
+        <item>医学生物化学</item>
+        <item>心脏病 [心脏科]</item>
+        <item>心脏外科</item>
+        <item>结直肠外科</item>
+        <item>普外科</item>
+        <item>癌症手术</item>
+        <item>小儿外科</item>
+        <item>整形外科 [骨外科]</item>
+        <item>整形外科</item>
+        <item>胸外科</item>
+        <item>血管外科</item>
+        <item>皮肤科</item>
+        <item>内分泌科</item>
+        <item>代谢</item>
+        <item>消化内科</item>
+        <item>医学遗传学</item>
+        <item>老年病学</item>
+        <item>血液学</item>
+        <item>肿瘤科</item>
+        <item>临床免疫和变态反应 [临床免疫和病变反应]</item>
+        <item>传染病</item>
+        <item>社会医学</item>
+        <item>急诊医学</item>
+        <item>小儿急救医学</item>
+        <item>青少年医学</item>
+        <item>危重病急救医学</item>
+        <item>职业医学</item>
+        <item>内科</item>
+        <item>产妇药</item>
+        <item>胎儿医学</item>
+        <item>新生儿医学</item>
+        <item>围产医学</item>
+        <item>核医学</item>
+        <item>物理医学</item>
+        <item>医学微生物学</item>
+        <item>肾脏</item>
+        <item>神经外科</item>
+        <item>神经内科</item>
+        <item>神经病理学</item>
+        <item>妇产科</item>
+        <item>妇科</item>
+        <item>妇科肿瘤</item>
+        <item>眼科</item>
+        <item>耳，鼻，喉</item>
+        <item>头颈外科</item>
+        <item>普通病理学</item>
+        <item>血液病理学</item>
+        <item>法医病理学 [法医学]</item>
+        <item>儿科</item>
+        <item>肺病</item>
+        <item>精神病</item>
+        <item>放射肿瘤学</item>
+        <item>放射诊断</item>
+        <item>风湿病</item>
+        <item>泌尿外科</item>
+        <item>护老者</item>
+        <item>救护车</item>
+        <item>牙医助理</item>
+        <item>听觉病矫治专家</item>
+        <item>育儿助手</item>
+        <item>营养师</item>
+        <item>OT [自主治疗师]</item>
+        <item>男护士</item>
+        <item>女护士</item>
+        <item>按摩师</item>
+        <item>物理治疗师</item>
+        <item>配镜 [配镜师]</item>
+        <item>言语治疗师</item>
+        <item>眼科护士</item>
+        <item>整骨</item>
+        <item>脊医</item>
+        <item>修脚 [足底护士]</item>
+        <item>足病诊疗师</item>
+        <item>医疗制鞋师</item>
+        <item>牙科技师</item>
+        <item>精神运动 [神经运动]</item>
+    </string-array>
+    <string-array name="illnesses">
+    <item>胆固醇</item>
+    <item>高血压</item>
+    <item>偏头痛</item>
+    <item>抑郁症</item>
+    <item>哮喘</item>
+    <item>毛细支气管炎</item>
+    <item>支气管炎</item>
+    <item>痤疮</item>
+    <item>湿疹</item>
+    <item>疱疹</item>
+    <item>牛皮癣</item>
+    <item>溃疡</item>
+    <item>骨性关节炎</item>
+    <item>腰痛</item>
+    <item>骨质疏松症</item>
+    <item>风湿病</item>
+    <item>坐骨神经痛</item>
+    <item>白内障</item>
+    <item>糖尿病</item>
+    <item>脑膜炎</item>
+    <item>静脉炎</item>
+    <item>酒精中毒</item>
+    <item>吸烟</item>
+    <item>厌食症</item>
+    <item>贪食症</item>
+    <item>鼻咽炎</item>
+    <item>过敏</item>
+    <item>流感</item>
+    <item>心绞痛</item>
+    <item>冷 [感冒]</item>
+    <item>绞痛</item>
+    <item>肠胃炎</item>
+    <item>水痘</item>
+    <item>腹泻</item>
+    <item>麻疹</item>
+    <item>痔疮</item>
+    <item>便秘</item>
+    <item>黄疸</item>
+    <item>风疹</item>
+</string-array><string-array name="measures">
+    <item>重量</item>
+    <item>尺寸 [身高]</item>
+    <item>温度 [体温]</item>
+    <item>头围</item>
+    <item>血糖</item>
+    <item>心脏</item>
+</string-array>
+    <string name="size">尺寸 [身高]</string>
+    <string name="weight">重量</string>
+    <string name="temperature">温度 [体温]</string>
+    <string name="glucose">葡萄糖（克/升</string>
+    <string name="heart">心脏</string>
+    <string name="cp">头围（厘米）</string>
+    <string name="diastolic">舒张压（毫米汞柱）</string>
+    <string name="systolic">收缩压（毫米汞柱）</string>
+    <string name="heartbeat">脉冲（W / M） </string>
+    <string name="add_rv">添加预约 </string>
+    <string name="add_ailment">添加病</string>
+    <string name="add_treatment">添加治疗</string>
+    <string name="hour">时间</string>
+    <string name="remove_appt_question">你真的要删除这个约会？</string>
+    <string name="remove_measure_question">你真的要删除吗？</string>
+    <string name="remove_observation_question">你真的要删除此评论吗？</string>
+    <string name="illness">病</string>
+    <string name="chronic">慢性</string>
+    <string name="prescribedBy">通过治疗</string>
+    <string name="permanent">永久 [常用药]</string>
+    <string name="start">开始</string>
+    <string name="end">结束</string>
+    <string name="drugs">制药 [药物]</string>
+    <string name="times">时间/</string>
+    <string name="frequency">频率</string>
+    <string-array name="freqChoice">
+        <item>时间</item>
+        <item>周</item>
+        <item>一个月</item>
+        <item>一年</item>
+        <item>生活 [终身]</item>
+    </string-array>
+    <string name="date">日期</string>
+    <string name="with">随着</string>
+    <string name="type">类型</string>
+    <string name="display">钉住</string>
+    <string name="db_warning">违反数据完整性</string>
+    <string name="ok">行</string>
+    <string name="warning">警报</string>
+    <string name="notValidData">不完整的或无效的字段</string>
+    <string name="update_saved">更新</string>
+    <string name="cell_phone_number">手机号码</string>
+    <string name="email_address">电子邮件</string>
+    <string name="comment">评论</string>
+    <string name="duration">时间 [用时]</string>
+    <string name="number_of_days">天</string>
+    <string name="med_req">请至少添加一种药物</string>
+    <string name="self">我自己</string>
+    <string name="duplicate_medic">重复的药物</string>
+    <string name="number_of_measures">测量次数</string>
+    <string name="number_of_appt">预约人数</string>
+    <string name="number_of_ailments">许多疾病 [疾病数量]</string>
+    <string name="number_of_medics">药品数量</string>
+    <string name="number_of_observations">观察数</string>
+    <string name="no_change">没有改变的记录</string>
+    <string name="data_saved">记录的数据</string>
+    <string name="preventive_treatment">预防性治疗</string>
+    <string name="no_therapist_found">没有找到专家</string>
+    <string name="add_existing_therapist">将现有的专业  [将现有的专家]</string>
+    <string name="add_new_therapist">添加新专业  [添加新专家]</string>
+    <string name="add_drug">添加药物</string>
+    <string name="stop">停止</string>
+    <string name="current_size">当前尺寸 [当前身高]（cm）</string>
+    <string name="current_weight">目前体重（千克）</string>
+    <string name="doctor">主治医生的姓名</string>
+    <string name="overlapping_ailment">病已报告在此期间，</string>
+    <string name="heart_measure">直径（毫米汞柱）/ 毫米汞柱 - 脉冲（W / M）</string>
+    <string name="add_measure">添加测量</string>
+    <string name="nb_points">点的数目</string>
+    <string name="choose_type">请选择一个类型</string>
+    <string name="message">留言</string>
+    <string name="send">发送</string>
+    <string name="add_observation">添加观察</string>
+    <string name="description">说明</string>
+    <string name="database_access_impossible">访问可能的数据的数据库</string>
+    <string name="about">关于</string>
+    <string name="made_by">创建者普韦布洛 (akoudri@free.fr)</string>
+
+</resources>

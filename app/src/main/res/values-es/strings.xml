@@ -112,347 +112,80 @@
         <item>Rubéola</item>
     </string-array>
     <string-array name="drugs">
-        <item>Aceite de Ricino</item>
         <item>Acetaminofén</item>
         <item>Acetazolamida</item>
         <item>Acetilcisteina</item>
-        <item>Acetíl salicílico ácido</item>
-        <item>Acetil salicílico ácido + (Codeína u Oxicodona)</item>
         <item>Aciclovir</item>
-        <item>Agua estéril para inyección</item>
-        <item>Albendazol</item>
-        <item>Albúmina humana normal</item>
-        <item>Alcohol etílico</item>
-        <item>Alfametildopa</item>
-        <item>Alfaquimotripsina</item>
-        <item>Alopurinol</item>
-        <item>Alprazolam</item>
-        <item>Alquitrán de hulla + alantoína</item>
-        <item>Aluminio Acetato</item>
-        <item>Aluminio hidróxido</item>
-        <item>Aluminio hidróxido + Magnesio hidróxido con o sin simeticona</item>
-        <item>Amantadina sulfato o clorhidrato</item>
-        <item>Amikacina (sulfato)</item>
-        <item>Aminoácidos esenciales con o sin electrolitos</item>
-        <item>Aminofilina</item>
-        <item>Amiodarona clorhidrato</item>
-        <item>Amiodarona Clorhidrato</item>
-        <item>Amitriptilina clorhidrato</item>
         <item>Amoxicilina</item>
-        <item>Ampicilina anhidra o trihidrato</item>
-        <item>Ampicilina (sal sódica)</item>
-        <item>Anfotericina B</item>
-        <item>Antitoxina tetánica y diftérica</item>
         <item>Ascórbico ácido</item>
-        <item>Atropina sulfato</item>
         <item>Aztreonam</item>
-        <item>Azul de metileno</item>
-        <item>Bario sulfato</item>
-        <item>Beclometasona dipropionato</item>
-        <item>Bencilo benzoato</item>
-        <item>Betametasona</item>
-        <item>Betametasona fosfato + betametasona acetato</item>
-        <item>Betametasona (fosfato disódico)</item>
-        <item>Betametil digoxina</item>
-        <item>Biperideno clorhidrato</item>
-        <item>Biperideno lactato</item>
-        <item>Bisacodilo</item>
         <item>Bromocriptina</item>
-        <item>Bupivacaína clorhidrato con o sin epinefrina</item>
-        <item>Bupivacaína clorhidrato sin preservativos</item>
-        <item>Calcio carbonato</item>
-        <item>Calcio gluconato</item>
         <item>Captopril</item>
         <item>Carbamazepina</item>
-        <item>Carbón activado</item>
         <item>Cefalexina</item>
-        <item>Cefalotina</item>
-        <item>Cefazolina</item>
-        <item>Cefradina</item>
-        <item>Ceftriaxona (sal sódica)</item>
-        <item>Cianocobalamina</item>
-        <item>Ciprofloxacina (clorhidrato)</item>
-        <item>Clindamicina (fosfato)</item>
-        <item>Clofazimina</item>
-        <item>Clonazepam</item>
-        <item>Cloranfenicol</item>
-        <item>Cloranfenicol (estearato o palmitato)</item>
-        <item>Cloranfenicol (succinato sódico)</item>
-        <item>Cloranfenicol succinato sódico</item>
-        <item>Clorfeniramina</item>
-        <item>Clorfeniramina maleato</item>
-        <item>Cloroquina (difosfato o sulfato)</item>
-        <item>Clorpromazina</item>
-        <item>Clorpromazina clorhidrato</item>
-        <item>Clotrimazol</item>
-        <item>Clozapina</item>
         <item>Codeína fosfato</item>
         <item>Colchicina</item>
         <item>Colestiramina</item>
-        <item>Colistina + Corticoide + Neomicina</item>
         <item>Corticoide</item>
-        <item>Corticoide con o sin anestésico</item>
-        <item>Corticoide + Neomicina + Polimixina</item>
-        <item>Corticoide + Quinoleína halogenada</item>
-        <item>Cromoglicato de sodio</item>
         <item>Crotamiton</item>
         <item>Danazol</item>
         <item>Dapsona</item>
-        <item>Deferoxamina mesilato</item>
-        <item>Dexametasona (acetato)</item>
-        <item>Dexametasona (fosfato)</item>
-        <item>Dextrano de bajo peso molecular</item>
-        <item>Dextrosa en agua destilada</item>
-        <item>Dextrosa + Sodio cloruro</item>
         <item>Diazepam</item>
-        <item>Diazóxido</item>
-        <item>Diclofenaco sódico</item>
-        <item>Dicloxacilina</item>
-        <item>Difenhidramina</item>
-        <item>Digoxina</item>
-        <item>Digoxina (NOTA: Puede sustituirse por beta metil digoxina)</item>
-        <item>Dihidrocodeína bitartrato</item>
-        <item>Dihidroergotoxina mesilato</item>
-        <item>Dihidromorfona clorhidrato</item>
-        <item>Dimenhidrinato</item>
-        <item>Dimercaprol (BAL)</item>
-        <item>Dinoprostona</item>
-        <item>Dipirona</item>
-        <item>Diyodohidroxiquinoleína</item>
-        <item>Dopamina clorhidrato</item>
-        <item>Doxapramo clorhidrato</item>
         <item>Doxiciclina</item>
-        <item>Droperidol + Fentanilo</item>
-        <item>Edetato de sodio y calcio</item>
         <item>Enalapril maleato</item>
         <item>Enflurano</item>
-        <item>Epinefrina (tartrato ó clorhidrato)</item>
-        <item>Ergometrina (Ergonovina) maleato</item>
-        <item>Ergotamina + Cafeína</item>
-        <item>Eritromicina (etilsuccinato o estearato)</item>
-        <item>Espiramicina "Uso exclusivo para toxoplasmosis"</item>
         <item>Espironolactona</item>
         <item>Estradiol</item>
-        <item>Estradiol valerato</item>
-        <item>Estreptomicina (sulfato)</item>
-        <item>Estreptoquinasa</item>
-        <item>Estrógenos conjugados</item>
-        <item>Estrógenos conjugados o asociados</item>
-        <item>Etambutol clorhidrato</item>
-        <item>Etionamida</item>
-        <item>Etosuximida</item>
-        <item>Factor antihemofílico</item>
-        <item>Fenitoína sódica</item>
         <item>Fenobarbital</item>
-        <item>Fenobarbital sódico</item>
-        <item>Fentanilo citrato</item>
         <item>Fentolamina</item>
-        <item>Fisostigmina salicilato</item>
-        <item>Fitomenadiona (vitamina K1)</item>
         <item>Fluconazol</item>
-        <item>Fluoresceína sódica</item>
         <item>Fluorometolona</item>
         <item>Fluorouracilo</item>
         <item>Fluoxetina</item>
         <item>Fólico ácido</item>
-        <item>Fracción protéica del plasma humano</item>
         <item>Furazolidona</item>
         <item>Furosemida</item>
-        <item>Gelatina absorbible estéril</item>
         <item>Gemfibrozil</item>
-        <item>Gentamicina (sulfato)</item>
         <item>Glibenclamida</item>
         <item>Glicerina</item>
-        <item>Gluconato de potasio</item>
-        <item>Gonadotropina Coriónica</item>
         <item>Haloperidol</item>
         <item>Halotano</item>
-        <item>Heparina sódica</item>
-        <item>Hidralazina clorhidrato</item>
-        <item>Hidroclorotiazida</item>
-        <item>Hidrocortisona (acetato)</item>
-        <item>Hidrocortisona (succinato sódico)</item>
-        <item>Hidroxicobalamina</item>
-        <item>Hidroxiprogesterona caproato</item>
-        <item>Hierro (ferroso) sulfato anhidro</item>
-        <item>Hierro parenteral</item>
-        <item>Hioscina N-butil bromuro</item>
-        <item>Hioscina N-butil bromuro + Dipirona</item>
-        <item>Ibopamina clorhidrato</item>
         <item>Ibuprofeno</item>
         <item>Idoxuridina</item>
-        <item>Imipramina clorhidrato</item>
-        <item>Inmunoglobulina anti Rh</item>
-        <item>Insulina Zinc cristalina</item>
-        <item>Insulina Zinc N:P:H:</item>
-        <item>Iodamida meglumina</item>
-        <item>Iodopovidona</item>
-        <item>Iodotalamato de meglumina</item>
-        <item>Iohexol o Iopamidol</item>
-        <item>Ioversol</item>
-        <item>Ipecacuana</item>
-        <item>Ipratropio bromuro</item>
-        <item>Isoflurano</item>
         <item>Isoniazida</item>
-        <item>Isosorbide dinitrato</item>
-        <item>Ketamina (clorhidrato)</item>
         <item>Ketoconazol</item>
         <item>Ketotifeno</item>
-        <item>Lactato Ringer (Solución Hartman)</item>
-        <item>Levodopa + Carbidopa</item>
         <item>Levomepromazina</item>
-        <item>Levonorgestrel + Etinilestradiol</item>
-        <item>Levotiroxina sódica</item>
-        <item>Levotiroxina sódica + Liotironina</item>
-        <item>Lidocaína clorhidrato</item>
-        <item>Liotironina</item>
-        <item>Litio carbonato</item>
-        <item>Loperamida clorhidrato</item>
-        <item>Loratadina</item>
-        <item>Lorazepam</item>
         <item>Lovastatina</item>
         <item>Magnesio sulfato</item>
         <item>Manitol</item>
         <item>Mebendazol</item>
-        <item>Medroxiprogesterona acetato</item>
         <item>Mefloquina</item>
-        <item>Meglumina antimoniato</item>
-        <item>Meglumina Diatrizoato</item>
-        <item>Meperidina clorhidrato</item>
-        <item>Mesalazina</item>
-        <item>Metadona clorhidrato</item>
-        <item>Metformina</item>
-        <item>Metilfenidato</item>
-        <item>Metimazol</item>
-        <item>Metocarbamol</item>
-        <item>Metoclopramida (clorhidrato)</item>
-        <item>Metoprolol tartrato</item>
-        <item>Metoxaleno</item>
         <item>Metronidazol</item>
-        <item>Metronidazol (benzoílo)</item>
         <item>Midazolam</item>
         <item>Morfina</item>
-        <item>Morfina sulfato</item>
-        <item>Naloxona clorhidrato</item>
         <item>Naproxeno</item>
-        <item>Neomicina (sulfato) + Polimixina B</item>
-        <item>Neostigmina metilsulfato</item>
         <item>Niclosamida</item>
-        <item>Nifedipina</item>
-        <item>Nifurtimox</item>
-        <item>Nimodipina</item>
-        <item>Nistatina</item>
-        <item>Nitrofurantoína</item>
         <item>Norfloxacina</item>
-        <item>Obidoxima cloruro</item>
         <item>Omeprazol</item>
-        <item>Orotioglucosa u</item>
-        <item>Oxacilina (sal sódica)</item>
         <item>Oxicodona</item>
-        <item>OxÍgeno</item>
-        <item>Oximetazolina</item>
-        <item>Oxitocina</item>
-        <item>Pancuronio bromuro</item>
-        <item>Pasta de Unna</item>
-        <item>Penicilamina</item>
-        <item>Penicilina Fenoximetílica (y sales)</item>
-        <item>Penicilina G Benzatínica</item>
-        <item>Penicilina G Procaínica</item>
-        <item>Penicilina G sódica o potásica cristalina</item>
-        <item>Pilocarpina clorhidrato o nitrato</item>
+        <item>Penicilina</item>
         <item>Piperazina</item>
-        <item>Pipotiazina palmitato</item>
-        <item>Pirantel (embonato o pamoato)</item>
-        <item>Pirazinamida</item>
-        <item>Piridostigmina bromuro</item>
-        <item>Piridoxina clorhidrato</item>
         <item>Pirimetamina</item>
-        <item>Pirimetamina + Sulfadoxina</item>
-        <item>Plasma humano</item>
-        <item>Plata sulfadiazina</item>
         <item>Podofilina</item>
-        <item>Potasio cloruro</item>
-        <item>Pralidoxima</item>
-        <item>Praziquantel</item>
-        <item>Prazosina</item>
-        <item>Prednisolona + Fenilefrina</item>
-        <item>Prednisona o prednisolona</item>
-        <item>Primaquina (fosfato)</item>
-        <item>Primidona</item>
-        <item>Procainamida clorhidrato</item>
-        <item>Proparacaína clorhidrato</item>
         <item>Propranolol</item>
-        <item>Propranolol clorhidrato</item>
-        <item>Protamina sulfato</item>
-        <item>Quinidina sulfato</item>
-        <item>Quinina diclorhidrato</item>
-        <item>Quinina sulfato</item>
-        <item>Ranitidina (clorhidrato)</item>
-        <item>Retinoico ácido</item>
         <item>Rifampicina</item>
-        <item>Rifampicina + Isoniazida</item>
         <item>Ringer</item>
-        <item>Salbutamol (sulfato)</item>
-        <item>Sales de rehidratación oral, fórmula OMS</item>
         <item>Sodio bicarbonato</item>
-        <item>Sodio cloruro</item>
-        <item>Sodio diatrizoato + Meglumina diatrizoato</item>
-        <item>Sodio fluoruro</item>
-        <item>Sodio fluoruro acidulado</item>
-        <item>Sodio hiposulfito</item>
-        <item>Sodio Iopodato</item>
-        <item>Sodio lactato</item>
-        <item>Sodio nitrito</item>
-        <item>Sodio nitroprusiato</item>
-        <item>Succinilcolina</item>
-        <item>Sucralfato</item>
-        <item>Suero antiofídico monovalente (Bothrops)</item>
-        <item>Suero antiofídico polivalente</item>
-        <item>Suero antirrábico</item>
-        <item>Sulfacetamida sódica</item>
         <item>Sulfasalazina</item>
         <item>Talidomida</item>
         <item>Teclozán</item>
         <item>Teofilina</item>
-        <item>Terbutalina sulfato</item>
-        <item>Testosterona éster</item>
-        <item>Tetracaína clorhidrato</item>
-        <item>Tetraciclina clorhidrato</item>
-        <item>Tiamina</item>
-        <item>Ticarcilina (sal sódica)</item>
-        <item>Timolol maleato</item>
-        <item>Tinidazol</item>
-        <item>Tioacetazona + Isoniazida</item>
-        <item>Tiopental sódico</item>
-        <item>Tioridazina clorhidrato</item>
-        <item>Tolbutamida</item>
-        <item>Toxoide diftérico-tetánico</item>
-        <item>Toxoide tetánico</item>
-        <item>Tramadol clorhidrato</item>
-        <item>Tranexámico ácido</item>
-        <item>Tranilcipromina</item>
-        <item>Trazodona clorhidrato</item>
-        <item>Trihexifenidilo clorhidrato</item>
-        <item>Trimetoprim + Sulfametoxazol</item>
-        <item>Tropicamida</item>
         <item>Tubocurarina</item>
         <item>Vacuna antiamarílica</item>
         <item>Vacuna antihepatitis B</item>
-        <item>Vacuna antipaperas (ANTIPAROTIDITIS)</item>
-        <item>Vacuna antipoliomielítica</item>
         <item>Vacuna antirrábica</item>
-        <item>Vacuna antirrubeólica (ANTIRRUBEOLA)</item>
         <item>Vacuna antisarampionosa</item>
-        <item>Vacuna contra Haemophilus Influenzae</item>
-        <item>Vacuna contra la difteria, tétano y tos ferina (D.P.T.)</item>
-        <item>Vacuna contra la tuberculosis (B.C.G.)</item>
-        <item>Valproico ácido</item>
-        <item>Valproico sódico</item>
-        <item>Vasopresina tanato</item>
-        <item>Vecuronio bromuro</item>
-        <item>Verapamilo clorhidrato</item>
-        <item>Vitamina A (acetato o palmitato)</item>
-        <item>Warfarina sódica</item>
     </string-array>
     <string-array name="measures">
         <item> </item>
@@ -496,7 +229,6 @@
         <item>Año</item>
         <item>Vida</item>
     </string-array>
-    <!-- ICI -->
     <string name="date">Fecha: </string>
     <string name="with">Con: </string>
     <string name="type">Tipo: </string>
@@ -541,7 +273,7 @@
     <string name="description">Descripción</string>
     <string name="database_access_impossible">Imposible el acceso de base de datos</string>
     <string name="about">Acerca de</string>
-    <string name="made_by">Realizado por Pueblo\nUso de AChartEngine (http://www.achartengine.org/) para gráficos\nUso de iconos de openclipart (https://openclipart.org/)</string>
+    <string name="made_by">Realizado por Pueblo</string>
     <string name="send_email_to_author">Enviar correo electrónico al autor</string>
 
 </resources>

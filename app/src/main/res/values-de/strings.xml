@@ -158,6 +158,9 @@
         <item>Gelbsucht</item>
         <item>Röteln</item>
     </string-array>
+    <string-array name="drugs">
+        <!-- TODO -->
+    </string-array>
     <string-array name="measures">
         <item>Gewicht</item>
         <item>Größe</item>
@@ -243,6 +246,7 @@
     <string name="description">Beschreibung</string>
     <string name="database_access_impossible">Zugriff auf die datenbank unmöglich</string>
     <string name="about">über</string>
-    <string name="made_by">Erstellt von Pueblo (akoudri@free.fr)</string>
+    <string name="made_by">Erstellt von Pueblo</string>
+    <string name="send_email_to_author">Senden sie eine e-mail</string>
 
 </resources>

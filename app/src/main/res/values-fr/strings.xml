@@ -345,7 +345,8 @@
     <string name="description">Description</string>
     <string name="database_access_impossible">Accès à la base de données impossible</string>
     <string name="about">A propos</string>
-    <string name="made_by">Créé par Pueblo\nUtilisation de AChartEngine (http://www.achartengine.org/) pour les graphes\nUtilisation d\'icons d\'Openclipart (https://openclipart.org/)</string>
+    <string name="made_by">Créé par Pueblo</string>
     <string name="send_email_to_author">Envoyer courriel à l\'auteur</string>
+
 
 </resources>

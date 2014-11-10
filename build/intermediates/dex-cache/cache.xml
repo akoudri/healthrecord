@@ -2,16 +2,8 @@
 <pre-dex-items>
 
     <item
-        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-9a5e03fe76f0647e613b78459bb3b74bab9ffda6.jar"
-        jar="/home/koudri/AndroidStudioProjects/HealthRecord/app/libs/achartengine-1.1.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
-    <item
-        dex="/home/koudri/AndroidStudioProjects/HealthRecord/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-9a5e03fe76f0647e613b78459bb3b74bab9ffda6.jar"
-        jar="/home/koudri/AndroidStudioProjects/HealthRecord/app/libs/achartengine-1.1.0.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
+        dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-806c37342e14fb3009f07626d821b7a7c7e58d30.jar"
+        jar="/home/ali/dev/android/healthrecord/app/libs/achartengine-1.1.0.jar" jumboMode="false"
+        revision="20.0.0" sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250" />
 
 </pre-dex-items>

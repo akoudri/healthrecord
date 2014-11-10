@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Carnet de sănătate</string>
+    <string name="add_person">Adăugare Persoană</string>
+    <string name="add">Adăugare</string>
+    <string name="name">Nume</string>
+    <string name="birthdate">Data de naştere</string>
+    <string name="action_settings">Configurare</string>
+    <string name="gender">Sex</string>
+    <string name="pick_date">Calendar</string>
+    <string name="male">Masculin</string>
+    <string name="female">Feminin</string>
+    <string name="blood_type">Groupă Sanguină</string>
+    <string name="edit">Editare</string>
+    <string name="remove">Şterge</string>
+    <string name="update">Actualizare</string>
+    <string name="save">Salvare</string>
+    <string name="cancel">Anulare</string>
+    <string name="manage_ailments">Boli</string>
+    <string name="manage_treatments">Tratamente</string>
+    <string name="manage_appointments">Consultaţii medicale</string>
+    <string name="manage_measures">Dimensiuni</string>
+    <string name="personal_analysis">Statistici</string>
+    <string name="personal_data">Date</string>
+    <string name="doctors">Doctori specialişti</string>
+    <string name="yes">Da</string>
+    <string name="no">Nu</string>
+    <string name="remove_question">Confirmaţi ştergerea?</string>
+    <string name="removing">Ştergere</string>
+    <string name="ssn">Cod Numeric Personal</string>
+    <string name="speciality">Specialitate</string>
+    <string name="phoneNumber">Număr de tel.</string>
+    <string name="add_therapist">Adăugare Medic Specialist</string>
+    <string name="my_therapists">Specialişti</string>
+    <string name="calendar">Calendar</string>
+    <string name="no_other_therapist">Lipsă medici specialişti</string>
+    <string name="update_therapist">Actualizare Medic specialist</string>
+    <string-array name="branches">
+        <item>Medecină generală</item>
+        <item>Anesteziologie</item>
+        <item>Biochimie medicală</item>
+        <item>Cardiologie</item>
+        <item>Chirurgie cardiacă</item>
+        <item>Chirurgie colorectală</item>
+        <item>Chirurgie generală</item>
+        <item>Chirurgie oncologică</item>
+        <item>Chirurgie pediatrică</item>
+        <item>Chirurgie ortopedică</item>
+        <item>Chirurgie plastică</item>
+        <item>Chirurgie toracică</item>
+        <item>Chirurgie vasculară</item>
+        <item>Dermatologie</item>
+        <item>Endocrinologie</item>
+        <item>Metabolism</item>
+        <item>Gastroenterologie</item>
+        <item>Genetică medicală</item>
+        <item>Geriatrie</item>
+        <item>Hematologie</item>
+        <item>Oncologie</item>
+        <item>Imunologie clinică şi alergologie</item>
+        <item>Boli infecţioase</item>
+        <item>Medecină comunitară</item>
+        <item>Urgenţe</item>
+        <item>Urgenţe pediatrie</item>
+        <item>Medecina adolescentului</item>
+        <item>Terapie intensivă</item>
+        <item>Medecina muncii</item>
+        <item>Medecină internă</item>
+        <item>Medecina maternală</item>
+        <item>Medecină fetală</item>
+        <item>Medecină neonatală</item>
+        <item>Medecină perinatală</item>
+        <item>Medecină nucleară</item>
+        <item>Medecină fizică</item>
+        <item>Microbiologie medicală</item>
+        <item>Nefrologie</item>
+        <item>Neurochirurgie</item>
+        <item>Neurologie</item>
+        <item>Neuropatologie</item>
+        <item>Obstetrică</item>
+        <item>Ginecologie</item>
+        <item>Oncologie ginecologică</item>
+        <item>Oftalmologie</item>
+        <item>Otorinolaringologie (ORL) </item>
+        <item>Chirurgie cervico-facială</item>
+        <item>Patologie generală</item>
+        <item>Patologie hematologică</item>
+        <item>Psihologie judiciară</item>
+        <item>Pediatrie</item>
+        <item>Pneumologie</item>
+        <item>Psihiatrie</item>
+        <item>Oncologie radioterapie</item>
+        <item>Radiologie diagnostică</item>
+        <item>Reumatologie</item>
+        <item>Urologie</item>
+        <item>Îngrijitor</item>
+        <item>Ambulanţier</item>
+        <item>Asistent stomatologie</item>
+        <item>Acustician-Audioprotezist</item>
+        <item>Asistent puericultură</item>
+        <item>Dieteticien</item>
+        <item>Ergoterapeut</item>
+        <item>Infirmier</item>
+        <item>Infirmieră</item>
+        <item>Asistentă puericultură</item>
+        <item>Maseur</item>
+        <item>Kinetoterapeut</item>
+        <item>Optician</item>
+        <item>Ortofonist</item>
+        <item>Ortoptist</item>
+        <item>Osteopat</item>
+        <item>Chiropractor</item>
+        <item>Pedichiură</item>
+        <item>Podolog</item>
+        <item>Ortoped-ortezist</item>
+        <item>Protezist dentar</item>
+        <item>Psihomotrician</item>
+    </string-array>
+    <string-array name="illnesses">
+        <item>Colesterol</item>
+        <item>Hipertensiune</item>
+        <item>Migrenă</item>
+        <item>Depresie</item>
+        <item>Astm</item>
+        <item>Bronhiolită</item>
+        <item>Bronşită</item>
+        <item>Acnee</item>
+        <item>Eczemă</item>
+        <item>Herpes</item>
+        <item>Psoriasis</item>
+        <item>Ulcer</item>
+        <item>Artroză</item>
+        <item>Lombalgie</item>
+        <item>Osteoporoză</item>
+        <item>Reumatism</item>
+        <item>Sciatică</item>
+        <item>Cataractă</item>
+        <item>Diabet</item>
+        <item>Meningită</item>
+        <item>Flebită</item>
+        <item>Alcoolism</item>
+        <item>Tabagism</item>
+        <item>Anorexie</item>
+        <item>Bulimie</item>
+        <item>Rinofaringită</item>
+        <item>Alergie</item>
+        <item>Gripă</item>
+        <item>Angină</item>
+        <item>Răceală</item>
+        <item>Colică</item>
+        <item>Gastroenterită</item>
+        <item>Varicelă</item>
+        <item>Diaree</item>
+        <item>Rujeolă</item>
+        <item>Hemoroizi</item>
+        <item>Constipaţie</item>
+        <item>Icter</item>
+        <item>Rubeolă (Pojar)</item>
+    </string-array>
+    <string-array name="drugs">
+        <!-- TODO -->
+    </string-array>
+    <string-array name="measures">
+        <item> </item>
+        <item>Greutate</item>
+        <item>Înălţime</item>
+        <item>Temperatură</item>
+        <item>Perimetru Cranian</item>
+        <item>Glicemie</item>
+        <item>Inimă</item>
+    </string-array>
+    <string name="size">Înălţime(cm)</string>
+    <string name="weight">Greutate(kg)</string>
+    <string name="temperature">Temperatură(°C)</string>
+    <string name="glucose">Glicemie(g/l)</string>
+    <string name="heart">Coeur</string>
+    <string name="cp">Perimetru Cranian(cm)</string>
+    <string name="diastolic">Tensiune Diastolică(cmHg)</string>
+    <string name="systolic">Tensiune Sistolică(cmHg)</string>
+    <string name="heartbeat">Puls(p/m)</string>
+    <string name="add_rv">Adăugaţi programare la doctor</string>
+    <string name="add_ailment">Adăugaţi Boală</string>
+    <string name="add_treatment">Adăugaţi Tratament</string>
+    <string name="hour">Ora: </string>
+    <string name="remove_appt_question">Confirmaţi ştergerea programării la doctor?</string>
+    <string name="remove_measure_question">Confirmaţi ştergerea dimensiunii?</string>
+    <string name="remove_observation_question">Confirmaţi ştergerea menţiunii?</string>
+    <string name="illness">Boală</string>
+    <string name="chronic">Cronică</string>
+    <string name="prescribedBy">Tratat de către: </string>
+    <string name="permanent">Permanent</string>
+    <string name="start">Început: </string>
+    <string name="end">Sfârşit: </string>
+    <string name="drugs">Medicamente</string>
+    <string name="times">dăţi / </string>
+    <string name="frequency">Frecvenţă</string>
+    <string-array name="freqChoice">
+        <item>Oră</item>
+        <item>Zi</item>
+        <item>Săptămână</item>
+        <item>Lună</item>
+        <item>An</item>
+        <item>Viaţă</item>
+    </string-array>
+    <string name="date">Dată: </string>
+    <string name="with">Cu: </string>
+    <string name="type">Tip: </string>
+    <string name="display">Afişare</string>
+    <string name="db_warning">Integritatea datelor este coruptă</string>
+    <string name="ok">OK</string>
+    <string name="warning">Alertă</string>
+    <string name="notValidData">Câmpuri incomplete sau invalide</string>
+    <string name="update_saved">Actualizare efectuată</string>
+    <string name="cell_phone_number">Număr de mobil</string>
+    <string name="email_address">Email</string>
+    <string name="comment">Comentariu</string>
+    <string name="duration">Durată: </string>
+    <string name="number_of_days">Zi(le)</string>
+    <string name="med_req">Adăugaţi cel puţin un medicament</string>
+    <string name="self">Eu</string>
+    <string name="duplicate_medic">Medicamentul există in duplicat</string>
+    <string name="number_of_measures">Număr de măsurători</string>
+    <string name="number_of_appt">Număr de programări</string>
+    <string name="number_of_ailments">Număr de boli</string>
+    <string name="number_of_medics">Număr de medicamente</string>
+    <string name="number_of_observations">Număr de menţiuni</string>
+    <string name="no_change">Nici o schimbare de înregistrat</string>
+    <string name="data_saved">Date înregistrate</string>
+    <string name="preventive_treatment">Tratament preventiv</string>
+    <string name="no_therapist_found">Medicul specialist nu a fost găsit</string>
+    <string name="add_existing_therapist">Adăugare medic specialist existent</string>
+    <string name="add_new_therapist">Adăugaţi un nou medic specialist</string>
+    <string name="add_drug">Adăugare medicament </string>
+    <string name="stop">Stop</string>
+    <string name="current_size">Înălţimea curentă (cm): </string>
+    <string name="current_weight">Greutatea curentă (kg): </string>
+    <string name="doctor">Nume medic de familie</string>
+    <string name="overlapping_ailment">Boală deja declarată pentru această perioadă</string>
+    <string name="heart_measure">Dia(cmHg)/Sis(cmHg)-Puls(p/m)</string>
+    <string name="add_measure">Adăugaţi Măsură</string>
+    <string name="nb_points">Număr de puncte</string>
+    <string name="choose_type">Alegeţi un tip</string>
+    <string name="message">Mesaj</string>
+    <string name="send">Trimite</string>
+    <string name="add_observation">Adăugaţi menţiune</string>
+    <string name="description">Descriere</string>
+    <string name="database_access_impossible">Accesul la baza de date imposibil!</string>
+    <string name="about">Despre</string>
+    <string name="made_by">Creat de Pueblo</string>
+    <string name="send_email_to_author">Trimite e-mail</string>
+
+</resources>

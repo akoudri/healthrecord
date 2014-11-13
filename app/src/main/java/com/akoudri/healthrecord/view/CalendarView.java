@@ -69,12 +69,16 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     //Icons
     private Bitmap illnessIco, measureIco, medicsIco, rvIco;
-    //private Bitmap obsIco;
+    private Bitmap next, previous;
+    private Rect[] nav = new Rect[2];
     private boolean imagesFound = true;
     private int imgSize;
 
+    private Context context;
+
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         //Icons
         AssetManager assetManager = context.getAssets();
         InputStream inputStream;
@@ -91,9 +95,12 @@ public class CalendarView extends View implements View.OnTouchListener {
             inputStream = assetManager.open("images/medics_ico.png");
             medicsIco = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
-            //inputStream = assetManager.open("images/eye_ico.png");
-            //obsIco = BitmapFactory.decodeStream(inputStream);
-            //inputStream.close();
+            inputStream = assetManager.open("images/next.png");
+            next = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+            inputStream = assetManager.open("images/previous.png");
+            previous = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
         } catch (IOException e)
         {
             imagesFound = false;
@@ -162,6 +169,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         canvas.drawColor(getResources().getColor(R.color.app_bg_color)); //set bg to app bg
         //The order of operation calls is very important!!!
         displayTitleDate(canvas);
+        displayNavigation(canvas);
         displayDaysOfTheWeek(canvas);
         displayDaysOfMonth(canvas);
         displayInformation(canvas);
@@ -172,6 +180,22 @@ public class CalendarView extends View implements View.OnTouchListener {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(width, height);
+    }
+
+    private void displayNavigation(Canvas canvas)
+    {
+        if (next == null && previous == null)
+            return;
+        int left = 20;
+        int top = (int) tsize;
+        int right = (int) (left + tsize);
+        int bottom = (int) (top + tsize);
+        nav[0] = new Rect(left, top, right, bottom);
+        left = width - 20 - (int) tsize;
+        right = (int) (left + tsize);
+        nav[1] = new Rect(left, top, right, bottom);
+        canvas.drawBitmap(previous, null, nav[0], null);
+        canvas.drawBitmap(next, null, nav[1], null);
     }
 
     //displays the date title
@@ -295,7 +319,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         Rect rect;
         int sx = 3;
         int sy = 3;
-        int rcirc = (int) (16 * ratio);
+        int rcirc = (int) (HealthRecordUtils.convertPixelsToDp(16,context) * ratio);
         Rect b_rect = new Rect();
         if (imagesFound) {
             for (int i = min_day; i <= max_day; i++) {
@@ -389,6 +413,8 @@ public class CalendarView extends View implements View.OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP:
                 xm = (int) event.getX();
+                int y = (int) event.getY();
+                if (manageClick(xm, y)) return true;
                 int xdiff = xm - tx;
                 if (xdiff > 50) {
                     _cal.add(Calendar.MONTH, -1);
@@ -454,5 +480,21 @@ public class CalendarView extends View implements View.OnTouchListener {
             intent.putExtra("year", year);
             getContext().startActivity(intent);
         }
+    }
+
+    private boolean manageClick(int x, int y)
+    {
+        if (nav[0].contains(x, y)) {
+            _cal.add(Calendar.MONTH, -1);
+            loadInfo();
+            return true;
+        }
+        if (nav[1].contains(x, y)) {
+            _cal.add(Calendar.MONTH, 1);
+            computeRects();
+            loadInfo();
+            return true;
+        }
+        return false;
     }
 }

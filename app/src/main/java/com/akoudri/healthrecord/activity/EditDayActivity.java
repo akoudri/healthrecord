@@ -20,7 +20,6 @@ import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
 import com.akoudri.healthrecord.fragment.ObservationFragment;
-import com.akoudri.healthrecord.fragment.OverviewFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
@@ -38,11 +37,10 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     private LinearLayout dayMenuLayout;
 
-    private ImageButton ovButton, measureButton, rvButton, illnessButton, obsButton;
+    private ImageButton measureButton, rvButton, illnessButton, obsButton;
     private ImageButton currentButton;
 
     private TextView today_label;
-    private OverviewFragment ovFrag;
     private AppointmentFragment apptFrag;
     private MeasureFragment measureFrag;
     private AilmentFragment ailmentFrag;
@@ -67,16 +65,15 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
-        ovFrag = OverviewFragment.newInstance();
         apptFrag = AppointmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
         obsFrag = ObservationFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.add(R.id.day_layout, ovFrag);
+        fragTrans.add(R.id.day_layout, measureFrag);
         fragTrans.commit();
-        currentFrag = ovFrag;
-        currentButton = ovButton;
+        currentFrag = measureFrag;
+        currentButton = measureButton;
         currentButton.setEnabled(false);
         //init day
         currentDay = Calendar.getInstance();
@@ -99,17 +96,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         llparams.leftMargin = margin;
         llparams.topMargin = margin;
         llparams.rightMargin = margin;
-        //Overview
-        ovButton = new ImageButton(this);
-        ovButton.setBackgroundResource(R.drawable.overview);
-        ovButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                displayOverview();
-            }
-        });
-        ovButton.setLayoutParams(llparams);
-        dayMenuLayout.addView(ovButton);
         //Measure
         measureButton = new ImageButton(this);
         measureButton.setBackgroundResource(R.drawable.measure);
@@ -165,27 +151,11 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            ovFrag.setCurrentDate(day, month, year);
-            ovFrag.setDataSource(dataSource);
-            measureFrag.setCurrentDate(day, month, year);
             measureFrag.setDataSource(dataSource);
-            apptFrag.setCurrentDate(day, month, year);
             apptFrag.setDataSource(dataSource);
-            ailmentFrag.setCurrentDate(day, month, year);
             ailmentFrag.setDataSource(dataSource);
-            obsFrag.setCurrentDate(day, month, year);
             obsFrag.setDataSource(dataSource);
-            /*
-            int count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
-            if (count == 0)
-                rvButton.setEnabled(false);
-            if (currentDay.after(today))
-            {
-                measureButton.setEnabled(false);
-                obsButton.setEnabled(false);
-                illnessButton.setEnabled(false);
-            }
-            */
+            refreshFrag();
         } catch (SQLException e) {
             Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
         }
@@ -211,19 +181,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         sb.append(" ");
         sb.append(year);
         today_label.setText(sb.toString());
-    }
-
-    private void displayOverview()
-    {
-        if (currentFrag == ovFrag) return;
-        ovFrag.setCurrentDate(day, month, year);
-        fragTrans = getFragmentManager().beginTransaction();
-        fragTrans.replace(R.id.day_layout, ovFrag);
-        fragTrans.commit();
-        currentButton.setEnabled(true);
-        ovButton.setEnabled(false);
-        currentButton = ovButton;
-        currentFrag = ovFrag;
     }
 
     private void displayMeasures()
@@ -359,17 +316,32 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         return true;
     }
 
+    public void goPrev(View view)
+    {
+        currentDay.add(Calendar.DAY_OF_MONTH, -1);
+        day = currentDay.get(Calendar.DAY_OF_MONTH);
+        month = currentDay.get(Calendar.MONTH);
+        year = currentDay.get(Calendar.YEAR);
+        displayCurrentDay();
+        refreshFrag();
+    }
+
+    public void goNext(View view)
+    {
+        currentDay.add(Calendar.DAY_OF_MONTH, 1);
+        day = currentDay.get(Calendar.DAY_OF_MONTH);
+        month = currentDay.get(Calendar.MONTH);
+        year = currentDay.get(Calendar.YEAR);
+        displayCurrentDay();
+        refreshFrag();
+    }
+
     private void refreshFrag()
     {
-        ovFrag.setCurrentDate(day, month, year);
         measureFrag.setCurrentDate(day, month, year);
         obsFrag.setCurrentDate(day, month, year);
         apptFrag.setCurrentDate(day, month, year);
         ailmentFrag.setCurrentDate(day, month, year);
-        if (currentFrag instanceof OverviewFragment){
-            ovFrag.refresh();
-            return;
-        }
         if (currentFrag instanceof MeasureFragment)
         {
             measureFrag.refresh();

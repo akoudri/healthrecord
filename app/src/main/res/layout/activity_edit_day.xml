@@ -11,16 +11,31 @@
         android:id="@+id/today_layout"
         android:layout_width="match_parent"
         android:layout_height="62dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/previous"
+            android:layout_gravity="center_vertical"
+            android:onClick="goPrev"/>
         <TextView
             android:id="@+id/today_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
             android:textSize="18dp"
             android:textStyle="bold"
             android:textColor="@color/regular_text_color"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/next"
+            android:layout_gravity="center_vertical"
+            android:onClick="goNext"/>
     </LinearLayout>
     <View
         android:layout_width="fill_parent"

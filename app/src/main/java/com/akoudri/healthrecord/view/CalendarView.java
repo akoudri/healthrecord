@@ -486,6 +486,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     {
         if (nav[0].contains(x, y)) {
             _cal.add(Calendar.MONTH, -1);
+            computeRects();
             loadInfo();
             return true;
         }

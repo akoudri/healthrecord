@@ -86,7 +86,7 @@ public class CreateAilmentActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0)
+        if (personId == 0 || day < 1 || month < 0 || year < 0)
             return;
         try {
             dataSource.open();
@@ -103,7 +103,7 @@ public class CreateAilmentActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0)
+        if (personId == 0 || day < 1 || month < 0 || year < 0)
             return;
         if (!dataSourceLoaded) return;
         dataSource.close();
@@ -240,7 +240,7 @@ public class CreateAilmentActivity extends Activity {
 
     public void addMedic(View view)
     {
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0)
+        if (personId == 0 || day < 1 || month < 0 || year < 0)
             return;
         if (!dataSourceLoaded) return;
         Intent intent = new Intent(this, CreateMedicationActivity.class);
@@ -293,7 +293,7 @@ public class CreateAilmentActivity extends Activity {
 
     public void addAilment(View view)
     {
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0)
+        if (personId == 0 || day < 1 || month < 0 || year < 0)
             return;
         if (!dataSourceLoaded) return;
         IllnessTable illnessTable = dataSource.getIllnessTable();

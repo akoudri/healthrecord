@@ -145,7 +145,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0 || day <= 0 || month <= 0 || year <= 0)
+        if (personId == 0 || day < 1 || month < 0 || year < 0)
             return;
         displayCurrentDay();
         try {

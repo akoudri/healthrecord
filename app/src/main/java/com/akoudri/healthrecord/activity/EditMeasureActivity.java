@@ -270,7 +270,7 @@ public class EditMeasureActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        if (measureId == 0 && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
+        if (measureId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -315,7 +315,7 @@ public class EditMeasureActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if ((measureId == 0 || measureIdType == 0) && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
+        if ((measureId == 0 || measureIdType == 0) && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
@@ -692,7 +692,7 @@ public class EditMeasureActivity extends Activity {
 
     public void saveMeasure(View view)
     {
-        if ((measureId == 0 || measureIdType == 0) && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
+        if ((measureId == 0 || measureIdType == 0) && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         switch (measureType)
         {

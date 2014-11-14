@@ -76,7 +76,7 @@ public class EditAppointmentActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (apptId == 0 && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
+        if (apptId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -173,7 +173,7 @@ public class EditAppointmentActivity extends Activity {
 
     public void saveAppointment(View view)
     {
-        if (apptId == 0 && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
+        if (apptId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         int thPos = thSpinner.getSelectedItemPosition();
         int therapistId = thIds.get(thPos);

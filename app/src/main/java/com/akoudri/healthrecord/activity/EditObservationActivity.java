@@ -69,7 +69,7 @@ public class EditObservationActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (obsId == 0 && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
+        if (obsId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -107,7 +107,7 @@ public class EditObservationActivity extends Activity {
 
     public void saveObservation(View view)
     {
-        if (obsId == 0 && (personId == 0 || day <= 0 || month <= 0 || year <= 0)) return;
+        if (obsId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         String hourStr = hourET.getText().toString();
         String desc = descET.getText().toString();

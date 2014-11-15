@@ -92,7 +92,7 @@ public class ObservationFragment extends Fragment {
         layout.removeAllViews();
         List<MedicalObservation> allObservations = dataSource.getMedicalObservationTable().getDayObservationsForPerson(personId, date);
         if (allObservations == null || allObservations.size() == 0) return;
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, getActivity());
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());
         Button obsButton, removeButton, editButton;
         layout.setColumnCount(2);
         int childWidth = layout.getWidth()/2 - 2*margin;

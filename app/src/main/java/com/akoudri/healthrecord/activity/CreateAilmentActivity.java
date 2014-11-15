@@ -160,7 +160,7 @@ public class CreateAilmentActivity extends Activity {
         medicsLayout.removeAllViews();
         LinearLayout linearLayout;
         LinearLayout.LayoutParams llparams;
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, this);
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         Button editButton;
         ImageButton removeButton;
         for (final Medication medic : medications)

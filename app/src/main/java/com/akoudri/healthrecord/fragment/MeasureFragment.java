@@ -96,7 +96,7 @@ public class MeasureFragment extends Fragment {
         Button measureButton, removeButton, editButton;
         Drawable img;
         layout.setColumnCount(2);
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, getActivity());
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());
         int childWidth = layout.getWidth()/2 - 2*margin;
         int r = 0; //row index
         for (final Measure measure : allMeasures)

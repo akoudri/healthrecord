@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 //STATUS: checked
+//FIXME: replace grid layout with table layout
 public class MainActivity extends Activity {
 
     private static final String firstLoad = "FIRST_LOAD";
@@ -121,7 +122,7 @@ public class MainActivity extends Activity {
     {
         layout.removeAllViews();
         List<Person> allPersons = dataSource.getPersonTable().getAllPersons();
-        int margin = (int) HealthRecordUtils.convertPixelsToDp(1, this);
+        int margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         if (allPersons == null || allPersons.size() == 0)
             return;
         Button personButton;

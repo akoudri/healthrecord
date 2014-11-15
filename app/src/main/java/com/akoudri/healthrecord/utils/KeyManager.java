@@ -15,8 +15,8 @@ import java.io.IOException;
 public class KeyManager {
 
     private static final String TAG = "KeyManager";
-    private static final String file1 = "id_value";
-    private static final String file2 = "iv_value";
+    private static final String file1 = "avihridv";
+    private static final String file2 = "fahhrivv";
 
     private static Context ctx;
 

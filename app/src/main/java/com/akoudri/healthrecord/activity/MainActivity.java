@@ -26,11 +26,14 @@ import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.KeyManager;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.List;
 
 //STATUS: checked
-//FIXME: replace grid layout with table layout
+//TODO: replace grid layout with table layout
 public class MainActivity extends Activity {
 
     private static final String firstLoad = "FIRST_LOAD";
@@ -91,8 +94,8 @@ public class MainActivity extends Activity {
     private void createSecurityFiles()
     {
         //FIXME: change key/iv
-        String key = "12345678909876543212345678909876";
-        String iv = "1234567890987654";
+        String key = RandomStringUtils.randomNumeric(32);
+        String iv = RandomStringUtils.randomNumeric(16);
         KeyManager km = new KeyManager(getApplicationContext());
         km.setIv(iv.getBytes());
         km.setId(key.getBytes());

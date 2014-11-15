@@ -2,8 +2,16 @@
 <pre-dex-items>
 
     <item
+        dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/commons-lang3-3.3.2-0671729173d46c95675f08de3f359e7422868479.jar"
+        jar="/home/ali/dev/android/healthrecord/app/libs/commons-lang3-3.3.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="659861b4acde07a0527211e40d256119face1d15"/>
+    <item
         dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-806c37342e14fb3009f07626d821b7a7c7e58d30.jar"
-        jar="/home/ali/dev/android/healthrecord/app/libs/achartengine-1.1.0.jar" jumboMode="false"
-        revision="20.0.0" sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250" />
+        jar="/home/ali/dev/android/healthrecord/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250"/>
 
 </pre-dex-items>

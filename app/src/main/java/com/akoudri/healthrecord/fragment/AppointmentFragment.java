@@ -2,6 +2,8 @@ package com.akoudri.healthrecord.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -210,7 +212,13 @@ public class AppointmentFragment extends Fragment {
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dataSource.getAppointmentTable().removeAppointmentWithId(apptId);
+                                        //TODO: see how to cancel corresponding alarm
+                                        boolean deleted = dataSource.getAppointmentTable().removeAppointmentWithId(apptId);
+                                        if (deleted)
+                                        {
+                                            NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                                            manager.cancel(apptId);
+                                        }
                                         createWidgets();
                                     }
                                 })

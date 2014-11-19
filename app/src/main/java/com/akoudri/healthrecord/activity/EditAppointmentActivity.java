@@ -1,8 +1,15 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +30,7 @@ import com.akoudri.healthrecord.data.TherapyBranch;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.HourPickerFragment;
+import com.akoudri.healthrecord.utils.NotificationPublisher;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -199,8 +207,26 @@ public class EditAppointmentActivity extends Activity {
         else {
             if (checkFields(hourStr)) {
                 if (comment.equals("")) comment = null;
-                dataSource.getAppointmentTable().insertAppointment(personId, therapistId, selectedDate,
+                int notificationId = (int) dataSource.getAppointmentTable().insertAppointment(personId, therapistId, selectedDate,
                         hourStr, comment);
+                if (notificationId > 0) {
+                    Notification.Builder builder = new Notification.Builder(this);
+                    //FIXME: set correct label -> "appointment with"
+                    long alarm = HealthRecordUtils.datehourToCalendar(selectedDate, hourStr).getTimeInMillis();
+                    builder.setSmallIcon(R.drawable.health_record_app)
+                            .setContentTitle(dataSource.getTherapistTable().getTherapistWithId(therapistId).getName() + " @ " + hourStr)
+                            .setWhen(alarm)
+                            .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                            .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+                    Notification notification = builder.build();
+                    Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+                    notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId);
+                    notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                    //FIXME: works this way but not with the alarm variable!!!
+                    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 30000, pendingIntent);
+                }
                 finish();
             }
             else

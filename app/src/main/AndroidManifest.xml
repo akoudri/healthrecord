@@ -3,6 +3,7 @@
     package="com.akoudri.healthrecord.app" >
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="com.akoudri.healthrecord.app.HealthRecordApp"
@@ -36,6 +37,7 @@
         <activity android:name="com.akoudri.healthrecord.activity.AnalysisActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditMeasureActivity" android:screenOrientation="portrait"/>
         <activity android:name="org.achartengine.GraphicalActivity" android:screenOrientation="landscape" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+        <receiver android:name="com.akoudri.healthrecord.utils.NotificationPublisher" />
     </application>
 
 </manifest>

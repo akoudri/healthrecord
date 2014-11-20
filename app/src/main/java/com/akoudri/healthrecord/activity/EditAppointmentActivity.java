@@ -200,6 +200,21 @@ public class EditAppointmentActivity extends Activity {
             boolean res = dataSource.getAppointmentTable().updateAppointment(apptId, therapistId, dayStr, hourStr, comment);
             if (res) {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+                //FIXME: Update alarm, the following code does not work
+                Notification.Builder builder = new Notification.Builder(this);
+                long alarm = HealthRecordUtils.datehourToCalendar(selectedDate, hourStr).getTimeInMillis() - 7200000;
+                builder.setSmallIcon(R.drawable.health_record_app)
+                        .setContentTitle(dataSource.getTherapistTable().getTherapistWithId(therapistId).getName() + " @ " + hourStr)
+                        .setWhen(alarm)
+                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                        .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+                Notification notification = builder.build();
+                Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+                notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, apptId);
+                notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, apptId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarm, pendingIntent);
                 finish();
             } else
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
@@ -211,8 +226,7 @@ public class EditAppointmentActivity extends Activity {
                         hourStr, comment);
                 if (notificationId > 0) {
                     Notification.Builder builder = new Notification.Builder(this);
-                    //FIXME: set correct label -> "appointment with"
-                    long alarm = HealthRecordUtils.datehourToCalendar(selectedDate, hourStr).getTimeInMillis();
+                    long alarm = HealthRecordUtils.datehourToCalendar(selectedDate, hourStr).getTimeInMillis() - 7200000;
                     builder.setSmallIcon(R.drawable.health_record_app)
                             .setContentTitle(dataSource.getTherapistTable().getTherapistWithId(therapistId).getName() + " @ " + hourStr)
                             .setWhen(alarm)
@@ -222,10 +236,9 @@ public class EditAppointmentActivity extends Activity {
                     Intent notificationIntent = new Intent(this, NotificationPublisher.class);
                     notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationId);
                     notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, notificationId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                    //FIXME: works this way but not with the alarm variable!!!
-                    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 30000, pendingIntent);
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarm, pendingIntent);
                 }
                 finish();
             }

@@ -1,8 +1,11 @@
 package com.akoudri.healthrecord.fragment;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,11 +24,13 @@ import com.akoudri.healthrecord.activity.EditAppointmentActivity;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
+import com.akoudri.healthrecord.data.AppointmentTable;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapistTable;
 import com.akoudri.healthrecord.data.TherapyBranch;
 import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
+import com.akoudri.healthrecord.utils.NotificationPublisher;
 
 import java.util.Calendar;
 import java.util.List;
@@ -213,11 +218,27 @@ public class AppointmentFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         //TODO: see how to cancel corresponding alarm
-                                        boolean deleted = dataSource.getAppointmentTable().removeAppointmentWithId(apptId);
+                                        AppointmentTable apptTable = dataSource.getAppointmentTable();
+                                        Appointment appt = apptTable.getAppointmentWithId(apptId);
+                                        boolean deleted = apptTable.removeAppointmentWithId(apptId);
                                         if (deleted)
                                         {
-                                            NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                                            manager.cancel(apptId);
+                                            //NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                                            //manager.cancel(apptId);
+                                            Notification.Builder builder = new Notification.Builder(getActivity());
+                                            long alarm = HealthRecordUtils.datehourToCalendar(appt.getDate(), appt.getHour()).getTimeInMillis() - 7200000;
+                                            builder.setSmallIcon(R.drawable.health_record_app)
+                                                    .setContentTitle(dataSource.getTherapistTable().getTherapistWithId(appt.getTherapistId()).getName() + " @ " + appt.getHour())
+                                                    .setWhen(alarm)
+                                                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+                                            Notification notification = builder.build();
+                                            Intent notificationIntent = new Intent(getActivity(), NotificationPublisher.class);
+                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, appt.getId());
+                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+                                            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), appt.getId(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                                            alarmManager.cancel(pendingIntent);
                                         }
                                         createWidgets();
                                     }

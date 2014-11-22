@@ -319,7 +319,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         Rect rect;
         int sx = 3;
         int sy = 3;
-        int rcirc = (int) (HealthRecordUtils.convertPixelsToDp(16,context) * ratio);
+        int rcirc = (int) (12 * ratio);
         Rect b_rect = new Rect();
         if (imagesFound) {
             for (int i = min_day; i <= max_day; i++) {
@@ -359,42 +359,6 @@ public class CalendarView extends View implements View.OnTouchListener {
                     paint.setColor(getResources().getColor(R.color.measuresColor));
                     canvas.drawCircle(xa, yi, rcirc, paint);
                     paint.setStyle(Paint.Style.FILL);
-                }
-            }
-        }
-        else
-        {
-            for (int i = min_day; i <= max_day; i++) {
-                rect = rects.get(i - 1);
-                if (measures[i - 1] > 0) {
-                    int xa = rect.left + sx + rcirc;
-                    int yi = rect.top + sy + rcirc;
-                    paint.setColor(getResources().getColor(R.color.measuresColor));
-                    canvas.drawCircle(xa, yi, rcirc, paint);
-                }
-                if (appointments[i - 1] > 0) {
-                    int xa = rect.right - sx  - rcirc;
-                    int yi = rect.top + sy  + rcirc;
-                    paint.setColor(getResources().getColor(R.color.rvColor));
-                    canvas.drawCircle(xa, yi, rcirc, paint);
-                }
-                if (ailments[i - 1] > 0) {
-                    int xa = rect.left + sx  + rcirc;
-                    int yi = rect.bottom - sy  - rcirc;
-                    paint.setColor(getResources().getColor(R.color.illnessColor));
-                    canvas.drawCircle(xa, yi, rcirc, paint);
-                }
-                if (medics[i - 1] > 0) {
-                    int xa = rect.right - sx - rcirc;
-                    int yi = rect.bottom - sy  - rcirc;
-                    paint.setColor(getResources().getColor(R.color.medicsColor));
-                    canvas.drawCircle(xa, yi, rcirc, paint);
-                }
-                if (observations[i - 1] > 0) {
-                    int xa = (rect.right + rect.left) / 2;
-                    int yi = (rect.bottom + rect.top) / 2;
-                    paint.setColor(getResources().getColor(R.color.obsColor));
-                    canvas.drawCircle(xa, yi, rcirc, paint);
                 }
             }
         }

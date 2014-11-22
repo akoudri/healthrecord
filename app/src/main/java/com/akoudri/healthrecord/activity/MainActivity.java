@@ -28,7 +28,6 @@ import com.akoudri.healthrecord.utils.KeyManager;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.List;
 

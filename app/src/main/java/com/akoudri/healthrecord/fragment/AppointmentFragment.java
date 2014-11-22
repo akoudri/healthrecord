@@ -223,10 +223,9 @@ public class AppointmentFragment extends Fragment {
                                         boolean deleted = apptTable.removeAppointmentWithId(apptId);
                                         if (deleted)
                                         {
-                                            //NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-                                            //manager.cancel(apptId);
                                             Notification.Builder builder = new Notification.Builder(getActivity());
                                             long alarm = HealthRecordUtils.datehourToCalendar(appt.getDate(), appt.getHour()).getTimeInMillis() - 7200000;
+                                            int apptId = appt.getId();
                                             builder.setSmallIcon(R.drawable.health_record_app)
                                                     .setContentTitle(dataSource.getTherapistTable().getTherapistWithId(appt.getTherapistId()).getName() + " @ " + appt.getHour())
                                                     .setWhen(alarm)
@@ -234,9 +233,9 @@ public class AppointmentFragment extends Fragment {
                                                     .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
                                             Notification notification = builder.build();
                                             Intent notificationIntent = new Intent(getActivity(), NotificationPublisher.class);
-                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, appt.getId());
+                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, apptId);
                                             notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-                                            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), appt.getId(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), apptId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                                             AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                                             alarmManager.cancel(pendingIntent);
                                         }

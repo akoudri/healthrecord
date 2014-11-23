@@ -26,6 +26,9 @@ import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.KeyManager;
 
+//Ads
+import com.google.android.gms.ads.*;
+
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.sql.SQLException;
@@ -59,6 +62,11 @@ public class MainActivity extends Activity {
         Context context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         isFirstLoad = prefs.getBoolean(firstLoad, false);
+        //Ads
+        AdView adView = (AdView)this.findViewById(R.id.main_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
     }
 
     @Override

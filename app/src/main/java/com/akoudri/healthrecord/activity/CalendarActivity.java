@@ -14,6 +14,9 @@ import com.akoudri.healthrecord.view.CalendarView;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+//Ads
+import com.google.android.gms.ads.*;
+
 /**
  * Created by Ali Koudri on 19/07/14.
  * STATUS: checked
@@ -39,6 +42,10 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         width = size.x;
+        //Ads
+        AdView adView = (AdView)this.findViewById(R.id.calendar_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
     @Override

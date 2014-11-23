@@ -1,6 +1,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="@color/app_bg_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,6 +18,15 @@
         android:textSize="18dp"
         android:drawableRight="@drawable/add"
         android:onClick="addPerson"/>
+    <!-- Begin Ads -->
+    <com.google.android.gms.ads.AdView android:id="@+id/main_adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        ads:adUnitId="ca-app-pub-6354300562799735/3995610991"
+        ads:adSize="BANNER"/>
+    <!-- End Ads -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,7 +34,7 @@
             android:id="@+id/person_grid"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"/>
     </ScrollView>

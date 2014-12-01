@@ -186,13 +186,14 @@ public class CalendarView extends View implements View.OnTouchListener {
     {
         if (next == null && previous == null)
             return;
+        int bWidth = (int) (tsize * 1.5);
         int left = 20;
         int top = (int) tsize;
-        int right = (int) (left + tsize);
-        int bottom = (int) (top + tsize);
+        int right = (int) (left + bWidth);
+        int bottom = (int) (top + bWidth);
         nav[0] = new Rect(left, top, right, bottom);
-        left = width - 20 - (int) tsize;
-        right = (int) (left + tsize);
+        left = width - 20 - (int) bWidth;
+        right = (int) (left + bWidth);
         nav[1] = new Rect(left, top, right, bottom);
         canvas.drawBitmap(previous, null, nav[0], null);
         canvas.drawBitmap(next, null, nav[1], null);
@@ -214,8 +215,17 @@ public class CalendarView extends View implements View.OnTouchListener {
     //display the days of the weeks
     private void displayDaysOfTheWeek(Canvas canvas)
     {
+        paint.setColor(getResources().getColor(R.color.button_bg_color));
+        //ICI
+        Rect r = new Rect();
+        r.left = 0;
+        r.top = (int) (3 * tsize);
+        r.right = width;
+        r.bottom = (int) (3 * (tsize + ttsize));
+        RectF rectf = new RectF(r);
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawRect(rectf, paint);
         //prepare the painting for days different of actual day
-        paint.setColor(getResources().getColor(R.color.regular_text_color));
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTextSize((int) (stepy * nbRatio));
         paint.setFakeBoldText(true);
@@ -303,6 +313,10 @@ public class CalendarView extends View implements View.OnTouchListener {
             b_rect.right = rect.right - 2;
             b_rect.bottom = rect.bottom - 2;
             rectf = new RectF(b_rect);
+            paint.setColor(getResources().getColor(R.color.button_bg_color));
+            paint.setStyle(Paint.Style.FILL);
+            canvas.drawRoundRect(rectf, corner, corner, paint);
+            paint.setColor(getResources().getColor(R.color.regular_text_color));
             paint.setStyle(Paint.Style.STROKE);
             canvas.drawRoundRect(rectf, corner, corner, paint);
             paint.setStyle(Paint.Style.FILL);
@@ -376,6 +390,7 @@ public class CalendarView extends View implements View.OnTouchListener {
                 selectedRect = getSelectedRect(tx, ty);
                 break;
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_POINTER_UP:
                 xm = (int) event.getX();
                 int y = (int) event.getY();
                 if (manageClick(xm, y)) return true;

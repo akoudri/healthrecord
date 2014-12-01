@@ -23,19 +23,19 @@
     <string name="manage_measures">Measures</string>
     <string name="personal_analysis">Statistics</string>
     <string name="personal_data">Personal Data</string>
-    <string name="doctors">Therapists</string>
+    <string name="doctors">Practitioners</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="remove_question">Do you really want to remove</string>
     <string name="removing">Removing</string>
-    <string name="ssn">Social Security Number</string>
+    <string name="ssn">Health Number</string>
     <string name="speciality">Speciality</string>
     <string name="phoneNumber">Phone Number</string>
-    <string name="add_therapist">Add Therapist</string>
-    <string name="my_therapists">Therapists</string>
+    <string name="add_therapist">Add Practitioner</string>
+    <string name="my_therapists">Practitioners</string>
     <string name="calendar">Calendar</string>
-    <string name="no_other_therapist">No other therapist</string>
-    <string name="update_therapist">Update Therapist</string>
+    <string name="no_other_therapist">No other practitioner</string>
+    <string name="update_therapist">Update Practitioner</string>
     <string-array name="branches">
         <item>Generalist</item>
         <item>Pediatrician</item>
@@ -280,9 +280,9 @@
     <string name="no_change">No change to save</string>
     <string name="data_saved">Data saved</string>
     <string name="preventive_treatment">Preventive Treatment</string>
-    <string name="no_therapist_found">No therapist found</string>
-    <string name="add_existing_therapist">Add existing therapist</string>
-    <string name="add_new_therapist">Add new therapist</string>
+    <string name="no_therapist_found">No practitioner found</string>
+    <string name="add_existing_therapist">Add existing practitioner</string>
+    <string name="add_new_therapist">Add new practitioner</string>
     <string name="add_drug">Add drug </string>
     <string name="stop">Stop</string>
     <string name="current_size">Current size (cm): </string>

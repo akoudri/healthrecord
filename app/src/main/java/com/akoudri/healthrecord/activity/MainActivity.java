@@ -137,6 +137,18 @@ public class MainActivity extends Activity {
             return;
         Button personButton;
         ImageButton editButton, removeButton, calendarButton, therapistButton, analysisButton;
+        calendarButton = new ImageButton(this);
+        calendarButton.setBackgroundResource(R.drawable.calendar);
+        therapistButton = new ImageButton(this);
+        therapistButton.setBackgroundResource(R.drawable.doctor);
+        analysisButton = new ImageButton(this);
+        analysisButton.setBackgroundResource(R.drawable.analysis);
+        editButton = new ImageButton(this);
+        editButton.setBackgroundResource(R.drawable.edit);
+        removeButton = new ImageButton(this);
+        removeButton.setBackgroundResource(R.drawable.remove);
+        //FIXME: fix presentation issues here
+        //int mWidth = 5 * calendarButton.getWidth() + 8 * margin;
         layout.setColumnCount(5);
         int r = 0; //row index
         int tsize = 16;
@@ -174,6 +186,7 @@ public class MainActivity extends Activity {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
+            //params.width = mWidth;
             params.setGravity(Gravity.CENTER);
             personButton.setLayoutParams(params);
             layout.addView(personButton);
@@ -183,8 +196,7 @@ public class MainActivity extends Activity {
                 //Calendar Button
                 rowSpec = GridLayout.spec(r);
                 colSpec = GridLayout.spec(0);
-                calendarButton = new ImageButton(this);
-                calendarButton.setBackgroundResource(R.drawable.calendar);
+
                 calendarButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -203,8 +215,7 @@ public class MainActivity extends Activity {
                 layout.addView(calendarButton);
                 //Therapist Button
                 colSpec = GridLayout.spec(1);
-                therapistButton = new ImageButton(this);
-                therapistButton.setBackgroundResource(R.drawable.doctor);
+
                 therapistButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -223,8 +234,7 @@ public class MainActivity extends Activity {
                 layout.addView(therapistButton);
                 //Analysis Button
                 colSpec = GridLayout.spec(2);
-                analysisButton = new ImageButton(this);
-                analysisButton.setBackgroundResource(R.drawable.analysis);
+
                 analysisButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -243,8 +253,7 @@ public class MainActivity extends Activity {
                 layout.addView(analysisButton);
                 //Edit Button
                 colSpec = GridLayout.spec(3);
-                editButton = new ImageButton(this);
-                editButton.setBackgroundResource(R.drawable.edit);
+
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -264,8 +273,7 @@ public class MainActivity extends Activity {
                 //add remove button
                 rowSpec = GridLayout.spec(r);
                 colSpec = GridLayout.spec(4);
-                removeButton = new ImageButton(this);
-                removeButton.setBackgroundResource(R.drawable.remove);
+
                 removeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

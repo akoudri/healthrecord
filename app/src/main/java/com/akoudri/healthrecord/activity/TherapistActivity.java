@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -85,6 +86,21 @@ public class TherapistActivity extends Activity {
             return;
         Button therapistButton;
         ImageButton removeButton, phoneButton, cellphoneButton, smsButton, emailButton, editButton;
+        removeButton = new ImageButton(this);
+        removeButton.setBackgroundResource(R.drawable.remove);
+        phoneButton = new ImageButton(this);
+        phoneButton.setBackgroundResource(R.drawable.phone);
+        cellphoneButton = new ImageButton(this);
+        cellphoneButton.setBackgroundResource(R.drawable.cellphone);
+        smsButton = new ImageButton(this);
+        smsButton.setBackgroundResource(R.drawable.sms);
+        emailButton = new ImageButton(this);
+        emailButton.setBackgroundResource(R.drawable.email);
+        editButton = new ImageButton(this);
+        editButton.setBackgroundResource(R.drawable.edit);
+        Drawable d = getResources().getDrawable(R.drawable.edit);
+        int imgWidth = d.getIntrinsicWidth();
+        int bWidth = 4 * imgWidth + 6 * margin;
         TherapyBranch branch = null;
         String therapyBranch;
         layout.setColumnCount(5);
@@ -109,8 +125,6 @@ public class TherapistActivity extends Activity {
             therapistButton.setMinEms(10);
             therapistButton.setMaxEms(10);
             therapistButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //Drawable img = getResources().getDrawable(R.drawable.doctor);
-            //therapistButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             therapistButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -125,14 +139,14 @@ public class TherapistActivity extends Activity {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
+            params.width = bWidth;
             params.setGravity(Gravity.CENTER);
             therapistButton.setLayoutParams(params);
             layout.addView(therapistButton);
             if (this.therapistId == id) {
                 //add remove button
                 colSpec = GridLayout.spec(4);
-                removeButton = new ImageButton(this);
-                removeButton.setBackgroundResource(R.drawable.remove);
+
                 removeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -166,8 +180,7 @@ public class TherapistActivity extends Activity {
                 //Phone Button
                 rowSpec = GridLayout.spec(r);
                 colSpec = GridLayout.spec(0);
-                phoneButton = new ImageButton(this);
-                phoneButton.setBackgroundResource(R.drawable.phone);
+
                 if (p.getPhoneNumber() != null) {
                     phoneButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -188,8 +201,7 @@ public class TherapistActivity extends Activity {
                 layout.addView(phoneButton);
                 //Cellphone Button
                 colSpec = GridLayout.spec(1);
-                cellphoneButton = new ImageButton(this);
-                cellphoneButton.setBackgroundResource(R.drawable.cellphone);
+
                 if (p.getCellPhoneNumber() != null) {
                     cellphoneButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -210,8 +222,7 @@ public class TherapistActivity extends Activity {
                 layout.addView(cellphoneButton);
                 //Sms Button
                 colSpec = GridLayout.spec(2);
-                smsButton = new ImageButton(this);
-                smsButton.setBackgroundResource(R.drawable.sms);
+
                 if (p.getCellPhoneNumber() != null) {
                     smsButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -238,8 +249,7 @@ public class TherapistActivity extends Activity {
                 layout.addView(smsButton);
                 //Email Button
                 colSpec = GridLayout.spec(3);
-                emailButton = new ImageButton(this);
-                emailButton.setBackgroundResource(R.drawable.email);
+
                 if (p.getEmail() != null) {
                     emailButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -260,8 +270,7 @@ public class TherapistActivity extends Activity {
                 layout.addView(emailButton);
                 //Edit Button
                 colSpec = GridLayout.spec(4);
-                editButton = new ImageButton(this);
-                editButton.setBackgroundResource(R.drawable.edit);
+
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

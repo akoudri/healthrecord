@@ -1,12 +1,16 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,11 +26,13 @@ import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.KeyManager;
 
 //Ads
+import com.akoudri.healthrecord.utils.NotificationPublisher;
 import com.google.android.gms.ads.*;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -147,8 +153,9 @@ public class MainActivity extends Activity {
         editButton.setBackgroundResource(R.drawable.edit);
         removeButton = new ImageButton(this);
         removeButton.setBackgroundResource(R.drawable.remove);
-        //FIXME: fix presentation issues here
-        //int mWidth = 5 * calendarButton.getWidth() + 8 * margin;
+        Drawable d = getResources().getDrawable(R.drawable.calendar);
+        int imgWidth = d.getIntrinsicWidth();
+        int mWidth = 5 * imgWidth + 8 * margin;
         layout.setColumnCount(5);
         int r = 0; //row index
         int tsize = 16;
@@ -170,8 +177,6 @@ public class MainActivity extends Activity {
             personButton.setMinEms(13);
             personButton.setMaxEms(13);
             personButton.setBackgroundResource(R.drawable.healthrecord_button);
-            //Drawable img = getResources().getDrawable(R.drawable.heart);
-            //personButton.setCompoundDrawablesWithIntrinsicBounds(null, null, img, null);
             personButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -186,7 +191,7 @@ public class MainActivity extends Activity {
             params.leftMargin = margin;
             params.topMargin = margin;
             params.bottomMargin = margin;
-            //params.width = mWidth;
+            params.width = mWidth;
             params.setGravity(Gravity.CENTER);
             personButton.setLayoutParams(params);
             layout.addView(personButton);
@@ -285,9 +290,27 @@ public class MainActivity extends Activity {
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        for (Appointment appt : dataSource.getAppointmentTable().getAllAppointmentsForPerson(personId))
+                                        {
+                                            //HERE
+                                            Notification.Builder builder = new Notification.Builder(MainActivity.this);
+                                            long alarm = HealthRecordUtils.datehourToCalendar(appt.getDate(), appt.getHour()).getTimeInMillis() - 7200000;
+                                            int apptId = appt.getId();
+                                            builder.setSmallIcon(R.drawable.health_record_app)
+                                                    .setContentTitle(dataSource.getTherapistTable().getTherapistWithId(appt.getTherapistId()).getName() + " @ " + appt.getHour())
+                                                    .setWhen(alarm)
+                                                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+                                            Notification notification = builder.build();
+                                            Intent notificationIntent = new Intent(MainActivity.this, NotificationPublisher.class);
+                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, apptId);
+                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+                                            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, apptId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                            AlarmManager alarmManager = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
+                                            alarmManager.cancel(pendingIntent);
+                                        }
                                         dataSource.getPersonTherapistTable().removePersonRelations(personId);
                                         dataSource.getPersonTable().removePersonWithId(personId);
-                                        //Toast.makeText(MainActivity.this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
                                         createWidgets();
                                     }
                                 })

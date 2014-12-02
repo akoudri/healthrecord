@@ -359,7 +359,6 @@ public class EditAppointmentActivity extends Activity {
             public void onClick(View view) {
                 HourPickerFragment hfrag = new HourPickerFragment();
                 if (apptId == 0) {
-                    //TODO
                     hfrag.init(EditAppointmentActivity.this, hourET);
                 }
                 else {

@@ -132,6 +132,20 @@ public class AppointmentTable {
         return res;
     }
 
+    public List<Appointment> getAllAppointmentsForPerson(int personId)
+    {
+        List<Appointment> res = new ArrayList<Appointment>();
+        Cursor cursor = db.query(APPT_TABLE, AppointmentCols,
+                APPT_PERSON_REF + "=" + personId, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast())
+        {
+            res.add(cursorToAppointment(cursor));
+            cursor.moveToNext();
+        }
+        return res;
+    }
+
     public int[] getMonthAppointmentsForPerson(int personId, Calendar cal)
     {
         int min = cal.getActualMinimum(Calendar.DAY_OF_MONTH);

@@ -292,7 +292,6 @@ public class MainActivity extends Activity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         for (Appointment appt : dataSource.getAppointmentTable().getAllAppointmentsForPerson(personId))
                                         {
-                                            //HERE
                                             Notification.Builder builder = new Notification.Builder(MainActivity.this);
                                             long alarm = HealthRecordUtils.datehourToCalendar(appt.getDate(), appt.getHour()).getTimeInMillis() - 7200000;
                                             int apptId = appt.getId();

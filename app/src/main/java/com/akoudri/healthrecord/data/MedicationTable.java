@@ -41,7 +41,7 @@ public class MedicationTable {
         sb.append("create table if not exists " + MEDICATION_TABLE + " (");
         sb.append(MEDICATION_ID + " integer primary key autoincrement,");
         sb.append(MEDICATION_PERSON_REF + " integer not null,");
-        sb.append(MEDICATION_AILMENT_REF + " integer not null,");
+        sb.append(MEDICATION_AILMENT_REF + " integer,");
         sb.append(MEDICATION_DRUG_REF + " integer not null,");
         sb.append(MEDICATION_FREQUENCY + " integer not null,");
         sb.append(MEDICATION_KIND + " integer not null,");
@@ -53,6 +53,11 @@ public class MedicationTable {
                 "(" + DrugTable.DRUG_ID + ")");
         sb.append(");");
         db.execSQL(sb.toString());
+    }
+
+    public void updateV2() {
+        StringBuilder sb = new StringBuilder();
+        db.execSQL("alter table " + MEDICATION_TABLE + " alter column " + MEDICATION_AILMENT_REF + " drop not null;");
     }
 
     public long insertMedication(int personId, int ailmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {
@@ -125,6 +130,24 @@ public class MedicationTable {
         while (! cursor.isAfterLast())
         {
             res.add(cursorToMedication(cursor));
+            cursor.moveToNext();
+        }
+        return res;
+    }
+
+    public List<Medication> getDayMedicsForPerson(int personId, String date)
+    {
+        List<Medication> res = new ArrayList<Medication>();
+        long today = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();
+        Cursor cursor = db.query(MEDICATION_TABLE, medicationCols, MEDICATION_PERSON_REF + "=" + personId +
+                " and " + MEDICATION_START_DATE + "<=" + today + " and (" + MEDICATION_DURATION + " is null or " + MEDICATION_START_DATE + " + " +
+                MEDICATION_DURATION + " * 86400000 >= " + today + ")", null, null, null, null);
+        Medication medic;
+        cursor.moveToFirst();
+        while (! cursor.isAfterLast())
+        {
+            medic = cursorToMedication(cursor);
+            res.add(medic);
             cursor.moveToNext();
         }
         return res;

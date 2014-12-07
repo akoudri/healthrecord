@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Drug;
+import com.akoudri.healthrecord.data.Medication;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
@@ -31,6 +32,7 @@ public class CreateMedicationActivity extends Activity {
     private EditText timesET, beginMedicET, endMedicET;
 
     private HealthRecordDataSource dataSource;
+    private int personId;
     private String selectedDate;
     private boolean dataSourceLoaded = false;
     private List<Drug> drugs;
@@ -41,6 +43,7 @@ public class CreateMedicationActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_medication);
         dataSource = HealthRecordDataSource.getInstance(this);
+        personId = getIntent().getIntExtra("personId", 0);
         selectedDate = getIntent().getStringExtra("date");
         medicationActv = (AutoCompleteTextView) findViewById(R.id.medication_add);
         freqSpinner = (Spinner) findViewById(R.id.freq_add);
@@ -108,13 +111,25 @@ public class CreateMedicationActivity extends Activity {
         String sDate = beginMedicET.getText().toString();
         String d = endMedicET.getText().toString();
         int duration = (d.equals(""))?-1:Integer.parseInt(d) - 1;
-        Intent data = new Intent();
-        data.putExtra("drugId", drugId);
-        data.putExtra("freq", freq);
-        data.putExtra("kfreq", kfreq);
-        data.putExtra("sDate", sDate);
-        data.putExtra("duration", duration);
-        setResult(RESULT_OK, data);
+        if (personId == 0) {
+            Intent data = new Intent();
+            data.putExtra("drugId", drugId);
+            data.putExtra("freq", freq);
+            data.putExtra("kfreq", kfreq);
+            data.putExtra("sDate", sDate);
+            data.putExtra("duration", duration);
+            setResult(RESULT_OK, data);
+        } else {
+            Medication m = new Medication();
+            m.setPersonId(personId);
+            m.setAilmentId(0);
+            m.setDrugId(drugId);
+            m.setFrequency(freq);
+            m.setKind(HealthRecordUtils.int2kind(kfreq));
+            m.setStartDate(sDate);
+            m.setDuration(duration);
+            dataSource.getMedicationTable().insertMedication(m);
+        }
         finish();
     }
 

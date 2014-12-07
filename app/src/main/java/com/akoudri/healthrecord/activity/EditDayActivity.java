@@ -19,6 +19,7 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.fragment.AilmentFragment;
 import com.akoudri.healthrecord.fragment.AppointmentFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
+import com.akoudri.healthrecord.fragment.MedicsFragment;
 import com.akoudri.healthrecord.fragment.ObservationFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
@@ -37,7 +38,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     private LinearLayout dayMenuLayout;
 
-    private ImageButton measureButton, rvButton, illnessButton, obsButton;
+    private ImageButton measureButton, rvButton, illnessButton, obsButton, medicButton;
     private ImageButton currentButton;
 
     private TextView today_label;
@@ -45,6 +46,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private MeasureFragment measureFrag;
     private AilmentFragment ailmentFrag;
     private ObservationFragment obsFrag;
+    private MedicsFragment medFrag;
     private Fragment currentFrag;
     private FragmentTransaction fragTrans;
 
@@ -69,6 +71,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         ailmentFrag = AilmentFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
         obsFrag = ObservationFragment.newInstance();
+        medFrag = MedicsFragment.newInstance();
         fragTrans = getFragmentManager().beginTransaction();
         fragTrans.add(R.id.day_layout, measureFrag);
         fragTrans.commit();
@@ -107,17 +110,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         });
         measureButton.setLayoutParams(llparams);
         dayMenuLayout.addView(measureButton);
-        //Observation
-        obsButton = new ImageButton(this);
-        obsButton.setBackgroundResource(R.drawable.observation);
-        obsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                displayObservations();
-            }
-        });
-        obsButton.setLayoutParams(llparams);
-        dayMenuLayout.addView(obsButton);
         //Appointment
         rvButton = new ImageButton(this);
         rvButton.setBackgroundResource(R.drawable.rv);
@@ -129,7 +121,18 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         });
         rvButton.setLayoutParams(llparams);
         dayMenuLayout.addView(rvButton);
-        //Overview
+        //Observation
+        obsButton = new ImageButton(this);
+        obsButton.setBackgroundResource(R.drawable.observation);
+        obsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayObservations();
+            }
+        });
+        obsButton.setLayoutParams(llparams);
+        dayMenuLayout.addView(obsButton);
+        //Illness
         illnessButton = new ImageButton(this);
         illnessButton.setBackgroundResource(R.drawable.illness);
         illnessButton.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +143,17 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         });
         illnessButton.setLayoutParams(llparams);
         dayMenuLayout.addView(illnessButton);
+        //Medics
+        medicButton = new ImageButton(this);
+        medicButton.setBackgroundResource(R.drawable.medication);
+        medicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayMedics();
+            }
+        });
+        medicButton.setLayoutParams(llparams);
+        dayMenuLayout.addView(medicButton);
     }
 
     @Override
@@ -155,6 +169,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
             apptFrag.setDataSource(dataSource);
             ailmentFrag.setDataSource(dataSource);
             obsFrag.setDataSource(dataSource);
+            medFrag.setDataSource(dataSource);
             refreshFrag();
         } catch (SQLException e) {
             Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
@@ -226,6 +241,20 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         currentFrag = ailmentFrag;
     }
 
+    private void displayMedics()
+    {
+        if (currentFrag == medFrag) return;
+        medFrag.setCurrentDate(day, month, year);
+        medFrag.resetMedicId();
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.day_layout, medFrag);
+        fragTrans.commit();
+        currentButton.setEnabled(true);
+        medicButton.setEnabled(false);
+        currentButton = medicButton;
+        currentFrag = medFrag;
+    }
+
     private void displayObservations()
     {
         if (currentFrag == obsFrag) return;
@@ -258,6 +287,16 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
+        startActivity(intent);
+    }
+
+    public void createMedic(View view)
+    {
+        medFrag.resetMedicId();
+        Intent intent = new Intent(this, CreateMedicationActivity.class);
+        String selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+        intent.putExtra("personId", personId);
+        intent.putExtra("date", selectedDate);
         startActivity(intent);
     }
 
@@ -342,6 +381,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         obsFrag.setCurrentDate(day, month, year);
         apptFrag.setCurrentDate(day, month, year);
         ailmentFrag.setCurrentDate(day, month, year);
+        medFrag.setCurrentDate(day, month, year);
         if (currentFrag instanceof MeasureFragment)
         {
             measureFrag.refresh();
@@ -360,6 +400,11 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         if (currentFrag instanceof AilmentFragment)
         {
             ailmentFrag.refresh();
+            return;
+        }
+        if (currentFrag instanceof MedicsFragment)
+        {
+            medFrag.refresh();
             return;
         }
     }

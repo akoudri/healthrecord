@@ -31,7 +31,7 @@ import com.akoudri.healthrecord.utils.Crypto;
 public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "health_record_db";
-    public static final int DB_VERSION = 1;
+    public static final int DB_VERSION = 2;
 
     private Crypto crypto;
 
@@ -105,6 +105,9 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO when necessary
+        if (oldVersion < 2)
+        {
+            medicationTable.updateV2();
+        }
     }
 }

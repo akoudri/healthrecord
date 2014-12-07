@@ -116,6 +116,7 @@ public class MedicsFragment extends Fragment {
             medicButton = new Button(getActivity());
             String drugName = drugTable.getDrugWithId(medic.getDrugId()).getName();
             if (drugName.length() > 20) drugName = drugName.substring(0,20) + "...";
+            final String medicName = drugName;
             medicButton.setText(drugName);
             medicButton.setTextSize(16);
             medicButton.setTypeface(null, Typeface.BOLD);
@@ -231,7 +232,7 @@ public class MedicsFragment extends Fragment {
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle(R.string.removing)
                                 .setMessage(getResources().getString(R.string.remove_question)
-                                        + " " + "medic name" + "?")
+                                        + " " + medicName + "?")
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {

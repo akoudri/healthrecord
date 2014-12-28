@@ -32,6 +32,8 @@
     <string name="speciality">Spezialität</string>
     <string name="phoneNumber">Telefonnummer</string>
     <string name="add_therapist">Spezialität hinzufügen</string>
+    <string name="new_therapist">Neuer Arzt</string>
+    <string name="existing_therapist">Bestehende Praktiker</string>
     <string name="my_therapists">Spezialisten</string>
     <string name="calendar">Kalendar</string>
     <string name="no_other_therapist">Keine andere spezialisten</string>

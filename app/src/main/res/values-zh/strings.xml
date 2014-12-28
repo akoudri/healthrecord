@@ -33,6 +33,8 @@
     <string name="phoneNumber">电话号码</string>
     <string name="add_therapist">添加专家</string>
     <string name="my_therapists">专家</string>
+    <string name="new_therapist">新的从业者</string>
+    <string name="existing_therapist">现有的从业者</string>
     <string name="calendar">日历</string>
     <string name="no_other_therapist">无其他专家</string>
     <string name="update_therapist">更新专家信息</string>

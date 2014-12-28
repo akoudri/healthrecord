@@ -31,7 +31,9 @@
     <string name="ssn">Cod Numeric Personal</string>
     <string name="speciality">Specialitate</string>
     <string name="phoneNumber">Număr de tel.</string>
-    <string name="add_therapist">Adăugare Medic Specialist</string>
+    <string name="add_therapist">Adăugare Practician</string>
+    <string name="new_therapist">Nou Practician</string>
+    <string name="existing_therapist">Practician Existent</string>
     <string name="my_therapists">Specialişti</string>
     <string name="calendar">Calendar</string>
     <string name="no_other_therapist">Lipsă medici specialişti</string>

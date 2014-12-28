@@ -10,12 +10,13 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.view.CalendarContentProvider;
 import com.akoudri.healthrecord.view.CalendarView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.sql.SQLException;
 import java.util.Calendar;
 
 //Ads
-import com.google.android.gms.ads.*;
 
 /**
  * Created by Ali Koudri on 19/07/14.

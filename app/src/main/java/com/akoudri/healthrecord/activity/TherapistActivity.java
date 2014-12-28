@@ -301,4 +301,12 @@ public class TherapistActivity extends Activity {
         startActivity(intent);
     }
 
+    public void addRegisteredTherapist(View view)
+    {
+        therapistId = 0;
+        Intent intent = new Intent(this, ChooseTherapistActivity.class);
+        intent.putExtra("personId", personId);
+        startActivity(intent);
+    }
+
 }

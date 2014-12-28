@@ -1,0 +1,54 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseTherapistActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:alignmentMode="alignBounds">
+        <!--
+        <Spinner
+            android:id="@+id/thchoice_add"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="0.8"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector"/> -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <GridLayout
+                android:id="@+id/existing_therapists_grid"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_gravity="left"
+                android:orientation="vertical"/>
+        </ScrollView>
+        <Button
+            android:text="@string/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TitleButton"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_horizontal"
+            android:ems="8"
+            android:drawableRight="@drawable/save"
+            android:onClick="addExistingTherapist"/>
+        <!--
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="0.2"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/plus"
+                android:onClick="addExistingTherapist"
+                style="?android:attr/borderlessButtonStyle"/> -->
+    </LinearLayout>
+</ScrollView>

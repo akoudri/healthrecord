@@ -34,6 +34,7 @@
         <activity android:name="com.akoudri.healthrecord.activity.CreatePersonActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditDayActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.CreateTherapistActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.akoudri.healthrecord.activity.ChooseTherapistActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditTherapistActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditAppointmentActivity" android:screenOrientation="portrait"/>
         <activity android:name="com.akoudri.healthrecord.activity.EditObservationActivity" android:screenOrientation="portrait"/>

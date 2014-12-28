@@ -30,15 +30,16 @@ import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.KeyManager;
-
-//Ads
 import com.akoudri.healthrecord.utils.NotificationPublisher;
-import com.google.android.gms.ads.*;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.sql.SQLException;
 import java.util.List;
+
+//Ads
 
 //STATUS: checked
 //TODO: replace grid layout with table layout

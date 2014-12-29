@@ -15,7 +15,6 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
-import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
@@ -24,8 +23,6 @@ import java.util.List;
 
 
 public class ChooseTherapistActivity extends Activity {
-
-    //private Spinner thSpinner;
 
     private GridLayout layout;
     private GridLayout.LayoutParams params;
@@ -44,7 +41,6 @@ public class ChooseTherapistActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_choose_therapist);
         layout = (GridLayout) findViewById(R.id.existing_therapists_grid);
-        //thSpinner = (Spinner) findViewById(R.id.thchoice_add);
         dataSource = HealthRecordDataSource.getInstance(this);
         personId = getIntent().getIntExtra("personId", 0);
     }
@@ -82,6 +78,7 @@ public class ChooseTherapistActivity extends Activity {
             if (therapyBranch.length() > 20) therapyBranch = therapyBranch.substring(0, 20) + "...";
             //add checkbox
             cb[r] = new CheckBox(this);
+            //cb[r].setBackground(getResources().getDrawable(R.drawable.custom_checkbox));
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0);
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
@@ -129,43 +126,29 @@ public class ChooseTherapistActivity extends Activity {
         List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         Therapist t;
         Iterator<Therapist> iterator = otherTherapists.iterator();
+        //remove related therapists
         while (iterator.hasNext())
         {
             t = iterator.next();
             if (myTherapistIds.contains(t.getId()))
                 iterator.remove();
         }
-        String[] otherTherapistsStr;
-        if (otherTherapists.size() > 0) {
-            otherTherapistsStr = new String[otherTherapists.size()];
-            int i = 0;
-            TherapyBranch branch = null;
-            String therapyBranchStr;
-            TherapyBranchTable branchTable = dataSource.getTherapyBranchTable();
-            for (Therapist th : otherTherapists) {
-                branch = branchTable.getBranchWithId(th.getBranchId());
-                therapyBranchStr = branch.getName();
-                otherTherapistsStr[i++] = th.getName() + " - " + therapyBranchStr;
-            }
-        }
-        else
-        {
-            String s = getResources().getString(R.string.no_other_therapist);
-            otherTherapistsStr = new String[]{s};
-        }
-        //ArrayAdapter<String> thChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, otherTherapistsStr);
-        //thSpinner.setAdapter(thChoicesAdapter);
     }
 
     public void addExistingTherapist(View view)
     {
         if (personId == 0) return;
         if (!dataSourceLoaded) return;
-        /*
-        int thIdx = thSpinner.getSelectedItemPosition();
-        Therapist th = otherTherapists.get(thIdx);
-        dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
-        */
+        if (cb == null || cb.length == 0) return;
+        Therapist th;
+        for (int i = 0; i < cb.length; i++)
+        {
+            if (cb[i].isChecked())
+            {
+                th = otherTherapists.get(i);
+                dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
+            }
+        }
         Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         finish();
     }

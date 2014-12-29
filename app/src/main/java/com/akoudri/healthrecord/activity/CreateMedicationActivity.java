@@ -167,4 +167,9 @@ public class CreateMedicationActivity extends Activity {
         dfrag.show(getFragmentManager(),"Pick Start Treatment Date");
     }
 
+    public void scanCode(View view)
+    {
+        Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+    }
+
 }

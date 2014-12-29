@@ -25,6 +25,7 @@ import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 //STATUS: checked
@@ -293,6 +294,22 @@ public class TherapistActivity extends Activity {
         }
     }
 
+    private int countOtherTherapists() {
+        //retrieve all therapists
+        List<Therapist> otherTherapists = dataSource.getTherapistTable().getAllTherapists();
+        List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
+        Therapist t;
+        Iterator<Therapist> iterator = otherTherapists.iterator();
+        //remove related therapists
+        while (iterator.hasNext())
+        {
+            t = iterator.next();
+            if (myTherapistIds.contains(t.getId()))
+                iterator.remove();
+        }
+        return otherTherapists.size();
+    }
+
     public void addNewTherapist(View view)
     {
         therapistId = 0;
@@ -303,6 +320,12 @@ public class TherapistActivity extends Activity {
 
     public void addRegisteredTherapist(View view)
     {
+        int count = countOtherTherapists();
+        if (count == 0)
+        {
+            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.no_other_therapist), Toast.LENGTH_SHORT).show();
+            return;
+        }
         therapistId = 0;
         Intent intent = new Intent(this, ChooseTherapistActivity.class);
         intent.putExtra("personId", personId);

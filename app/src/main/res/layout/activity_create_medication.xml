@@ -20,15 +20,30 @@
             android:layout_gravity="fill_horizontal"
             android:textStyle="bold" />
 
-        <AutoCompleteTextView
-            android:id="@+id/medication_add"
-            android:background="@android:color/white"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_gravity="fill_horizontal"
-            android:inputType="text"
-            android:capitalize="words"/>
+            android:orientation="horizontal">
+            <AutoCompleteTextView
+                android:id="@+id/medication_add"
+                android:background="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:inputType="text"
+                android:minEms="11"
+                android:maxEms="11"
+                android:capitalize="words"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/barcode"
+                android:onClick="scanCode"
+                style="?android:attr/borderlessButtonStyle"/>
+        </LinearLayout>
 
         <TextView
             android:text="@string/frequency"

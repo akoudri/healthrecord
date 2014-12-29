@@ -29,19 +29,27 @@
                 android:background="@android:color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="2dp"
                 android:layout_gravity="center_vertical"
                 android:inputType="text"
-                android:minEms="11"
-                android:maxEms="11"
+                android:minEms="9"
+                android:maxEms="9"
                 android:capitalize="words"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="2dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/barcode"
-                android:onClick="scanCode"
+                android:onClick="scanBarCode"
+                style="?android:attr/borderlessButtonStyle"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/qrcode"
+                android:onClick="scanQRCode"
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
 

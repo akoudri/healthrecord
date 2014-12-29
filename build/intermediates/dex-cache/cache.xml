@@ -9,6 +9,27 @@
         <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-806c37342e14fb3009f07626d821b7a7c7e58d30.jar" />
     </item>
     <item
+        jar="/home/ali/dev/android/healthrecord/app/libs/commons-lang3-3.3.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="659861b4acde07a0527211e40d256119face1d15">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/commons-lang3-3.3.2-0671729173d46c95675f08de3f359e7422868479.jar" />
+    </item>
+    <item
+        jar="/opt/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-e0acdf744d206477b06b8c712da235d8519f9b33.jar" />
+    </item>
+    <item
+        jar="/home/ali/dev/android/healthrecord/app/libs/android-integration-3.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="52707c1c0801b4e1c0ca9bdbabd2dae20d8564d7">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/android-integration-3.1.0-060f9b53218278deea175f23039ff7c667261f30.jar" />
+    </item>
+    <item
         jar="/home/ali/dev/android/healthrecord/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/classes.jar"
         jumboMode="false"
         revision="20.0.0"
@@ -23,18 +44,25 @@
         <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-f10ff3c1ed97106d1584a4082b7e166386753703.jar" />
     </item>
     <item
-        jar="/home/ali/dev/android/healthrecord/app/libs/commons-lang3-3.3.2.jar"
+        jar="/home/ali/dev/android/healthrecord/app/libs/android-core-3.1.0.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="659861b4acde07a0527211e40d256119face1d15">
-        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/commons-lang3-3.3.2-0671729173d46c95675f08de3f359e7422868479.jar" />
+        sha1="d3208d63e6d8607f3d81fbf4ff62577f5dde8589">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/android-core-3.1.0-81eefb62fce3629a01c2ffbc0cbcb0788a1f2de6.jar" />
     </item>
     <item
-        jar="/opt/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
+        jar="/home/ali/dev/android/healthrecord/app/libs/core-3.1.0.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
-        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-e0acdf744d206477b06b8c712da235d8519f9b33.jar" />
+        sha1="908e18674f895e3e1fa8f4a954b8c637a23d2801">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/core-3.1.0-e30d0e3d7b0f75449f7208ca2e3c443a8a4966b6.jar" />
+    </item>
+    <item
+        jar="/home/ali/dev/android/healthrecord/app/libs/javase-3.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="f5765d80a466cc6548dd6b9ba6c33b379581119b">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/javase-3.1.0-28e9da94cb03f3367582ad092df31ed2b61e0ffb.jar" />
     </item>
     <item
         jar="/home/ali/dev/android/healthrecord/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"

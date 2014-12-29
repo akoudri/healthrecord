@@ -17,6 +17,8 @@ import com.akoudri.healthrecord.data.Drug;
 import com.akoudri.healthrecord.data.Medication;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -167,9 +169,35 @@ public class CreateMedicationActivity extends Activity {
         dfrag.show(getFragmentManager(),"Pick Start Treatment Date");
     }
 
-    public void scanCode(View view)
+    public void scanBarCode(View view)
     {
-        Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        IntentIntegrator integrator = new IntentIntegrator(CreateMedicationActivity.this);
+        integrator.addExtra("SCAN_WIDTH", 800);
+        integrator.addExtra("SCAN_HEIGHT", 200);
+        integrator.addExtra("RESULT_DISPLAY_DURATION_MS", 3000L);
+        integrator.addExtra("PROMPT_MESSAGE", "Custom prompt to scan a product");
+        integrator.initiateScan(IntentIntegrator.PRODUCT_CODE_TYPES);
     }
+
+    public void scanQRCode(View view)
+    {
+        //Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
+        IntentIntegrator integrator = new IntentIntegrator(CreateMedicationActivity.this);
+        integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
+    }
+
+    @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+    if (result != null) {
+      String contents = result.getContents();
+      if (contents != null) {
+          Toast.makeText(getApplicationContext(), "Scan succeeded", Toast.LENGTH_SHORT).show();
+      } else {
+          Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+      }
+    }
+  }
 
 }

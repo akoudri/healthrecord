@@ -23,6 +23,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/achartengine-1.1.0.jar')
     compile files('libs/commons-lang3-3.3.2.jar')
+    //Bar code
+    compile files('libs/javase-3.1.0.jar')
+    compile files('libs/core-3.1.0.jar')
+    compile files('libs/android-core-3.1.0.jar')
+    compile files('libs/android-integration-3.1.0.jar')
     //Ads
     compile 'com.google.android.gms:play-services:+'
 }

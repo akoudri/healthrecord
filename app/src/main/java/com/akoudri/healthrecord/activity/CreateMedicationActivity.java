@@ -2,6 +2,7 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -20,6 +21,19 @@ import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.apache.http.Header;
+import org.apache.http.HeaderElement;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +53,11 @@ public class CreateMedicationActivity extends Activity {
     private boolean dataSourceLoaded = false;
     private List<Drug> drugs;
 
+    private final static String URL = "https://api.semantics3.com/v1/products?q=";
+    private String ean;
+    private DefaultHttpClient client;
+    private JSONObject json;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +76,7 @@ public class CreateMedicationActivity extends Activity {
         beginMedicET = (EditText) findViewById(R.id.begin_medic);
         beginMedicET.setKeyListener(null);
         endMedicET = (EditText) findViewById(R.id.end_medic);
+        client = new DefaultHttpClient();
     }
 
     @Override
@@ -176,7 +196,8 @@ public class CreateMedicationActivity extends Activity {
         integrator.addExtra("SCAN_WIDTH", 800);
         integrator.addExtra("SCAN_HEIGHT", 200);
         integrator.addExtra("RESULT_DISPLAY_DURATION_MS", 3000L);
-        integrator.addExtra("PROMPT_MESSAGE", "Custom prompt to scan a product");
+        //integrator.addExtra("PROMPT_MESSAGE", "Custom prompt to scan a product");
+        integrator.addExtra("PROMPT_MESSAGE", "Scan product");
         integrator.initiateScan(IntentIntegrator.PRODUCT_CODE_TYPES);
     }
 
@@ -188,16 +209,91 @@ public class CreateMedicationActivity extends Activity {
     }
 
     @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-    if (result != null) {
-      String contents = result.getContents();
-      if (contents != null) {
-          Toast.makeText(getApplicationContext(), "Scan succeeded", Toast.LENGTH_SHORT).show();
-      } else {
-          Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
-      }
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        //FIXME: check content whether it comes from QR Code
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (result != null) {
+            ean = result.getContents();
+            if (ean != null) {
+                //if (ean.length() == 12) ean = "0" + ean;//convert to ean number if utc
+                ean = "071649396502";
+                ean = "{\"ean\":\"" + ean + "\"}";
+                new Read().execute("name");
+            } else {
+                Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
-  }
+
+    public JSONObject products(String ean) throws IOException, JSONException {
+        StringBuilder url = new StringBuilder(URL);
+        url.append(URLEncoder.encode(ean));
+        HttpGet get = new HttpGet(url.toString());
+        get.addHeader(new Header() {
+            @Override
+            public String getName() {
+                return "api_key";
+            }
+
+            @Override
+            public String getValue() {
+                return "SEM36CD92414788D5F612AAF387546838F3D";
+            }
+
+            @Override
+            public HeaderElement[] getElements() throws ParseException {
+                return new HeaderElement[0];
+            }
+        });
+        get.addHeader(new Header() {
+            @Override
+            public String getName() {
+                return "api_secret";
+            }
+
+            @Override
+            public String getValue() {
+                return "ZGNhMGRkYWQxNGI1ZjU3MDkyYzhlMzg2OTM4MGI0NTU";
+            }
+
+            @Override
+            public HeaderElement[] getElements() throws ParseException {
+                return new HeaderElement[0];
+            }
+        });
+        HttpResponse resp = client.execute(get);
+        int status = resp.getStatusLine().getStatusCode();
+        if (status == 200)
+        {
+            HttpEntity e = resp.getEntity();
+            String data = EntityUtils.toString(e);
+            return new JSONObject(data);
+        } else {
+            return null;
+        }
+    }
+
+    public class Read extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                json = products(ean);
+                if (json == null)
+                 return null;
+                return json.getString(params[0]);
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            medicationActv.setText(result);
+        }
+    }
 
 }

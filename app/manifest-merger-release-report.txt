@@ -1,0 +1,216 @@
+-- Merging decision tree log ---
+manifest
+ADDED from AndroidManifest.xml:2:1
+	package
+		ADDED from AndroidManifest.xml:3:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:versionName
+		ADDED from AndroidManifest.xml:5:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:versionCode
+		ADDED from AndroidManifest.xml:4:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
+uses-permission#android.permission.CALL_PHONE
+ADDED from AndroidManifest.xml:7:5
+	android:name
+		ADDED from AndroidManifest.xml:7:22
+uses-permission#android.permission.VIBRATE
+ADDED from AndroidManifest.xml:8:5
+	android:name
+		ADDED from AndroidManifest.xml:8:22
+uses-permission#android.permission.CAMERA
+ADDED from AndroidManifest.xml:9:5
+	android:name
+		ADDED from AndroidManifest.xml:9:22
+uses-permission#android.permission.INTERNET
+ADDED from AndroidManifest.xml:10:5
+	android:name
+		ADDED from AndroidManifest.xml:10:22
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from AndroidManifest.xml:11:5
+	android:name
+		ADDED from AndroidManifest.xml:11:22
+uses-feature#android.hardware.camera
+ADDED from AndroidManifest.xml:13:5
+	android:name
+		ADDED from AndroidManifest.xml:13:19
+supports-screens
+ADDED from AndroidManifest.xml:15:5
+	android:largeScreens
+		ADDED from AndroidManifest.xml:16:21
+	android:smallScreens
+		ADDED from AndroidManifest.xml:18:21
+	android:normalScreens
+		ADDED from AndroidManifest.xml:17:21
+	android:xlargeScreens
+		ADDED from AndroidManifest.xml:15:23
+	android:anyDensity
+		ADDED from AndroidManifest.xml:19:21
+application
+ADDED from AndroidManifest.xml:21:5
+MERGED from com.google.android.gms:play-services:6.5.87:20:5
+MERGED from com.android.support:support-v4:21.0.0:16:5
+	android:label
+		ADDED from AndroidManifest.xml:25:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:23:9
+	android:icon
+		ADDED from AndroidManifest.xml:24:9
+	android:theme
+		ADDED from AndroidManifest.xml:26:9
+	android:name
+		ADDED from AndroidManifest.xml:22:9
+meta-data#com.google.android.gms.version
+ADDED from AndroidManifest.xml:28:9
+MERGED from com.google.android.gms:play-services:6.5.87:21:9
+	android:value
+		ADDED from AndroidManifest.xml:29:13
+	android:name
+		ADDED from AndroidManifest.xml:28:20
+activity#com.akoudri.healthrecord.activity.MainActivity
+ADDED from AndroidManifest.xml:31:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:34:13
+	android:label
+		ADDED from AndroidManifest.xml:33:13
+	android:name
+		ADDED from AndroidManifest.xml:32:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:35:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:36:17
+	android:name
+		ADDED from AndroidManifest.xml:36:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:38:17
+	android:name
+		ADDED from AndroidManifest.xml:38:27
+activity#com.akoudri.healthrecord.activity.CreatePersonActivity
+ADDED from AndroidManifest.xml:41:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:41:89
+	android:name
+		ADDED from AndroidManifest.xml:41:19
+activity#com.akoudri.healthrecord.activity.EditDayActivity
+ADDED from AndroidManifest.xml:42:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:42:84
+	android:name
+		ADDED from AndroidManifest.xml:42:19
+activity#com.akoudri.healthrecord.activity.CreateTherapistActivity
+ADDED from AndroidManifest.xml:43:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:43:92
+	android:name
+		ADDED from AndroidManifest.xml:43:19
+activity#com.akoudri.healthrecord.activity.ChooseTherapistActivity
+ADDED from AndroidManifest.xml:44:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:44:92
+	android:name
+		ADDED from AndroidManifest.xml:44:19
+activity#com.akoudri.healthrecord.activity.EditTherapistActivity
+ADDED from AndroidManifest.xml:45:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:45:90
+	android:name
+		ADDED from AndroidManifest.xml:45:19
+activity#com.akoudri.healthrecord.activity.EditAppointmentActivity
+ADDED from AndroidManifest.xml:46:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:46:92
+	android:name
+		ADDED from AndroidManifest.xml:46:19
+activity#com.akoudri.healthrecord.activity.EditObservationActivity
+ADDED from AndroidManifest.xml:47:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:47:92
+	android:name
+		ADDED from AndroidManifest.xml:47:19
+activity#com.akoudri.healthrecord.activity.CreateAilmentActivity
+ADDED from AndroidManifest.xml:48:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:48:90
+	android:name
+		ADDED from AndroidManifest.xml:48:19
+activity#com.akoudri.healthrecord.activity.EditAilmentActivity
+ADDED from AndroidManifest.xml:49:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:49:88
+	android:name
+		ADDED from AndroidManifest.xml:49:19
+activity#com.akoudri.healthrecord.activity.CreateMedicationActivity
+ADDED from AndroidManifest.xml:50:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:50:93
+	android:name
+		ADDED from AndroidManifest.xml:50:19
+activity#com.akoudri.healthrecord.activity.EditMedicationActivity
+ADDED from AndroidManifest.xml:51:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:51:91
+	android:name
+		ADDED from AndroidManifest.xml:51:19
+activity#com.akoudri.healthrecord.activity.EditPersonActivity
+ADDED from AndroidManifest.xml:52:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:52:87
+	android:name
+		ADDED from AndroidManifest.xml:52:19
+activity#com.akoudri.healthrecord.activity.CalendarActivity
+ADDED from AndroidManifest.xml:53:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:53:85
+	android:name
+		ADDED from AndroidManifest.xml:53:19
+activity#com.akoudri.healthrecord.activity.TherapistActivity
+ADDED from AndroidManifest.xml:54:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:54:86
+	android:name
+		ADDED from AndroidManifest.xml:54:19
+activity#com.akoudri.healthrecord.activity.AnalysisActivity
+ADDED from AndroidManifest.xml:55:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:55:85
+	android:name
+		ADDED from AndroidManifest.xml:55:19
+activity#com.akoudri.healthrecord.activity.EditMeasureActivity
+ADDED from AndroidManifest.xml:56:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:56:88
+	android:name
+		ADDED from AndroidManifest.xml:56:19
+activity#org.achartengine.GraphicalActivity
+ADDED from AndroidManifest.xml:57:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:57:69
+	android:theme
+		ADDED from AndroidManifest.xml:57:107
+	android:name
+		ADDED from AndroidManifest.xml:57:19
+receiver#com.akoudri.healthrecord.utils.NotificationPublisher
+ADDED from AndroidManifest.xml:58:9
+	android:name
+		ADDED from AndroidManifest.xml:58:19
+activity#com.google.android.gms.ads.AdActivity
+ADDED from AndroidManifest.xml:60:9
+	android:configChanges
+		ADDED from AndroidManifest.xml:61:13
+	android:name
+		ADDED from AndroidManifest.xml:60:19
+uses-sdk
+INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+MERGED from com.google.android.gms:play-services:6.5.87:18:5
+MERGED from com.android.support:support-v4:21.0.0:15:5
+	android:targetSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:minSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0

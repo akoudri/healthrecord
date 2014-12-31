@@ -23,6 +23,13 @@
         <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/android-integration-3.1.0-060f9b53218278deea175f23039ff7c667261f30.jar" />
     </item>
     <item
+        jar="/home/ali/dev/android/healthrecord/app/libs/signpost-core-1.2.1.2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="bf95955dcf3d5a78c201e49b0c336787ea73f161">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/signpost-core-1.2.1.2-33278e29e0d5c73ec2674f83ca6e6efbbc46582b.jar" />
+    </item>
+    <item
         jar="/home/ali/dev/android/healthrecord/app/libs/android-core-3.1.0.jar"
         jumboMode="false"
         revision="20.0.0"
@@ -63,6 +70,13 @@
         revision="20.0.0"
         sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
         <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-f10ff3c1ed97106d1584a4082b7e166386753703.jar" />
+    </item>
+    <item
+        jar="/home/ali/dev/android/healthrecord/app/libs/commons-codec-1.7.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="9cd61d269c88f9fb0eb36cea1efcd596ab74772f">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/commons-codec-1.7-0c61ac5697a91c4afced1f4f34a0b4b87ad2c49f.jar" />
     </item>
     <item
         jar="/home/ali/dev/android/healthrecord/app/libs/core-3.1.0.jar"

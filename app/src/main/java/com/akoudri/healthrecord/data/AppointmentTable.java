@@ -1,6 +1,5 @@
 package com.akoudri.healthrecord.data;
 
-import android.app.NotificationManager;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

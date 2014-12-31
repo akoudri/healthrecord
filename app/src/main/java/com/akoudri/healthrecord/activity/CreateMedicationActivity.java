@@ -2,8 +2,8 @@ package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -16,28 +16,26 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Drug;
 import com.akoudri.healthrecord.data.Medication;
+import com.akoudri.healthrecord.json.JSONArray;
+import com.akoudri.healthrecord.json.JSONString;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.semantics3.api.Products;
 
-import org.apache.http.Header;
-import org.apache.http.HeaderElement;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.akoudri.healthrecord.json.JSONException;
+import com.akoudri.healthrecord.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
 
 //TODO: voir si il est possible d'utiliser le code bar du médicament
 //STATUS: checked
@@ -55,7 +53,7 @@ public class CreateMedicationActivity extends Activity {
 
     private final static String URL = "https://api.semantics3.com/v1/products?q=";
     private String ean;
-    private DefaultHttpClient client;
+    private Products products;
     private JSONObject json;
 
     @Override
@@ -76,7 +74,9 @@ public class CreateMedicationActivity extends Activity {
         beginMedicET = (EditText) findViewById(R.id.begin_medic);
         beginMedicET.setKeyListener(null);
         endMedicET = (EditText) findViewById(R.id.end_medic);
-        client = new DefaultHttpClient();
+        //client = new DefaultHttpClient();
+        products = new Products("SEM36CD92414788D5F612AAF387546838F3D",
+                "ZGNhMGRkYWQxNGI1ZjU3MDkyYzhlMzg2OTM4MGI0NTU");
     }
 
     @Override
@@ -191,19 +191,16 @@ public class CreateMedicationActivity extends Activity {
 
     public void scanBarCode(View view)
     {
-        //Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
         IntentIntegrator integrator = new IntentIntegrator(CreateMedicationActivity.this);
         integrator.addExtra("SCAN_WIDTH", 800);
         integrator.addExtra("SCAN_HEIGHT", 200);
         integrator.addExtra("RESULT_DISPLAY_DURATION_MS", 3000L);
-        //integrator.addExtra("PROMPT_MESSAGE", "Custom prompt to scan a product");
         integrator.addExtra("PROMPT_MESSAGE", "Scan product");
         integrator.initiateScan(IntentIntegrator.PRODUCT_CODE_TYPES);
     }
 
     public void scanQRCode(View view)
     {
-        //Toast.makeText(getApplicationContext(), "Not implemented yet", Toast.LENGTH_SHORT).show();
         IntentIntegrator integrator = new IntentIntegrator(CreateMedicationActivity.this);
         integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
     }
@@ -213,86 +210,35 @@ public class CreateMedicationActivity extends Activity {
         //FIXME: check content whether it comes from QR Code
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (result != null) {
+            //FIXME: this sample code works fine, adapt it and manage exceptions
             ean = result.getContents();
             if (ean != null) {
-                //if (ean.length() == 12) ean = "0" + ean;//convert to ean number if utc
-                ean = "071649396502";
+                if (ean.length() == 12) ean = "0" + ean;//convert to ean number if utc
+                /*ean = "071649396502";
                 ean = "{\"ean\":\"" + ean + "\"}";
-                new Read().execute("name");
+                new Read().execute("name");*/
+                ean = "0883974958450";
+                products.productsField("ean", ean);
+                try {
+                    JSONObject results = products.getProducts();
+                    JSONArray jsonArray = (JSONArray) results.get("results");
+                    JSONObject firstElement = (JSONObject) jsonArray.get(0);
+                    String name = firstElement.getString("name");
+                    medicationActv.setText(name);
+                } catch (OAuthMessageSignerException e) {
+                    Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+                } catch (OAuthExpectationFailedException e) {
+                    Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+                } catch (OAuthCommunicationException e) {
+                    Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    public JSONObject products(String ean) throws IOException, JSONException {
-        StringBuilder url = new StringBuilder(URL);
-        url.append(URLEncoder.encode(ean));
-        HttpGet get = new HttpGet(url.toString());
-        get.addHeader(new Header() {
-            @Override
-            public String getName() {
-                return "api_key";
-            }
-
-            @Override
-            public String getValue() {
-                return "SEM36CD92414788D5F612AAF387546838F3D";
-            }
-
-            @Override
-            public HeaderElement[] getElements() throws ParseException {
-                return new HeaderElement[0];
-            }
-        });
-        get.addHeader(new Header() {
-            @Override
-            public String getName() {
-                return "api_secret";
-            }
-
-            @Override
-            public String getValue() {
-                return "ZGNhMGRkYWQxNGI1ZjU3MDkyYzhlMzg2OTM4MGI0NTU";
-            }
-
-            @Override
-            public HeaderElement[] getElements() throws ParseException {
-                return new HeaderElement[0];
-            }
-        });
-        HttpResponse resp = client.execute(get);
-        int status = resp.getStatusLine().getStatusCode();
-        if (status == 200)
-        {
-            HttpEntity e = resp.getEntity();
-            String data = EntityUtils.toString(e);
-            return new JSONObject(data);
-        } else {
-            return null;
-        }
-    }
-
-    public class Read extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                json = products(ean);
-                if (json == null)
-                 return null;
-                return json.getString(params[0]);
-            } catch (IOException e) {
-                Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
-            } catch (JSONException e) {
-                Toast.makeText(getApplicationContext(), "Scan failed", Toast.LENGTH_SHORT).show();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            medicationActv.setText(result);
         }
     }
 

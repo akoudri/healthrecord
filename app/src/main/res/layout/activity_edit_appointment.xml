@@ -43,6 +43,47 @@
             android:background="@drawable/selector"/>
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/notifyCheckbox"
+        android:text="@string/notify_me"
+        android:textColor="@color/regular_text_color"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/notification_value"
+            android:background="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="number"
+            android:minEms="2"
+            android:maxEms="2"
+            android:layout_gravity="center_vertical"/>
+        <Spinner
+            android:id="@+id/notification_kind"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector"/>
+        <TextView
+            android:text="@string/before"
+            android:textColor="@color/regular_text_color"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:minEms="3"
+            android:maxEms="3"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <TextView
         android:text="@string/comment"
         android:textColor="@color/regular_text_color"

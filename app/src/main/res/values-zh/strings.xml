@@ -197,6 +197,10 @@
         <item>一年</item>
         <item>生活</item>
     </string-array>
+    <string-array name="notificationChoice">
+        <item>天</item>
+        <item>周</item>
+    </string-array>
     <string name="date">日期</string>
     <string name="with">随着</string>
     <string name="type">类型</string>
@@ -243,5 +247,7 @@
     <string name="about">关于</string>
     <string name="made_by">创建者普韦布洛</string>
     <string name="send_email_to_author">发送电子邮件</string>
+    <string name="notify_me">请通知我</string>
+    <string name="before">以前</string>
 
 </resources>

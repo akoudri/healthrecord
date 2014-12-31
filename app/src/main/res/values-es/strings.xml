@@ -231,6 +231,10 @@
         <item>Año</item>
         <item>Vida</item>
     </string-array>
+    <string-array name="notificationChoice">
+        <item>Hora</item>
+        <item>Día</item>
+    </string-array>
     <string name="date">Fecha: </string>
     <string name="with">Con: </string>
     <string name="type">Tipo: </string>
@@ -277,5 +281,7 @@
     <string name="about">Acerca de</string>
     <string name="made_by">Realizado por Pueblo</string>
     <string name="send_email_to_author">Enviar correo electrónico al autor</string>
+    <string name="notify_me">Adviértame</string>
+    <string name="before">antes</string>
 
 </resources>

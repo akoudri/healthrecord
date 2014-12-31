@@ -303,6 +303,10 @@
         <item>An</item>
         <item>Vie</item>
     </string-array>
+    <string-array name="notificationChoice">
+        <item>Heure</item>
+        <item>Jour</item>
+    </string-array>
     <string name="date">Date: </string>
     <string name="with">Avec: </string>
     <string name="type">Type: </string>
@@ -349,6 +353,8 @@
     <string name="about">A propos</string>
     <string name="made_by">Créé par Pueblo</string>
     <string name="send_email_to_author">Envoyer courriel à l\'auteur</string>
+    <string name="notify_me">Me prévenir</string>
+    <string name="before">avant</string>
 
 
 </resources>

@@ -205,6 +205,10 @@
         <item>An</item>
         <item>Viaţă</item>
     </string-array>
+    <string-array name="notificationChoice">
+        <item>Oră</item>
+        <item>Zi</item>
+    </string-array>
     <string name="date">Dată: </string>
     <string name="with">Cu: </string>
     <string name="type">Tip: </string>
@@ -251,5 +255,7 @@
     <string name="about">Despre</string>
     <string name="made_by">Creat de Pueblo</string>
     <string name="send_email_to_author">Trimite e-mail</string>
+    <string name="notify_me">Anunță-mă</string>
+    <string name="before">înainte</string>
 
 </resources>

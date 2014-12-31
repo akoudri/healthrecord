@@ -43,7 +43,7 @@ public class EditAppointmentActivity extends Activity {
     private ImageButton dateButton, hourButton;
 
     private EditText dateET, hourET, commentET;
-    private Spinner thSpinner;
+    private Spinner notificationSpinner, thSpinner;
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
@@ -68,6 +68,10 @@ public class EditAppointmentActivity extends Activity {
         hLayout = (LinearLayout) findViewById(R.id.appt_hour_layout);
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
+        notificationSpinner = (Spinner) findViewById(R.id.notification_kind);
+        String[] notificationValues = getResources().getStringArray(R.array.notificationChoice);
+        ArrayAdapter<String> notificationChoiceAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, notificationValues);
+        notificationSpinner.setAdapter(notificationChoiceAdapter);
         dataSource = HealthRecordDataSource.getInstance(this);
         margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         //Existing appointment

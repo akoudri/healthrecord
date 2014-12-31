@@ -257,6 +257,10 @@
         <item>Year</item>
         <item>Life</item>
     </string-array>
+    <string-array name="notificationChoice">
+        <item>Hour</item>
+        <item>Day</item>
+    </string-array>
     <string name="date">Date: </string>
     <string name="with">With: </string>
     <string name="type">Type: </string>
@@ -303,5 +307,7 @@
     <string name="about">About</string>
     <string name="made_by">Made by Pueblo</string>
     <string name="send_email_to_author">Send email to author</string>
+    <string name="notify_me">Notify me</string>
+    <string name="before">before</string>
 
 </resources>

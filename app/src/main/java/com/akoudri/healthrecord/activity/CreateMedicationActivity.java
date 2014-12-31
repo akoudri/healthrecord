@@ -3,7 +3,6 @@ package com.akoudri.healthrecord.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -17,15 +16,13 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Drug;
 import com.akoudri.healthrecord.data.Medication;
 import com.akoudri.healthrecord.json.JSONArray;
-import com.akoudri.healthrecord.json.JSONString;
+import com.akoudri.healthrecord.json.JSONException;
+import com.akoudri.healthrecord.json.JSONObject;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.semantics3.api.Products;
-
-import com.akoudri.healthrecord.json.JSONException;
-import com.akoudri.healthrecord.json.JSONObject;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,8 +34,6 @@ import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
-//TODO: voir si il est possible d'utiliser le code bar du médicament
-//STATUS: checked
 public class CreateMedicationActivity extends Activity {
 
     private AutoCompleteTextView medicationActv;
@@ -51,10 +46,8 @@ public class CreateMedicationActivity extends Activity {
     private boolean dataSourceLoaded = false;
     private List<Drug> drugs;
 
-    private final static String URL = "https://api.semantics3.com/v1/products?q=";
     private String ean;
     private Products products;
-    private JSONObject json;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +67,6 @@ public class CreateMedicationActivity extends Activity {
         beginMedicET = (EditText) findViewById(R.id.begin_medic);
         beginMedicET.setKeyListener(null);
         endMedicET = (EditText) findViewById(R.id.end_medic);
-        //client = new DefaultHttpClient();
         products = new Products("SEM36CD92414788D5F612AAF387546838F3D",
                 "ZGNhMGRkYWQxNGI1ZjU3MDkyYzhlMzg2OTM4MGI0NTU");
     }
@@ -202,6 +194,11 @@ public class CreateMedicationActivity extends Activity {
     public void scanQRCode(View view)
     {
         IntentIntegrator integrator = new IntentIntegrator(CreateMedicationActivity.this);
+        integrator.addExtra("SCAN_MODE", "QR_CODE_MODE");
+        integrator.addExtra("SCAN_WIDTH", 800);
+        integrator.addExtra("SCAN_HEIGHT", 800);
+        integrator.addExtra("RESULT_DISPLAY_DURATION_MS", 3000L);
+        integrator.addExtra("PROMPT_MESSAGE", "Scan product");
         integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
     }
 
@@ -210,14 +207,9 @@ public class CreateMedicationActivity extends Activity {
         //FIXME: check content whether it comes from QR Code
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (result != null) {
-            //FIXME: this sample code works fine, adapt it and manage exceptions
             ean = result.getContents();
             if (ean != null) {
                 if (ean.length() == 12) ean = "0" + ean;//convert to ean number if utc
-                /*ean = "071649396502";
-                ean = "{\"ean\":\"" + ean + "\"}";
-                new Read().execute("name");*/
-                ean = "0883974958450";
                 products.productsField("ean", ean);
                 try {
                     JSONObject results = products.getProducts();

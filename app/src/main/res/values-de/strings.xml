@@ -204,6 +204,10 @@
         <item>Jahr</item>
         <item>Leben</item>
     </string-array>
+    <string-array name="notificationChoice">
+        <item>Zeit</item>
+        <item>Tag</item>
+    </string-array>
     <string name="date">Datum</string>
     <string name="with">mit</string>
     <string name="type">Art</string>
@@ -250,5 +254,7 @@
     <string name="about">über</string>
     <string name="made_by">Erstellt von Pueblo</string>
     <string name="send_email_to_author">Senden sie eine e-mail</string>
+    <string name="notify_me">Benachrichtigen sie mich</string>
+    <string name="before">vor</string>
 
 </resources>

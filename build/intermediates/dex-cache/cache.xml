@@ -51,6 +51,13 @@
         <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/classes-ec83c19194d8314f34ae9d6cdd4ed7ac7ce85979.jar" />
     </item>
     <item
+        jar="/home/ali/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/home/ali/dev/android/healthrecord/app/build/intermediates/pre-dexed/debug/gson-2.3.1-d5860c4e45b24937b20f302ac08bc109dc3b4d26.jar" />
+    </item>
+    <item
         jar="/home/ali/dev/android/healthrecord/app/libs/commons-lang3-3.3.2.jar"
         jumboMode="false"
         revision="20.0.0"

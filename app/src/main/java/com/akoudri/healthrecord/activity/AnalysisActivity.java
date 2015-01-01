@@ -71,7 +71,7 @@ public class AnalysisActivity extends Activity {
         //ratio = size.x / 480;
         tsize = (int) HealthRecordUtils.convertPixelsToDp(16, this);
         ttsize = (int) HealthRecordUtils.convertPixelsToDp(12, this);
-        psize = (int) HealthRecordUtils.convertPixelsToDp(5, this);
+        psize = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         margin_left_right = (int) HealthRecordUtils.convertPixelsToDp(5, this);
         margin_bottom_top = (int) HealthRecordUtils.convertPixelsToDp(20, this);
         margins = new int[] {margin_left_right, margin_bottom_top, margin_bottom_top, margin_left_right};

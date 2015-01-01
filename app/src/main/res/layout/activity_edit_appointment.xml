@@ -43,6 +43,7 @@
             android:background="@drawable/selector"/>
     </LinearLayout>
 
+    <!--
     <CheckBox
         android:id="@+id/notifyCheckbox"
         android:text="@string/notify_me"
@@ -83,6 +84,7 @@
             android:layout_gravity="center_vertical"
             android:textStyle="bold" />
     </LinearLayout>
+    -->
 
     <TextView
         android:text="@string/comment"

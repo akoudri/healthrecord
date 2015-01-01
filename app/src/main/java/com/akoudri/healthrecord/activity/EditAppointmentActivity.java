@@ -25,11 +25,22 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
+//import com.akoudri.healthrecord.json.JSONObject;
+//import com.akoudri.healthrecord.store.ApptNotificationList;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.HourPickerFragment;
 import com.akoudri.healthrecord.utils.NotificationPublisher;
+//import com.google.gson.Gson;
 
+//import java.io.FileInputStream;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+//import java.io.InputStreamReader;
+//import java.io.OutputStream;
+//import java.io.OutputStreamWriter;
+//import java.io.Writer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,12 +49,15 @@ import java.util.List;
 
 public class EditAppointmentActivity extends Activity {
 
+    public static final String APPT_FILENAME = "apptNotifications.json";
+
     private LinearLayout dLayout, hLayout;
     private TextView dateTV, hourTV;
     private ImageButton dateButton, hourButton;
 
     private EditText dateET, hourET, commentET;
-    private Spinner notificationSpinner, thSpinner;
+    //private Spinner notificationSpinner;
+    private Spinner thSpinner;
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
@@ -68,10 +82,10 @@ public class EditAppointmentActivity extends Activity {
         hLayout = (LinearLayout) findViewById(R.id.appt_hour_layout);
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
-        notificationSpinner = (Spinner) findViewById(R.id.notification_kind);
+        /*notificationSpinner = (Spinner) findViewById(R.id.notification_kind);
         String[] notificationValues = getResources().getStringArray(R.array.notificationChoice);
         ArrayAdapter<String> notificationChoiceAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, notificationValues);
-        notificationSpinner.setAdapter(notificationChoiceAdapter);
+        notificationSpinner.setAdapter(notificationChoiceAdapter);*/
         dataSource = HealthRecordDataSource.getInstance(this);
         margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         //Existing appointment
@@ -191,6 +205,7 @@ public class EditAppointmentActivity extends Activity {
         String hourStr = hourET.getText().toString();
         String comment = commentET.getText().toString();
         if (apptId != 0) {
+            //Update existing appointment
             String dayStr = dateET.getText().toString();
             if (comment.equals("")) comment = null;
             Appointment a = new Appointment(appt.getPersonId(), therapistId, dayStr, hourStr, comment);
@@ -224,6 +239,7 @@ public class EditAppointmentActivity extends Activity {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         else {
+            //Create new appointment
             if (checkFields(hourStr)) {
                 if (comment.equals("")) comment = null;
                 apptId = (int) dataSource.getAppointmentTable().insertAppointment(personId, therapistId, selectedDate,
@@ -383,5 +399,52 @@ public class EditAppointmentActivity extends Activity {
         hourButton.setLayoutParams(llparams);
         hLayout.addView(hourButton);
     }
+
+    /*
+    private ApptNotificationList retrieveApptNotifications()
+    {
+        FileInputStream fin = null;
+        int READ_BLOCK_SIZE = 128;
+        try {
+            fin = openFileInput(APPT_FILENAME);
+            InputStreamReader isr = new InputStreamReader(fin);
+            char[] inputBuffer = new char[READ_BLOCK_SIZE];
+            String s = "";
+            int charRead;
+            String readString;
+            while((charRead = isr.read(inputBuffer))>0)
+            {
+                readString = String.copyValueOf(inputBuffer, 0, charRead);
+                s += readString;
+                inputBuffer = new char[READ_BLOCK_SIZE];
+            }
+            Gson gson = new Gson();
+            ApptNotificationList res = gson.fromJson(s, ApptNotificationList.class);
+            return res;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void storeApptNotifications(ApptNotificationList notifications)
+    {
+        Gson gson = new Gson();
+        String json = gson.toJson(notifications);
+        try {
+            FileOutputStream fout = openFileOutput(APPT_FILENAME, MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fout);
+            osw.write(json);
+            osw.flush();
+            osw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    */
 
 }

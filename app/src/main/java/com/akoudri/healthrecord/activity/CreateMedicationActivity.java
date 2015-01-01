@@ -191,7 +191,7 @@ public class CreateMedicationActivity extends Activity {
         integrator.initiateScan(IntentIntegrator.PRODUCT_CODE_TYPES);
     }
 
-    public void scanQRCode(View view)
+    /*public void scanQRCode(View view)
     {
         IntentIntegrator integrator = new IntentIntegrator(CreateMedicationActivity.this);
         integrator.addExtra("SCAN_MODE", "QR_CODE_MODE");
@@ -200,7 +200,7 @@ public class CreateMedicationActivity extends Activity {
         integrator.addExtra("RESULT_DISPLAY_DURATION_MS", 3000L);
         integrator.addExtra("PROMPT_MESSAGE", "Scan product");
         integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
-    }
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

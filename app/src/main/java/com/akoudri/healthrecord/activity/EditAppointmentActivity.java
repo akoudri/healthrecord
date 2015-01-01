@@ -49,7 +49,7 @@ import java.util.List;
 
 public class EditAppointmentActivity extends Activity {
 
-    public static final String APPT_FILENAME = "apptNotifications.json";
+    //public static final String APPT_FILENAME = "apptNotifications.json";
 
     private LinearLayout dLayout, hLayout;
     private TextView dateTV, hourTV;

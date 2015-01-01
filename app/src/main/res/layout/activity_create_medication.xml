@@ -43,6 +43,7 @@
                 android:src="@drawable/barcode"
                 android:onClick="scanBarCode"
                 style="?android:attr/borderlessButtonStyle"/>
+            <!--
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +52,7 @@
                 android:src="@drawable/qrcode"
                 android:onClick="scanQRCode"
                 style="?android:attr/borderlessButtonStyle"/>
+                -->
         </LinearLayout>
 
         <TextView

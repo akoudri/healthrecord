@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Health Record</string>
+    <string name="add_person">إضافة شخص</string>
+    <string name="add">إضافة</string>
+    <string name="name">الاسم</string>
+    <string name="birthdate">تاريخ الميلاد</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="gender">الجنس</string>
+    <string name="pick_date">التقويم</string>
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+    <string name="blood_type">فصيلة الدم</string>
+    <string name="edit">تعديل</string>
+    <string name="remove">حذف</string>
+    <string name="update">تحديث</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="manage_ailments">الأمراض</string>
+    <string name="manage_treatments">العلاجات</string>
+    <string name="manage_appointments">المواعيد</string>
+    <string name="manage_measures">التدابير</string>
+    <string name="personal_analysis">الإحصائيات</string>
+    <string name="personal_data">البيانات الشخصية</string>
+    <string name="doctors">الأطباء</string>
+    <string name="yes">نعم</string>
+    <string name="no">لا</string>
+    <string name="remove_question">هل تريد بالتأكيد إزالة</string>
+    <string name="removing">إزالة</string>
+    <string name="ssn">الرقم الصحي</string>
+    <string name="speciality">التخصص</string>
+    <string name="phoneNumber">رقم الهاتف</string>
+    <string name="add_therapist">إضافة طبيب</string>
+    <string name="new_therapist">طبيب جديد</string>
+    <string name="existing_therapist">طبيب حالي</string>
+    <string name="my_therapists">الأطباء</string>
+    <string name="calendar">التقويم</string>
+    <string name="no_other_therapist">لا يوجد طبيب آخر</string>
+    <string name="update_therapist">تحديث الطبيب</string>
+    <string-array name="branches">
+    <item>طبيب عام</item>
+    <item>طبيب أطفال</item>
+    <item>طبيب علاج طبيعي</item>
+    <item>طبيب حساسية</item>
+    <item>طبيب مناعة</item>
+    <item>طبيب تخدير</item>
+    <item>طبيب قلب</item>
+    <item>طبيب أمراض جلدية</item>
+    <item>طبيب جهاز هضمي</item>
+    <item>طبيب أمراض دم</item>
+    <item>طبيب أورام</item>
+    <item>طبيب طبب داخلي</item>
+    <item>طبيب أمراض كلى</item>
+    <item>طبيب أمراض عصبية</item>
+    <item>جراح أعصاب</item>
+    <item>طبيب توليد</item>
+    <item>طبيب نساء</item>
+    <item>ممرضة-قابلة</item>
+    <item>طبيب طب وظيفي</item>
+    <item>طبيب عيون</item>
+    <item>جراح فم ووجه وفكين</item>
+    <item>جراح عظام</item>
+    <item>طبيب أذن وأنف وحنجرة</item>
+    <item>أخصائي علم الأمراض</item>
+    <item>جراح تجميل</item>
+    <item>طبيب أمراض قدم</item>
+    <item>طبيب نفساني</item>
+    <item>طبيب طب رئوي</item>
+    <item>طبيب أورام وأشعة</item>
+    <item>طبيب أشعة تشخيصي</item>
+    <item>طبيب روماتيزم</item>
+    <item>أخصائي بول</item>
+  </string-array>
+    <string-array name="illnesses">
+    <item>الكوليسترول</item>
+    <item>ارتفاع ضغط الدم</item>
+    <item>الصداع النصفي</item>
+    <item>الاكتئاب</item>
+    <item>الربو</item>
+    <item>التهاب القصيبات</item>
+    <item>التهاب شعبي</item>
+    <item>حب الشباب</item>
+    <item>الأكزيما</item>
+    <item>الهربس</item>
+    <item>الصدفية</item>
+    <item>قرحة</item>
+    <item>التهاب المفاصل</item>
+    <item>آلام أسفل الظهر</item>
+    <item>هشاشة العظام</item>
+    <item>روماتزم</item>
+    <item>ألم النسا</item>
+    <item>إعتام عدسة العين</item>
+    <item>مرض السكري</item>
+    <item>التهاب السحايا</item>
+    <item>التهاب وريدي</item>
+    <item>إدمان الكحول</item>
+    <item>التدخين</item>
+    <item>فقدان الشهية</item>
+    <item>الشره المرضي</item>
+    <item>البلعوم الأنفي</item>
+    <item>حساسية</item>
+    <item>أنفلونزا</item>
+    <item>خناق</item>
+    <item>برد</item>
+    <item>مغص</item>
+    <item>إلتهاب المعدة والأمعاء</item>
+    <item>الجدري</item>
+    <item>الإسهال</item>
+    <item>الحصبة</item>
+    <item>البواسير</item>
+    <item>الإمساك</item>
+    <item>اليرقان</item>
+    <item>الحصبة الألمانية</item>
+  </string-array>
+    <string-array name="drugs">
+    <item>باكسيل</item>
+    <item>ليكسابرو</item>
+    <item>هيدروكودون</item>
+    <item>زاناكس</item>
+    <item>ترامادول</item>
+    <item>فيكودين</item>
+    <item>ليريكا</item>
+    <item>أوكسيكودون</item>
+    <item>ليسينوبريل</item>
+    <item>كيمبالتا</item>
+    <item>ليبيتور</item>
+    <item>روكسيسيت</item>
+    <item>زولوفت</item>
+    <item>ميتفورمين</item>
+    <item>إفإكسور</item>
+    <item>أمبين</item>
+    <item>بريدنيزون</item>
+    <item>أتينولول</item>
+    <item>يلبوترين</item>
+    <item>مورفين</item>
+    <item>نابروكسين</item>
+    <item>فينترمين</item>
+    <item>تايلينول</item>
+    <item>أسبرين</item>
+    <item>نورفاسك</item>
+    <item>توبرول</item>
+    <item>دارفوكيت</item>
+    <item>نيكسيوم</item>
+    <item>سوما</item>
+    <item>ديوفان</item>
+    <item>سروقول</item>
+    <item>ألبوتيرول</item>
+    <item>نيورونتين</item>
+    <item>أديرال</item>
+    <item>بروتونكس</item>
+    <item>أولترام</item>
+    <item>زوكور</item>
+    <item>أتيفان</item>
+    <item>ميتوبرولول</item>
+    <item>ليفاكين</item>
+    <item>فاليوم</item>
+    <item>فياجرا</item>
+    <item>بروزاك</item>
+    <item>ألبرازولام</item>
+    <item>سيبرو</item>
+    <item>أوكسيكونتين</item>
+    <item>جابابنتين</item>
+    <item>لورتاب</item>
+    <item>كلونازيبام</item>
+    <item>سيليكسا</item>
+    <item>سينثرويد</item>
+    <item>بلافيكس</item>
+    <item>سيكلوبنزابرين</item>
+    <item>بريفاسيد</item>
+    <item>سيليبريكس</item>
+    <item>فيتورين</item>
+    <item>لاسيكس</item>
+    <item>لورازيبام</item>
+    <item>أموكسيسيلين</item>
+    <item>ترازودون</item>
+    <item>زيرتك</item>
+    <item>كلونوبين</item>
+    <item>ديباكوتي</item>
+    <item>كلونيدين</item>
+    <item>كوديين</item>
+    <item>لاميكتال</item>
+    <item>ميثادون</item>
+    <item>فليكسيريل</item>
+    <item>توباماكس</item>
+    <item>ديكلوفيناك</item>
+    <item>بروميثازين</item>
+    <item>موبيك</item>
+    <item>دوكسي سايكلن</item>
+    <item>أوجمنتين</item>
+    <item>سيفالكسين</item>
+    <item>باكترم</item>
+    <item>هيدروكلوروثيازيد</item>
+    <item>أدفير</item>
+    <item>إيبوبروفين</item>
+    <item>أوميبرازول</item>
+    <item>فوروسيميد</item>
+    <item>زيتيا</item>
+    <item>ديازيبام</item>
+    <item>فنتانيل</item>
+    <item>ريسبيردال</item>
+    <item>أبيليفاي</item>
+    <item>سكيلاكسين</item>
+    <item>إلافيل</item>
+    <item>أميتريبتيلين</item>
+    <item>كومادين</item>
+    <item>فلوماكس</item>
+    <item>برايلوزيك</item>
+    <item>أليجرا</item>
+    <item>كليندامايسين</item>
+    <item>أنسولين</item>
+    <item>لونيستا</item>
+    <item>فوساماكس</item>
+    <item>زيبركسا</item>
+    <item>سيتالوبرام</item>
+    <item>رانيتيدين</item>
+  </string-array>
+    <string-array name="measures">
+    <item> </item>
+    <item>الوزن</item>
+    <item>الحجم</item>
+    <item>درجة الحرارة</item>
+    <item>محيط الجمجمة</item>
+    <item>جلوكوز</item>
+    <item>القلب</item>
+  </string-array>
+    <string name="size">الحجم (سم)</string>
+    <string name="weight">الوزن (كجم)</string>
+    <string name="temperature">درجة الحرارة (مئوية)</string>
+    <string name="glucose">الجلوكوز (جرام / لتر)</string>
+    <string name="heart">القلب (في الدقيقة)</string>
+    <string name="cp">محيط الجمجمة (سم)</string>
+    <string name="diastolic">ضغط الدم الانبساطي (cmHg)</string>
+    <string name="systolic">ضغط الدم الانقباضي (cmHg)</string>
+    <string name="heartbeat">ضربات القلب (في الدقيقة)</string>
+    <string name="add_rv">إضافة موعد</string>
+    <string name="add_ailment">إضافة مرض</string>
+    <string name="add_treatment">إضافة علاج</string>
+    <string name="hour">الساعة:</string>
+    <string name="remove_appt_question">هل أنت متأكد أنك تريد إزالة هذا الموعد؟</string>
+    <string name="remove_measure_question">هل أنت متأكد أنك تريد إزالة هذا الإجراء؟</string>
+    <string name="remove_observation_question">هل أنت متأكد أنك تريد إزالة هذه الملاحظة؟</string>
+    <string name="illness">المرض</string>
+    <string name="chronic">مزمن</string>
+    <string name="prescribedBy">يُعالَج بواسطة:</string>
+    <string name="permanent">دائم</string>
+    <string name="start">البدء:</string>
+    <string name="end">النهاية:</string>
+    <string name="drugs">الأدوية</string>
+    <string name="times">المرات /</string>
+    <string name="frequency">التكرار</string>
+    <string-array name="freqChoice">
+    <item>ساعة</item>
+    <item>يوم</item>
+    <item>أسبوع</item>
+    <item>شهر</item>
+    <item>سنة</item>
+    <item>مدى الحياة</item>
+  </string-array>
+    <string name="date">التاريخ:</string>
+    <string name="with">مع:</string>
+    <string name="type">النوع:</string>
+    <string name="display">عرض</string>
+    <string name="db_warning">انتهاك سلامة البيانات</string>
+    <string name="ok">حسنًا</string>
+    <string name="warning">تحذير</string>
+    <string name="notValidData">البيانات غير مكتملة أو غير صالحة</string>
+    <string name="update_saved">تم حفظ التحديث</string>
+    <string name="cell_phone_number">رقم الهاتف الخليوي</string>
+    <string name="email_address">عنوان البريد الإلكتروني</string>
+    <string name="comment">تعليق</string>
+    <string name="duration">المدة:</string>
+    <string name="number_of_days">يوم (أيام)</string>
+    <string name="med_req">توفير طبيب واحد على الأقل!</string>
+    <string name="self">ذاتي</string>
+    <string name="duplicate_medic">طبيب مكرر</string>
+    <string name="number_of_measures">عدد التدابير</string>
+    <string name="number_of_appt">عدد المواعيد</string>
+    <string name="number_of_ailments">عدد الأمراض</string>
+    <string name="number_of_medics">عدد الأطباء</string>
+    <string name="number_of_observations">عدد الملاحظات</string>
+    <string name="no_change">لا يوجد تغيير لحفظه</string>
+    <string name="data_saved">تم حفظ البيانات</string>
+    <string name="preventive_treatment">علاج وقائي</string>
+    <string name="no_therapist_found">لم يتم العثور على طبيب</string>
+    <string name="add_existing_therapist">إضافة طبيب حالي</string>
+    <string name="add_new_therapist">إضافة طبيب جديد</string>
+    <string name="add_drug">إضافة دواء</string>
+    <string name="stop">توقف</string>
+    <string name="current_size">الحجم الحالي (سم):</string>
+    <string name="current_weight">الوزن الحالي (كجم):</string>
+    <string name="doctor">الطبيب</string>
+    <string name="overlapping_ailment">المرض أعلن بالفعل لهذه الفترة</string>
+    <string name="heart_measure">Dia(cmHg)/Sys(cmHg)-النبض(في الدقيقة)</string>
+    <string name="add_measure">إضافة أحد التدابير</string>
+    <string name="nb_points">عدد النقاط</string>
+    <string name="choose_type">الرجاء اختيار النوع</string>
+    <string name="message">رسالة</string>
+    <string name="send">إرسال</string>
+    <string name="add_observation">إضافة ملاحظة</string>
+    <string name="description">الوصف</string>
+    <string name="database_access_impossible">الوصول إلى قاعدة البيانات مستحيل</string>
+    <string name="about">حول</string>
+    <string name="made_by">من إعداد Pueblo</string>
+    <string name="send_email_to_author">أرسل بريد إلكتروني إلى المؤلف</string>
+
+</resources>

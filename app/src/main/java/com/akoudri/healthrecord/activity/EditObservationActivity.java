@@ -169,7 +169,7 @@ public class EditObservationActivity extends Activity {
         LinearLayout.LayoutParams llparams;
         //Date Text View
         dateTV = new TextView(this);
-        dateTV.setText(getResources().getString(R.string.hour));
+        dateTV.setText(getResources().getString(R.string.date));
         dateTV.setTextColor(getResources().getColor(R.color.regular_text_color));
         dateTV.setMinEms(3);
         dateTV.setMaxEms(3);

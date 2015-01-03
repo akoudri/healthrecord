@@ -80,7 +80,7 @@ public class EditMeasureActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_measure);
         dataSource = HealthRecordDataSource.getInstance(this);
-        margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
+        margin = (int) HealthRecordUtils.convertPixelsToDp(5, this);
         glayout = (GridLayout) findViewById(R.id.add_measure_grid);
         hlayout = (LinearLayout) findViewById(R.id.measure_hour_layout);
         initHourLayout();

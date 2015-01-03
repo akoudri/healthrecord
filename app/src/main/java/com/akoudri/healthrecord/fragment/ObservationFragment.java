@@ -106,13 +106,15 @@ public class ObservationFragment extends Fragment {
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,2);
             obsButton = new Button(getActivity());
-            obsButton.setText(obs.getDate() + " - " + obs.getHour());
+            //obsButton.setText(obs.getDate() + " - " + obs.getHour() + "\n" + obs.getDescription());
+            obsButton.setText(obs.getDescription());
             obsButton.setTextSize(16);
             obsButton.setTextColor(getResources().getColor(R.color.regular_button_text_color));
-            obsButton.setTypeface(null, Typeface.BOLD);
-            obsButton.setMinEms(12);
-            obsButton.setMaxEms(12);
+            //obsButton.setTypeface(null, Typeface.BOLD);
+            obsButton.setMinEms(16);
+            obsButton.setMaxEms(16);
             obsButton.setBackgroundResource(R.drawable.healthrecord_button);
+            obsButton.setGravity(Gravity.LEFT);
             obsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

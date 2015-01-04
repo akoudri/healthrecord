@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">स्वास्थ्य रिकॉर्ड</string>
+    <string name="add_person">व्यक्ति को जोड़ें</string>
+    <string name="add">जोड़ें</string>
+    <string name="name">नाम</string>
+    <string name="birthdate">जन्म तिथि</string>
+    <string name="action_settings">सेटिंग</string>
+    <string name="gender">लिंग</string>
+    <string name="pick_date">कैलेंडर</string>
+    <string name="male">पुरुष</string>
+    <string name="female">महिला</string>
+    <string name="blood_type">रक्त प्रकार</string>
+    <string name="edit">संपादित करें</string>
+    <string name="remove">मिटाएं</string>
+    <string name="update">अपडेट करें</string>
+    <string name="save">रक्षित करें</string>
+    <string name="cancel">निरस्त करें</string>
+    <string name="manage_ailments">बीमारी</string>
+    <string name="manage_treatments">उपचार</string>
+    <string name="manage_appointments">मुलाकात</string>
+    <string name="manage_measures">उपाय</string>
+    <string name="personal_analysis">सांख्यिकी</string>
+    <string name="personal_data">वैयक्तिक डेटा</string>
+    <string name="doctors">चिकित्सक</string>
+    <string name="yes">हां</string>
+    <string name="no">नहीं</string>
+    <string name="remove_question">क्या आप वास्तव में हटाना चाहते हैं</string>
+    <string name="removing">हटाना</string>
+    <string name="ssn">स्वास्थ्य नंबर</string>
+    <string name="speciality">विशिष्टता</string>
+    <string name="phoneNumber">फोन नंबर</string>
+    <string name="add_therapist">चिकित्सक को जोड़ें</string>
+    <string name="new_therapist">नया चिकित्सक</string>
+    <string name="existing_therapist">मौजूदा चिकित्सक</string>
+    <string name="my_therapists">चिकित्सक</string>
+    <string name="calendar">कैलेंडर</string>
+    <string name="no_other_therapist">कोई अन्य चिकित्सक नहीं</string>
+    <string name="update_therapist">चिकित्सक अपडेट करें</string>
+    <string-array name="branches">
+    <item>सामान्य चिकित्सक</item>
+    <item>शिशु रोग विशेषज्ञ</item>
+    <item>शारीरिक चिकित्सक</item>
+    <item>एलर्जिस्ट</item>
+    <item>रोगक्षमता विज्ञानी</item>
+    <item>चेतना शून्य करने वाला</item>
+    <item>हृदय रोग विशेषज्ञ</item>
+    <item>त्वचा विशेषज्ञ</item>
+    <item>जठरांत्र विज्ञानी</item>
+    <item>रुधिर रोग विज्ञान</item>
+    <item>अर्बुद विशेषज्ञ</item>
+    <item>आंतरिक दवाई चिकित्सक</item>
+    <item>वृक्क विज्ञानी</item>
+    <item>स्नायुविज्ञानी</item>
+    <item>न्यूरोसर्जन</item>
+    <item>प्रसूतिविज्ञानी</item>
+    <item>स्त्रीरोग विशेषज्ञ</item>
+    <item>नर्स-दाई का कार्य</item>
+    <item>व्यावसायिक दवाई चिकित्सक</item>
+    <item>नेत्र विशेषज्ञ</item>
+    <item>ओरल एवं मेक्सिलोफेशियल सर्जन</item>
+    <item>हड्डी रोग सर्जन</item>
+    <item>कान, नाक और गले के विकार का विशेषज्ञ</item>
+    <item>रोग विज्ञानी</item>
+    <item>प्लास्टिक सर्जन</item>
+    <item>पाद चिकित्सक</item>
+    <item>मनोरोग चिकित्सक</item>
+    <item>फेफड़ा संबंधी दवाई चिकित्सक</item>
+    <item>विकिरण अर्बुद विशेषज्ञ</item>
+    <item>एक्सरे चिकित्सक</item>
+    <item>संधिवात विज्ञानी</item>
+    <item>मूत्रविज्ञानी</item>
+  </string-array>
+    <string-array name="illnesses">
+    <item>कोलेस्टेरोल</item>
+    <item>उच्च रक्तचाप</item>
+    <item>आधासीसी</item>
+    <item>अवसाद</item>
+    <item>दमा</item>
+    <item>फेफड़ों का संक्रमण</item>
+    <item>श्वासनली शोथ</item>
+    <item>मुंहासा</item>
+    <item>छाजन</item>
+    <item>दाद</item>
+    <item>सोरियासिस</item>
+    <item>फोड़ा</item>
+    <item>अस्थिसंधिशोथ</item>
+    <item>LBP (पीठ के निचले भाग में दर्द)</item>
+    <item>अस्थि-सुषिरता</item>
+    <item>गठिया</item>
+    <item>कटिस्नायुशूल</item>
+    <item>मोतियाबिन्द</item>
+    <item>मधुमेह</item>
+    <item>मस्तिष्क-ज्वर</item>
+    <item>शिराशोथ</item>
+    <item>अतिपानता</item>
+    <item>धूम्रपान</item>
+    <item>अरुचि</item>
+    <item>क्षुधातिशय</item>
+    <item>नासाग्रसनीशोथ</item>
+    <item>एलर्जी</item>
+    <item>फ्लू</item>
+    <item>कंठ शूल</item>
+    <item>सर्दी</item>
+    <item>पेट दर्द</item>
+    <item>जठरांत्र शोथ</item>
+    <item>चेचक</item>
+    <item>दस्त</item>
+    <item>खसरा</item>
+    <item>बवासीर</item>
+    <item>कब्ज</item>
+    <item>पीलिया</item>
+    <item>हल्का खसरा</item>
+  </string-array>
+    <string-array name="drugs">
+    <item>पेक्सिल</item>
+    <item>लेक्साप्रो</item>
+    <item>हाइड्रोकोडोन</item>
+    <item>एक्सानेक्स</item>
+    <item>ट्रामाडोल</item>
+    <item>वीकोडीन</item>
+    <item>लीरिका</item>
+    <item>ऑक्सीकोडोन</item>
+    <item>लिसीनोप्रिर</item>
+    <item>साइम्बाल्टा</item>
+    <item>लिपीटर</item>
+    <item>परकोसेट</item>
+    <item>ज़ोलोफ्ट</item>
+    <item>मेटफॉर्मिन</item>
+    <item>एफेक्सोर</item>
+    <item>एम्बिएन</item>
+    <item>प्रेडनिसोन</item>
+    <item>एटेनोलोल</item>
+    <item>वेलबट्रिन</item>
+    <item>मॉर्फीन</item>
+    <item>मेप्रोक्सेन</item>
+    <item>फेन्टरमाइन</item>
+    <item>टायलेनोल</item>
+    <item>एस्पिरीन</item>
+    <item>नोर्वास्क</item>
+    <item>टोप्रोल</item>
+    <item>डार्वोसेट</item>
+    <item>नेक्सीयम</item>
+    <item>सोमा</item>
+    <item>डिओवान</item>
+    <item>सेरोक्विल</item>
+    <item>अल्बुटेरोल</item>
+    <item>नेयूरोन्टिन</item>
+    <item>एडेराल</item>
+    <item>प्रोटोनिक्स</item>
+    <item>अल्ट्राम</item>
+    <item>ज़ोकोर</item>
+    <item>एटीवान</item>
+    <item>मेटोप्रोलोल</item>
+    <item>लेवाक्वीन</item>
+    <item>वालीयम</item>
+    <item>वियाग्रा</item>
+    <item>प्रोज़ाक</item>
+    <item>अल्प्राज़ोलाम</item>
+    <item>सिप्रो</item>
+    <item>ऑक्सीकोन्टीन</item>
+    <item>गाबापेंटीन</item>
+    <item>लोर्टेब</item>
+    <item>क्लोनाज़ेपाम</item>
+    <item>सेलेक्सा</item>
+    <item>साइथ्रोयड</item>
+    <item>प्लाविक्स</item>
+    <item>साइक्लोबेन्जाप्रीन</item>
+    <item>प्रेवासीड</item>
+    <item>सेलेब्रेक्स</item>
+    <item>विटोरीन</item>
+    <item>लेसीक्स</item>
+    <item>लोराज़ेपाम</item>
+    <item>एमोक्सीसिलीन</item>
+    <item>ट्राज़ोडोन</item>
+    <item>जायर्टेक</item>
+    <item>क्लोनोपिन</item>
+    <item>डेपाकोटे</item>
+    <item>क्लोनीडिने</item>
+    <item>कोडैने</item>
+    <item>लेमिक्टल</item>
+    <item>मेथाडोन</item>
+    <item>फ्लेक्सेरिल</item>
+    <item>टोपामेक्स</item>
+    <item>डिक्लोफेनेक</item>
+    <item>प्रोमेथाज़ीन</item>
+    <item>मोबिक</item>
+    <item>डोक्सीसायक्लीन</item>
+    <item>अग्मेंटीन</item>
+    <item>सेफालेक्सीन</item>
+    <item>बेक्ट्रिम</item>
+    <item>हाइड्रोक्लोरोथियाज़ाइड</item>
+    <item>एडवायर</item>
+    <item>इबुप्रोफेन</item>
+    <item>ओमेप्राज़ोल</item>
+    <item>फुरोसेमाइड</item>
+    <item>ज़ेटिया</item>
+    <item>डिआज़ेपम</item>
+    <item>फेंटान्यल</item>
+    <item>रिस्पेर्डल</item>
+    <item>एबिलीफी</item>
+    <item>स्केलाक्सीन</item>
+    <item>एलाविल</item>
+    <item>एमिट्रिप्टीलाइन</item>
+    <item>कोमाडीन</item>
+    <item>फ्लोमेक्स</item>
+    <item>प्रिलोसेक</item>
+    <item>एलेग्रा</item>
+    <item>क्लिंडामायसीन</item>
+    <item>इंसुलीन</item>
+    <item>लुनेस्टा</item>
+    <item>फोसामेक्स</item>
+    <item>जायप्रेक्सा</item>
+    <item>सिटलोप्राम</item>
+    <item>रेनिटीडीन</item>
+  </string-array>
+    <string-array name="measures">
+    <item> </item>
+    <item>वजन</item>
+    <item>आकार</item>
+    <item>तापमान</item>
+    <item>कपाल परिधि</item>
+    <item>ग्लूकोज</item>
+    <item>हृदय</item>
+  </string-array>
+    <string name="size">आकार (सेमी)</string>
+    <string name="weight">वजन (किग्रा)</string>
+    <string name="temperature">तापमान (°सें.)</string>
+    <string name="glucose">ग्लूकोज (ग्रा/1)</string>
+    <string name="heart">हृदय (पी/एम)</string>
+    <string name="cp">कपाल परिधि (सेमी)</string>
+    <string name="diastolic">डायस्टोलिक (cmHg)</string>
+    <string name="systolic">सायस्टोलिक (cmHg)</string>
+    <string name="heartbeat">हृदय गति (पी/एम)</string>
+    <string name="add_rv">मुलाकात जोड़ें</string>
+    <string name="add_ailment">बीमारी जोड़ें</string>
+    <string name="add_treatment">उपचार जोड़ें</string>
+    <string name="hour">घंटा:</string>
+    <string name="remove_appt_question">क्या आप आश्वस्त हैं और इस मुलाकात को हटाना चाहते हैं?</string>
+    <string name="remove_measure_question">क्या आप आश्वस्त हैं और इस माप को हटाना चाहते हैं?</string>
+    <string name="remove_observation_question">क्या आप आश्वस्त हैं और इस अवलोकन को हटाना चाहते हैं?</string>
+    <string name="illness">अस्वस्थता</string>
+    <string name="chronic">दीर्घकालिक</string>
+    <string name="prescribedBy">उपचारकर्ता</string>
+    <string name="permanent">स्थाई</string>
+    <string name="start">शुरू करें:</string>
+    <string name="end">समाप्त करें:</string>
+    <string name="drugs">दवाइयां</string>
+    <string name="times">समय/</string>
+    <string name="frequency">आवृत्ति</string>
+    <string-array name="freqChoice">
+    <item>घंटा</item>
+    <item>दिन</item>
+    <item>सप्ताह</item>
+    <item>महीना</item>
+    <item>वर्ष</item>
+    <item>जीवन</item>
+  </string-array>
+    <string-array name="notificationChoice">
+        <item>घंटा</item>
+        <item>दिन</item>
+    </string-array>
+    <string name="date">दिनांक:</string>
+    <string name="with">इस के साथ:</string>
+    <string name="type">प्रकार:</string>
+    <string name="display">प्रदर्शित करें</string>
+    <string name="db_warning">डेटा समग्रता का उल्लंघन</string>
+    <string name="ok">ठीक</string>
+    <string name="warning">चेतावनी</string>
+    <string name="notValidData">अपूर्ण या अमान्य डेटा</string>
+    <string name="update_saved">अपडेट रक्षित</string>
+    <string name="cell_phone_number">सेल फोन नंबर</string>
+    <string name="email_address">ईमेल पता</string>
+    <string name="comment">टिप्पणी</string>
+    <string name="duration">अवधि:</string>
+    <string name="number_of_days">दिन (दिनों)</string>
+    <string name="med_req">कम से कम एक चिकित्सक उपलब्ध कराएं!</string>
+    <string name="self">स्वयं</string>
+    <string name="duplicate_medic">डुप्लीकेट चिकित्सक</string>
+    <string name="number_of_measures">माप की संख्या</string>
+    <string name="number_of_appt">मुलाकातों की संख्या</string>
+    <string name="number_of_ailments">बीमारियों की संख्या</string>
+    <string name="number_of_medics">चिकित्सकों की संख्या</string>
+    <string name="number_of_observations">अवलोकनों की संख्या</string>
+    <string name="no_change">रक्षित करने के लिए कोई परिवर्तन नहीं</string>
+    <string name="data_saved">डेटा रक्षित</string>
+    <string name="preventive_treatment">निवारक उपचार</string>
+    <string name="no_therapist_found">कोई चिकित्सक नहीं मिला</string>
+    <string name="add_existing_therapist">मौजूदा चिकित्सक जोड़ें</string>
+    <string name="add_new_therapist">नया चिकित्सक जोड़ें</string>
+    <string name="add_drug">दवा जोड़ें</string>
+    <string name="stop">बंद करें</string>
+    <string name="current_size">मौजूदा आकार (सेमी):</string>
+    <string name="current_weight">मौजूदा वजन (किग्रा):</string>
+    <string name="doctor">डॉक्टर</string>
+    <string name="overlapping_ailment">इस अवधि के लिए पहले से ही अस्वस्थता घोषित</string>
+    <string name="heart_measure">डाय(cmHg)/साय(cmHg)-नाड़ी(p/m)</string>
+    <string name="add_measure">माप जोड़ें</string>
+    <string name="nb_points">पॉइंट की संख्या</string>
+    <string name="choose_type">कृपया प्रकार चुनें</string>
+    <string name="message">संदेश</string>
+    <string name="send">भेजें</string>
+    <string name="add_observation">अवलोकन जोड़ें</string>
+    <string name="description">विवरण</string>
+    <string name="database_access_impossible">डेटाबेस एक्सेस असंभव</string>
+    <string name="about">हमारे बारे में</string>
+    <string name="made_by">प्वेब्लो द्वारा निर्मित</string>
+    <string name="send_email_to_author">लेखक को ईमेल भेजें</string>
+    <string name="notify_me">मुझे सूचित करें</string>
+    <string name="before">पहले</string>
+
+</resources>

@@ -162,26 +162,6 @@ public class MedicalObservationTable {
         return observations;
     }
 
-    public MedicalObservation getMedicalObservationWithDate(String date, String hour)
-    {
-        long d = HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis();
-        Cursor cursor = db.query(MEDICAL_OBSERVATION_TABLE, medicalObservationCols, MEDICAL_OBSERVATION_DATE + "=" + d, null, null, null, null);
-        if (cursor.moveToFirst()) return cursorToMedicalObservation(cursor);
-        return null;
-    }
-
-    public int countObservationsForDay(int personId, long date)
-    {
-        long me = date + 86400000L;//24h in ms
-        String req = "select count(*) from " + MEDICAL_OBSERVATION_TABLE + " where " + MEDICAL_OBSERVATION_PERSON_REF + "=" + personId + " and " + MEDICAL_OBSERVATION_DATE + ">=" + date + " and " + MEDICAL_OBSERVATION_DATE + "<" + me;
-        Cursor count = db.rawQuery(req, null);
-        if (!count.moveToFirst())
-            return 0;
-        int res = count.getInt(0);
-        count.close();
-        return res;
-    }
-
     public List<MedicalObservation> getDayObservationsForPerson(int personId, String date)
     {
         long ms = HealthRecordUtils.stringToCalendar(date).getTimeInMillis();

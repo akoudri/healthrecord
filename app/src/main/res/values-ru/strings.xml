@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <string name="app_name">Health Record</string>
+    <string name="add_person">Добавить человека</string>
+    <string name="add">Добавить</string>
+    <string name="name">Имя</string>
+    <string name="birthdate">Дата рождения</string>
+    <string name="action_settings">Настройки</string>
+    <string name="gender">Пол</string>
+    <string name="pick_date">Календарь</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="blood_type">Группа крови</string>
+    <string name="edit">Изменить</string>
+    <string name="remove">Удалить</string>
+    <string name="update">Обновить</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="manage_ailments">Заболевания</string>
+    <string name="manage_treatments">Лечение</string>
+    <string name="manage_appointments">Приемы у врача</string>
+    <string name="manage_measures">Измерения</string>
+    <string name="personal_analysis">Статистика</string>
+    <string name="personal_data">Персональные данные</string>
+    <string name="doctors">Врачи</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="remove_question">Вы действительно хотите удалить?</string>
+    <string name="removing">Удаление</string>
+    <string name="ssn">Число здоровья</string>
+    <string name="speciality">Специальность</string>
+    <string name="phoneNumber">Номер телефона</string>
+    <string name="add_therapist">Добавить врача</string>
+    <string name="new_therapist">Новый врач</string>
+    <string name="existing_therapist">Существующий врач</string>
+    <string name="my_therapists">Врачи</string>
+    <string name="calendar">Календарь</string>
+    <string name="no_other_therapist">Нет другого врача</string>
+    <string name="update_therapist">Обновить врача</string>
+    <string-array name="branches">
+    <item>Врач общей практики</item>
+    <item>Педиатр</item>
+    <item>Физиотерапевт</item>
+    <item>Аллерголог</item>
+    <item>Иммунолог</item>
+    <item>Анестизиолог</item>
+    <item>Кардиолог</item>
+    <item>Дерматолог</item>
+    <item>Гастроэнтеролог</item>
+    <item>Гематолог</item>
+    <item>Онколог</item>
+    <item>Специалист по внутренним болезням</item>
+    <item>Нефролог</item>
+    <item>Невролог</item>
+    <item>Нейрохирург</item>
+    <item>Акушер</item>
+    <item>Гинеколог</item>
+    <item>Медсестра-акушер</item>
+    <item>Специалист по гигиене труда</item>
+    <item>Офтальмолог</item>
+    <item>Челюстно-лицевой хирург</item>
+    <item>Хирург-ортопед</item>
+    <item>Отоларинголог</item>
+    <item>Патолог</item>
+    <item>Пластический хирург</item>
+    <item>Врач-ортопед</item>
+    <item>Психиатр</item>
+    <item>Пульмонолог</item>
+    <item>Онколог-радиолог</item>
+    <item>Рентгенодиагност</item>
+    <item>Ревматолог</item>
+    <item>Уролог</item>
+  </string-array>
+    <string-array name="illnesses">
+    <item>Холестерин</item>
+    <item>Гипертония</item>
+    <item>Мигрень</item>
+    <item>Депрессия</item>
+    <item>Астма</item>
+    <item>Бронхиолит</item>
+    <item>Бронхит</item>
+    <item>Акне</item>
+    <item>Экзема</item>
+    <item>Герпес</item>
+    <item>Псориаз</item>
+    <item>Язва</item>
+    <item>Остеоартрит</item>
+    <item>Низкое кровяное давление</item>
+    <item>Остеопороз</item>
+    <item>Ревматизм</item>
+    <item>Пояснично-крестцовый радикулит</item>
+    <item>Катаракта</item>
+    <item>Диабет</item>
+    <item>Менингит</item>
+    <item>Флебит</item>
+    <item>Алкоголизм</item>
+    <item>Курение</item>
+    <item>Анорексия</item>
+    <item>Булимия</item>
+    <item>Назофарингит</item>
+    <item>Аллергия</item>
+    <item>Грипп</item>
+    <item>Ангина</item>
+    <item>Простуда</item>
+    <item>Колика</item>
+    <item>Гастроэнтерит</item>
+    <item>Ветрянка</item>
+    <item>Диарея</item>
+    <item>Корь</item>
+    <item>Геморрой</item>
+    <item>Запор</item>
+    <item>Желтуха</item>
+    <item>Краснуха</item>
+  </string-array>
+    <string-array name="drugs">
+    <item>Паксил</item>
+    <item>Лексапро</item>
+    <item>Гидрокодон</item>
+    <item>Ксанакс</item>
+    <item>Трамадол</item>
+    <item>Викодин</item>
+    <item>Лирика</item>
+    <item>Оксикодон</item>
+    <item>Лизиноприл</item>
+    <item>Cимбалта</item>
+    <item>Липитор</item>
+    <item>Перкоцет</item>
+    <item>Золофт</item>
+    <item>Метформин</item>
+    <item>Эффексор</item>
+    <item>Амбиен</item>
+    <item>Преднизон</item>
+    <item>Атенолол</item>
+    <item>Веллбутрин</item>
+    <item>Морфий</item>
+    <item>Напроксен</item>
+    <item>Фентермин</item>
+    <item>Тайленол</item>
+    <item>Аспирин</item>
+    <item>Норваск</item>
+    <item>Топрол</item>
+    <item>Дарвоцет</item>
+    <item>Нексиум</item>
+    <item>Сома</item>
+    <item>Диован</item>
+    <item>Сероквель</item>
+    <item>Альбутерол</item>
+    <item>Нейротин</item>
+    <item>Аддералл</item>
+    <item>Протоникс</item>
+    <item>Ултрам</item>
+    <item>Зокор</item>
+    <item>Ативан</item>
+    <item>Метопролол</item>
+    <item>Леваквин</item>
+    <item>Валиум</item>
+    <item>Виагра</item>
+    <item>Прозак</item>
+    <item>Алпразолам</item>
+    <item>Ципро</item>
+    <item>Оксиконтин</item>
+    <item>Габапентин</item>
+    <item>Лортаб</item>
+    <item>Клоназепам</item>
+    <item>Целекса</item>
+    <item>Синтроид</item>
+    <item>Плавикс</item>
+    <item>Циклобензаприн</item>
+    <item>Превацид</item>
+    <item>Целебрекс</item>
+    <item>Виторин</item>
+    <item>Лазикс</item>
+    <item>Лоразепам</item>
+    <item>Амоксициллин</item>
+    <item>Тразодон</item>
+    <item>Зиртек</item>
+    <item>Клонопин</item>
+    <item>Депакот</item>
+    <item>Клофелин</item>
+    <item>Кодеин</item>
+    <item>Ламиктал</item>
+    <item>Метадон</item>
+    <item>Флексерил</item>
+    <item>Топамакс</item>
+    <item>Диклофенак</item>
+    <item>Прометазин</item>
+    <item>Мобик</item>
+    <item>Доксициклин</item>
+    <item>Аугментин</item>
+    <item>Цефалексин</item>
+    <item>Бактрим</item>
+    <item>Гидрохлоротиазид</item>
+    <item>Адваир</item>
+    <item>Ибупрофен</item>
+    <item>Омепразол</item>
+    <item>Фуросемид</item>
+    <item>Зетия</item>
+    <item>Диазепам</item>
+    <item>Фентанил</item>
+    <item>Риспердал</item>
+    <item>Абилифай</item>
+    <item>Скелаксин</item>
+    <item>Элавил</item>
+    <item>Амитриптилин</item>
+    <item>Кумадин</item>
+    <item>Фломакс</item>
+    <item>Прилосек</item>
+    <item>Аллегра</item>
+    <item>Клиндамицин</item>
+    <item>Инсулин</item>
+    <item>Лунеста</item>
+    <item>Фозамакс</item>
+    <item>Зипрекса</item>
+    <item>Циталопрам</item>
+    <item>Ранитидин</item>
+  </string-array>
+    <string-array name="measures">
+    <item> </item>
+    <item>Вес</item>
+    <item>Размер</item>
+    <item>Температура</item>
+    <item>Окружность головы</item>
+    <item>Глюкоза</item>
+    <item>Сердце</item>
+  </string-array>
+    <string name="size">Размер (см)</string>
+    <string name="weight">Вес (кг)</string>
+    <string name="temperature">Температура (°C)</string>
+    <string name="glucose">Глюкоза (г/л)</string>
+    <string name="heart">Сердце (уд/мин)</string>
+    <string name="cp">Окружность головы (см)</string>
+    <string name="diastolic">Диастолическое давление (см.рт.ст.)</string>
+    <string name="systolic">Систолическое давление (см.рт.ст.)</string>
+    <string name="heartbeat">Сердцебиение (уд/мин)</string>
+    <string name="add_rv">Добавить прием</string>
+    <string name="add_ailment">Добавить заболевание</string>
+    <string name="add_treatment">Добавить лечение</string>
+    <string name="hour">Время:</string>
+    <string name="remove_appt_question">Вы уверены, что хотите удалить этот прием?</string>
+    <string name="remove_measure_question">Вы уверены, что хотите удалить это измерение?</string>
+    <string name="remove_observation_question">Вы уверены, что хотите удалить это наблюдение?</string>
+    <string name="illness">Заболевание</string>
+    <string name="chronic">Хроническое заболевание</string>
+    <string name="prescribedBy">Чем лечится:</string>
+    <string name="permanent">Постоянное</string>
+    <string name="start">Начало:</string>
+    <string name="end">Конец:</string>
+    <string name="drugs">Таблетки</string>
+    <string name="times">раз /</string>
+    <string name="frequency">Периодичность</string>
+    <string-array name="freqChoice">
+    <item>Час</item>
+    <item>День</item>
+    <item>Неделя</item>
+    <item>Месяц</item>
+    <item>Год</item>
+    <item>Жизнь</item>
+  </string-array>
+    <string-array name="notificationChoice">
+        <item>Час</item>
+        <item>День</item>
+    </string-array>
+    <string name="date">Дата:</string>
+    <string name="with">С:</string>
+    <string name="type">Тип:</string>
+    <string name="display">Дисплей</string>
+    <string name="db_warning">Нарушение целостности данных</string>
+    <string name="ok">ОК</string>
+    <string name="warning">Предупреждение</string>
+    <string name="notValidData">Неполные или неправильные данные</string>
+    <string name="update_saved">Обновление сохранено</string>
+    <string name="cell_phone_number">Номер сотового телефона</string>
+    <string name="email_address">Адрес электронной почты</string>
+    <string name="comment">Комментарий</string>
+    <string name="duration">Продолжительность:</string>
+    <string name="number_of_days">день (дней)</string>
+    <string name="med_req">Укажите как минимум одного медика!</string>
+    <string name="self">Сам(а)</string>
+    <string name="duplicate_medic">Повторяющийся медик</string>
+    <string name="number_of_measures">Количество измерений</string>
+    <string name="number_of_appt">Количество приемов</string>
+    <string name="number_of_ailments">Количество заболеваний</string>
+    <string name="number_of_medics">Количество врачей</string>
+    <string name="number_of_observations">Количество наблюдений</string>
+    <string name="no_change">Нет изменений для сохранения</string>
+    <string name="data_saved">Данные сохранены</string>
+    <string name="preventive_treatment">Профилактическое лечение</string>
+    <string name="no_therapist_found">Врача не найдено</string>
+    <string name="add_existing_therapist">Добавить существующего врача</string>
+    <string name="add_new_therapist">Добавить нового врача</string>
+    <string name="add_drug">Добавить препарат</string>
+    <string name="stop">Стоп</string>
+    <string name="current_size">Текущий размер (см)</string>
+    <string name="current_weight">Текущий вес (кг)</string>
+    <string name="doctor">Доктор</string>
+    <string name="overlapping_ailment">Заболевание уже указано в этот период</string>
+    <string name="heart_measure">Диаст.(см.рт.ст)/Сист.(см.рт.ст)-Пульс(уд/мин)</string>
+    <string name="add_measure">Добавить измерение</string>
+    <string name="nb_points">Количество точек</string>
+    <string name="choose_type">Выберите тип</string>
+    <string name="message">Сообщение</string>
+    <string name="send">Отправить</string>
+    <string name="add_observation">Добавить наблюдение</string>
+    <string name="description">Описание</string>
+    <string name="database_access_impossible">Доступ к базе данных невозможен</string>
+    <string name="about">О приложении</string>
+    <string name="made_by">Создано Pueblo</string>
+    <string name="send_email_to_author">Отправить письмо автору</string>
+    <string name="notify_me">Сообщите мне</string>
+    <string name="before">до</string>
+
+</resources>

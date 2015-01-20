@@ -194,7 +194,7 @@ public final class HealthRecordUtils {
     public static boolean isValidName(String name)
     {
         if (name == null) return false;
-        String pattern = "(\\w+(-|\\x20)?\\w+)+";
+        String pattern = "(\\w+(-|\\s)?\\w+)+";
         return name.matches(pattern);
     }
 
@@ -208,7 +208,7 @@ public final class HealthRecordUtils {
     public static boolean isValidSpecialty(String specialty)
     {
         if (specialty == null) return false;
-        String pattern = "(\\w+(-|\\x20)?\\w+)+";
+        String pattern = "(\\w+(-|\\s)?\\w+)+";
         return specialty.matches(pattern);
     }
 

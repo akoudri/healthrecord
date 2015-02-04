@@ -194,7 +194,8 @@ public final class HealthRecordUtils {
     public static boolean isValidName(String name)
     {
         if (name == null) return false;
-        String pattern = "(\\w+(-|\\s)?\\w+)+";
+        //String pattern = "(\\w+(-|\\s|')?\\w+)+";
+        String pattern = "\\w+.*";
         return name.matches(pattern);
     }
 

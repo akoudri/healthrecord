@@ -61,12 +61,20 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         setContentView(R.layout.activity_edit_day);
         dataSource = HealthRecordDataSource.getInstance(this);
         dayMenuLayout = (LinearLayout) findViewById(R.id.day_menu_layout);
-        initDayMenuLayout();
-        today_label = (TextView) findViewById(R.id.today_label);
         personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
+        //init day
+        currentDay = Calendar.getInstance();
+        currentDay.set(Calendar.DAY_OF_MONTH, day);
+        currentDay.set(Calendar.MONTH, month);
+        currentDay.set(Calendar.YEAR, year);
+        //today
+        today =  Calendar.getInstance();
+        //widgets
+        initDayMenuLayout();
+        today_label = (TextView) findViewById(R.id.today_label);
         apptFrag = AppointmentFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
@@ -78,13 +86,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         currentFrag = measureFrag;
         currentButton = measureButton;
         currentButton.setEnabled(false);
-        //init day
-        currentDay = Calendar.getInstance();
-        currentDay.set(Calendar.DAY_OF_MONTH, day);
-        currentDay.set(Calendar.MONTH, month);
-        currentDay.set(Calendar.YEAR, year);
-        //today
-        //today =  Calendar.getInstance();
         //Touch management
         View view = findViewById(R.id.today_layout);
         view.setOnTouchListener(this);
@@ -143,17 +144,33 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         });
         illnessButton.setLayoutParams(llparams);
         dayMenuLayout.addView(illnessButton);
-        //Medics
+        //Medics and Reminders
         medicButton = new ImageButton(this);
-        medicButton.setBackgroundResource(R.drawable.medication);
-        medicButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                displayMedics();
-            }
-        });
+        setMedicButton();
         medicButton.setLayoutParams(llparams);
         dayMenuLayout.addView(medicButton);
+    }
+
+    private void setMedicButton()
+    {
+        if (currentDay.after(today))
+        {
+            medicButton.setBackgroundResource(R.drawable.reminder);
+            medicButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    displayReminders();
+                }
+            });
+        } else {
+            medicButton.setBackgroundResource(R.drawable.medication);
+            medicButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    displayMedics();
+                }
+            });
+        }
     }
 
     @Override
@@ -165,6 +182,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         try {
             dataSource.open();
             dataSourceLoaded = true;
+            //fragments
             measureFrag.setDataSource(dataSource);
             apptFrag.setDataSource(dataSource);
             ailmentFrag.setDataSource(dataSource);
@@ -255,6 +273,20 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         currentFrag = medFrag;
     }
 
+    private void displayReminders()
+    {
+        if (currentFrag == medFrag) return;
+        medFrag.setCurrentDate(day, month, year);
+        medFrag.resetMedicId();
+        fragTrans = getFragmentManager().beginTransaction();
+        fragTrans.replace(R.id.day_layout, medFrag);
+        fragTrans.commit();
+        currentButton.setEnabled(true);
+        medicButton.setEnabled(false);
+        currentButton = medicButton;
+        currentFrag = medFrag;
+    }
+
     private void displayObservations()
     {
         if (currentFrag == obsFrag) return;
@@ -291,6 +323,16 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     }
 
     public void createMedic(View view)
+    {
+        medFrag.resetMedicId();
+        Intent intent = new Intent(this, CreateMedicationActivity.class);
+        String selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
+        intent.putExtra("personId", personId);
+        intent.putExtra("date", selectedDate);
+        startActivity(intent);
+    }
+
+    public void createReminder(View view)
     {
         medFrag.resetMedicId();
         Intent intent = new Intent(this, CreateMedicationActivity.class);
@@ -339,17 +381,16 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
                     day = currentDay.get(Calendar.DAY_OF_MONTH);
                     month = currentDay.get(Calendar.MONTH);
                     year = currentDay.get(Calendar.YEAR);
-                    displayCurrentDay();
-                    refreshFrag();
                 }
                 else if (xdiff < -50) {
                     currentDay.add(Calendar.DAY_OF_MONTH, 1);
                     day = currentDay.get(Calendar.DAY_OF_MONTH);
                     month = currentDay.get(Calendar.MONTH);
                     year = currentDay.get(Calendar.YEAR);
-                    displayCurrentDay();
-                    refreshFrag();
                 }
+                displayCurrentDay();
+                refreshFrag();
+                setMedicButton();
                 tx = 0;
         }
         return true;
@@ -363,6 +404,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         year = currentDay.get(Calendar.YEAR);
         displayCurrentDay();
         refreshFrag();
+        setMedicButton();
     }
 
     public void goNext(View view)
@@ -373,6 +415,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         year = currentDay.get(Calendar.YEAR);
         displayCurrentDay();
         refreshFrag();
+        setMedicButton();
     }
 
     private void refreshFrag()

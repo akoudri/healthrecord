@@ -308,5 +308,6 @@
     <string name="send_email_to_author">أرسل بريد إلكتروني إلى المؤلف</string>
     <string name="notify_me">يخطر لي</string>
     <string name="before">قبل</string>
+    <string name="add_reminder">Add reminder</string>
 
 </resources>

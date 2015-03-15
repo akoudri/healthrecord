@@ -308,5 +308,6 @@
     <string name="send_email_to_author">Отправить письмо автору</string>
     <string name="notify_me">Сообщите мне</string>
     <string name="before">до</string>
+    <string name="add_reminder">Add reminder</string>
 
 </resources>

@@ -355,6 +355,7 @@
     <string name="send_email_to_author">Envoyer courriel à l\'auteur</string>
     <string name="notify_me">Me prévenir</string>
     <string name="before">avant</string>
+    <string name="add_reminder">Ajouter rappel</string>
 
 
 </resources>

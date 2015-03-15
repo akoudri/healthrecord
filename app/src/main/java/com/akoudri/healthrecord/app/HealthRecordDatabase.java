@@ -16,6 +16,7 @@ import com.akoudri.healthrecord.data.MedicalObservationTable;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
+import com.akoudri.healthrecord.data.ReminderTable;
 import com.akoudri.healthrecord.data.RemoveAilmentTrigger;
 import com.akoudri.healthrecord.data.RemovePersonTrigger;
 import com.akoudri.healthrecord.data.SizeMeasureTable;
@@ -31,7 +32,7 @@ import com.akoudri.healthrecord.utils.Crypto;
 public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "health_record_db";
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 3;
 
     private Crypto crypto;
 
@@ -51,6 +52,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private GlucoseMeasureTable glucoseMeasureTable;
     private HeartMeasureTable heartMeasureTable;
     private MedicalObservationTable medicalObservationTable;
+    private ReminderTable reminderTable;
     private MeasureView measureView;
     private RemovePersonTrigger removePersonTrigger;
     private RemoveAilmentTrigger removeAilmentTrigger;
@@ -95,6 +97,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         heartMeasureTable.createMeasureTable();
         medicalObservationTable = new MedicalObservationTable(db, crypto);
         medicalObservationTable.createMedicalObservationTable();
+        reminderTable = new ReminderTable(db);
+        reminderTable.createReminderTable();
         measureView = new MeasureView(db);
         measureView.createMeasureView();
         removePersonTrigger = new RemovePersonTrigger(db);
@@ -108,6 +112,11 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         if (oldVersion < 2)
         {
             medicationTable.updateV2();
+        }
+        if (oldVersion < 3)
+        {
+            reminderTable = new ReminderTable(db);
+            reminderTable.createReminderTable();
         }
     }
 }

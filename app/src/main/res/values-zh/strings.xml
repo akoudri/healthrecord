@@ -249,5 +249,6 @@
     <string name="send_email_to_author">发送电子邮件</string>
     <string name="notify_me">请通知我</string>
     <string name="before">以前</string>
+    <string name="add_reminder">Add reminder</string>
 
 </resources>

@@ -256,5 +256,6 @@
     <string name="send_email_to_author">Senden sie eine e-mail</string>
     <string name="notify_me">Benachrichtigen sie mich</string>
     <string name="before">vor</string>
+    <string name="add_reminder">Add reminder</string>
 
 </resources>

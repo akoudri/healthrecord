@@ -257,5 +257,6 @@
     <string name="send_email_to_author">Trimite e-mail</string>
     <string name="notify_me">Anunță-mă</string>
     <string name="before">înainte</string>
+    <string name="add_reminder">Add reminder</string>
 
 </resources>

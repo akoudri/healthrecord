@@ -15,6 +15,7 @@ import com.akoudri.healthrecord.data.MedicalObservationTable;
 import com.akoudri.healthrecord.data.MedicationTable;
 import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.data.PersonTherapistTable;
+import com.akoudri.healthrecord.data.ReminderTable;
 import com.akoudri.healthrecord.data.SizeMeasureTable;
 import com.akoudri.healthrecord.data.TemperatureMeasureTable;
 import com.akoudri.healthrecord.data.TherapistTable;
@@ -47,6 +48,7 @@ public class HealthRecordDataSource {
     private GlucoseMeasureTable glucoseMeasureTable;
     private HeartMeasureTable heartMeasureTable;
     private MedicalObservationTable medicalObservationTable;
+    private ReminderTable reminderTable;
     private MeasureView measureView;
 
     private boolean isOpened = false;
@@ -94,6 +96,7 @@ public class HealthRecordDataSource {
         glucoseMeasureTable = null;
         heartMeasureTable = null;
         medicalObservationTable = null;
+        reminderTable = null;
         measureView = null;
         isOpened = false;
     }
@@ -212,6 +215,14 @@ public class HealthRecordDataSource {
         if (medicalObservationTable == null)
             medicalObservationTable = new MedicalObservationTable(db, crypto);
         return medicalObservationTable;
+    }
+
+    public ReminderTable getReminderTable()
+    {
+        if (! isOpened) return null;
+        if (reminderTable == null)
+            reminderTable = new ReminderTable(db);
+        return reminderTable;
     }
 
     public MeasureView getMeasureView()

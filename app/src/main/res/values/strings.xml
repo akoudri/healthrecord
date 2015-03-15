@@ -309,5 +309,6 @@
     <string name="send_email_to_author">Send email to author</string>
     <string name="notify_me">Notify me</string>
     <string name="before">before</string>
+    <string name="add_reminder">Add reminder</string>
 
 </resources>

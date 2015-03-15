@@ -308,5 +308,6 @@
     <string name="send_email_to_author">लेखक को ईमेल भेजें</string>
     <string name="notify_me">मुझे सूचित करें</string>
     <string name="before">पहले</string>
+    <string name="add_reminder">Add reminder</string>
 
 </resources>

@@ -25,14 +25,19 @@ import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
-//import com.akoudri.healthrecord.json.JSONObject;
-//import com.akoudri.healthrecord.store.ApptNotificationList;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.HourPickerFragment;
 import com.akoudri.healthrecord.utils.NotificationPublisher;
-//import com.google.gson.Gson;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+//import com.akoudri.healthrecord.json.JSONObject;
+//import com.akoudri.healthrecord.store.ApptNotificationList;
+//import com.google.gson.Gson;
 //import java.io.FileInputStream;
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
@@ -41,10 +46,6 @@ import com.akoudri.healthrecord.utils.NotificationPublisher;
 //import java.io.OutputStream;
 //import java.io.OutputStreamWriter;
 //import java.io.Writer;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 
 public class EditAppointmentActivity extends Activity {

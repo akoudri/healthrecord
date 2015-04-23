@@ -1,8 +1,8 @@
 package com.akoudri.healthrecord.fragment;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,16 +11,15 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 
 import com.akoudri.healthrecord.activity.EditAppointmentActivity;
-import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.AppointmentTable;
@@ -35,10 +34,7 @@ import java.util.Calendar;
 import java.util.List;
 
 //STATUS: checked
-public class AppointmentFragment extends Fragment {
-
-    private HealthRecordDataSource dataSource;
-    private int personId;
+public class AppointmentFragment extends EditDayFragment {
 
     private View view;
     private Button addApptButton;
@@ -47,14 +43,10 @@ public class AppointmentFragment extends Fragment {
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
 
-    private Calendar currentDay, today;
-
     private int appointmentId = 0;
     private int count = 0;
 
-    private String selectedDate;
-
-    public static AppointmentFragment newInstance()
+    public static EditDayFragment newInstance()
     {
         return new AppointmentFragment();
     }
@@ -65,18 +57,33 @@ public class AppointmentFragment extends Fragment {
         addApptButton = (Button) view.findViewById(R.id.add_appt_button);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        currentDay = HealthRecordUtils.stringToCalendar(selectedDate);
+        currentDay = HealthRecordUtils.stringToCalendar(date);
         today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
-        count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
-        if (count == 0 || currentDay.before(today))
-        {
-            addApptButton.setEnabled(false);
-        }
         return view;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -84,18 +91,19 @@ public class AppointmentFragment extends Fragment {
         super.onResume();
         if (personId == 0) return;
         if (dataSource == null) return;
+        count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
+        if (count == 0 || currentDay.before(today))
+        {
+            addApptButton.setEnabled(false);
+        }
         createWidgets();
     }
 
-    public void setCurrentDate(int day, int month, int year)
-    {
-        selectedDate = String.format("%02d/%02d/%4d", day, month + 1, year);
-    }
-
+    @Override
     public void refresh()
     {
-        currentDay = HealthRecordUtils.stringToCalendar(selectedDate);
-        if ((currentDay.equals(today) || currentDay.after(today)) && count > 0)
+        currentDay = HealthRecordUtils.stringToCalendar(date);
+        if (count > 0)
             addApptButton.setEnabled(true);
         else
             addApptButton.setEnabled(false);
@@ -105,11 +113,10 @@ public class AppointmentFragment extends Fragment {
     private void createWidgets()
     {
         layout.removeAllViews();
-        List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, selectedDate);
+        List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
         if (allAppointments == null || allAppointments.size() == 0) return;
         int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());
         Button apptButton, removeButton, editButton;
-        ImageButton rButton;
         layout.setColumnCount(2);
         int childWidth = layout.getWidth()/2 - 2*margin;
         TherapistTable therapistTable = dataSource.getTherapistTable();
@@ -260,12 +267,8 @@ public class AppointmentFragment extends Fragment {
         }
     }
 
-    public void setDataSource(HealthRecordDataSource dataSource)
-    {
-        this.dataSource = dataSource;
-    }
-
-    public void resetAppointmentId()
+    @Override
+    public void resetObjectId()
     {
         appointmentId = 0;
     }

@@ -1,0 +1,69 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/app_bg_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditReminderActivity">
+
+    <LinearLayout
+        android:id="@+id/reminder_date_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"/>
+
+    <TextView
+        android:text="@string/name"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="fill_horizontal"
+        android:textStyle="bold" />
+
+    <AutoCompleteTextView
+        android:id="@+id/med_actv_edit"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="fill_horizontal"
+        android:inputType="text"
+        android:capitalize="words"/>
+
+    <TextView
+        android:text="@string/comment"
+        android:textColor="@color/regular_text_color"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_gravity="fill_horizontal"
+        android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/edit_reminder_comment"
+            android:background="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minLines="4"
+            android:maxLines="4"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="top|left"/>
+    </ScrollView>
+    <Button
+        android:text="@string/save"
+        style="@style/TitleButton"
+        android:ems="8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        android:drawableRight="@drawable/save"
+        android:onClick="saveReminder"/>
+
+</LinearLayout>

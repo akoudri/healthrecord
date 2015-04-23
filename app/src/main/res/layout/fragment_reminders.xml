@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         style="@style/TitleButton"
         android:layout_gravity="center"
-        android:text="@string/add_drug"
+        android:text="@string/add_reminder"
         android:textSize="18dp"
         android:drawableRight="@drawable/add"
         android:onClick="createReminder"/>

@@ -11,6 +11,16 @@ public class Reminder {
     private String date;
     private String comment;
 
+    public Reminder() {}
+
+    public Reminder(int personId, int drugId, String date, String comment)
+    {
+        this.personId = personId;
+        this.drugId = drugId;
+        this.date = date;
+        this.comment = comment;
+    }
+
     public int getId() {
         return id;
     }
@@ -49,5 +59,11 @@ public class Reminder {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean equalsTo(Reminder other)
+    {
+        return (personId == other.getPersonId()) && (drugId == other.getDrugId()) && (date.equals(other.getDate())) &&
+                (comment.equals(other.getComment()));
     }
 }

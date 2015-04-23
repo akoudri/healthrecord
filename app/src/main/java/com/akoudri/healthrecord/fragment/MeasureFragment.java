@@ -1,7 +1,6 @@
 package com.akoudri.healthrecord.fragment;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditMeasureActivity;
-import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
@@ -25,7 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 
 //STATUS: checked
-public class MeasureFragment extends Fragment {
+public class MeasureFragment extends EditDayFragment {
 
     private View view;
 
@@ -34,16 +32,10 @@ public class MeasureFragment extends Fragment {
     private GridLayout.Spec rowSpec, colSpec;
     private Button add_btn;
 
-    private HealthRecordDataSource dataSource;
-    private int personId;
-    private String date;
-
-    private Calendar currentDay, today;
-
     private int mID = 0;
     private int mType = 0;
 
-    public static MeasureFragment newInstance()
+    public static EditDayFragment newInstance()
     {
         return new MeasureFragment();
     }
@@ -73,18 +65,10 @@ public class MeasureFragment extends Fragment {
         createWidgets();
     }
 
-    public void setCurrentDate(int day, int month, int year)
-    {
-        date = String.format("%02d/%02d/%4d", day, month + 1, year);
-    }
-
+    @Override
     public void refresh()
     {
         currentDay = HealthRecordUtils.stringToCalendar(date);
-        if (currentDay.after(today))
-            add_btn.setEnabled(false);
-        else
-            add_btn.setEnabled(true);
         createWidgets();
     }
 
@@ -258,12 +242,8 @@ public class MeasureFragment extends Fragment {
         }
     }
 
-    public void setDataSource(HealthRecordDataSource dataSource)
-    {
-        this.dataSource = dataSource;
-    }
-
-    public void resetMeasureId()
+    @Override
+    public void resetObjectId()
     {
         mID = 0;
         mType = 0;

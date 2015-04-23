@@ -1,7 +1,6 @@
 package com.akoudri.healthrecord.fragment;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditAilmentActivity;
-import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Ailment;
 import com.akoudri.healthrecord.data.Illness;
@@ -26,10 +24,7 @@ import java.util.Calendar;
 import java.util.List;
 
 //STATUS: checked
-public class AilmentFragment extends Fragment {
-
-    private HealthRecordDataSource dataSource;
-    private int personId;
+public class AilmentFragment extends EditDayFragment {
 
     private View view;
     private GridLayout layout;
@@ -39,12 +34,7 @@ public class AilmentFragment extends Fragment {
 
     private int aId = 0;
 
-    private Calendar currentDay, today;
-
-    private int day, month, year;
-    private String date;
-
-    public static AilmentFragment newInstance()
+    public static EditDayFragment newInstance()
     {
         return new AilmentFragment();
     }
@@ -74,27 +64,11 @@ public class AilmentFragment extends Fragment {
         createWidgets();
     }
 
-    public void setCurrentDate(int day, int month, int year)
-    {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        date = String.format("%02d/%02d/%4d", day, month + 1, year);
-    }
-
+    @Override
     public void refresh()
     {
         currentDay = HealthRecordUtils.stringToCalendar(date);
-        if (currentDay.after(today))
-            add_btn.setEnabled(false);
-        else
-            add_btn.setEnabled(true);
         createWidgets();
-    }
-
-    public void setDataSource(HealthRecordDataSource dataSource)
-    {
-        this.dataSource = dataSource;
     }
 
     private void createWidgets()
@@ -261,9 +235,10 @@ public class AilmentFragment extends Fragment {
         }
     }
 
-    public void resetAilmentId()
+    @Override
+    public void resetObjectId()
     {
-        aId = 0;
+        this.aId = 0;
     }
 
 }

@@ -1,9 +1,8 @@
 package com.semantics3.api;
 
-import com.semantics3.errors.Semantics3Exception;
-
 import com.akoudri.healthrecord.json.JSONObject;
 import com.akoudri.healthrecord.json.JSONTokener;
+import com.semantics3.errors.Semantics3Exception;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

@@ -4,8 +4,6 @@ import android.app.Fragment;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 
-import java.util.Calendar;
-
 /**
  * Created by Ali Koudri on 29/03/15.
  */
@@ -13,7 +11,6 @@ public abstract class EditDayFragment extends Fragment {
 
     protected int personId;
     protected HealthRecordDataSource dataSource;
-    protected Calendar currentDay, today;
     protected int day, month, year;
     protected String date;
 

@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,6 @@ import com.akoudri.healthrecord.data.TherapyBranchTable;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.NotificationPublisher;
 
-import java.util.Calendar;
 import java.util.List;
 
 //STATUS: checked
@@ -57,12 +55,6 @@ public class AppointmentFragment extends EditDayFragment {
         addApptButton = (Button) view.findViewById(R.id.add_appt_button);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
-        currentDay = HealthRecordUtils.stringToCalendar(date);
-        today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
         return view;
     }
 
@@ -92,7 +84,7 @@ public class AppointmentFragment extends EditDayFragment {
         if (personId == 0) return;
         if (dataSource == null) return;
         count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
-        if (count == 0 || currentDay.before(today))
+        if (count == 0)
         {
             addApptButton.setEnabled(false);
         }
@@ -102,7 +94,6 @@ public class AppointmentFragment extends EditDayFragment {
     @Override
     public void refresh()
     {
-        currentDay = HealthRecordUtils.stringToCalendar(date);
         if (count > 0)
             addApptButton.setEnabled(true);
         else

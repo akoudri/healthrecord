@@ -1,8 +1,7 @@
 package com.semantics3.api;
 
-import com.semantics3.Util;
-
 import com.akoudri.healthrecord.json.JSONObject;
+import com.semantics3.Util;
 
 import java.io.IOException;
 

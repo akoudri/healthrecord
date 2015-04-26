@@ -119,9 +119,9 @@ public class ReminderTable {
         return res;
     }
 
-    public boolean removeMedicWithId(int medicId)
+    public boolean removeReminderWithId(int reminderId)
     {
-        return db.delete(REMINDER_TABLE, REMINDER_ID + "=" + medicId, null) > 0;
+        return db.delete(REMINDER_TABLE, REMINDER_ID + "=" + reminderId, null) > 0;
     }
 
     public int[] getMonthRemindersForPerson(int personId, Calendar cal)

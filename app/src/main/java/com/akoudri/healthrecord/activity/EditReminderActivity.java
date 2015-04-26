@@ -34,7 +34,7 @@ public class EditReminderActivity extends Activity {
     private TextView dateTV;
     private ImageButton dateButton;
 
-    private AutoCompleteTextView medET;
+    private AutoCompleteTextView reminderET;
     private EditText dateET, commentET;
 
     private HealthRecordDataSource dataSource;
@@ -57,7 +57,7 @@ public class EditReminderActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_edit_reminder);
         dLayout = (LinearLayout) findViewById(R.id.reminder_date_layout);
-        medET = (AutoCompleteTextView) findViewById(R.id.med_actv_edit);
+        reminderET = (AutoCompleteTextView) findViewById(R.id.reminder_actv_edit);
         commentET = (EditText) findViewById(R.id.edit_reminder_comment);
         dataSource = HealthRecordDataSource.getInstance(this);
         margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
@@ -102,6 +102,8 @@ public class EditReminderActivity extends Activity {
 
     private void fillWidgets()
     {
+        String medic = dataSource.getDrugTable().getDrugWithId(reminder.getDrugId()).getName();
+        reminderET.setText(medic);
         dateET.setText(reminder.getDate());
         commentET.setText(reminder.getComment());
     }
@@ -111,11 +113,16 @@ public class EditReminderActivity extends Activity {
         if (reminderId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         String comment = commentET.getText().toString();
+        String medic = reminderET.getText().toString();
+        int drugId = dataSource.getDrugTable().getDrugId(medic);
+        if (drugId < 0)
+        {
+            drugId = (int) dataSource.getDrugTable().insertDrug(medic);
+        }
         if (reminderId != 0) {
             String dayStr = dateET.getText().toString();
             if (comment.equals("")) comment = null;
-            //TODO: retrieve drug id and replace "1" value
-            Reminder rem = new Reminder(reminder.getPersonId(), 1, dayStr, comment);
+            Reminder rem = new Reminder(reminder.getPersonId(), drugId, dayStr, comment);
             if (reminder.equalsTo(rem)) {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
                 return;
@@ -129,37 +136,9 @@ public class EditReminderActivity extends Activity {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         else {
-            if (checkFields(comment)) {
-                //TODO: retrieve drug id and replace "1" value
-                dataSource.getReminderTable().insertReminder(personId, 1, selectedDate, comment);
-                finish();
-            }
-            else
-            {
-                Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
-                toast.show();
-            }
+            dataSource.getReminderTable().insertReminder(personId, drugId, selectedDate, comment);
+            finish();
         }
-    }
-
-    private boolean checkFields(String comment)
-    {
-        boolean res = true;
-        List<EditText> toHighlight = new ArrayList<EditText>();
-        List<EditText> notToHighlight = new ArrayList<EditText>();
-        boolean checkComment = (!comment.equals(""));
-        res = res && checkComment;
-        if (!checkComment) toHighlight.add(commentET);
-        else notToHighlight.add(commentET);
-        //display
-        if (toHighlight.size() > 0)
-            HealthRecordUtils.highlightActivityFields(this, toHighlight, true);
-        if (notToHighlight.size() > 0)
-            HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
-        if (!res) {
-            Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
-        }
-        return res;
     }
 
     private void initDateLayout()
@@ -207,7 +186,8 @@ public class EditReminderActivity extends Activity {
                 }
                 else {
                     Calendar c = Calendar.getInstance();
-                    dfrag.init(EditReminderActivity.this, dateET, HealthRecordUtils.stringToCalendar(reminder.getDate()), null, c);
+                    c.add(Calendar.DAY_OF_MONTH, 1);
+                    dfrag.init(EditReminderActivity.this, dateET, HealthRecordUtils.stringToCalendar(reminder.getDate()), c, null);
                 }
                 dfrag.show(getFragmentManager(), "Appointment Date Picker");
             }
@@ -232,8 +212,8 @@ public class EditReminderActivity extends Activity {
             drugsStr[i++] = drug.getName();
         }
         ArrayAdapter<String> drugsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, drugsStr);
-        medET.setThreshold(1);
-        medET.setAdapter(drugsAdapter);
+        reminderET.setThreshold(1);
+        reminderET.setAdapter(drugsAdapter);
     }
 
 }

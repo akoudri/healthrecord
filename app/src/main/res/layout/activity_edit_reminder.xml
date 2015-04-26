@@ -23,7 +23,7 @@
         android:textStyle="bold" />
 
     <AutoCompleteTextView
-        android:id="@+id/med_actv_edit"
+        android:id="@+id/reminder_actv_edit"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -14,10 +14,10 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditMedicationActivity;
+import com.akoudri.healthrecord.activity.EditReminderActivity;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.Reminder;
-import com.akoudri.healthrecord.data.ReminderTable;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.util.List;
@@ -66,9 +66,8 @@ public class RemindersFragment extends EditDayFragment {
         if (dayReminders == null || dayReminders.size() == 0) return;
         int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());
         Button reminderButton, editButton, removeButton;
-        layout.setColumnCount(3);
-        int childWidth = layout.getWidth()/3 - 2*margin;
-        ReminderTable reminderTable = dataSource.getReminderTable();
+        layout.setColumnCount(2);
+        int childWidth = layout.getWidth()/2 - margin;
         DrugTable drugTable = dataSource.getDrugTable();
         int r = 0; //row index
         for (final Reminder reminder : dayReminders)
@@ -123,8 +122,8 @@ public class RemindersFragment extends EditDayFragment {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), EditMedicationActivity.class);
-                        intent.putExtra("medicationId", reminderId);
+                        Intent intent = new Intent(getActivity(), EditReminderActivity.class);
+                        intent.putExtra("reminderId", reminderId);
                         intent.putExtra("day", day);
                         intent.putExtra("month", month);
                         intent.putExtra("year", year);
@@ -162,7 +161,7 @@ public class RemindersFragment extends EditDayFragment {
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dataSource.getMedicationTable().removeMedicWithId(reminderId);
+                                        dataSource.getReminderTable().removeReminderWithId(reminderId);
                                         createWidgets();
                                     }
                                 })

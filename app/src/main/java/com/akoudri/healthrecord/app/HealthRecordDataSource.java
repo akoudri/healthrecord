@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
+import com.akoudri.healthrecord.data.CholesterolMeasureTable;
 import com.akoudri.healthrecord.data.CranialPerimeterMeasureTable;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.GlucoseMeasureTable;
@@ -47,6 +48,7 @@ public class HealthRecordDataSource {
     private CranialPerimeterMeasureTable cpMeasureTable;
     private GlucoseMeasureTable glucoseMeasureTable;
     private HeartMeasureTable heartMeasureTable;
+    private CholesterolMeasureTable cholesterolMeasureTable;
     private MedicalObservationTable medicalObservationTable;
     private ReminderTable reminderTable;
     private MeasureView measureView;
@@ -95,6 +97,7 @@ public class HealthRecordDataSource {
         cpMeasureTable = null;
         glucoseMeasureTable = null;
         heartMeasureTable = null;
+        cholesterolMeasureTable = null;
         medicalObservationTable = null;
         reminderTable = null;
         measureView = null;
@@ -207,6 +210,13 @@ public class HealthRecordDataSource {
         if (heartMeasureTable == null)
             heartMeasureTable = new HeartMeasureTable(db);
         return heartMeasureTable;
+    }
+
+    public CholesterolMeasureTable getCholesterolMeasureTable() {
+        if (!isOpened) return null;
+        if (cholesterolMeasureTable == null)
+            cholesterolMeasureTable = new CholesterolMeasureTable(db);
+        return cholesterolMeasureTable;
     }
 
     public MedicalObservationTable getMedicalObservationTable()

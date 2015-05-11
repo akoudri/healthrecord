@@ -11,6 +11,7 @@ public class Measure {
     public static final int CP_MEASURE_TYPE = 4;
     public static final int GLUCOSE_MEASURE_TYPE = 5;
     public static final int HEART_MEASURE_TYPE = 6;
+    public static final int CHOLESTEROL_MEASURE_TYPE = 7;
 
     private int id;
     private int personId;

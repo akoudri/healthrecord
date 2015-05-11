@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.akoudri.healthrecord.data.AilmentTable;
 import com.akoudri.healthrecord.data.AppointmentTable;
+import com.akoudri.healthrecord.data.CholesterolMeasureTable;
 import com.akoudri.healthrecord.data.CranialPerimeterMeasureTable;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.GlucoseMeasureTable;
@@ -51,6 +52,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     private CranialPerimeterMeasureTable cpMeasureTable;
     private GlucoseMeasureTable glucoseMeasureTable;
     private HeartMeasureTable heartMeasureTable;
+    private CholesterolMeasureTable cholesterolMeasureTable;
     private MedicalObservationTable medicalObservationTable;
     private ReminderTable reminderTable;
     private MeasureView measureView;
@@ -95,6 +97,8 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         glucoseMeasureTable.createMeasureTable();
         heartMeasureTable = new HeartMeasureTable(db);
         heartMeasureTable.createMeasureTable();
+        cholesterolMeasureTable = new CholesterolMeasureTable(db);
+        cholesterolMeasureTable.createMeasureTable();
         medicalObservationTable = new MedicalObservationTable(db, crypto);
         medicalObservationTable.createMedicalObservationTable();
         reminderTable = new ReminderTable(db);
@@ -117,6 +121,10 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
         {
             reminderTable = new ReminderTable(db);
             reminderTable.createReminderTable();
+            cholesterolMeasureTable = new CholesterolMeasureTable(db);
+            cholesterolMeasureTable.createMeasureTable();
+            removePersonTrigger.updateVersion();
+            measureView.updateVersion();
         }
     }
 }

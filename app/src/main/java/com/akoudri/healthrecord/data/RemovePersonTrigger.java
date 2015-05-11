@@ -57,8 +57,22 @@ public class RemovePersonTrigger {
         sb.append("where ");
         sb.append(HeartMeasureTable.HEART_MEASURE_PERSON_REF + "=" + "old." + PersonTable.PERSON_ID);
         sb.append(";");
+        sb.append("delete from " + ReminderTable.REMINDER_TABLE + " ");
+        sb.append("where ");
+        sb.append(ReminderTable.REMINDER_PERSON_REF + "=" + "old." + PersonTable.PERSON_ID);
+        sb.append(";");
+        sb.append("delete from " + CholesterolMeasureTable.CHOLESTEROL_MEASURE_TABLE + " ");
+        sb.append("where ");
+        sb.append(CholesterolMeasureTable.CHOLESTEROL_MEASURE_PERSON_REF + "=" + "old." + PersonTable.PERSON_ID);
+        sb.append(";");
         sb.append("end;");
         db.execSQL(sb.toString());
+    }
+
+    public void updateVersion()
+    {
+        db.execSQL("drop trigger if exists " + REMOVE_PERSON_TRIG + ";");
+        createRemovePersonTrigger();
     }
 
 }

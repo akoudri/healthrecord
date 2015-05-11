@@ -76,7 +76,23 @@ public class MeasureView {
         sb.append(HeartMeasureTable.HEART_MEASURE_DIASTOLIC + " || '/' || " + HeartMeasureTable.HEART_MEASURE_SYSTOLIC + " || ' - ' || " + HeartMeasureTable.HEART_MEASURE_HEARTBEAT + " as " + MEASURE_VALUE + ",");
         sb.append(Measure.HEART_MEASURE_TYPE + " as " + MEASURE_TYPE + " from " + HeartMeasureTable.HEART_MEASURE_TABLE);
         sb.append(";");
+        //Cholesterol
+        //Heart
+        sb.append("select " + CholesterolMeasureTable.CHOLESTEROL_MEASURE_ID + " as " + MEASURE_ID + ",");
+        sb.append(CholesterolMeasureTable.CHOLESTEROL_MEASURE_PERSON_REF + " as " + MEASURE_PERSON_REF + ",");
+        sb.append(CholesterolMeasureTable.CHOLESTEROL_MEASURE_DATE + " as " + MEASURE_DATE + ",");
+        sb.append(CholesterolMeasureTable.CHOLESTEROL_MEASURE_TOTAL + " || '/' || " + CholesterolMeasureTable.CHOLESTEROL_MEASURE_HDL
+                + " || ' / ' || " + CholesterolMeasureTable.CHOLESTEROL_MEASURE_LDL + " || ' / ' || " + CholesterolMeasureTable.CHOLESTEROL_MEASURE_TRIGLYCERIDS + " as " + MEASURE_VALUE + ",");
+        sb.append(Measure.CHOLESTEROL_MEASURE_TYPE + " as " + MEASURE_TYPE + " from " + CholesterolMeasureTable.CHOLESTEROL_MEASURE_TABLE);
+        sb.append(";");
         db.execSQL(sb.toString());
+    }
+
+    public void updateVersion()
+    {
+        //TODO: add corresponding GUI and modify visualization in AnalysisActivity
+        db.execSQL("drop view " + MEASURE_VIEW + ";");
+        createMeasureView();
     }
 
     public List<Measure> getPersonMeasuresWithDate(int personId, String date)

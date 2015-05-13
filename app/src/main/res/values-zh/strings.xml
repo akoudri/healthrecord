@@ -158,18 +158,25 @@
         <!-- TODO -->
     </string-array>
     <string-array name="measures">
+        <item></item>
         <item>重量</item>
         <item>身高</item>
         <item>温度</item>
         <item>头围</item>
         <item>血糖</item>
         <item>心脏</item>
+        <item>胆固醇</item>
     </string-array>
     <string name="size">身高</string>
     <string name="weight">重量</string>
     <string name="temperature">温度</string>
     <string name="glucose">葡萄糖（克/升)</string>
     <string name="heart">心脏</string>
+    <string name="cholesterol">胆固醇</string>
+    <string name="total">总（克/升)</string>
+    <string name="hdl">HDL（克/升)</string>
+    <string name="ldl">LDL（克/升)</string>
+    <string name="triglycerides">甘油三酯（克/升)</string>
     <string name="cp">头围（厘米)</string>
     <string name="diastolic">舒张压（毫米汞柱)</string>
     <string name="systolic">收缩压（毫米汞柱)</string>

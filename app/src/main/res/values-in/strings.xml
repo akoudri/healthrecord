@@ -222,12 +222,18 @@
     <item>कपाल परिधि</item>
     <item>ग्लूकोज</item>
     <item>हृदय</item>
+        <item>कोलेस्ट्रॉल</item>
   </string-array>
     <string name="size">आकार (सेमी)</string>
     <string name="weight">वजन (किग्रा)</string>
     <string name="temperature">तापमान (°सें.)</string>
     <string name="glucose">ग्लूकोज (ग्रा/1)</string>
-    <string name="heart">हृदय (पी/एम)</string>
+    <string name="heart">हृदय</string>
+    <string name="cholesterol">कोलेस्ट्रॉल</string>
+    <string name="total">कुल(ग्रा/1)</string>
+    <string name="hdl">HDL(ग्रा/1)</string>
+    <string name="ldl">LDL(ग्रा/1)</string>
+    <string name="triglycerides">ट्राइग्लिसराइड्स(g/l)</string>
     <string name="cp">कपाल परिधि (सेमी)</string>
     <string name="diastolic">डायस्टोलिक (cmHg)</string>
     <string name="systolic">सायस्टोलिक (cmHg)</string>

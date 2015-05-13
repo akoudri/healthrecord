@@ -171,12 +171,18 @@
         <item>Perimetru Cranian</item>
         <item>Glicemie</item>
         <item>Inimă</item>
+        <item>Colesterol</item>
     </string-array>
     <string name="size">Înălţime(cm)</string>
     <string name="weight">Greutate(kg)</string>
     <string name="temperature">Temperatură(°C)</string>
     <string name="glucose">Glicemie(g/l)</string>
     <string name="heart">Coeur</string>
+    <string name="cholesterol">Colesterol</string>
+    <string name="total">Total(g/l)</string>
+    <string name="hdl">HDL(g/l)</string>
+    <string name="ldl">LDL(g/l)</string>
+    <string name="triglycerides">Trigliceridele(g/l)</string>
     <string name="cp">Perimetru Cranian(cm)</string>
     <string name="diastolic">Tensiune Diastolică(cmHg)</string>
     <string name="systolic">Tensiune Sistolică(cmHg)</string>

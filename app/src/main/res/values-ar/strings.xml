@@ -222,13 +222,19 @@
     <item>محيط الجمجمة</item>
     <item>جلوكوز</item>
     <item>القلب</item>
+        <item>كولسترول</item>
   </string-array>
-    <string name="size">الحجم (سم)</string>
-    <string name="weight">الوزن (كجم)</string>
-    <string name="temperature">درجة الحرارة (مئوية)</string>
-    <string name="glucose">الجلوكوز (جرام / لتر)</string>
-    <string name="heart">القلب (في الدقيقة)</string>
-    <string name="cp">محيط الجمجمة (سم)</string>
+    <string name="size">(الحجم (سم</string>
+    <string name="weight">(الوزن (كجم</string>
+    <string name="temperature">(درجة الحرارة (مئوية</string>
+    <string name="glucose">(الجلوكوز (جرام / لتر</string>
+    <string name="heart">القلب</string>
+    <string name="cholesterol">كولسترول</string>
+    <string name="total">(مجموع (جرام / لتر</string>
+    <string name="hdl">(HDL (جرام / لتر</string>
+    <string name="ldl">(LDL (جرام / لتر</string>
+    <string name="triglycerides">(الدهون الثلاثية (جرام / لتر</string>
+    <string name="cp">(محيط الجمجمة (سم</string>
     <string name="diastolic">ضغط الدم الانبساطي (cmHg)</string>
     <string name="systolic">ضغط الدم الانقباضي (cmHg)</string>
     <string name="heartbeat">ضربات القلب (في الدقيقة)</string>

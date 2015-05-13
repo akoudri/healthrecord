@@ -103,8 +103,11 @@ public class MeasureFragment extends EditDayFragment {
                 case 5:
                     img = getResources().getDrawable(R.drawable.sugar);
                     break;
-                default:
+                case 6:
                     img = getResources().getDrawable(R.drawable.heart);
+                    break;
+                default:
+                    img = getResources().getDrawable(R.drawable.cholesterol);
             }
             measureButton.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
             measureButton.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +209,8 @@ public class MeasureFragment extends EditDayFragment {
                                             case 6:
                                                 dataSource.getHeartMeasureTable().removeMeasureWithId(measureId);
                                                 break;
+                                            default:
+                                                dataSource.getCholesterolMeasureTable().removeMeasureWithId(measureId);
                                         }
                                         createWidgets();
                                     }

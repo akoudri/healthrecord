@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.CholesterolMeasure;
 import com.akoudri.healthrecord.data.CranialPerimeterMeasure;
 import com.akoudri.healthrecord.data.GlucoseMeasure;
 import com.akoudri.healthrecord.data.HeartMeasure;
@@ -70,7 +71,7 @@ public class EditMeasureActivity extends Activity {
     private int measureId;
     private int measureIdType;
 
-    private EditText wET, sET, tET, cpET, gEt, sysET, diaET, hbET;
+    private EditText wET, sET, tET, cpET, gEt, sysET, diaET, hbET, totalET, hdlET, ldlET, triglyceridesET;
 
     private int margin;
 
@@ -296,6 +297,8 @@ public class EditMeasureActivity extends Activity {
                     case 6:
                         measure = dataSource.getHeartMeasureTable().getMeasureWithId(measureId);
                         break;
+                    default:
+                        measure = dataSource.getCholesterolMeasureTable().getMeasureWithId(measureId);
                 }
                 measureType = measureIdType;
                 createWidgets();
@@ -343,8 +346,11 @@ public class EditMeasureActivity extends Activity {
             case 5:
                 createGlucoseWidgets();
                 break;
-            default:
+            case 6:
                 createHeartWidgets();
+                break;
+            default:
+                createCholesterolWidgets();
         }
     }
 
@@ -372,6 +378,8 @@ public class EditMeasureActivity extends Activity {
                 break;
             case 6:
                 fillHeartWidgets();
+            default:
+                fillCholesterolWidgets();
         }
     }
 
@@ -690,6 +698,140 @@ public class EditMeasureActivity extends Activity {
         hbET.setText(m.getHeartbeat() + "");
     }
 
+    private void createCholesterolWidgets() {
+        glayout.removeAllViews();
+        glayout.setColumnCount(2);
+        glayout.setRowCount(4);
+        //total
+        rowSpec = GridLayout.spec(0);
+        colSpec = GridLayout.spec(0);
+        TextView label = new TextView(this);
+        label.setText(getResources().getString(R.string.total));
+        label.setTextColor(getResources().getColor(R.color.regular_text_color));
+        label.setTextSize(16);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        label.setLayoutParams(params);
+        glayout.addView(label);
+        colSpec = GridLayout.spec(1);
+        totalET = new EditText(this);
+        totalET.setMinEms(3);
+        totalET.setMaxEms(3);
+        totalET.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        totalET.setLayoutParams(params);
+        glayout.addView(totalET);
+        //hdl
+        rowSpec = GridLayout.spec(1);
+        colSpec = GridLayout.spec(0);
+        label = new TextView(this);
+        label.setText(getResources().getString(R.string.hdl));
+        label.setTextColor(getResources().getColor(R.color.regular_text_color));
+        label.setTextSize(16);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        label.setLayoutParams(params);
+        glayout.addView(label);
+        colSpec = GridLayout.spec(1);
+        hdlET = new EditText(this);
+        hdlET.setMinEms(3);
+        hdlET.setMaxEms(3);
+        hdlET.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        hdlET.setLayoutParams(params);
+        glayout.addView(hdlET);
+        //ldl
+        rowSpec = GridLayout.spec(2);
+        colSpec = GridLayout.spec(0);
+        label = new TextView(this);
+        label.setText(getResources().getString(R.string.ldl));
+        label.setTextColor(getResources().getColor(R.color.regular_text_color));
+        label.setTextSize(16);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        label.setLayoutParams(params);
+        glayout.addView(label);
+        colSpec = GridLayout.spec(1);
+        ldlET = new EditText(this);
+        ldlET.setMinEms(3);
+        ldlET.setMaxEms(3);
+        ldlET.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        ldlET.setLayoutParams(params);
+        glayout.addView(ldlET);
+        //triglycerides
+        rowSpec = GridLayout.spec(3);
+        colSpec = GridLayout.spec(0);
+        label = new TextView(this);
+        label.setText(getResources().getString(R.string.triglycerides));
+        label.setTextColor(getResources().getColor(R.color.regular_text_color));
+        label.setTextSize(16);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setGravity(Gravity.LEFT);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        label.setLayoutParams(params);
+        glayout.addView(label);
+        colSpec = GridLayout.spec(1);
+        triglyceridesET = new EditText(this);
+        triglyceridesET.setMinEms(3);
+        triglyceridesET.setMaxEms(3);
+        triglyceridesET.setInputType(InputType.TYPE_CLASS_NUMBER|InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        params = new GridLayout.LayoutParams(rowSpec, colSpec);
+        params.rightMargin = margin;
+        params.leftMargin = margin;
+        params.topMargin = margin;
+        params.bottomMargin = margin;
+        params.setGravity(Gravity.LEFT);
+        triglyceridesET.setLayoutParams(params);
+        glayout.addView(triglyceridesET);
+    }
+
+    private void fillCholesterolWidgets() {
+        CholesterolMeasure m = (CholesterolMeasure) measure;
+        totalET.setText(m.getTotal() + "");
+        hdlET.setText(m.getHDL() + "");
+        ldlET.setText(m.getLDL() + "");
+        triglyceridesET.setText(m.getTriglycerides() + "");
+    }
+
     public void saveMeasure(View view)
     {
         if ((measureId == 0 || measureIdType == 0) && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
@@ -713,8 +855,11 @@ public class EditMeasureActivity extends Activity {
             case 5:
                 saveGlucoseMeasure();
                 break;
-            default:
+            case 6:
                 saveHeartMeasure();
+                break;
+            default:
+                saveCholesterolMeasure();
         }
     }
 
@@ -849,6 +994,7 @@ public class EditMeasureActivity extends Activity {
     {
         String glucose = gEt.getText().toString();
         String hour = hourET.getText().toString();
+        //TODO: check this pattern
         if (!glucose.matches("1?\\d{1,2}(\\.\\d{1,2})?")) {
             HealthRecordUtils.highlightActivityFields(this, gEt);
             Toast toast = Toast.makeText(this, getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
@@ -927,6 +1073,69 @@ public class EditMeasureActivity extends Activity {
                 return;
             } else {
                 dataSource.getHeartMeasureTable().updateMeasure(m);
+                Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
+            }
+        }
+        finish();
+    }
+
+    private void saveCholesterolMeasure() {
+        String hour = hourET.getText().toString();
+        boolean res = true;
+        List<EditText> toHighlight = new ArrayList<EditText>();
+        List<EditText> notToHighlight = new ArrayList<EditText>();
+        //check total
+        String total = totalET.getText().toString();
+        boolean checkTotal = (total.matches("1?\\d{1,2}(\\.\\d{1,2})?"));
+        res = res && checkTotal;
+        if (!checkTotal) toHighlight.add(totalET);
+        else notToHighlight.add(totalET);
+        //check hdl
+        String hdl = hdlET.getText().toString();
+        boolean checkHDL = (hdl.matches("1?\\d{1,2}(\\.\\d{1,2})?"));
+        res = res && checkHDL;
+        if (!checkHDL) toHighlight.add(hdlET);
+        else notToHighlight.add(hdlET);
+        //check ldl
+        String ldl = ldlET.getText().toString();
+        boolean checkLDL = (ldl.matches("1?\\d{1,2}(\\.\\d{1,2})?"));
+        res = res && checkLDL;
+        if (!checkLDL) toHighlight.add(ldlET);
+        else notToHighlight.add(ldlET);
+        //check triglycerides
+        String triglycerides = triglyceridesET.getText().toString();
+        boolean checkTG = (triglycerides.matches("1?\\d{1,2}(\\.\\d{1,2})?"));
+        res = res && checkTG;
+        if (!checkTG) toHighlight.add(triglyceridesET);
+        else notToHighlight.add(triglyceridesET);
+        //display
+        if (toHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(this, toHighlight, true);
+        if (notToHighlight.size() > 0)
+            HealthRecordUtils.highlightActivityFields(this, notToHighlight, false);
+        if (!res) {
+            Toast toast = Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT);
+            toast.show();
+            return;
+        }
+        if (measureId == 0) {
+            dataSource.getCholesterolMeasureTable().insertMeasure(personId, selectedDate, hour,
+                    Double.parseDouble(total), Double.parseDouble(hdl), Double.parseDouble(ldl), Double.parseDouble(triglycerides));
+            Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
+        } else {
+            CholesterolMeasure m = (CholesterolMeasure) measure;
+            CholesterolMeasure mo = new CholesterolMeasure(m);
+            m.setDate(dateET.getText().toString());
+            m.setHour(hour);
+            m.setTotal(Double.parseDouble(total));
+            m.setHDL(Double.parseDouble(hdl));
+            m.setLDL(Double.parseDouble(ldl));
+            m.setTriglycerides(Double.parseDouble(triglycerides));
+            if (m.equalsTo(mo)) {
+                Toast.makeText(this, getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                dataSource.getCholesterolMeasureTable().updateMeasure(m);
                 Toast.makeText(this, getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
             }
         }

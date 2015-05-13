@@ -222,12 +222,18 @@
     <item>Окружность головы</item>
     <item>Глюкоза</item>
     <item>Сердце</item>
+        <item>Xолестерин</item>
   </string-array>
     <string name="size">Размер (см)</string>
     <string name="weight">Вес (кг)</string>
     <string name="temperature">Температура (°C)</string>
     <string name="glucose">Глюкоза (г/л)</string>
-    <string name="heart">Сердце (уд/мин)</string>
+    <string name="heart">Сердце</string>
+    <string name="cholesterol">Xолестерин</string>
+    <string name="total">Oбщее(г/л)</string>
+    <string name="hdl">HDL(г/л)</string>
+    <string name="ldl">LDL(г/л)</string>
+    <string name="triglycerides">триглицеридов(g/l)</string>
     <string name="cp">Окружность головы (см)</string>
     <string name="diastolic">Диастолическое давление (см.рт.ст.)</string>
     <string name="systolic">Систолическое давление (см.рт.ст.)</string>

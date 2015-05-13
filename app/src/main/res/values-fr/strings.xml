@@ -269,12 +269,18 @@
         <item>Périmétre Cranien</item>
         <item>Glycémie</item>
         <item>Coeur</item>
+        <item>Cholestérol</item>
     </string-array>
     <string name="size">Taille(cm)</string>
     <string name="weight">Poids(kg)</string>
     <string name="temperature">Température(°C)</string>
     <string name="glucose">Glycémie(g/l)</string>
     <string name="heart">Coeur</string>
+    <string name="cholesterol">Cholestérol</string>
+    <string name="total">Total(g/l)</string>
+    <string name="hdl">HDL(g/l)</string>
+    <string name="ldl">LDL(g/l)</string>
+    <string name="triglycerides">Triglycérides(g/l)</string>
     <string name="cp">Périmètre Cranien(cm)</string>
     <string name="diastolic">Diastolique(cmHg)</string>
     <string name="systolic">Systolique(cmHg)</string>

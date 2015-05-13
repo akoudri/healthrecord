@@ -11,24 +11,24 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Created by Ali Koudri on 23/07/14.
+ * Created by Ali Koudri on 14/05/2015.
  */
 public class CholesterolMeasureTable {
 
     private SQLiteDatabase db;
 
     //Table
-    public static final String CHOLESTEROL_MEASURE_TABLE = "dsh_m";
+    public static final String CHOLESTEROL_MEASURE_TABLE = "cholesterol_m";
     public static final String CHOLESTEROL_MEASURE_ID = "_id";
     public static final String CHOLESTEROL_MEASURE_PERSON_REF = "personId";
     public static final String CHOLESTEROL_MEASURE_DATE = "date";
     public static final String CHOLESTEROL_MEASURE_TOTAL = "total";
     public static final String CHOLESTEROL_MEASURE_HDL = "hdl";
     public static final String CHOLESTEROL_MEASURE_LDL = "ldl";
-    public static final String CHOLESTEROL_MEASURE_TRIGLYCERIDS = "triglycerids";
+    public static final String CHOLESTEROL_MEASURE_TRIGLYCERIDES = "triglycerides";
 
     private String[] measureCols = {CHOLESTEROL_MEASURE_ID, CHOLESTEROL_MEASURE_PERSON_REF, CHOLESTEROL_MEASURE_DATE,
-            CHOLESTEROL_MEASURE_TOTAL, CHOLESTEROL_MEASURE_HDL, CHOLESTEROL_MEASURE_LDL, CHOLESTEROL_MEASURE_TRIGLYCERIDS};
+            CHOLESTEROL_MEASURE_TOTAL, CHOLESTEROL_MEASURE_HDL, CHOLESTEROL_MEASURE_LDL, CHOLESTEROL_MEASURE_TRIGLYCERIDES};
 
     public CholesterolMeasureTable(SQLiteDatabase db)
     {
@@ -45,7 +45,7 @@ public class CholesterolMeasureTable {
         sb.append(CHOLESTEROL_MEASURE_TOTAL + " real not null check(" + CHOLESTEROL_MEASURE_TOTAL + " > 0.0),");
         sb.append(CHOLESTEROL_MEASURE_HDL + " real not null check(" + CHOLESTEROL_MEASURE_HDL + " > 0.0),");
         sb.append(CHOLESTEROL_MEASURE_LDL + " real not null check(" + CHOLESTEROL_MEASURE_LDL + " > 0.0),");
-        sb.append(CHOLESTEROL_MEASURE_TRIGLYCERIDS + " real not null check(" + CHOLESTEROL_MEASURE_TRIGLYCERIDS + " > 0.0),");
+        sb.append(CHOLESTEROL_MEASURE_TRIGLYCERIDES + " real not null check(" + CHOLESTEROL_MEASURE_TRIGLYCERIDES + " > 0.0),");
         sb.append(" foreign key(" + CHOLESTEROL_MEASURE_PERSON_REF + ") references " + PersonTable.PERSON_TABLE +
                 "(" + PersonTable.PERSON_ID + ")");
         sb.append(");");
@@ -53,7 +53,7 @@ public class CholesterolMeasureTable {
     }
 
     //zero values are considered as null
-    public long insertMeasure(int personId, String date, String hour, float total, float hdl, float ldl, float triglycerid)
+    public long insertMeasure(int personId, String date, String hour, double total, double hdl, double ldl, double triglycerides)
     {
         ContentValues values = new ContentValues();
         values.put(CHOLESTEROL_MEASURE_PERSON_REF, personId);
@@ -61,26 +61,26 @@ public class CholesterolMeasureTable {
         values.put(CHOLESTEROL_MEASURE_TOTAL, total);
         values.put(CHOLESTEROL_MEASURE_HDL, hdl);
         values.put(CHOLESTEROL_MEASURE_LDL, ldl);
-        values.put(CHOLESTEROL_MEASURE_TRIGLYCERIDS, triglycerid);
+        values.put(CHOLESTEROL_MEASURE_TRIGLYCERIDES, triglycerides);
         return db.insert(CHOLESTEROL_MEASURE_TABLE, null, values);
     }
 
     //zero values are considered as null
-    public boolean updateMeasureWithId(int measureId, String date, String hour, float total, float hdl, float ldl, float triglycerid)
+    public boolean updateMeasureWithId(int measureId, String date, String hour, double total, double hdl, double ldl, double triglycerides)
     {
         ContentValues values = new ContentValues();
         values.put(CHOLESTEROL_MEASURE_DATE, HealthRecordUtils.datehourToCalendar(date, hour).getTimeInMillis());
         values.put(CHOLESTEROL_MEASURE_TOTAL, total);
         values.put(CHOLESTEROL_MEASURE_HDL, hdl);
         values.put(CHOLESTEROL_MEASURE_LDL, ldl);
-        values.put(CHOLESTEROL_MEASURE_TRIGLYCERIDS, triglycerid);
+        values.put(CHOLESTEROL_MEASURE_TRIGLYCERIDES, triglycerides);
         return db.update(CHOLESTEROL_MEASURE_TABLE, values, CHOLESTEROL_MEASURE_ID + "=" + measureId, null) > 0;
     }
 
     public boolean updateMeasure(CholesterolMeasure measure)
     {
         return updateMeasureWithId(measure.getId(), measure.getDate(), measure.getHour(), measure.getTotal(), measure.getHDL(),
-                measure.getLDL(), measure.getTriglycerids());
+                measure.getLDL(), measure.getTriglycerides());
     }
 
     public boolean removeMeasureWithId(int measureId)
@@ -121,10 +121,10 @@ public class CholesterolMeasureTable {
         String hour = String.format("%s:%s", d[3], d[4]);
         measure.setDate(date);
         measure.setHour(hour);
-        measure.setTotal(cursor.getFloat(3));
-        measure.setHDL(cursor.getFloat(4));
-        measure.setLDL(cursor.getFloat(5));
-        measure.setTriglycerids(cursor.getFloat(6));
+        measure.setTotal(cursor.getDouble(3));
+        measure.setHDL(cursor.getDouble(4));
+        measure.setLDL(cursor.getDouble(5));
+        measure.setTriglycerides(cursor.getDouble(6));
         return measure;
     }
 }

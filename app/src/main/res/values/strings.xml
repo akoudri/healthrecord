@@ -223,12 +223,18 @@
         <item>Cranial Perimeter</item>
         <item>Glucose</item>
         <item>Heart</item>
+        <item>Cholesterol</item>
     </string-array>
     <string name="size">Size(cm)</string>
     <string name="weight">Weight(kg)</string>
     <string name="temperature">Temperature(°C)</string>
     <string name="glucose">Glucose(g/l)</string>
-    <string name="heart">Heart(p/m)</string>
+    <string name="heart">Heart</string>
+    <string name="cholesterol">Cholesterol</string>
+    <string name="total">Total(g/l)</string>
+    <string name="hdl">HDL(g/l)</string>
+    <string name="ldl">LDL(g/l)</string>
+    <string name="triglycerides">Triglycerides(g/l)</string>
     <string name="cp">Cranial Perimeter(cm)</string>
     <string name="diastolic">Diastolic(cmHg)</string>
     <string name="systolic">Systolic(cmHg)</string>

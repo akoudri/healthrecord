@@ -170,16 +170,22 @@
         <item>Kopfumfang</item>
         <item>Blutzucker</item>
         <item>Herz</item>
+        <item>Cholesterin</item>
     </string-array>
-    <string name="size">Größe (cm)</string>
-    <string name="weight">Gewicht (kg)</string>
-    <string name="temperature">Temperatur (° C)</string>
-    <string name="glucose">Glucose (g / l)</string>
+    <string name="size">Größe(cm)</string>
+    <string name="weight">Gewicht(kg)</string>
+    <string name="temperature">Temperatur(°C)</string>
+    <string name="glucose">Glucose(g/l)</string>
     <string name="heart">Herz</string>
-    <string name="cp">Kopfumfang (cm)</string>
-    <string name="diastolic">Diastolischen (mm Hg)</string>
-    <string name="systolic">Systolischen (mm Hg)</string>
-    <string name="heartbeat">Puls (w / m)</string>
+    <string name="cholesterol">Cholesterin</string>
+    <string name="total">Total(g/l)</string>
+    <string name="hdl">HDL(g/l)</string>
+    <string name="ldl">LDL(g/l)</string>
+    <string name="triglycerides">Triglyceride(g/l)</string>
+    <string name="cp">Kopfumfang(cm)</string>
+    <string name="diastolic">Diastolischen(mm Hg)</string>
+    <string name="systolic">Systolischen(mm Hg)</string>
+    <string name="heartbeat">Puls(w/m)</string>
     <string name="add_rv">Neuer termin</string>
     <string name="add_ailment">Fügen krankheit</string>
     <string name="add_treatment">Fügen behandlung</string>

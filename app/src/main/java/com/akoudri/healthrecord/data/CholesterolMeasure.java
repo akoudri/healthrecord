@@ -5,24 +5,24 @@ package com.akoudri.healthrecord.data;
  */
 public class CholesterolMeasure extends Measure {
 
-    private float total;
-    private float hdl;
-    private float ldl;
-    private float triglycerids;
+    private double total;
+    private double hdl;
+    private double ldl;
+    private double triglycerides;
 
     public CholesterolMeasure() {}
 
     @Override
     public String getValueString() {
-        return total + "/" + hdl + "/" + ldl + "/" + triglycerids + " @ " + getHour();
+        return total + "/" + hdl + "/" + ldl + "/" + triglycerides + " @ " + getHour();
     }
 
-    public CholesterolMeasure(int personId, String date, String hour, float total, float hdl, float ldl, float triglycerids) {
+    public CholesterolMeasure(int personId, String date, String hour, double total, double hdl, double ldl, double triglycerides) {
         super(personId, date, hour);
         this.total = total;
         this.hdl = hdl;
         this.ldl = ldl;
-        this.triglycerids = triglycerids;
+        this.triglycerides = triglycerides;
     }
 
     public CholesterolMeasure(CholesterolMeasure measure)
@@ -31,48 +31,48 @@ public class CholesterolMeasure extends Measure {
         this.total = measure.getTotal();
         this.hdl = measure.getHDL();
         this.ldl = measure.getLDL();
-        this.triglycerids = measure.getTriglycerids();
+        this.triglycerides = measure.getTriglycerides();
     }
 
-    public float getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(float total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public float getHDL() {
+    public double getHDL() {
         return hdl;
     }
 
-    public void setHDL(float hdl) {
+    public void setHDL(double hdl) {
         this.hdl = hdl;
     }
 
-    public float getLDL() {
+    public double getLDL() {
         return ldl;
     }
 
-    public void setLDL(float ldl) {
+    public void setLDL(double ldl) {
         this.ldl = ldl;
     }
 
-    public float getTriglycerids() {
-        return triglycerids;
+    public double getTriglycerides() {
+        return triglycerides;
     }
 
-    public void setTriglycerids(float triglycerids) {
-        this.triglycerids = triglycerids;
+    public void setTriglycerides(double triglycerides) {
+        this.triglycerides = triglycerides;
     }
 
     public boolean equalsTo(CholesterolMeasure other)
     {
         return super.equalsTo(other) && total == other.getTotal() && hdl == other.getHDL() &&
-                ldl == other.getLDL() && triglycerids == other.getTriglycerids();
+                ldl == other.getLDL() && triglycerides == other.getTriglycerides();
     }
 
     public boolean isNull(){
-        return total == 0.0 && hdl == 0.0 && ldl == 0.0 && triglycerids == 0.0;
+        return total == 0.0 && hdl == 0.0 && ldl == 0.0 && triglycerides == 0.0;
     }
 }

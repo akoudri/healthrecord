@@ -22,6 +22,7 @@ import com.akoudri.healthrecord.fragment.EditDayFragment;
 import com.akoudri.healthrecord.fragment.MeasureFragment;
 import com.akoudri.healthrecord.fragment.MedicsFragment;
 import com.akoudri.healthrecord.fragment.ObservationFragment;
+import com.akoudri.healthrecord.fragment.OverviewFragment;
 import com.akoudri.healthrecord.fragment.RemindersFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
@@ -41,13 +42,14 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private TextView today_label;
     private LinearLayout dayMenuLayout;
 
-    private EditDayFragment ailmentFrag, apptFrag, measureFrag, medFrag, obsFrag, remindFrag;
+    private EditDayFragment ovFrag, ailmentFrag, apptFrag, measureFrag, medFrag, obsFrag, remindFrag;
     private EditDayFragment currentFrag;
-    private ImageButton measureButton, rvButton, illnessButton, obsButton, medicButton, reminderButton;
+    private ImageButton ovButton, measureButton, rvButton, illnessButton, obsButton, medicButton, reminderButton;
     private ImageButton currentButton;
 
     private FragmentTransaction fragTrans;
 
+    private static final String ovID = "ovFrag";
     private static final String ailmentID = "ailmentFrag";
     private static final String apptID = "apptFrag";
     private static final String measureID = "measureFrag";
@@ -80,10 +82,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         //fragments and buttons
         initFragmentsAndButtons();
         refreshDayMenu();
-        if (currentDay.after(today))
-            changeCurrentFragAndButton(apptID, rvButton);
-        else
-            changeCurrentFragAndButton(measureID, measureButton);
+        changeCurrentFragAndButton(ovID, ovButton);
         //Touch management
         View view = findViewById(R.id.today_layout);
         view.setOnTouchListener(this);
@@ -98,6 +97,10 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         EditDayFragment frag = (EditDayFragment)(fragmentManager.findFragmentByTag(fragID));
         if (frag == null)
         {
+            if (ovID.equalsIgnoreCase(fragID)) {
+                frag = ovFrag;
+                fragTrans.add(R.id.day_layout, frag, ovID);
+            }
             if (ailmentID.equalsIgnoreCase(fragID)) {
                 frag = ailmentFrag;
                 fragTrans.add(R.id.day_layout, frag, ailmentID);
@@ -136,12 +139,22 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     private void initFragmentsAndButtons()
     {
         //Fragments
+        ovFrag = OverviewFragment.newInstance();
         measureFrag = MeasureFragment.newInstance();
         obsFrag = ObservationFragment.newInstance();
         ailmentFrag = AilmentFragment.newInstance();
         medFrag = MedicsFragment.newInstance();
         apptFrag = AppointmentFragment.newInstance();
         remindFrag = RemindersFragment.newInstance();
+        //Overview
+        ovButton = new ImageButton(this);
+        ovButton.setBackgroundResource(R.drawable.overview);
+        ovButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayOverview();
+            }
+        });
         //Measure
         measureButton = new ImageButton(this);
         measureButton.setBackgroundResource(R.drawable.measure);
@@ -210,6 +223,9 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         llparams.rightMargin = margin;
         if (currentDay.after(today))
         {
+            //Overview
+            ovButton.setLayoutParams(llparams);
+            dayMenuLayout.addView(ovButton);
             //Appointment
             rvButton.setLayoutParams(llparams);
             dayMenuLayout.addView(rvButton);
@@ -217,6 +233,9 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
             reminderButton.setLayoutParams(llparams);
             dayMenuLayout.addView(reminderButton);
         } else {
+            //Overview
+            ovButton.setLayoutParams(llparams);
+            dayMenuLayout.addView(ovButton);
             //Measure
             measureButton.setLayoutParams(llparams);
             dayMenuLayout.addView(measureButton);
@@ -242,6 +261,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
             dataSource.open();
             dataSourceLoaded = true;
             //Fragments
+            ovFrag.setDataSource(dataSource);
             measureFrag.setDataSource(dataSource);
             obsFrag.setDataSource(dataSource);
             ailmentFrag.setDataSource(dataSource);
@@ -321,6 +341,13 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         obsFrag.setCurrentDate(day, month, year);
         obsFrag.resetObjectId();
         changeCurrentFragAndButton(obsID, obsButton);
+    }
+
+    private void displayOverview()
+    {
+        if (currentFrag == ovFrag) return;
+        ovFrag.setCurrentDate(day, month, year);
+        changeCurrentFragAndButton(ovID, ovButton);
     }
 
     public void createAppt(View view)
@@ -445,16 +472,15 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         refreshFrag();
     }
 
-    //FIXME: NPE!!!
     private void refreshFrag()
     {
         if (currentDay.equals(today) && oldCurrentDay.after(today))
         {
-            changeCurrentFragAndButton(measureID, measureButton);
+            changeCurrentFragAndButton(ovID, ovButton);
         }
         else if (oldCurrentDay.equals(today) && currentDay.after(today))
         {
-            changeCurrentFragAndButton(apptID, rvButton);
+            changeCurrentFragAndButton(ovID, ovButton);
         }
         else {
             currentFrag.setCurrentDate(day, month, year);

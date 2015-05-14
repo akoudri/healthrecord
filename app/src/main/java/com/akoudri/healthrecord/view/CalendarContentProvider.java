@@ -17,5 +17,7 @@ public interface CalendarContentProvider {
 
     int[] getMonthObservationsForPerson(int personId, Calendar cal);
 
+    int[] getMonthRemindersForPerson(int personId, Calendar cal);
+
 }
 

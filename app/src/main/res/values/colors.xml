@@ -10,6 +10,7 @@
     <color name="notValidField">#e4e355</color>
     <color name="rvColor">#f3c353</color>
     <color name="illnessColor">#fd4c37</color>
+    <color name="reminderColor">#fd4c37</color>
     <color name="medicsColor">#7ce86d</color>
     <color name="measuresColor">#84c5fd</color>
     <color name="obsColor">#e4e355</color>

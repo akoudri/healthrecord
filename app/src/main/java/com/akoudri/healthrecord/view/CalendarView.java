@@ -66,6 +66,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int[] measures;
     private int[] medics;
     private int[] observations;
+    private int[] reminders;
 
     //Icons
     private Bitmap illnessIco, measureIco, medicsIco, rvIco;
@@ -374,6 +375,14 @@ public class CalendarView extends View implements View.OnTouchListener {
                     canvas.drawCircle(xa, yi, rcirc, paint);
                     paint.setStyle(Paint.Style.FILL);
                 }
+                if (reminders[i - 1] > 0) {
+                    int xa = (rect.right + rect.left) / 2;
+                    int yi = (rect.bottom + rect.top) / 2;
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setColor(getResources().getColor(R.color.reminderColor));
+                    canvas.drawCircle(xa, yi, rcirc + 2, paint);
+                    paint.setStyle(Paint.Style.FILL);
+                }
             }
         }
     }
@@ -422,6 +431,7 @@ public class CalendarView extends View implements View.OnTouchListener {
         measures = calendarContentProvider.getMonthMeasuresForPerson(personId, _cal);
         medics = calendarContentProvider.getMonthMedicationsForPerson(personId, _cal);
         observations = calendarContentProvider.getMonthObservationsForPerson(personId, _cal);
+        reminders = calendarContentProvider.getMonthRemindersForPerson(personId, _cal);
     }
 
     private Rect getSelectedRect(int x, int y)

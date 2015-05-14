@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
 import com.akoudri.healthrecord.app.R;
+import com.akoudri.healthrecord.data.CholesterolMeasure;
 import com.akoudri.healthrecord.data.CranialPerimeterMeasure;
 import com.akoudri.healthrecord.data.GlucoseMeasure;
 import com.akoudri.healthrecord.data.HeartMeasure;
@@ -157,7 +158,11 @@ public class AnalysisActivity extends Activity {
                 break;
             case 6:
                 series = getSeries(start, end, Measure.HEART_MEASURE_TYPE);
-                renderer = getComplexRenderer();
+                renderer = getHeartRenderer();
+                break;
+            case 7:
+                series = getSeries(start, end, Measure.CHOLESTEROL_MEASURE_TYPE);
+                renderer = getCholesterolRenderer();
                 break;
         }
         if (series == null)
@@ -186,6 +191,8 @@ public class AnalysisActivity extends Activity {
                 return getGlucoseDataSet(start, end);
             case Measure.HEART_MEASURE_TYPE:
                 return getHeartDataSet(start, end);
+            case Measure.CHOLESTEROL_MEASURE_TYPE:
+                return getCholesterolDataSet(start, end);
             default:
                 return null;
         }
@@ -281,6 +288,28 @@ public class AnalysisActivity extends Activity {
         return series;
     }
 
+    private List<XYSeries> getCholesterolDataSet(Calendar start, Calendar end) {
+        List<CholesterolMeasure> measures = dataSource.getCholesterolMeasureTable().getMeasuresInInterval(start, end);
+        if (measures.isEmpty()) return null;
+        List<XYSeries> series = new ArrayList<XYSeries>();
+        TimeSeries t_series = new TimeSeries(getResources().getString(R.string.total));
+        TimeSeries h_series = new TimeSeries(getResources().getString(R.string.hdl));
+        TimeSeries l_series = new TimeSeries(getResources().getString(R.string.ldl));
+        TimeSeries tg_series = new TimeSeries(getResources().getString(R.string.triglycerides));
+        for (CholesterolMeasure measure : measures)
+        {
+            t_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getTotal());
+            h_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getHDL());
+            l_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getLDL());
+            tg_series.add(HealthRecordUtils.datehourToCalendar(measure.getDate(), measure.getHour()).getTime(), measure.getTriglycerides());
+        }
+        series.add(t_series);
+        series.add(h_series);
+        series.add(l_series);
+        series.add(tg_series);
+        return series;
+    }
+
     private XYMultipleSeriesRenderer getSimpleRenderer()
     {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
@@ -298,7 +327,7 @@ public class AnalysisActivity extends Activity {
         return renderer;
     }
 
-    private XYMultipleSeriesRenderer getComplexRenderer()
+    private XYMultipleSeriesRenderer getHeartRenderer()
     {
         XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
         renderer.setAxisTitleTextSize(tsize);
@@ -322,6 +351,38 @@ public class AnalysisActivity extends Activity {
         r3.setPointStyle(PointStyle.SQUARE);
         r3.setFillPoints(true);
         renderer.addSeriesRenderer(r3);
+        return renderer;
+    }
+
+    private XYMultipleSeriesRenderer getCholesterolRenderer()
+    {
+        XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
+        renderer.setAxisTitleTextSize(tsize);
+        renderer.setChartTitleTextSize(tsize);
+        renderer.setLabelsTextSize(ttsize);
+        renderer.setLegendTextSize(ttsize);
+        renderer.setPointSize(psize);
+        renderer.setMargins(margins);
+        XYSeriesRenderer r1 = new XYSeriesRenderer();
+        r1.setColor(Color.YELLOW);
+        r1.setPointStyle(PointStyle.CIRCLE);
+        r1.setFillPoints(true);
+        renderer.addSeriesRenderer(r1);
+        XYSeriesRenderer r2 = new XYSeriesRenderer();
+        r2.setColor(Color.RED);
+        r2.setPointStyle(PointStyle.TRIANGLE);
+        r2.setFillPoints(true);
+        renderer.addSeriesRenderer(r2);
+        XYSeriesRenderer r3 = new XYSeriesRenderer();
+        r3.setColor(Color.BLUE);
+        r3.setPointStyle(PointStyle.SQUARE);
+        r3.setFillPoints(true);
+        renderer.addSeriesRenderer(r3);
+        XYSeriesRenderer r4 = new XYSeriesRenderer();
+        r4.setColor(Color.GREEN);
+        r4.setPointStyle(PointStyle.DIAMOND);
+        r4.setFillPoints(true);
+        renderer.addSeriesRenderer(r4);
         return renderer;
     }
 

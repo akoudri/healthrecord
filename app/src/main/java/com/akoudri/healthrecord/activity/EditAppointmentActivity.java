@@ -35,19 +35,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-//import com.akoudri.healthrecord.json.JSONObject;
-//import com.akoudri.healthrecord.store.ApptNotificationList;
-//import com.google.gson.Gson;
-//import java.io.FileInputStream;
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
-//import java.io.OutputStream;
-//import java.io.OutputStreamWriter;
-//import java.io.Writer;
-
-
 public class EditAppointmentActivity extends Activity {
 
     //public static final String APPT_FILENAME = "apptNotifications.json";
@@ -83,10 +70,6 @@ public class EditAppointmentActivity extends Activity {
         hLayout = (LinearLayout) findViewById(R.id.appt_hour_layout);
         commentET = (EditText) findViewById(R.id.update_appt_comment);
         thSpinner = (Spinner) findViewById(R.id.thchoice_update);
-        /*notificationSpinner = (Spinner) findViewById(R.id.notification_kind);
-        String[] notificationValues = getResources().getStringArray(R.array.notificationChoice);
-        ArrayAdapter<String> notificationChoiceAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, notificationValues);
-        notificationSpinner.setAdapter(notificationChoiceAdapter);*/
         dataSource = HealthRecordDataSource.getInstance(this);
         margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
         //Existing appointment

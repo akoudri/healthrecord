@@ -263,6 +263,10 @@
     <string name="send_email_to_author">Trimite e-mail</string>
     <string name="notify_me">Anunță-mă</string>
     <string name="before">înainte</string>
-    <string name="add_reminder">Add reminder</string>
+    <string name="add_reminder">Adaugă memento</string>
+    <string name="appointments">Numire</string>
+    <string name="reminders">Memento</string>
+    <string name="no_appt_today">Nici o numire până în prezent</string>
+    <string name="no_reminder_today">Nu sunt memento-uri până în prezent</string>
 
 </resources>

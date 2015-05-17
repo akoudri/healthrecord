@@ -106,6 +106,46 @@ public final class HealthRecordUtils {
         return c;
     }
 
+    public static Calendar datehourToCalendar(String date)
+    {
+        String[] d = date.split("/");
+        int dd = Integer.parseInt(d[0]);
+        int mm = Integer.parseInt(d[1]) - 1;
+        int yyyy = Integer.parseInt(d[2]);
+        Calendar c = Calendar.getInstance();
+        int fmm;
+        switch (mm)
+        {
+            case 0:
+                fmm = Calendar.JANUARY; break;
+            case 1:
+                fmm = Calendar.FEBRUARY; break;
+            case 2:
+                fmm = Calendar.MARCH; break;
+            case 3:
+                fmm = Calendar.APRIL; break;
+            case 4:
+                fmm = Calendar.MAY; break;
+            case 5:
+                fmm = Calendar.JUNE; break;
+            case 6:
+                fmm = Calendar.JULY; break;
+            case 7:
+                fmm = Calendar.AUGUST; break;
+            case 8:
+                fmm = Calendar.SEPTEMBER; break;
+            case 9:
+                fmm = Calendar.OCTOBER; break;
+            case 10:
+                fmm = Calendar.NOVEMBER; break;
+            default:
+                fmm = Calendar.DECEMBER; break;
+        }
+        c.set(yyyy, fmm, dd, 12, 0, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c;
+    }
+
     public static String millisToDatestring(long millis)
     {
         Calendar c = Calendar.getInstance();

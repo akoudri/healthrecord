@@ -314,6 +314,10 @@
     <string name="send_email_to_author">أرسل بريد إلكتروني إلى المؤلف</string>
     <string name="notify_me">يخطر لي</string>
     <string name="before">قبل</string>
-    <string name="add_reminder">Add reminder</string>
+    <string name="add_reminder">إضافة تذكير</string>
+    <string name="appointments">موعد</string>
+    <string name="reminders">تذكير</string>
+    <string name="no_appt_today">لا التعيينات في التاريخ</string>
+    <string name="no_reminder_today">لا تذكير حتى الآن</string>
 
 </resources>

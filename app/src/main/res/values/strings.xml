@@ -316,5 +316,9 @@
     <string name="notify_me">Notify me</string>
     <string name="before">before</string>
     <string name="add_reminder">Add reminder</string>
+    <string name="appointments">Appointments</string>
+    <string name="reminders">Reminders</string>
+    <string name="no_appt_today">No appointment this day</string>
+    <string name="no_reminder_today">No reminder this day</string>
 
 </resources>

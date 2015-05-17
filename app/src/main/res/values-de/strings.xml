@@ -262,6 +262,10 @@
     <string name="send_email_to_author">Senden sie eine e-mail</string>
     <string name="notify_me">Benachrichtigen sie mich</string>
     <string name="before">vor</string>
-    <string name="add_reminder">Add reminder</string>
+    <string name="add_reminder">Reminder hinzufügen</string>
+    <string name="appointments">Ernennung</string>
+    <string name="reminders">Erinnerungen</string>
+    <string name="no_appt_today">Keine Termine auf dem Laufenden</string>
+    <string name="no_reminder_today">Keine Mahnungen bis heute</string>
 
 </resources>

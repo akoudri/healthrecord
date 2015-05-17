@@ -1,6 +1,11 @@
 package com.akoudri.healthrecord.activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
@@ -21,6 +26,7 @@ import com.akoudri.healthrecord.data.Drug;
 import com.akoudri.healthrecord.data.Reminder;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
+import com.akoudri.healthrecord.utils.NotificationPublisher;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -130,13 +136,46 @@ public class EditReminderActivity extends Activity {
             rem.setId(reminderId);
             boolean res = dataSource.getReminderTable().updateReminder(rem);
             if (res) {
+                //Set a new alarm with updated values
+                Notification.Builder builder = new Notification.Builder(this);
+                long alarm = HealthRecordUtils.datehourToCalendar(dayStr).getTimeInMillis() - 7200000;
+                builder.setSmallIcon(R.drawable.health_record_app)
+                        .setContentTitle(dataSource.getDrugTable().getDrugWithId(reminderId).getName())
+                        .setWhen(alarm)
+                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                        .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+                Notification notification = builder.build();
+                Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+                notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, reminderId);
+                notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reminderId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarm, pendingIntent);
+                //Display and exit
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.update_saved), Toast.LENGTH_SHORT).show();
                 finish();
             } else
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         else {
-            dataSource.getReminderTable().insertReminder(personId, drugId, selectedDate, comment);
+            reminderId = (int) dataSource.getReminderTable().insertReminder(personId, drugId, selectedDate, comment);
+            if (reminderId > 0)
+            {
+                Notification.Builder builder = new Notification.Builder(this);
+                long alarm = HealthRecordUtils.datehourToCalendar(selectedDate).getTimeInMillis() - 7200000;
+                builder.setSmallIcon(R.drawable.health_record_app)
+                        .setContentTitle(dataSource.getDrugTable().getDrugWithId(reminderId).getName())
+                        .setWhen(alarm)
+                        .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                        .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+                Notification notification = builder.build();
+                Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+                notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, reminderId);
+                notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, reminderId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, alarm, pendingIntent);
+            }
             finish();
         }
     }

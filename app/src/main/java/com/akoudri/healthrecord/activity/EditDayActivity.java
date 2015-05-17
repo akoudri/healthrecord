@@ -23,7 +23,7 @@ import com.akoudri.healthrecord.fragment.MeasureFragment;
 import com.akoudri.healthrecord.fragment.MedicsFragment;
 import com.akoudri.healthrecord.fragment.ObservationFragment;
 import com.akoudri.healthrecord.fragment.OverviewFragment;
-import com.akoudri.healthrecord.fragment.RemindersFragment;
+import com.akoudri.healthrecord.fragment.ReminderFragment;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
 import java.sql.SQLException;
@@ -145,7 +145,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         ailmentFrag = AilmentFragment.newInstance();
         medFrag = MedicsFragment.newInstance();
         apptFrag = AppointmentFragment.newInstance();
-        remindFrag = RemindersFragment.newInstance();
+        remindFrag = ReminderFragment.newInstance();
         //Overview
         ovButton = new ImageButton(this);
         ovButton.setBackgroundResource(R.drawable.overview);

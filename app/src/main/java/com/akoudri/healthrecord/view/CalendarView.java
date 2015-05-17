@@ -69,7 +69,7 @@ public class CalendarView extends View implements View.OnTouchListener {
     private int[] reminders;
 
     //Icons
-    private Bitmap illnessIco, measureIco, medicsIco, rvIco;
+    private Bitmap illnessIco, measureIco, medicsIco, eyeIco;
     private Bitmap next, previous;
     private Rect[] nav = new Rect[2];
     private boolean imagesFound = true;
@@ -87,8 +87,8 @@ public class CalendarView extends View implements View.OnTouchListener {
             inputStream = assetManager.open("images/measure_ico.png");
             measureIco = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
-            inputStream = assetManager.open("images/rv_ico.png");
-            rvIco = BitmapFactory.decodeStream(inputStream);
+            inputStream = assetManager.open("images/eye_ico.png");
+            eyeIco = BitmapFactory.decodeStream(inputStream);
             inputStream.close();
             inputStream = assetManager.open("images/illness_ico.png");
             illnessIco = BitmapFactory.decodeStream(inputStream);
@@ -346,12 +346,12 @@ public class CalendarView extends View implements View.OnTouchListener {
                     b_rect.bottom = rect.top + sy + imgSize;
                     canvas.drawBitmap(measureIco, null, b_rect, null);
                 }
-                if (appointments[i - 1] > 0) {
+                if (observations[i - 1] > 0) {
                     b_rect.left = rect.right - sx - imgSize;
                     b_rect.right = rect.right - sx;
                     b_rect.top = rect.top + sy;
                     b_rect.bottom = rect.top + sy + imgSize;
-                    canvas.drawBitmap(rvIco, null, b_rect, null);
+                    canvas.drawBitmap(eyeIco, null, b_rect, null);
                 }
                 if (ailments[i - 1] > 0) {
                     b_rect.left = rect.left + sx;
@@ -367,7 +367,7 @@ public class CalendarView extends View implements View.OnTouchListener {
                     b_rect.bottom = rect.bottom - sy;
                     canvas.drawBitmap(medicsIco, null, b_rect, null);
                 }
-                if (observations[i - 1] > 0) {
+                if (appointments[i - 1] > 0) {
                     int xa = (rect.right + rect.left) / 2;
                     int yi = (rect.bottom + rect.top) / 2;
                     paint.setStyle(Paint.Style.STROKE);

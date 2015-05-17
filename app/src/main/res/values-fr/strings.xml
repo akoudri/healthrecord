@@ -362,6 +362,10 @@
     <string name="notify_me">Me prévenir</string>
     <string name="before">avant</string>
     <string name="add_reminder">Ajouter rappel</string>
+    <string name="appointments">Rendez-vous</string>
+    <string name="reminders">Rappels</string>
+    <string name="no_appt_today">Pas de rendez-vous ce jour</string>
+    <string name="no_reminder_today">Pas de rappel ce jour</string>
 
 
 </resources>

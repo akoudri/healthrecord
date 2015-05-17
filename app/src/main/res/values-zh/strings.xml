@@ -256,6 +256,10 @@
     <string name="send_email_to_author">发送电子邮件</string>
     <string name="notify_me">请通知我</string>
     <string name="before">以前</string>
-    <string name="add_reminder">Add reminder</string>
+    <string name="add_reminder">添加提醒</string>
+    <string name="appointments">约会</string>
+    <string name="reminders">提醒</string>
+    <string name="no_appt_today">没有任命日期</string>
+    <string name="no_reminder_today">没有提醒日期</string>
 
 </resources>

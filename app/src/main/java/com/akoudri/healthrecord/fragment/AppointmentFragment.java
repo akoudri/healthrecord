@@ -214,7 +214,6 @@ public class AppointmentFragment extends EditDayFragment {
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //TODO: see how to cancel corresponding alarm
                                         AppointmentTable apptTable = dataSource.getAppointmentTable();
                                         Appointment appt = apptTable.getAppointmentWithId(apptId);
                                         boolean deleted = apptTable.removeAppointmentWithId(apptId);

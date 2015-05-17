@@ -289,6 +289,10 @@
     <string name="send_email_to_author">Enviar correo electrónico al autor</string>
     <string name="notify_me">Adviértame</string>
     <string name="before">antes</string>
-    <string name="add_reminder">Add reminder</string>
+    <string name="add_reminder">Añadir recordatorio</string>
+    <string name="appointments">Nombramiento</string>
+    <string name="reminders">Recordatorios</string>
+    <string name="no_appt_today">No hay citas hasta la fecha</string>
+    <string name="no_reminder_today">No hay recordatorios hasta la fecha</string>
 
 </resources>

@@ -314,6 +314,10 @@
     <string name="send_email_to_author">लेखक को ईमेल भेजें</string>
     <string name="notify_me">मुझे सूचित करें</string>
     <string name="before">पहले</string>
-    <string name="add_reminder">Add reminder</string>
+    <string name="add_reminder">अनुस्मारक जोड़ें</string>
+    <string name="appointments">नियुक्ति</string>
+    <string name="reminders">अनुस्मारक</string>
+    <string name="no_appt_today">आज तक कोई नियुक्तियों</string>
+    <string name="no_reminder_today">आज तक कोई अनुस्मारक</string>
 
 </resources>

@@ -1,6 +1,10 @@
 package com.akoudri.healthrecord.fragment;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -13,17 +17,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 
-import com.akoudri.healthrecord.activity.EditMedicationActivity;
 import com.akoudri.healthrecord.activity.EditReminderActivity;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.Reminder;
+import com.akoudri.healthrecord.data.ReminderTable;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
+import com.akoudri.healthrecord.utils.NotificationPublisher;
 
 import java.util.List;
 
 //STATUS: checked
-public class RemindersFragment extends EditDayFragment {
+public class ReminderFragment extends EditDayFragment {
 
     private View view;
     private GridLayout layout;
@@ -34,12 +39,12 @@ public class RemindersFragment extends EditDayFragment {
 
     public static EditDayFragment newInstance()
     {
-        return new RemindersFragment();
+        return new ReminderFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_reminders, container, false);
+        view = inflater.inflate(R.layout.fragment_reminder, container, false);
         layout = (GridLayout) view.findViewById(R.id.reminders_grid);
         personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
@@ -90,9 +95,9 @@ public class RemindersFragment extends EditDayFragment {
             reminderButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int id = RemindersFragment.this.mId;
-                    if (id == reminderId) RemindersFragment.this.mId = 0;
-                    else RemindersFragment.this.mId = reminderId;
+                    int id = ReminderFragment.this.mId;
+                    if (id == reminderId) ReminderFragment.this.mId = 0;
+                    else ReminderFragment.this.mId = reminderId;
                     createWidgets();
                 }
             });
@@ -161,7 +166,27 @@ public class RemindersFragment extends EditDayFragment {
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dataSource.getReminderTable().removeReminderWithId(reminderId);
+                                        ReminderTable reminderTable = dataSource.getReminderTable();
+                                        Reminder r = reminderTable.getReminderWithId(reminderId);
+                                        boolean deleted = reminderTable.removeReminderWithId(reminderId);
+                                        if (deleted)
+                                        {
+                                            Notification.Builder builder = new Notification.Builder(getActivity());
+                                            long alarm = HealthRecordUtils.datehourToCalendar(r.getDate()).getTimeInMillis() - 7200000;
+                                            int rId = r.getId();
+                                            builder.setSmallIcon(R.drawable.health_record_app)
+                                                    .setContentTitle(dataSource.getDrugTable().getDrugWithId(r.getDrugId()).getName())
+                                                    .setWhen(alarm)
+                                                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
+                                                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+                                            Notification notification = builder.build();
+                                            Intent notificationIntent = new Intent(getActivity(), NotificationPublisher.class);
+                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, rId);
+                                            notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+                                            PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), rId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                            AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                                            alarmManager.cancel(pendingIntent);
+                                        }
                                         createWidgets();
                                     }
                                 })

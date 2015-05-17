@@ -61,7 +61,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
 
     public HealthRecordDatabase(Context context, Crypto crypto)
     {
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, DB_VERSION);
         this.crypto = crypto;
     }
 

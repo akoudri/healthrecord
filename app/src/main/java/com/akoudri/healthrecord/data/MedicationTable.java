@@ -56,7 +56,6 @@ public class MedicationTable {
     }
 
     public void updateV2() {
-        StringBuilder sb = new StringBuilder();
         db.execSQL("alter table " + MEDICATION_TABLE + " alter column " + MEDICATION_AILMENT_REF + " drop not null;");
     }
 

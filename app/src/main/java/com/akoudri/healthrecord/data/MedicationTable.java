@@ -56,7 +56,11 @@ public class MedicationTable {
     }
 
     public void updateV2() {
-        db.execSQL("alter table " + MEDICATION_TABLE + " alter column " + MEDICATION_AILMENT_REF + " drop not null;");
+        db.execSQL("alter table " + MEDICATION_TABLE + " rename to tmp;");
+        createMedicationTable();
+        StringBuilder sb = new StringBuilder();
+        sb.append("insert into " + MEDICATION_TABLE + " select * from tmp;");
+        db.execSQL(sb.toString());
     }
 
     public long insertMedication(int personId, int ailmentId, int drugId, int frequency, DoseFrequencyKind kind, String startDate, int duration) {

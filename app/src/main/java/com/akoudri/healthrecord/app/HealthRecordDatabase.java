@@ -115,6 +115,7 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 2)
         {
+            medicationTable = new MedicationTable(db);
             medicationTable.updateV2();
         }
         if (oldVersion < 3)
@@ -123,7 +124,9 @@ public class HealthRecordDatabase extends SQLiteOpenHelper {
             reminderTable.createReminderTable();
             cholesterolMeasureTable = new CholesterolMeasureTable(db);
             cholesterolMeasureTable.createMeasureTable();
+            removePersonTrigger = new RemovePersonTrigger(db);
             removePersonTrigger.updateVersion();
+            measureView = new MeasureView(db);
             measureView.updateVersion();
         }
     }

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditMedicationActivity;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.DrugTable;
 import com.akoudri.healthrecord.data.Medication;
@@ -40,14 +41,12 @@ public class MedicsFragment extends EditDayFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_medics, container, false);
         layout = (GridLayout) view.findViewById(R.id.medics_grid);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0) return;
         if (dataSource == null) return;
         createWidgets();
     }
@@ -61,6 +60,7 @@ public class MedicsFragment extends EditDayFragment {
     private void createWidgets()
     {
         layout.removeAllViews();
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<Medication> dayMedics = dataSource.getMedicationTable().getDayMedicsForPerson(personId, date);
         if (dayMedics == null || dayMedics.size() == 0) return;
         int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.CholesterolMeasure;
 import com.akoudri.healthrecord.data.CranialPerimeterMeasure;
@@ -63,7 +64,6 @@ public class EditMeasureActivity extends Activity {
     private EditText hourET;
     private ImageButton dateButton, hourButton;
 
-    private int personId;
     private int day, month, year;
     private String selectedDate;
 
@@ -85,7 +85,6 @@ public class EditMeasureActivity extends Activity {
         glayout = (GridLayout) findViewById(R.id.add_measure_grid);
         hlayout = (LinearLayout) findViewById(R.id.measure_hour_layout);
         initHourLayout();
-        personId = getIntent().getIntExtra("personId", 0);
         measureId = getIntent().getIntExtra("measureId", 0);
         measureIdType = getIntent().getIntExtra("measureIdType", 0);
         day = getIntent().getIntExtra("day", 0);
@@ -271,7 +270,7 @@ public class EditMeasureActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        if (measureId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if (measureId == 0 && (day < 1 || month < 0 || year < 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -318,7 +317,7 @@ public class EditMeasureActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if ((measureId == 0 || measureIdType == 0) && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if ((measureId == 0 || measureIdType == 0) && (day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
@@ -834,7 +833,7 @@ public class EditMeasureActivity extends Activity {
 
     public void saveMeasure(View view)
     {
-        if ((measureId == 0 || measureIdType == 0) && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if ((measureId == 0 || measureIdType == 0) && (day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         switch (measureType)
         {
@@ -874,6 +873,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
+            int personId = PersonManager.getInstance().getPerson().getId();
             dataSource.getWeightMeasureTable().insertMeasure(personId, selectedDate, hour, Double.parseDouble(weight));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         }
@@ -906,6 +906,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
+            int personId = PersonManager.getInstance().getPerson().getId();
             dataSource.getSizeMeasureTable().insertMeasure(personId, selectedDate, hour, Integer.parseInt(size));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         }
@@ -939,6 +940,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
+            int personId = PersonManager.getInstance().getPerson().getId();
             dataSource.getTempMeasureTable().insertMeasure(personId, selectedDate, hour, Double.parseDouble(temperature));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
@@ -971,6 +973,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
+            int personId = PersonManager.getInstance().getPerson().getId();
             dataSource.getCpMeasureTable().insertMeasure(personId, selectedDate, hour, Integer.parseInt(cp));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
@@ -1002,6 +1005,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
+            int personId = PersonManager.getInstance().getPerson().getId();
             dataSource.getGlucoseMeasureTable().insertMeasure(personId, selectedDate, hour, Double.parseDouble(glucose));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
         } else {
@@ -1057,6 +1061,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
+            int personId = PersonManager.getInstance().getPerson().getId();
             dataSource.getHeartMeasureTable().insertMeasure(personId, selectedDate, hour,
                     Integer.parseInt(dia), Integer.parseInt(sys), Integer.parseInt(hb));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
@@ -1119,6 +1124,7 @@ public class EditMeasureActivity extends Activity {
             return;
         }
         if (measureId == 0) {
+            int personId = PersonManager.getInstance().getPerson().getId();
             dataSource.getCholesterolMeasureTable().insertMeasure(personId, selectedDate, hour,
                     Double.parseDouble(total), Double.parseDouble(hdl), Double.parseDouble(ldl), Double.parseDouble(triglycerides));
             Toast.makeText(this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();

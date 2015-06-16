@@ -26,9 +26,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Person;
+import com.akoudri.healthrecord.data.PersonTable;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 import com.akoudri.healthrecord.utils.KeyManager;
 import com.akoudri.healthrecord.utils.NotificationPublisher;
@@ -59,6 +61,7 @@ public class MainActivity extends Activity {
     private boolean dataSourceLoaded = false;
 
     private int personId = 0;
+    private Person person = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,9 +190,18 @@ public class MainActivity extends Activity {
                 @Override
                 public void onClick(View view) {
                     int id = MainActivity.this.personId;
-                    if (id == personId) MainActivity.this.personId = 0;
-                    else MainActivity.this.personId = personId;
-                    createWidgets();
+                    if (id == personId)
+                    {
+                        MainActivity.this.personId = 0;
+                        person = null;
+                    }
+                    else
+                    {
+                        MainActivity.this.personId = personId;
+                        person = dataSource.getPersonTable().getPersonWithId(personId);
+                        PersonManager.getInstance().setPerson(person);
+                        createWidgets();
+                    }
                 }
             });
             params = new GridLayout.LayoutParams(rowSpec, colSpec);
@@ -212,7 +224,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-                        intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
                 });
@@ -231,7 +242,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(MainActivity.this, TherapistActivity.class);
-                        intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
                 });
@@ -250,7 +260,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(MainActivity.this, AnalysisActivity.class);
-                        intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
                 });
@@ -269,7 +278,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(MainActivity.this, EditPersonActivity.class);
-                        intent.putExtra("personId", personId);
                         startActivity(intent);
                     }
                 });
@@ -314,7 +322,7 @@ public class MainActivity extends Activity {
                                             AlarmManager alarmManager = (AlarmManager) MainActivity.this.getSystemService(Context.ALARM_SERVICE);
                                             alarmManager.cancel(pendingIntent);
                                         }
-                                        dataSource.getPersonTherapistTable().removePersonRelations(personId);
+                                        dataSource.getPersonTherapistTable().removePersonRelations(personId);//FIXME: manage deletion with trigger
                                         dataSource.getPersonTable().removePersonWithId(personId);
                                         createWidgets();
                                     }

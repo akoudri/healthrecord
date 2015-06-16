@@ -9,7 +9,6 @@ import com.akoudri.healthrecord.app.HealthRecordDataSource;
  */
 public abstract class EditDayFragment extends Fragment {
 
-    protected int personId;
     protected HealthRecordDataSource dataSource;
     protected int day, month, year;
     protected String date;

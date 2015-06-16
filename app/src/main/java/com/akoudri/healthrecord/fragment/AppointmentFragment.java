@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditAppointmentActivity;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.AppointmentTable;
@@ -54,7 +55,6 @@ public class AppointmentFragment extends EditDayFragment {
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
         addApptButton = (Button) view.findViewById(R.id.add_appt_button);
         layout = (GridLayout) view.findViewById(R.id.my_appointments_grid);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
 
@@ -81,8 +81,8 @@ public class AppointmentFragment extends EditDayFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0) return;
         if (dataSource == null) return;
+        int personId = PersonManager.getInstance().getPerson().getId();
         count = dataSource.getPersonTherapistTable().countTherapistsForPerson(personId);
         if (count == 0)
         {
@@ -104,6 +104,7 @@ public class AppointmentFragment extends EditDayFragment {
     private void createWidgets()
     {
         layout.removeAllViews();
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
         if (allAppointments == null || allAppointments.size() == 0) return;
         int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());

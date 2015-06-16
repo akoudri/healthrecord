@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.MedicalObservation;
 import com.akoudri.healthrecord.utils.DatePickerFragment;
@@ -37,7 +38,6 @@ public class EditObservationActivity extends Activity {
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
 
-    private int personId;
     private int day, month, year;
     private String selectedDate;
 
@@ -59,7 +59,6 @@ public class EditObservationActivity extends Activity {
         //Existing appointment
         obsId = getIntent().getIntExtra("obsId", 0);
         //New appointment
-        personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
@@ -69,7 +68,7 @@ public class EditObservationActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (obsId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if (obsId == 0 && (day < 1 || month < 0 || year < 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -107,7 +106,7 @@ public class EditObservationActivity extends Activity {
 
     public void saveObservation(View view)
     {
-        if (obsId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if (obsId == 0 && (day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         String hourStr = hourET.getText().toString();
         String desc = descET.getText().toString();
@@ -129,6 +128,7 @@ public class EditObservationActivity extends Activity {
         }
         else {
             if (checkFields(hourStr, desc)) {
+                int personId = PersonManager.getInstance().getPerson().getId();
                 dataSource.getMedicalObservationTable().insertMedicalObservation(personId, selectedDate, hourStr, desc);
                 finish();
             }

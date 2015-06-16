@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Therapist;
@@ -52,7 +53,6 @@ public class EditAppointmentActivity extends Activity {
     private List<Therapist> therapists;
     private List<Integer> thIds;
 
-    private int personId;
     private int day, month, year;
     private String selectedDate;
 
@@ -75,7 +75,6 @@ public class EditAppointmentActivity extends Activity {
         //Existing appointment
         apptId = getIntent().getIntExtra("apptId", 0);
         //New appointment
-        personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
@@ -85,7 +84,7 @@ public class EditAppointmentActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (apptId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if (apptId == 0 && (day < 1 || month < 0 || year < 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -121,6 +120,7 @@ public class EditAppointmentActivity extends Activity {
         thIds = new ArrayList<Integer>();
         Therapist t;
         List<Integer> myTherapistIds;
+        int personId = PersonManager.getInstance().getPerson().getId();
         if (apptId != 0)
             myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(appt.getPersonId());
         else
@@ -182,7 +182,7 @@ public class EditAppointmentActivity extends Activity {
 
     public void saveAppointment(View view)
     {
-        if (apptId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if (apptId == 0 && (day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         int thPos = thSpinner.getSelectedItemPosition();
         int therapistId = thIds.get(thPos);
@@ -226,6 +226,7 @@ public class EditAppointmentActivity extends Activity {
             //Create new appointment
             if (checkFields(hourStr)) {
                 if (comment.equals("")) comment = null;
+                int personId = PersonManager.getInstance().getPerson().getId();
                 apptId = (int) dataSource.getAppointmentTable().insertAppointment(personId, therapistId, selectedDate,
                         hourStr, comment);
                 if (apptId > 0) {

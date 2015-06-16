@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.data.Therapist;
@@ -33,8 +34,6 @@ public class TherapistActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId;
-    private Person person;
 
     private int therapistId = 0;
 
@@ -49,7 +48,6 @@ public class TherapistActivity extends Activity {
         setContentView(R.layout.activity_therapist);
         layout = (GridLayout) findViewById(R.id.my_therapists_grid);
         dataSource = HealthRecordDataSource.getInstance(this);
-        personId = getIntent().getIntExtra("personId", 0);
     }
 
     @Override
@@ -58,7 +56,6 @@ public class TherapistActivity extends Activity {
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            person = dataSource.getPersonTable().getPersonWithId(personId);
             createWidgets();
         } catch (SQLException e) {
             Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
@@ -78,6 +75,7 @@ public class TherapistActivity extends Activity {
         layout.removeAllViews();
         List<Therapist> allTherapists = new ArrayList<Therapist>();
         int margin = (int) HealthRecordUtils.convertPixelsToDp(2, this);
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<Integer> therapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         for (Integer i : therapistIds)
         {
@@ -107,17 +105,17 @@ public class TherapistActivity extends Activity {
         layout.setColumnCount(5);
         int r = 0; //row index
         int tsize = 16;
-        for (final Therapist p : allTherapists)
+        for (final Therapist therapist : allTherapists)
         {
-            final int id = p.getId();
-            branch = dataSource.getTherapyBranchTable().getBranchWithId(p.getBranchId());
+            final int id = therapist.getId();
+            branch = dataSource.getTherapyBranchTable().getBranchWithId(therapist.getBranchId());
             therapyBranch = branch.getName();
             if (therapyBranch.length() > 20) therapyBranch = therapyBranch.substring(0,20) + "...";
             //add edit button
             rowSpec = GridLayout.spec(r);
             colSpec = GridLayout.spec(0,4);
             therapistButton = new Button(this);
-            String tName = p.getName();
+            String tName = therapist.getName();
             if (tName.length() > 20) tName = tName.substring(0,20) + "...";
             therapistButton.setText(tName + "\n" + therapyBranch);
             therapistButton.setTextSize(tsize);
@@ -155,11 +153,12 @@ public class TherapistActivity extends Activity {
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setTitle(R.string.removing)
                                 .setMessage(getResources().getString(R.string.remove_question)
-                                        + " " + p.getName() + "?")
+                                        + " " + therapist.getName() + "?")
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        dataSource.getPersonTherapistTable().removeRelation(personId, p.getId());
+                                        int personId = PersonManager.getInstance().getPerson().getId();
+                                        dataSource.getPersonTherapistTable().removeRelation(personId, therapist.getId());
                                         //Toast.makeText(TherapistActivity.this, getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
                                         createWidgets();
                                     }
@@ -182,12 +181,12 @@ public class TherapistActivity extends Activity {
                 rowSpec = GridLayout.spec(r);
                 colSpec = GridLayout.spec(0);
 
-                if (p.getPhoneNumber() != null) {
+                if (therapist.getPhoneNumber() != null) {
                     phoneButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(Intent.ACTION_CALL);
-                            intent.setData(Uri.parse("tel:" + p.getPhoneNumber()));
+                            intent.setData(Uri.parse("tel:" + therapist.getPhoneNumber()));
                             startActivity(intent);
                         }
                     });
@@ -203,12 +202,12 @@ public class TherapistActivity extends Activity {
                 //Cellphone Button
                 colSpec = GridLayout.spec(1);
 
-                if (p.getCellPhoneNumber() != null) {
+                if (therapist.getCellPhoneNumber() != null) {
                     cellphoneButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(Intent.ACTION_CALL);
-                            intent.setData(Uri.parse("tel:" + p.getCellPhoneNumber()));
+                            intent.setData(Uri.parse("tel:" + therapist.getCellPhoneNumber()));
                             startActivity(intent);
                         }
                     });
@@ -224,7 +223,7 @@ public class TherapistActivity extends Activity {
                 //Sms Button
                 colSpec = GridLayout.spec(2);
 
-                if (p.getCellPhoneNumber() != null) {
+                if (therapist.getCellPhoneNumber() != null) {
                     smsButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -232,10 +231,10 @@ public class TherapistActivity extends Activity {
                             //Use <uses-permission android:name="android.permission.SEND_SMS" /> in manifest
                             /*
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
-                            DialogFragment fragment = SmsMessageDialog.newInstance(p.getCellPhoneNumber());
+                            DialogFragment fragment = SmsMessageDialog.newInstance(therapist.getCellPhoneNumber());
                             fragment.show(ft, "Sms dialog");
                             */
-                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+p.getCellPhoneNumber()));
+                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+therapist.getCellPhoneNumber()));
                             startActivity(intent);
                         }
                     });
@@ -251,12 +250,12 @@ public class TherapistActivity extends Activity {
                 //Email Button
                 colSpec = GridLayout.spec(3);
 
-                if (p.getEmail() != null) {
+                if (therapist.getEmail() != null) {
                     emailButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", p.getEmail(), null));
-                            intent.putExtra(Intent.EXTRA_SUBJECT, person.getName());
+                            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", therapist.getEmail(), null));
+                            intent.putExtra(Intent.EXTRA_SUBJECT, PersonManager.getInstance().getPerson().getName());
                             startActivity(Intent.createChooser(intent, "email"));
                         }
                     });
@@ -295,6 +294,7 @@ public class TherapistActivity extends Activity {
     }
 
     private int countOtherTherapists() {
+        int personId = PersonManager.getInstance().getPerson().getId();
         //retrieve all therapists
         List<Therapist> otherTherapists = dataSource.getTherapistTable().getAllTherapists();
         List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
@@ -314,7 +314,6 @@ public class TherapistActivity extends Activity {
     {
         therapistId = 0;
         Intent intent = new Intent(this, CreateTherapistActivity.class);
-        intent.putExtra("personId", personId);
         startActivity(intent);
     }
 
@@ -328,7 +327,6 @@ public class TherapistActivity extends Activity {
         }
         therapistId = 0;
         Intent intent = new Intent(this, ChooseTherapistActivity.class);
-        intent.putExtra("personId", personId);
         startActivity(intent);
     }
 

@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.BloodType;
 import com.akoudri.healthrecord.data.Gender;
@@ -34,16 +35,12 @@ public class EditPersonActivity extends Activity {
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
 
-    private int personId = 0;
-    private Person person;
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_person);
         dataSource = HealthRecordDataSource.getInstance(this);
-        personId = getIntent().getIntExtra("personId", 0);
         String[] btChoices = {"O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+", " "};
         ArrayAdapter<String> btChoicesAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, btChoices);
         btSpinner = (Spinner) findViewById(R.id.btchoice_update_frag);
@@ -61,11 +58,9 @@ public class EditPersonActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            person = dataSource.getPersonTable().getPersonWithId(personId);
             fillWidgets();
         } catch (SQLException e) {
             Toast.makeText(this, getResources().getString(R.string.database_access_impossible), Toast.LENGTH_SHORT).show();
@@ -75,7 +70,6 @@ public class EditPersonActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0) return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
@@ -83,7 +77,7 @@ public class EditPersonActivity extends Activity {
 
     private void fillWidgets()
     {
-        if (person == null) return;
+        Person person = PersonManager.getInstance().getPerson();
         nameET.setText(person.getName());
         switch (person.getGender())
         {
@@ -97,7 +91,6 @@ public class EditPersonActivity extends Activity {
 
     public void updatePerson(View view)
     {
-        if (personId == 0) return;
         if (dataSource == null) return;
         String name = nameET.getText().toString();
         RadioButton checked = (RadioButton) this.findViewById(genderRG.getCheckedRadioButtonId());
@@ -113,6 +106,7 @@ public class EditPersonActivity extends Activity {
         String birthdate = birthdateET.getText().toString();
         if (checkFields(name, ssn)) {
             if (ssn.equals("")) ssn = null;
+            Person person = PersonManager.getInstance().getPerson();
             Person p = new Person(name, gender, ssn, bt, birthdate);
             if (person.equalsTo(p)){
                 Toast.makeText(this.getApplicationContext(), getResources().getString(R.string.no_change), Toast.LENGTH_SHORT).show();
@@ -170,8 +164,8 @@ public class EditPersonActivity extends Activity {
 
     public void pickUpdateBirthdate(View view)
     {
-        if (personId == 0) return;
         if (dataSource == null) return;
+        Person person = PersonManager.getInstance().getPerson();
         Calendar today = Calendar.getInstance();
         DatePickerFragment dfrag = new DatePickerFragment();
         dfrag.init(this, birthdateET, HealthRecordUtils.stringToCalendar(person.getBirthdate()), null, today);

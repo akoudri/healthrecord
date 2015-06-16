@@ -35,7 +35,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId = 0;
     private int day, month, year;
     private Calendar today, currentDay, oldCurrentDay;
 
@@ -68,7 +67,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         dataSource = HealthRecordDataSource.getInstance(this);
         dayMenuLayout = (LinearLayout) findViewById(R.id.day_menu_layout);
         today_label = (TextView) findViewById(R.id.today_label);
-        personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
@@ -254,7 +252,7 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0 || day < 1 || month < 0 || year < 0)
+        if (day < 1 || month < 0 || year < 0)
             return;
         displayCurrentDay();
         try {
@@ -353,7 +351,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     public void createAppt(View view)
     {
         Intent intent = new Intent(this, EditAppointmentActivity.class);
-        intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
@@ -364,7 +361,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     {
         ailmentFrag.resetObjectId();
         Intent intent = new Intent(this, CreateAilmentActivity.class);
-        intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
@@ -376,7 +372,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
         medFrag.resetObjectId();
         Intent intent = new Intent(this, CreateMedicationActivity.class);
         String selectedDate = String.format("%02d/%02d/%04d", day, month + 1, year);
-        intent.putExtra("personId", personId);
         intent.putExtra("date", selectedDate);
         startActivity(intent);
     }
@@ -385,7 +380,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     {
         remindFrag.resetObjectId();
         Intent intent = new Intent(this, EditReminderActivity.class);
-        intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
@@ -396,7 +390,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     {
         measureFrag.resetObjectId();
         Intent intent = new Intent(this, EditMeasureActivity.class);
-        intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);
@@ -407,7 +400,6 @@ public class EditDayActivity extends Activity implements View.OnTouchListener {
     {
         obsFrag.resetObjectId();
         Intent intent = new Intent(this, EditObservationActivity.class);
-        intent.putExtra("personId", personId);
         intent.putExtra("day", day);
         intent.putExtra("month", month);
         intent.putExtra("year", year);

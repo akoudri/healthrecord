@@ -43,7 +43,6 @@ public class AnalysisActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId;
 
     private Spinner measureSpinner;
     private EditText startET, endET;
@@ -57,7 +56,6 @@ public class AnalysisActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_analysis);
-        personId = getIntent().getIntExtra("personId", 0);
         dataSource = HealthRecordDataSource.getInstance(this);
         measureSpinner = (Spinner) findViewById(R.id.measure_choice);
         String[] measureChoices = getResources().getStringArray(R.array.measures);
@@ -81,7 +79,6 @@ public class AnalysisActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -93,7 +90,6 @@ public class AnalysisActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0) return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
@@ -117,7 +113,6 @@ public class AnalysisActivity extends Activity {
 
     public void showChart(View view)
     {
-        if (personId == 0) return;
         if (!dataSourceLoaded) return;
         XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
         String sDate = startET.getText().toString();

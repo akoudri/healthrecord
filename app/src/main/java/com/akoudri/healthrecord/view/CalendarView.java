@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.akoudri.healthrecord.activity.CalendarActivity;
 import com.akoudri.healthrecord.activity.EditDayActivity;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
 
@@ -32,19 +33,15 @@ import java.util.Locale;
  */
 public class CalendarView extends View implements View.OnTouchListener {
 
-    private int personId = 0; //id of the person
     private Calendar _cal, today; //_cal is used to iterate over the days of the calendar, today represents the current day
     private Paint paint; //for drawing on the canvas
     private int width, height; //to store the dimension of the screen
     private String[] daysOfWeek; //to display on the screen
     private List<Rect> rects; //list of coordinates representing the days
     private float ratio; //used to adapt sizes between various screen configurations
-    //private int titleSize; //absolute size of the month.year
-    //private int tableTitleSize; //absolute size of the days
     private float tsize, ttsize; //relative size of the month.year and days
     private int corner; //radius of the rectangles
     private float nbRatio; //used to calculate delta
-    //private float delta; //internal vertical space in the cells
     private float stepx, stepy; //used to display the cells of the calendar -> 7x6 cells
     private float yCalendar; //y coordinate for the first row of the calendar
     private Rect selectedRect = null; //references the cell that has been touched by the user
@@ -132,11 +129,6 @@ public class CalendarView extends View implements View.OnTouchListener {
         setOnTouchListener(this);
     }
 
-    public void setPersonId(int personId)
-    {
-        this.personId = personId;
-    }
-
     public void setCalendarContentProvider(CalendarContentProvider provider)
     {
         this.calendarContentProvider = provider;
@@ -166,7 +158,6 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (personId == 0) return; //nothing to display
         canvas.drawColor(getResources().getColor(R.color.app_bg_color)); //set bg to app bg
         //The order of operation calls is very important!!!
         displayTitleDate(canvas);
@@ -426,6 +417,7 @@ public class CalendarView extends View implements View.OnTouchListener {
 
     private void loadInfo()
     {
+        int personId = PersonManager.getInstance().getPerson().getId();
         appointments = calendarContentProvider.getMonthAppointmentsForPerson(personId, _cal);
         ailments = calendarContentProvider.getMonthAilmentsForPerson(personId, _cal);
         measures = calendarContentProvider.getMonthMeasuresForPerson(personId, _cal);
@@ -460,7 +452,6 @@ public class CalendarView extends View implements View.OnTouchListener {
         {
             Intent intent = new Intent((CalendarActivity)calendarContentProvider, EditDayActivity.class);
             int day_idx = rects.indexOf(selectedRect);
-            intent.putExtra("personId", personId);
             int day = day_idx + 1;
             intent.putExtra("day", day);
             int month = _cal.get(Calendar.MONTH);

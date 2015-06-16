@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditAilmentActivity;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Ailment;
 import com.akoudri.healthrecord.data.Illness;
@@ -29,7 +30,6 @@ public class AilmentFragment extends EditDayFragment {
     private GridLayout layout;
     private GridLayout.LayoutParams params;
     private GridLayout.Spec rowSpec, colSpec;
-    private Button add_btn;
 
     private int aId = 0;
 
@@ -42,15 +42,12 @@ public class AilmentFragment extends EditDayFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_ailment, container, false);
         layout = (GridLayout) view.findViewById(R.id.ailments_grid);
-        add_btn = (Button) view.findViewById(R.id.add_ailment_btn);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0) return;
         if (dataSource == null) return;
         createWidgets();
     }
@@ -64,6 +61,7 @@ public class AilmentFragment extends EditDayFragment {
     private void createWidgets()
     {
         layout.removeAllViews();
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<Ailment> dayAilments = dataSource.getAilmentTable().getDayAilmentsForPerson(personId, date);
         if (dayAilments == null || dayAilments.size() == 0) return;
         int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());;

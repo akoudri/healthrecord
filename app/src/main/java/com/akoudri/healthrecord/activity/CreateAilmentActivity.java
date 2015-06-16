@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Illness;
 import com.akoudri.healthrecord.data.IllnessTable;
@@ -44,7 +45,6 @@ public class CreateAilmentActivity extends Activity {
     
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId;
     private int day, month, year;
     private String selectedDate;
     private List<Illness> illnesses;
@@ -77,7 +77,6 @@ public class CreateAilmentActivity extends Activity {
         });
         endDateET = (EditText) findViewById(R.id.end_ailment);
         medicsLayout = (LinearLayout) findViewById(R.id.medics_layout);
-        personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
@@ -86,7 +85,7 @@ public class CreateAilmentActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0 || day < 1 || month < 0 || year < 0)
+        if (day < 1 || month < 0 || year < 0)
             return;
         try {
             dataSource.open();
@@ -103,7 +102,7 @@ public class CreateAilmentActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0 || day < 1 || month < 0 || year < 0)
+        if (day < 1 || month < 0 || year < 0)
             return;
         if (!dataSourceLoaded) return;
         dataSource.close();
@@ -130,6 +129,7 @@ public class CreateAilmentActivity extends Activity {
 
     private void retrieveTherapists()
     {
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<Integer> therapistsId = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         therapists = new ArrayList<Therapist>();
         TherapistTable thTable = dataSource.getTherapistTable();
@@ -240,7 +240,7 @@ public class CreateAilmentActivity extends Activity {
 
     public void addMedic(View view)
     {
-        if (personId == 0 || day < 1 || month < 0 || year < 0)
+        if (day < 1 || month < 0 || year < 0)
             return;
         if (!dataSourceLoaded) return;
         Intent intent = new Intent(this, CreateMedicationActivity.class);
@@ -264,7 +264,7 @@ public class CreateAilmentActivity extends Activity {
                     }
                 }
                 Medication m = new Medication();
-                m.setPersonId(personId);
+                m.setPersonId(PersonManager.getInstance().getPerson().getId());
                 m.setDrugId(drugId);
                 m.setFrequency(data.getIntExtra("freq", 1));
                 int kfreq = data.getIntExtra("kfreq", 1);
@@ -293,7 +293,7 @@ public class CreateAilmentActivity extends Activity {
 
     public void addAilment(View view)
     {
-        if (personId == 0 || day < 1 || month < 0 || year < 0)
+        if (day < 1 || month < 0 || year < 0)
             return;
         if (!dataSourceLoaded) return;
         IllnessTable illnessTable = dataSource.getIllnessTable();
@@ -316,6 +316,7 @@ public class CreateAilmentActivity extends Activity {
         int duration = -1;
         String d = endDateET.getText().toString();
         if (!d.equals("")) duration = Integer.parseInt(d) - 1;
+        int personId = PersonManager.getInstance().getPerson().getId();
         int therapistId = (t==null)?0:t.getId();
         int ailmentId = (int) dataSource.getAilmentTable().insertAilment(personId, illnessId, therapistId, sDate, duration);
         if (ailmentId == -2)

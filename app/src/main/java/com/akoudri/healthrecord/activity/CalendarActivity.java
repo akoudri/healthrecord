@@ -28,7 +28,6 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId;
 
     private int width;
 
@@ -39,7 +38,6 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
         setContentView(R.layout.activity_calendar);
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
         dataSource = HealthRecordDataSource.getInstance(this);
-        personId = getIntent().getIntExtra("personId", 0);
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         width = size.x;
@@ -52,12 +50,9 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0)
-            return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
-            calendarView.setPersonId(personId);
             calendarView.setCalendarContentProvider(this);
             calendarView.setWidth(width);
 
@@ -69,8 +64,6 @@ public class CalendarActivity extends Activity implements CalendarContentProvide
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0)
-            return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;

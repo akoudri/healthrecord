@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Drug;
 import com.akoudri.healthrecord.data.Reminder;
@@ -46,7 +47,6 @@ public class EditReminderActivity extends Activity {
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
 
-    private int personId;
     private int day, month, year;
     private String selectedDate;
 
@@ -70,7 +70,6 @@ public class EditReminderActivity extends Activity {
         //Existing appointment
         reminderId = getIntent().getIntExtra("reminderId", 0);
         //New appointment
-        personId = getIntent().getIntExtra("personId", 0);
         day = getIntent().getIntExtra("day", 0);
         month = getIntent().getIntExtra("month", 0);
         year = getIntent().getIntExtra("year", 0);
@@ -80,7 +79,7 @@ public class EditReminderActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (reminderId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if (reminderId == 0 && (day < 1 || month < 0 || year < 0)) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -116,7 +115,7 @@ public class EditReminderActivity extends Activity {
 
     public void saveReminder(View view)
     {
-        if (reminderId == 0 && (personId == 0 || day < 1 || month < 0 || year < 0)) return;
+        if (reminderId == 0 && (day < 1 || month < 0 || year < 0)) return;
         if (!dataSourceLoaded) return;
         String comment = commentET.getText().toString();
         String medic = reminderET.getText().toString();
@@ -158,6 +157,7 @@ public class EditReminderActivity extends Activity {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.notValidData), Toast.LENGTH_SHORT).show();
         }
         else {
+            int personId = PersonManager.getInstance().getPerson().getId();
             reminderId = (int) dataSource.getReminderTable().insertReminder(personId, drugId, selectedDate, comment);
             if (reminderId > 0)
             {

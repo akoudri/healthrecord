@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditMeasureActivity;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Measure;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
@@ -42,14 +43,12 @@ public class MeasureFragment extends EditDayFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_measure, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_measures_grid);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0) return;
         if (dataSource == null) return;
         createWidgets();
     }
@@ -64,6 +63,7 @@ public class MeasureFragment extends EditDayFragment {
     {
         layout.removeAllViews();
         List<Measure> allMeasures = new ArrayList<Measure>();
+        int personId = PersonManager.getInstance().getPerson().getId();
         allMeasures.addAll(dataSource.getMeasureView().getPersonMeasuresWithDate(personId, date));
         Button measureButton, removeButton, editButton;
         Drawable img;

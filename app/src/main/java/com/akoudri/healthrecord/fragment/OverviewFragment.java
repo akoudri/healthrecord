@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Appointment;
 import com.akoudri.healthrecord.data.Drug;
@@ -30,7 +31,6 @@ public class OverviewFragment extends EditDayFragment {
     private TextView ovSynthesis;
 
     private HealthRecordDataSource dataSource;
-    private int personId;
 
     private String date;
 
@@ -43,14 +43,12 @@ public class OverviewFragment extends EditDayFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_overview, container, false);
         ovSynthesis = (TextView) view.findViewById(R.id.ov_synthesis);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0) return;
         if (dataSource == null) return;
         fillWidgets();
     }
@@ -78,6 +76,7 @@ public class OverviewFragment extends EditDayFragment {
     private void fillWidgets()
     {
         StringBuilder stringBuilder = new StringBuilder();
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<Appointment> allAppointments = dataSource.getAppointmentTable().getDayAppointmentsForPerson(personId, date);
         stringBuilder.append("<h2>" + getString(R.string.appointments) + "</h2>");
         if (allAppointments.size() > 0) {

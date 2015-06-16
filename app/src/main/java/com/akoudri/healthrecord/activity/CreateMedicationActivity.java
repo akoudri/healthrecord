@@ -12,9 +12,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Drug;
 import com.akoudri.healthrecord.data.Medication;
+import com.akoudri.healthrecord.data.Person;
 import com.akoudri.healthrecord.json.JSONArray;
 import com.akoudri.healthrecord.json.JSONException;
 import com.akoudri.healthrecord.json.JSONObject;
@@ -41,7 +43,6 @@ public class CreateMedicationActivity extends Activity {
     private EditText timesET, beginMedicET, endMedicET;
 
     private HealthRecordDataSource dataSource;
-    private int personId;
     private String selectedDate;
     private boolean dataSourceLoaded = false;
     private List<Drug> drugs;
@@ -55,7 +56,6 @@ public class CreateMedicationActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_create_medication);
         dataSource = HealthRecordDataSource.getInstance(this);
-        personId = getIntent().getIntExtra("personId", 0);
         selectedDate = getIntent().getStringExtra("date");
         medicationActv = (AutoCompleteTextView) findViewById(R.id.medication_add);
         freqSpinner = (Spinner) findViewById(R.id.freq_add);
@@ -125,7 +125,8 @@ public class CreateMedicationActivity extends Activity {
         String sDate = beginMedicET.getText().toString();
         String d = endMedicET.getText().toString();
         int duration = (d.equals(""))?-1:Integer.parseInt(d) - 1;
-        if (personId == 0) {
+        Person p = PersonManager.getInstance().getPerson();
+        if (p == null) {
             Intent data = new Intent();
             data.putExtra("drugId", drugId);
             data.putExtra("freq", freq);
@@ -135,7 +136,7 @@ public class CreateMedicationActivity extends Activity {
             setResult(RESULT_OK, data);
         } else {
             Medication m = new Medication();
-            m.setPersonId(personId);
+            m.setPersonId(p.getId());
             m.setAilmentId(0);
             m.setDrugId(drugId);
             m.setFrequency(freq);

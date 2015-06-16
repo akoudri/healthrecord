@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import com.akoudri.healthrecord.activity.EditObservationActivity;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.MedicalObservation;
 import com.akoudri.healthrecord.utils.HealthRecordUtils;
@@ -41,14 +42,12 @@ public class ObservationFragment extends EditDayFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_observation, container, false);
         layout = (GridLayout) view.findViewById(R.id.my_observations_grid);
-        personId = getActivity().getIntent().getIntExtra("personId", 0);
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (personId == 0) return;
         if (dataSource == null) return;
         createWidgets();
     }
@@ -62,6 +61,7 @@ public class ObservationFragment extends EditDayFragment {
     private void createWidgets()
     {
         layout.removeAllViews();
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<MedicalObservation> allObservations = dataSource.getMedicalObservationTable().getDayObservationsForPerson(personId, date);
         if (allObservations == null || allObservations.size() == 0) return;
         int margin = (int) HealthRecordUtils.convertPixelsToDp(2, getActivity());

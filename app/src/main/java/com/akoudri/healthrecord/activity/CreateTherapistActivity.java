@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
@@ -28,7 +29,6 @@ public class CreateTherapistActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId;
 
     private List<Therapist> otherTherapists;
     private List<TherapyBranch> branches;
@@ -44,13 +44,11 @@ public class CreateTherapistActivity extends Activity {
         cellPhoneET = (EditText) findViewById(R.id.name_add_cellphone);
         emailET = (EditText) findViewById(R.id.name_add_email);
         dataSource = HealthRecordDataSource.getInstance(this);
-        personId = getIntent().getIntExtra("personId", 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -63,7 +61,6 @@ public class CreateTherapistActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0) return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
@@ -90,7 +87,6 @@ public class CreateTherapistActivity extends Activity {
 
     public void addTherapist(View view)
     {
-        if (personId == 0) return;
         if (!dataSourceLoaded) return;
         String name = nameET.getText().toString();
         String speciality = specialityET.getText().toString();
@@ -107,6 +103,7 @@ public class CreateTherapistActivity extends Activity {
             if (email.equals("")) email = null;
             int thId = (int) dataSource.getTherapistTable().insertTherapist(name, phoneNumber, cellPhoneNumber, email, branchId);
             if (thId >= 0) {
+                int personId = PersonManager.getInstance().getPerson().getId();
                 dataSource.getPersonTherapistTable().insertRelation(personId, thId);
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.data_saved), Toast.LENGTH_SHORT).show();
                 finish();

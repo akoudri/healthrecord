@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akoudri.healthrecord.app.HealthRecordDataSource;
+import com.akoudri.healthrecord.app.PersonManager;
 import com.akoudri.healthrecord.app.R;
 import com.akoudri.healthrecord.data.Therapist;
 import com.akoudri.healthrecord.data.TherapyBranch;
@@ -30,7 +31,6 @@ public class ChooseTherapistActivity extends Activity {
 
     private HealthRecordDataSource dataSource;
     private boolean dataSourceLoaded = false;
-    private int personId;
 
     private List<Therapist> otherTherapists;
     private CheckBox[] cb;
@@ -42,13 +42,11 @@ public class ChooseTherapistActivity extends Activity {
         setContentView(R.layout.activity_choose_therapist);
         layout = (GridLayout) findViewById(R.id.existing_therapists_grid);
         dataSource = HealthRecordDataSource.getInstance(this);
-        personId = getIntent().getIntExtra("personId", 0);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (personId == 0) return;
         try {
             dataSource.open();
             dataSourceLoaded = true;
@@ -114,7 +112,6 @@ public class ChooseTherapistActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (personId == 0) return;
         if (!dataSourceLoaded) return;
         dataSource.close();
         dataSourceLoaded = false;
@@ -123,6 +120,7 @@ public class ChooseTherapistActivity extends Activity {
     private void retrieveOtherTherapists() {
         //retrieve all therapists
         otherTherapists = dataSource.getTherapistTable().getAllTherapists();
+        int personId = PersonManager.getInstance().getPerson().getId();
         List<Integer> myTherapistIds = dataSource.getPersonTherapistTable().getTherapistIdsForPersonId(personId);
         Therapist t;
         Iterator<Therapist> iterator = otherTherapists.iterator();
@@ -137,7 +135,6 @@ public class ChooseTherapistActivity extends Activity {
 
     public void addExistingTherapist(View view)
     {
-        if (personId == 0) return;
         if (!dataSourceLoaded) return;
         if (cb == null || cb.length == 0) return;
         Therapist th;
@@ -146,6 +143,7 @@ public class ChooseTherapistActivity extends Activity {
             if (cb[i].isChecked())
             {
                 th = otherTherapists.get(i);
+                int personId = PersonManager.getInstance().getPerson().getId();
                 dataSource.getPersonTherapistTable().insertRelation(personId,th.getId());
             }
         }

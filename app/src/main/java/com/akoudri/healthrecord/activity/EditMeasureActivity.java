@@ -377,6 +377,7 @@ public class EditMeasureActivity extends Activity {
                 break;
             case 6:
                 fillHeartWidgets();
+                break;
             default:
                 fillCholesterolWidgets();
         }

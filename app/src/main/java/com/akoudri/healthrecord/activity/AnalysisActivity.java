@@ -158,7 +158,6 @@ public class AnalysisActivity extends Activity {
             case 7:
                 series = getSeries(start, end, Measure.CHOLESTEROL_MEASURE_TYPE);
                 renderer = getCholesterolRenderer();
-                break;
         }
         if (series == null)
         {

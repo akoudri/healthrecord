@@ -56,7 +56,7 @@ public final class HealthRecordUtils {
             case 10:
                 fmm = Calendar.NOVEMBER; break;
             default:
-                fmm = Calendar.DECEMBER; break;
+                fmm = Calendar.DECEMBER;
         }
         res.set(yyyy, fmm, dd, 0, 0, 0);
         res.set(Calendar.MILLISECOND, 0);
@@ -99,7 +99,7 @@ public final class HealthRecordUtils {
             case 10:
                 fmm = Calendar.NOVEMBER; break;
             default:
-                fmm = Calendar.DECEMBER; break;
+                fmm = Calendar.DECEMBER;
         }
         c.set(yyyy, fmm, dd, h, m, 0);
         c.set(Calendar.MILLISECOND, 0);
@@ -139,7 +139,7 @@ public final class HealthRecordUtils {
             case 10:
                 fmm = Calendar.NOVEMBER; break;
             default:
-                fmm = Calendar.DECEMBER; break;
+                fmm = Calendar.DECEMBER;
         }
         c.set(yyyy, fmm, dd, 12, 0, 0);
         c.set(Calendar.MILLISECOND, 0);
